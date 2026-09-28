@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salary Calculator – Student Toolkit</title>
+<meta name="description" content="Free salary calculator. Convert your hourly rate and hours per week to weekly, monthly and yearly gross pay.">
+<meta property="og:title" content="Salary Calculator – Student Toolkit"><meta property="og:description" content="Free salary calculator. Convert your hourly rate and hours per week to weekly, monthly and yearly gross pay.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap"><div class="bar"><a class="logo" href="../index.html"><span>Student</span> Toolkit</a><div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark theme">Theme</button><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div></div><nav class="nav" id="nav" aria-label="Main"><a href="../index.html">Home</a><a href="../index.html#study">Study</a><a href="../index.html#money">Money</a><a href="../index.html#progress">Progress</a><a href="../index.html#career" aria-current="page">Career</a><a href="../index.html#tools">Tools</a><a href="../index.html#soon">Soon</a><a href="../about.html">About</a></nav></div></header>
+<main class="wrap tool">
+<h1>Salary Calculator</h1>
+<p class="lead">Enter your hourly rate and hours to see your gross pay (before tax).</p>
+<div class="panel"><div class="field-row"><div><label for="rate">Hourly rate (€)</label><input id="rate" type="number" step="any" min="0" inputmode="decimal" ></div><div><label for="hours">Hours per week</label><input id="hours" type="number" step="any" min="0" inputmode="decimal" ></div><div><label for="weeks">Weeks worked per year</label><input id="weeks" type="number" step="any" min="0" inputmode="decimal" value="52" max="52"></div></div><div class="buttons"><button class="btn" id="calc" type="button">Calculate</button><button class="btn ghost" id="clear" type="button">Clear</button></div><div class="error" id="error" role="alert"></div></div>
+<div class="result" id="result" aria-live="polite" hidden><div>Gross pay (before tax)</div><div class="stats" id="stats"></div></div>
+<section class="help"><h2>Example</h2><p>8 € an hour, 20 hours a week, 52 weeks: 160 € a week, 693.33 € a month, 8 320 € a year.</p><p>Taxes and contributions are not included because they differ by country.</p></section>
+</main>
+<footer class="site-footer"><div class="wrap">Student Toolkit · <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a></div></footer>
+<script src="../js/app.js"></script><script src="../js/salary.js"></script>
+</body>
+</html>

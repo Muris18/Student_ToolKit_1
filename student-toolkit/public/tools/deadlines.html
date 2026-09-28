@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deadline Radar – Student Toolkit</title>
+<meta name="description" content="Free deadline tracker for students. Add assignments and deadlines and see what is urgent. Saved in your browser.">
+<meta property="og:title" content="Deadline Radar – Student Toolkit"><meta property="og:description" content="Free deadline tracker for students. Add assignments and deadlines and see what is urgent. Saved in your browser.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap"><div class="bar"><a class="logo" href="../index.html"><span>Student</span> Toolkit</a><div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark theme">Theme</button><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div></div><nav class="nav" id="nav" aria-label="Main"><a href="../index.html">Home</a><a href="../index.html#study">Study</a><a href="../index.html#money">Money</a><a href="../index.html#progress" aria-current="page">Progress</a><a href="../index.html#career">Career</a><a href="../index.html#tools">Tools</a><a href="../index.html#soon">Soon</a><a href="../about.html">About</a></nav></div></header>
+<main class="wrap tool">
+<h1>Deadline Radar</h1>
+<p class="lead">Add your deadlines and see what is due first. Everything is saved in this browser only.</p>
+<div class="panel"><div class="field-row"><div><label for="title">What is due</label><input id="title" type="text" placeholder="e.g. Essay draft"></div><div><label for="course">Course (optional)</label><input id="course" type="text" ></div><div><label for="when">Due date and time</label><input id="when" type="datetime-local" ></div></div><div class="buttons"><button class="btn" id="add" type="button">Add deadline</button></div><div class="error" id="error" role="alert"></div></div><div class="stats" id="summary"></div><ul class="list" id="list"></ul><p class="lead" id="empty">No deadlines yet. Add your first one above.</p>
+
+<section class="help"><h2>Good to know</h2><p>Deadlines are stored in your browser on this device. Clearing browser data removes them. Your Dashboard shows the next ones.</p></section>
+</main>
+<footer class="site-footer"><div class="wrap">Student Toolkit · <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a></div></footer>
+<script src="../js/app.js"></script><script src="../js/deadlines.js"></script>
+</body>
+</html>
