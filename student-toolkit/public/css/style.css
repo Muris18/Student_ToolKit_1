@@ -130,3 +130,19 @@ input[type="range"]{padding:0}
 .quick{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem}
 .chip{border:1px solid var(--line);border-radius:99px;padding:.3rem .8rem;text-decoration:none;font-weight:600}
 @media (min-width:720px){.nav{gap:1rem;flex-wrap:wrap}.site-header .wrap{flex-wrap:wrap}}
+
+/* accounts */
+.account-area{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+.account-link{font:inherit;font-weight:700;text-decoration:none;padding:.4rem .7rem;border-radius:8px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;white-space:nowrap}
+.account-link.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.bar{flex-wrap:wrap;row-gap:.5rem}
+main.auth{max-width:26rem;margin:0 auto;padding:2rem 1rem 3rem}
+.auth-panel h1{margin-top:0}
+.oauth{display:grid;gap:.6rem;margin:1rem 0}
+.oauth-btn{display:flex;align-items:center;justify-content:center;width:100%;font:inherit;font-weight:700;padding:.65rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.oauth-btn:hover{border-color:var(--accent)}
+.divider{display:flex;align-items:center;gap:.75rem;color:var(--muted);margin:1rem 0;font-size:.85rem}
+.divider::before,.divider::after{content:"";flex:1;border-top:1px solid var(--line)}
+.field{margin-bottom:.9rem}
+.field textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.6rem;resize:vertical}
+.hint{color:var(--muted);font-size:.9rem}

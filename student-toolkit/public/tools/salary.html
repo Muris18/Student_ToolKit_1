@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<header class="site-header"><div class="wrap"><div class="bar"><a class="logo" href="../index.html"><span>Student</span> Toolkit</a><div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark theme">Theme</button><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div></div><nav class="nav" id="nav" aria-label="Main"><a href="../index.html">Home</a><a href="../index.html#study">Study</a><a href="../index.html#money">Money</a><a href="../index.html#progress">Progress</a><a href="../index.html#career" aria-current="page">Career</a><a href="../index.html#tools">Tools</a><a href="../index.html#soon">Soon</a><a href="../about.html">About</a></nav></div></header>
+<header class="site-header"><div class="wrap"><div class="bar"><a class="logo" href="../index.html"><span>Student</span> Toolkit</a><div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark theme">Theme</button><div class="account-area" id="account-area"></div><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div></div><nav class="nav" id="nav" aria-label="Main"><a href="../index.html">Home</a><a href="../index.html#study">Study</a><a href="../index.html#money">Money</a><a href="../index.html#progress">Progress</a><a href="../index.html#career" aria-current="page">Career</a><a href="../index.html#tools">Tools</a><a href="../index.html#soon">Soon</a><a href="../about.html">About</a></nav></div></header>
 <main class="wrap tool">
 <h1>Salary Calculator</h1>
 <p class="lead">Enter your hourly rate and hours to see your gross pay (before tax).</p>
@@ -19,6 +19,9 @@
 <section class="help"><h2>Example</h2><p>8 € an hour, 20 hours a week, 52 weeks: 160 € a week, 693.33 € a month, 8 320 € a year.</p><p>Taxes and contributions are not included because they differ by country.</p></section>
 </main>
 <footer class="site-footer"><div class="wrap">Student Toolkit · <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a></div></footer>
-<script src="../js/app.js"></script><script src="../js/salary.js"></script>
+<script src="../js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script><script src="../js/salary.js"></script>
 </body>
 </html>

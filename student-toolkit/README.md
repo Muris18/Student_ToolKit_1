@@ -59,9 +59,17 @@ student-toolkit/
     │   ├── app.js          shared: mobile menu and theme toggle
     │   ├── home.js         home page search
     │   └── <tool>.js       logic for each tool
+    ├── account/
+    │   ├── signin.html      log in (email/password + Google/Facebook/Apple)
+    │   ├── signup.html      create account
+    │   ├── reset-password.html forgot-password flow
+    │   └── profile.html     edit display name and bio (requires login)
     └── tools/
         └── <tool>.html     one page per tool
 ```
+
+Accounts are powered by [Supabase](https://supabase.com) (free tier). The `supabase/schema.sql`
+file (one level above `public/`) sets up the database table these pages need.
 
 ## Run locally
 
@@ -89,6 +97,55 @@ The site is the `public` folder.
 - [ ] Choose the final project name and replace "Student Toolkit" if needed (logo, page titles, footer)
 - [ ] Optional: add a `sitemap.xml` with your real domain and point to it in `robots.txt`
 - [ ] Open every tool once on your phone and on a desktop browser
+
+## Accounts (sign in / sign up)
+
+Sign in, sign up, password reset and a basic profile (display name + bio) are built in, with
+email/password and Google, Facebook and Apple as one-click options. This needs a free
+[Supabase](https://supabase.com) project — there is no bundler or npm install involved, the
+site loads the Supabase client straight from a CDN.
+
+### Set it up (about 10 minutes)
+
+1. Create a free project at [supabase.com](https://supabase.com).
+2. In the Supabase dashboard, go to **SQL Editor**, paste the contents of `supabase/schema.sql`
+   from this project, and run it. This creates the `profiles` table and locks it down so people
+   can only read and edit their own row.
+3. Go to **Project Settings -> API** and copy the **Project URL** and the **anon public key**.
+4. Open `public/js/supabase-client.js` and paste them in place of `YOUR-PROJECT` and
+   `YOUR-ANON-PUBLIC-KEY`.
+5. In **Authentication -> URL Configuration**, add the URL(s) you will host the site on (and
+   `http://localhost:3000` while testing) as allowed redirect URLs.
+
+At this point email/password sign up and login already work. Until you add real keys, the
+sign-in and sign-up pages show a message saying accounts are not set up yet, instead of failing
+silently.
+
+### Adding Google, Facebook and Apple sign-in
+
+Each provider is a separate setup in **Authentication -> Providers** in Supabase, and each needs
+you to create a developer app with that company first:
+
+- **Google:** create OAuth credentials in [Google Cloud Console](https://console.cloud.google.com/),
+  then paste the client ID and secret into Supabase's Google provider settings.
+- **Facebook:** create an app at [developers.facebook.com](https://developers.facebook.com/),
+  add Facebook Login, then paste the app ID and secret into Supabase.
+- **Apple:** requires a paid [Apple Developer](https://developer.apple.com/) account
+  (99 USD/year) to create a Sign in with Apple key, which then goes into Supabase.
+
+Supabase shows the exact redirect URL to paste into each provider's settings, and their setup
+screens change from time to time, so follow Supabase's own
+[social login guides](https://supabase.com/docs/guides/auth/social-login) for the current steps.
+You do not have to add all three at once — the buttons for providers you have not configured
+will just show an error if someone clicks them, so only enable the ones you have set up, or
+remove the unused buttons from `signin.html` / `signup.html`.
+
+### How it fits with the rest of the site
+
+The header on every page checks whether someone is signed in and shows either "Log in / Sign up"
+or their name (linking to their profile) and a "Log out" button. This does not yet connect the
+Exam Countdown, Deadline Radar or Student Streaks data (currently saved with `localStorage`) to
+the account — that would be the next step if you want that data to follow a user between devices.
 
 ## Saved data and privacy
 

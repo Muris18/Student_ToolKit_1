@@ -4,8 +4,13 @@
   const area = document.getElementById('account-area');
   if (!area) return;
 
+  // signin/signup/profile/reset-password live in account/; everything else is
+  // at the site root or one level down in tools/.
   const inTools = location.pathname.includes('/tools/');
-  const base = inTools ? '../' : '';
+  const inAccount = location.pathname.includes('/account/');
+  const toRoot = inTools || inAccount ? '../' : '';
+  const toAccount = inAccount ? '' : toRoot + 'account/';
+  const base = toRoot; // used for index.html links
 
   function link(href, text, cls) {
     const a = document.createElement('a');
@@ -17,8 +22,8 @@
 
   function renderSignedOut() {
     area.replaceChildren(
-      link(base + 'signin.html', 'Log in'),
-      link(base + 'signup.html', 'Sign up', 'account-link primary')
+      link(toAccount + 'signin.html', 'Log in'),
+      link(toAccount + 'signup.html', 'Sign up', 'account-link primary')
     );
   }
 
@@ -33,7 +38,7 @@
       await window.sb.auth.signOut();
       location.href = base + 'index.html';
     });
-    area.replaceChildren(link(base + 'profile.html', name), out);
+    area.replaceChildren(link(toAccount + 'profile.html', name), out);
   }
 
   if (!window.sb) {
