@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study Planner – Student Toolkit</title>
+<meta name="description" content="Free study planner. Enter your exam date and topics to get a day-by-day study plan.">
+<meta property="og:title" content="Study Planner – Student Toolkit"><meta property="og:description" content="Free study planner. Enter your exam date and topics to get a day-by-day study plan.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap"><div class="bar"><a class="logo" href="../index.html"><span>Student</span> Toolkit</a><div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark theme">Theme</button><div class="account-area" id="account-area"></div><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div></div><nav class="nav" id="nav" aria-label="Main"><a href="../index.html">Home</a><a href="../index.html#study" aria-current="page">Study</a><a href="../index.html#money">Money</a><a href="../index.html#progress">Progress</a><a href="../index.html#career">Career</a><a href="../index.html#tools">Tools</a><a href="../index.html#soon">Soon</a><a href="../about.html">About</a></nav></div></header>
+<main class="wrap tool">
+<h1>Study Planner</h1>
+<p class="lead">Enter your exam date and topics (one per line). You get a day-by-day plan with a revision day at the end.</p>
+<div class="panel"><div class="field-row"><div><label for="date">Exam date</label><input id="date" type="date" ></div><div><label for="hpd">Hours per day (optional)</label><input id="hpd" type="number" step="any" min="0" inputmode="decimal" placeholder="2"></div></div><div style="margin-top:.75rem"><label for="topics">Topics (one per line)</label><textarea id="topics" rows="6" placeholder="Derivatives&#10;Integrals&#10;Series"></textarea></div><div class="buttons"><button class="btn" id="calc" type="button">Make plan</button><button class="btn ghost" id="clear" type="button">Clear</button></div><div class="error" id="error" role="alert"></div></div><ol class="list" id="plan"></ol>
+
+<section class="help"><h2>How it works</h2><p>Topics are spread evenly over the days left. If you have three or more days, the last day before the exam is kept for revision. Plans cover at most the last 90 days.</p></section>
+</main>
+<footer class="site-footer"><div class="wrap">Student Toolkit · <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a></div></footer>
+<script src="../js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script><script src="../js/planner.js"></script>
+</body>
+</html>

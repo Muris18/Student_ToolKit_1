@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade Calculator – Student Toolkit</title>
+<meta name="description" content="Free grade calculator. Enter your points and the maximum to get a percentage and letter grade.">
+<meta property="og:title" content="Grade Calculator – Student Toolkit"><meta property="og:description" content="Free grade calculator. Enter your points and the maximum to get a percentage and letter grade.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap"><div class="bar"><a class="logo" href="../index.html"><span>Student</span> Toolkit</a><div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark theme">Theme</button><div class="account-area" id="account-area"></div><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div></div><nav class="nav" id="nav" aria-label="Main"><a href="../index.html">Home</a><a href="../index.html#study" aria-current="page">Study</a><a href="../index.html#money">Money</a><a href="../index.html#progress">Progress</a><a href="../index.html#career">Career</a><a href="../index.html#tools">Tools</a><a href="../index.html#soon">Soon</a><a href="../about.html">About</a></nav></div></header>
+<main class="wrap tool">
+
+<h1>Grade Calculator</h1>
+<p class="lead">Enter the points you got and the maximum possible points to see your percentage.</p>
+<div class="panel"><div class="row simple"><div><label for="earned">Points earned</label><input id="earned" type="number" step="any" min="0" inputmode="decimal" ></div><div><label for="max">Maximum points</label><input id="max" type="number" step="any" min="0" inputmode="decimal" ></div></div><div class="buttons"><button class="btn" id="calc" type="button">Calculate</button><button class="btn ghost" id="clear" type="button">Clear</button></div><div class="error" id="error" role="alert"></div></div>
+<div class="result" id="result" aria-live="polite" hidden><div>Your result</div><div class="num" id="percent">0%</div><div id="letter" class="lead"></div></div>
+<section class="help"><h2>Example</h2><p>You scored 42 out of 50. 42 ÷ 50 × 100 = 84%, which is a B on the scale below.</p><p>Letter scale: A 90%+, B 80%+, C 70%+, D 60%+, F below 60%. Your school may use a different scale.</p></section>
+
+</main>
+<footer class="site-footer"><div class="wrap">Student Toolkit · <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a></div></footer>
+<script src="../js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script><script src="../js/grade.js"></script>
+</body>
+</html>

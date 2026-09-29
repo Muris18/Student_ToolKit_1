@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade Predictor – Student Toolkit</title>
+<meta name="description" content="Free grade predictor. Find out what average you need on the rest of your course to reach your target grade.">
+<meta property="og:title" content="Grade Predictor – Student Toolkit"><meta property="og:description" content="Free grade predictor. Find out what average you need on the rest of your course to reach your target grade.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap"><div class="bar"><a class="logo" href="../index.html"><span>Student</span> Toolkit</a><div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark theme">Theme</button><div class="account-area" id="account-area"></div><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div></div><nav class="nav" id="nav" aria-label="Main"><a href="../index.html">Home</a><a href="../index.html#study" aria-current="page">Study</a><a href="../index.html#money">Money</a><a href="../index.html#progress">Progress</a><a href="../index.html#career">Career</a><a href="../index.html#tools">Tools</a><a href="../index.html#soon">Soon</a><a href="../about.html">About</a></nav></div></header>
+<main class="wrap tool">
+<h1>Grade Predictor</h1>
+<p class="lead">See what you need on the remaining work to reach your target final grade.</p>
+<div class="panel"><div class="field-row"><div><label for="current">Your average so far (%)</label><input id="current" type="number" step="any" min="0" inputmode="decimal" max="100"></div><div><label for="graded">Share of final grade already graded (%)</label><input id="graded" type="number" step="any" min="0" inputmode="decimal" max="100"></div><div><label for="target">Target final grade (%)</label><input id="target" type="number" step="any" min="0" inputmode="decimal" max="100"></div></div><div class="buttons"><button class="btn" id="calc" type="button">Predict</button><button class="btn ghost" id="clear" type="button">Clear</button></div><div class="error" id="error" role="alert"></div></div>
+<div class="result" id="result" aria-live="polite" hidden><div>You need an average of</div><div class="num" id="need">0%</div><div id="message" class="lead"></div></div>
+<section class="help"><h2>Example</h2><p>You have 70% on work worth 60% of the final grade and want 75% overall. Remaining work is worth 40%. Needed: (75 × 100 − 70 × 60) ÷ 40 = 82.5%.</p></section>
+</main>
+<footer class="site-footer"><div class="wrap">Student Toolkit · <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a></div></footer>
+<script src="../js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script><script src="../js/predictor.js"></script>
+</body>
+</html>
