@@ -1,20 +1,11 @@
-// Home page: filter tool cards by search text
-const searchEl = document.getElementById('search');
-const cards = document.querySelectorAll('.card[data-search]');
-const sections = document.querySelectorAll('.cat');
-const noneEl = document.getElementById('none');
-
-function filter() {
-  const q = searchEl.value.trim().toLowerCase();
-  let shown = 0;
-  cards.forEach((card) => {
-    const match = !q || card.dataset.search.includes(q);
-    card.hidden = !match;
-    if (match) shown += 1;
-  });
-  sections.forEach((sec) => {
-    sec.hidden = !sec.querySelector('.card:not([hidden])');
-  });
-  noneEl.hidden = shown > 0;
-}
-searchEl.addEventListener('input', filter);
+// Home: search and categories
+const ALL=[{"id": "pomo", "cat": "Mācības", "ic": "⏱️", "n": "Pomodoro taimeris", "d": "Fokuss un pauzes ar signālu"}, {"id": "gpa", "cat": "Mācības", "ic": "🎓", "n": "GPA kalkulators", "d": "Svērtais vidējais pēc kredītiem"}, {"id": "grade", "cat": "Mācības", "ic": "📝", "n": "Atzīmju kalkulators", "d": "Punkti uz procentiem un burtu"}, {"id": "pred", "cat": "Mācības", "ic": "🎯", "n": "Atzīmes prognoze", "d": "Cik vajag atlikušajam darbam"}, {"id": "exam", "cat": "Mācības", "ic": "📅", "n": "Eksāmenu atskaite", "d": "Dzīvs atpakaļskaitījums, saglabājas"}, {"id": "budget", "cat": "Nauda", "ic": "💶", "n": "Budžeta kalkulators", "d": "Ienākumi, izdevumi, atlikums"}, {"id": "save", "cat": "Nauda", "ic": "🐷", "n": "Uzkrājumu kalkulators", "d": "Cik mēnešu līdz mērķim"}, {"id": "sal", "cat": "Karjera", "ic": "💼", "n": "Algas kalkulators", "d": "No stundas likmes uz mēnesi"}, {"id": "words", "cat": "Rīki", "ic": "🔤", "n": "Vārdu skaitītājs", "d": "Vārdi, rakstzīmes, lasīšanas laiks"}, {"id": "pass", "cat": "Rīki", "ic": "🔐", "n": "Paroļu ģenerators", "d": "Drošas nejaušas paroles"}];
+const cats=['Visi','Mācības','Nauda','Karjera','Rīki'];
+function home(){clear();let cat='Visi',q='';app.replaceChildren();
+const h=el('section','hero');h.innerHTML='<h1>Mācies gudrāk ar <span>vienu rīkkopu</span></h1>';h.append(el('p',0,'Bezmaksas, ātri rīki studentiem: atzīmes, mācību plāni, budžets un fokusa taimeris.'));
+const s=el('input','search');s.type='search';s.placeholder='Meklē rīku…';s.setAttribute('aria-label','Meklēt');h.append(s);
+const ch=el('div','chips');h.append(ch);const g=el('div','grid');app.append(h,g);
+const draw=()=>{ch.replaceChildren(...cats.map(c=>{const b=el('button','chip'+(c===cat?' on':''),c);b.onclick=()=>{cat=c;draw()};return b}));
+g.replaceChildren();ALL.filter(t=>(cat==='Visi'||t.cat===cat)&&(t.n+t.d).toLowerCase().includes(q)).forEach(t=>{const c=el('div','card');c.tabIndex=0;c.append(el('div','ic',t.ic),el('div','tag',t.cat),el('h3',0,t.n),el('p',0,t.d));const go=()=>location.href='tools/'+t.id+'.html';c.onclick=go;c.onkeydown=e=>{if(e.key==='Enter')go()};g.append(c)});if(!g.children.length)g.append(el('p',0,'Nekas nav atrasts.'))};
+s.oninput=()=>{q=s.value.toLowerCase().trim();draw()};draw()}
+home();

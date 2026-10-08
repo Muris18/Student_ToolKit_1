@@ -1,29 +1,9 @@
-// Shared: mobile nav + theme toggle (remembers choice)
-(function () {
-  const root = document.documentElement;
-  try {
-    const saved = localStorage.getItem('theme');
-    if (saved) root.setAttribute('data-theme', saved);
-  } catch (e) {}
-
-  const navBtn = document.getElementById('nav-toggle');
-  const nav = document.getElementById('nav');
-  if (navBtn && nav) {
-    navBtn.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      navBtn.setAttribute('aria-expanded', String(open));
-    });
-  }
-
-  const themeBtn = document.getElementById('theme-toggle');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const current = root.getAttribute('data-theme');
-      const dark = current === 'dark' ||
-        (!current && matchMedia('(prefers-color-scheme: dark)').matches);
-      const next = dark ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
-    });
-  }
-})();
+// Shared: theme toggle, storage and helpers
+const $=s=>document.querySelector(s),app=$('#app');
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const th=store.get('theme',null);if(th)document.documentElement.dataset.theme=th;
+$('#th').onclick=()=>{const dark=document.documentElement.dataset.theme?document.documentElement.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;const n=dark?'light':'dark';document.documentElement.dataset.theme=n;store.set('theme',n)};
+const f=(n,d=2)=>(+n).toFixed(d);
+const num=v=>v===''?NaN:+v;
+let timers=[];const clear=()=>{timers.forEach(clearInterval);timers=[]};
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};

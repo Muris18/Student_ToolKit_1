@@ -1,0 +1,2 @@
+const TOOL={id:'pred',cat:'Mācības',ic:'🎯',n:'Atzīmes prognoze',d:'Cik vajag atlikušajam darbam',f:[{id:'c',l:'Pašreizējais vidējais (%)',v:70},{id:'w',l:'Cik % no atzīmes jau izpildīts',v:60},{id:'t',l:'Mērķa atzīme (%)',v:75}],run:v=>{const c=num(v.c),w=num(v.w),t=num(v.t);if(!(c>=0)||!(t>=0)||!(w>=0&&w<100))throw'Pārbaudi ievadi';const n=(t-c*w/100)/(1-w/100);return'Atlikušajā darbā vajag: '+f(n,1)+'%'+(n>100?'\n(Mērķis var būt nesasniedzams)':'')}};
+calc(TOOL);
