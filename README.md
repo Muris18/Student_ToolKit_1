@@ -1,5 +1,7 @@
 # Student Toolkit
 
+**Iespējamais projekta nosaukums Study Pilot**
+
 **Student Toolkit** ir digitāla platforma skolēniem, kas palīdz organizēt mācības, sagatavoties pārbaudes darbiem un efektīvāk apgūt mācību vielu. Projekta galvenais attīstības virziens ir Latvijas 9. un 12. klases valsts pārbaudes darbu un eksāmenu sagatavošanās sadaļa ar AI mācību palīgu, kas izmanto iepriekšējo gadu eksāmenu uzdevumus un atbilžu materiālus.
 
 > **Projekta statuss:** izstrādes/prototipa stadija. Funkcijas un tehnoloģijas var mainīties projekta izstrādes laikā.
