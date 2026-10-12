@@ -1,2 +1,0 @@
-const TOOL={id:'gpa',cat:'Mācības',ic:'🎓',n:'GPA kalkulators',d:'Svērtais vidējais pēc kredītiem',f:[{id:'t',l:'Katrā rindā: atzīme un kredīti (piem. 8 4)',ta:1,v:'8 4\n6 2'}],run:v=>{let s=0,c=0;for(const r of v.t.split('\n').filter(x=>x.trim())){const [g,k]=r.trim().split(/[\s,;]+/).map(Number);if(!(g>=0)||!(k>0))throw'Nepareiza rinda: '+r;s+=g*k;c+=k}if(!c)throw'Ievadi vismaz vienu rindu';return'GPA: '+f(s/c)}};
-calc(TOOL);
