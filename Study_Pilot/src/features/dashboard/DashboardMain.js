@@ -66,7 +66,7 @@ export default function DashboardMain({ user }) {
         >
           <div className="flex flex-col items-center justify-center py-4">
             <div className="w-24 h-24 rounded-full border-4 border-indigo-600 flex items-center justify-center text-xl font-bold text-slate-800 shadow-inner">
-              <CountUp to={64} suffix=\"%\" />
+              <CountUp to={64} suffix="%" />
             </div>
             <p className="text-xs text-slate-400 mt-3 text-center">Kopējais gatavības līmenis eksāmeniem</p>
           </div>
