@@ -1,0 +1,15 @@
+student-toolkit/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── features/
+│   │   ├── exams/
+│   │   ├── planner/
+│   │   └── dashboard/
+│   ├── services/
+│   └── styles/
+├── server/
+├── .env.example
+├── .gitignore
+├── package.json
+└── README.md
