@@ -1,116 +1,175 @@
-# Study Pilot
+<div align="center">
 
-**Study Pilot** (iepriekš darba nosaukums *Student Toolkit*) ir digitāla platforma skolēniem, kas palīdz organizēt mācības, sagatavoties pārbaudes darbiem un efektīvāk apgūt mācību vielu. Galvenais attīstības virziens ir Latvijas **9. un 12. klases valsts pārbaudes darbu un eksāmenu sagatavošanās sadaļa** ar AI mācību palīgu, kas balstās uz iepriekšējo gadu eksāmenu uzdevumiem un atbilžu materiāliem.
+# 🧭 Study Pilot
 
-> **Projekta statuss:** izstrādes / prototipa stadija. Funkcijas un tehnoloģijas var mainīties.
+### Tavs mācību pilots ceļā uz 9. un 12. klases eksāmeniem
 
-## Satura rādītājs
+*Plāno. Trenējies. Saproti. Uzvari.*
 
-- [Projekta mērķis](#projekta-mērķis)
-- [Pašreizējais stāvoklis un uzlabojumi](#pašreizējais-stāvoklis-un-uzlabojumi)
-- [Galvenās funkcijas](#galvenās-funkcijas)
-- [Eksāmenu sagatavošanās sadaļa](#eksāmenu-sagatavošanās-sadaļa)
-- [AI mācību palīgs (RAG)](#ai-mācību-palīgs-rag)
-- [Eksāmenu materiālu pārvaldība](#eksāmenu-materiālu-pārvaldība)
-- [Tehnoloģijas](#tehnoloģijas)
-- [Projekta struktūra](#projekta-struktūra)
-- [Palaišana lokāli](#palaišana-lokāli)
-- [Vides mainīgie](#vides-mainīgie)
-- [Drošība un datu aizsardzība](#drošība-un-datu-aizsardzība)
-- [Attīstības plāns](#attīstības-plāns)
-- [Avoti un autortiesības](#avoti-un-autortiesības)
-- [Ieguldījums projektā](#ieguldījums-projektā)
+<br>
 
-## Projekta mērķis
+![Status](https://img.shields.io/badge/statuss-prototips-orange?style=for-the-badge)
+![AI](https://img.shields.io/badge/AI-RAG%20palīgs-8A2BE2?style=for-the-badge)
+![Valoda](https://img.shields.io/badge/valoda-latviešu%20🇱🇻-9E1B32?style=for-the-badge)
+![Frontend](https://img.shields.io/badge/React%20%2F%20Next.js-111?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+
+<br>
+
+[✨ Funkcijas](#-galvenās-funkcijas) •
+[🎓 Eksāmeni](#-eksāmenu-sagatavošanās) •
+[🤖 AI palīgs](#-ai-mācību-palīgs-rag) •
+[🚀 Palaišana](#-palaišana-lokāli) •
+[🗺️ Plāns](#️-attīstības-plāns)
+
+</div>
+
+---
+
+> 💡 **Study Pilot** (iepriekš darba nosaukums *Student Toolkit*) ir digitāla platforma skolēniem, kas palīdz organizēt mācības, sagatavoties pārbaudes darbiem un efektīvāk apgūt vielu. Galvenais virziens ir **Latvijas 9. un 12. klases valsts pārbaudes darbu sagatavošanās** ar AI palīgu, kas balstās uz iepriekšējo gadu uzdevumiem un atbilžu materiāliem.
+
+> 🚧 **Statuss:** izstrādes / prototipa stadija. Funkcijas un tehnoloģijas var mainīties.
+
+## 📑 Satura rādītājs
+
+<details>
+<summary><b>Atvērt satura rādītāju</b></summary>
+
+- [🎯 Mērķis](#-projekta-mērķis)
+- [📈 Kas jau ir un kas top labāks](#-kas-jau-ir-un-kas-top-labāks)
+- [✨ Galvenās funkcijas](#-galvenās-funkcijas)
+- [🎓 Eksāmenu sagatavošanās](#-eksāmenu-sagatavošanās)
+- [🤖 AI mācību palīgs (RAG)](#-ai-mācību-palīgs-rag)
+- [🗂️ Materiālu pārvaldība](#️-eksāmenu-materiālu-pārvaldība)
+- [🧰 Tehnoloģijas](#-tehnoloģijas)
+- [📁 Struktūra](#-projekta-struktūra)
+- [🚀 Palaišana lokāli](#-palaišana-lokāli)
+- [🔐 Vides mainīgie](#-vides-mainīgie)
+- [🛡️ Drošība](#️-drošība-un-datu-aizsardzība)
+- [🗺️ Attīstības plāns](#️-attīstības-plāns)
+- [📚 Avoti un autortiesības](#-avoti-un-autortiesības)
+- [🤝 Ieguldījums](#-ieguldījums-projektā)
+
+</details>
+
+## 🎯 Projekta mērķis
 
 Izveidot vienkārši lietojamu platformu, kurā skolēns var:
 
-- sekot līdzi mācību uzdevumiem un termiņiem;
-- plānot gatavošanos eksāmeniem;
-- trenēties ar iepriekšējo gadu eksāmenu uzdevumiem;
-- saņemt saprotamus uzdevumu risinājumu skaidrojumus;
-- noteikt tēmas, kurās nepieciešams vairāk trenēties;
-- pārbaudīt zināšanas ar testiem un praktiskiem uzdevumiem.
+| | |
+|---|---|
+| 📅 | sekot līdzi uzdevumiem un termiņiem |
+| 🧠 | plānot gatavošanos eksāmeniem |
+| 📝 | trenēties ar iepriekšējo gadu uzdevumiem |
+| 💬 | saņemt saprotamus risinājumu skaidrojumus |
+| 🎯 | noteikt tēmas, kurās vajag trenēties vairāk |
+| ✅ | pārbaudīt zināšanas ar testiem |
 
-Study Pilot neaizstāj skolotāju vai oficiālos vērtēšanas materiālus. Tas ir papildu rīks patstāvīgām mācībām.
+> ℹ️ Study Pilot **neaizstāj** skolotāju vai oficiālos vērtēšanas materiālus. Tas ir papildu rīks patstāvīgām mācībām.
 
-## Pašreizējais stāvoklis un uzlabojumi
+## 📈 Kas jau ir un kas top labāks
 
-| Joma | Ir / iecerēts | Uzlabojums |
+| Joma | Ir / iecerēts | ⭐ Uzlabojums |
 |---|---|---|
-| Nosaukums | Student Toolkit | Jauns nosaukums **Study Pilot** — īsāks, atmiņā paliekošāks, atspoguļo "pilota" ideju (vadīt skolēnu pretī eksāmenam) |
-| Fokuss | Daudz vispārīgu funkciju | Sākt ar **vienu pilnvērtīgu plūsmu** (9. klases matemātika), tad paplašināt |
-| AI | Skaidrojumi | Atbildes tikai ar **avotu norādēm**; "nezinu", ja materiālu nepietiek |
-| Materiāli | PDF imports | **Admin pārbaudes process** pirms publicēšanas |
-| Mācīšanās | Treniņuzdevumi | **Vājo tēmu noteikšana** un atkārtošanas ieteikumi |
-| Plānošana | Study Planner | Plāns, kas **automātiski pielāgojas** atlikušajam laikam līdz eksāmenam |
-| Motivācija | — | Sērijas (streaks), mērķi, nedēļas kopsavilkums |
-| Pieejamība | — | Mobilā versija, tumšais režīms, vieglā valoda skaidrojumos |
+| 🏷️ Nosaukums | Student Toolkit | **Study Pilot** — īsāks, atmiņā paliekošs, "pilots" vada skolēnu uz mērķi |
+| 🎯 Fokuss | Daudz funkciju vienlaikus | Sākt ar **vienu pilnvērtīgu plūsmu** (9. kl. matemātika) |
+| 🤖 AI | Skaidrojumi | Atbildes ar **avotu norādēm**; "nezinu", ja materiālu nepietiek |
+| 📄 Materiāli | PDF imports | **Admin pārbaudes process** pirms publicēšanas |
+| 🧠 Mācīšanās | Treniņuzdevumi | **Vājo tēmu noteikšana** + atkārtošanas ieteikumi |
+| 🗓️ Plānošana | Study Planner | Plāns **pielāgojas** atlikušajam laikam |
+| 🔥 Motivācija | — | Sērijas, mērķi, nedēļas kopsavilkums |
+| ♿ Pieejamība | — | Mobilā versija, tumšais režīms, vienkārša valoda |
 
-## Galvenās funkcijas
+## ✨ Galvenās funkcijas
 
-- **Dashboard** — mācību uzdevumi, eksāmenu progress un tuvākie termiņi vienuviet.
-- **Deadline Radar** — kontroldarbu, projektu un eksāmenu termiņi ar prioritātēm.
-- **Study Planner** — individuāls mācību grafiks, kas pielāgojas progresam.
-- **Exam Preparation** — eksāmenu materiāli, uzdevumi, treniņi un progresa uzskaite.
-- **AI Study Tutor (Study Pilot AI)** — izskaidro vielu un palīdz saprast kļūdas, norādot avotu.
-- **Quiz Mode** — īsi testi un zināšanu pārbaudes.
-- **Progress Tracking** — rezultātu, apgūto un vājo tēmu pārskats.
+| Funkcija | Apraksts |
+|---|---|
+| 🏠 **Dashboard** | Uzdevumi, eksāmenu progress un termiņi vienuviet |
+| 📡 **Deadline Radar** | Kontroldarbu, projektu un eksāmenu termiņi ar prioritātēm |
+| 🗓️ **Study Planner** | Individuāls mācību grafiks, kas pielāgojas progresam |
+| 🎓 **Exam Preparation** | Materiāli, uzdevumi, treniņi un progresa uzskaite |
+| 🤖 **AI Study Tutor** | Izskaidro vielu, palīdz saprast kļūdas, norāda avotu |
+| ⚡ **Quiz Mode** | Īsi testi un zināšanu pārbaudes |
+| 📊 **Progress Tracking** | Rezultātu, apgūto un vājo tēmu pārskats |
 
-Konkrētā versijā pieejamās iespējas ir atkarīgas no izstrādes stadijas.
+*Konkrētā versijā pieejamās iespējas ir atkarīgas no izstrādes stadijas.*
 
-## Eksāmenu sagatavošanās sadaļa
+## 🎓 Eksāmenu sagatavošanās
 
-Viena no galvenajām projekta funkcijām. Sākumā tiek izstrādāta viena pilnīga plūsma (9. klases matemātika), un pēc pārbaudes sistēma tiek paplašināta.
+Viena no galvenajām funkcijām. Sākumā — **viena pilna plūsma** (9. klases matemātika), pēc pārbaudes — paplašināšana.
 
-### 9. klase
+<table>
+<tr>
+<td width="50%" valign="top">
 
-- Matemātika
-- Latviešu valoda
-- Svešvaloda (atbilstoši pieejamajiem materiāliem)
-- Citi priekšmeti, ja pieejami pārbaudīti resursi
+### 🟢 9. klase
+- ➗ Matemātika
+- 📖 Latviešu valoda
+- 🌍 Svešvaloda *(pēc pieejamiem materiāliem)*
+- 📦 Citi priekšmeti, ja ir pārbaudīti resursi
 
-### 12. klase
+</td>
+<td width="50%" valign="top">
 
-Plānotās jomas: matemātika, latviešu valoda, svešvalodas un izvēles priekšmeti (fizika, ķīmija, bioloģija, vēsture, programmēšana). Precīzs priekšmetu un līmeņu saraksts jāsaskaņo ar aktuālajām valsts pārbaudes darbu prasībām.
+### 🔵 12. klase
+- ➗ Matemātika
+- 📖 Latviešu valoda
+- 🌍 Svešvalodas
+- 🔬 Izvēles: fizika, ķīmija, bioloģija, vēsture, programmēšana
 
-### Lietotāja darbplūsma
+*Precīzs saraksts jāsaskaņo ar aktuālajām prasībām.*
 
-1. Skolēns izvēlas klasi, priekšmetu un eksāmena līmeni.
-2. Izvēlas tēmu vai iepriekšējā gada uzdevumu.
-3. Sistēma parāda uzdevumu un, ja pieejams, oficiālo atbilžu materiālu.
-4. Skolēns mēģina atrisināt uzdevumu pats.
-5. AI izskaidro risinājuma soļus, izmantojot atbilstošus avotus.
-6. Skolēns izpilda līdzīgus treniņuzdevumus.
-7. Sistēma reģistrē rezultātu un norāda tēmas, kurām vajadzīga papildu uzmanība.
+</td>
+</tr>
+</table>
 
-## AI mācību palīgs (RAG)
+### 🔄 Lietotāja darbplūsma
 
-AI tiek izmantots kā **mācību palīgs**, nevis nekļūdīgs oficiālo atbilžu avots.
+```mermaid
+flowchart LR
+    A[🎒 Izvēlas klasi,<br/>priekšmetu, līmeni] --> B[📄 Izvēlas tēmu<br/>vai iepriekšējā gada uzdevumu]
+    B --> C[🧩 Redz uzdevumu<br/>+ oficiālo atbildi]
+    C --> D[✏️ Mēģina pats]
+    D --> E[🤖 AI skaidro soļus<br/>ar avotiem]
+    E --> F[🔁 Līdzīgi treniņuzdevumi]
+    F --> G[📊 Progress un<br/>vājās tēmas]
+    G -.-> B
+```
 
-**RAG** (*Retrieval-Augmented Generation*): sistēma vispirms atrod atbilstošu informāciju uzdevumu un dokumentu datubāzē, un tikai tad nodod to AI modelim atbildes sagatavošanai.
+## 🤖 AI mācību palīgs (RAG)
 
-Plūsma:
+AI ir **mācību palīgs**, nevis nekļūdīgs oficiālo atbilžu avots.
 
-1. Eksāmenu materiāli tiek iegūti no atbilstošiem avotiem.
-2. PDF saturs tiek nolasīts; skenētiem dokumentiem izmanto OCR.
-3. Uzdevumi, atbildes un vērtēšanas kritēriji tiek sadalīti atsevišķos ierakstos.
-4. Katram ierakstam saglabā metadatus: klase, priekšmets, gads, uzdevuma numurs, avots.
-5. Pēc skolēna jautājuma sistēma atrod saistītos materiālus.
-6. AI sagatavo skaidrojumu, balstoties uz atrastajiem materiāliem, un norāda avotu.
+> 🔍 **RAG** (*Retrieval-Augmented Generation*): sistēma vispirms atrod atbilstošu informāciju uzdevumu un dokumentu datubāzē, un tikai tad nodod to AI modelim atbildes sagatavošanai.
 
-### Atbilžu kvalitātes principi
+```mermaid
+flowchart TD
+    P[📥 Eksāmenu PDF] --> O[🔎 Teksta izvilkšana + OCR]
+    O --> S[✂️ Sadalīšana uzdevumos,<br/>atbildēs, kritērijos]
+    S --> M[🏷️ Metadati:<br/>klase, priekšmets, gads, Nr., avots]
+    M --> V[(🧠 Vektoru datubāze)]
+    Q[🙋 Skolēna jautājums] --> R[🎯 Meklē atbilstošos ierakstus]
+    V --> R
+    R --> L[🤖 AI modelis]
+    L --> A[💬 Skaidrojums + avota norāde]
+```
 
-- Skaidri atšķirt **oficiālo atbildi** no **AI ģenerēta skaidrojuma**.
-- Ja informācijas nepietiek, AI to atklāti pasaka, nevis izdomā atbildi.
-- Formulām, tabulām, grafikiem un attēliem — īpaša apstrāde.
-- AI risinājumus pārbaudīt ar zināmiem pareizajiem rezultātiem.
-- Lietotājs vienmēr var atvērt sākotnējo uzdevumu un tā avotu.
-- Tutors vispirms mudina domāt (mājieni, soļi), nevis uzreiz dod gatavu atbildi.
+### ✅ Kvalitātes principi
 
-## Eksāmenu materiālu pārvaldība
+- 🏛️ Skaidri nošķirt **oficiālo atbildi** no **AI skaidrojuma**.
+- 🤷 Ja informācijas nepietiek — AI to **pasaka**, nevis izdomā.
+- 📐 Formulām, tabulām, grafikiem un attēliem — īpaša apstrāde.
+- 🧪 AI risinājumus pārbaudīt ar zināmiem pareizajiem rezultātiem.
+- 🔗 Lietotājs vienmēr var atvērt sākotnējo uzdevumu un avotu.
+- 💡 Tutors vispirms dod **mājienus**, nevis uzreiz gatavu atbildi.
 
-Materiālus pārvalda administrēšanas sadaļā, lai tos varētu pievienot un pārbaudīt bez izmaiņām kodā.
+## 🗂️ Eksāmenu materiālu pārvaldība
+
+Materiālus pārvalda **administrēšanas sadaļā** — bez izmaiņām kodā.
+
+<details>
+<summary><b>📋 Katra materiāla metadati</b></summary>
 
 | Lauks | Apraksts |
 |---|---|
@@ -121,40 +180,42 @@ Materiālus pārvalda administrēšanas sadaļā, lai tos varētu pievienot un p
 | Materiāla tips | Uzdevumi, atbildes, vērtēšanas kritēriji vai programma |
 | Uzdevuma numurs | Konkrētā uzdevuma identifikators |
 | Avota saite | Sākotnējā dokumenta vai vietnes saite |
-| Pārbaudes statuss | Importēts, jāpārbauda vai pārbaudīts |
-| Atbilžu pieejamība | Vai pieejams atbilžu vai vērtēšanas materiāls |
+| Pārbaudes statuss | Importēts · Jāpārbauda · Pārbaudīts |
+| Atbilžu pieejamība | Vai ir atbilžu vai vērtēšanas materiāls |
 
-### Importēšanas process
+</details>
 
-1. Administrators pievieno PDF un ievada metadatus.
-2. Sistēma izvelk tekstu un vajadzības gadījumā veic OCR.
-3. Materiāls tiek sadalīts uzdevumos vai loģiskās sadaļās.
-4. Administrators pārbauda tekstu, formulas, tabulas un attēlus.
-5. Ja pieejams, tiek sasaistīts atbilžu dokuments vai vērtēšanas kritēriji.
-6. Pēc pārbaudes materiāls tiek publicēts meklēšanai un AI izmantošanai.
+### 📥 Importēšanas process
 
-Automātiska importēšana negarantē pareizu rezultātu — īpaši ar diagrammām, attēliem un sarežģītām formulām.
+1. 📎 Administrators pievieno PDF un ievada metadatus.
+2. 🔎 Sistēma izvelk tekstu, vajadzības gadījumā veic OCR.
+3. ✂️ Materiāls tiek sadalīts uzdevumos vai loģiskās sadaļās.
+4. 👀 Administrators pārbauda tekstu, formulas, tabulas un attēlus.
+5. 🔗 Tiek sasaistīts atbilžu dokuments vai vērtēšanas kritēriji.
+6. 🚀 Pēc pārbaudes materiāls tiek publicēts meklēšanai un AI.
 
-## Tehnoloģijas
+> ⚠️ Automātiska importēšana negarantē pareizu rezultātu — īpaši ar diagrammām, attēliem un sarežģītām formulām.
 
-Tehnoloģiju izvēle var mainīties. Iespējamais prototipa risinājums:
+## 🧰 Tehnoloģijas
+
+Izvēle var mainīties. Iespējamais prototipa risinājums:
 
 | Daļa | Tehnoloģija | Pielietojums |
 |---|---|---|
-| Frontend | React vai Next.js | Lietotāja saskarne |
-| Autentifikācija | Supabase Auth | Lietotāju konti |
-| Datubāze | PostgreSQL / Supabase | Lietotāji, uzdevumi, progress |
-| Failu glabāšana | Supabase Storage | PDF un mācību materiāli |
-| AI | AI API servera pusē | Skaidrojumi un mācību atbalsts |
-| Dokumentu apstrāde | PDF teksta izvilkšana + OCR | Materiālu importēšana |
-| Semantiskā meklēšana | Embeddings + vektoru meklēšana (pgvector) | Atbilstošu uzdevumu atrašana |
-| Matemātikas attēlošana | KaTeX / MathJax | Formulu rādīšana |
+| 🎨 Frontend | React / Next.js | Lietotāja saskarne |
+| 🔑 Autentifikācija | Supabase Auth | Lietotāju konti |
+| 🗄️ Datubāze | PostgreSQL / Supabase | Lietotāji, uzdevumi, progress |
+| 📦 Faili | Supabase Storage | PDF un materiāli |
+| 🤖 AI | AI API servera pusē | Skaidrojumi un atbalsts |
+| 📄 Dokumenti | PDF izvilkšana + OCR | Importēšana |
+| 🔍 Meklēšana | Embeddings + pgvector | Atbilstošu uzdevumu atrašana |
+| ➗ Matemātika | KaTeX / MathJax | Formulu attēlošana |
 
-Pirmajai demo versijai pietiek ar vienu priekšmetu, nelielu pārbaudītu materiālu kopu un vienkāršu meklēšanu.
+> 🧪 Pirmajai demo versijai pietiek ar vienu priekšmetu, nelielu pārbaudītu materiālu kopu un vienkāršu meklēšanu.
 
-## Projekta struktūra
+## 📁 Projekta struktūra
 
-Iespējamās struktūras piemērs (pielāgo faktiskajam projektam):
+*Piemērs — pielāgo faktiskajam projektam.*
 
 ```text
 study-pilot/
@@ -177,38 +238,30 @@ study-pilot/
 └── README.md
 ```
 
-## Palaišana lokāli
+## 🚀 Palaišana lokāli
 
-**Prasības:** Git, Node.js LTS un npm.
+**Prasības:** `Git` · `Node.js LTS` · `npm`
 
-1. Noklonē repozitoriju:
+```bash
+# 1️⃣ Noklonē repozitoriju
+git clone <REPOSITORY_URL>
+cd <PROJECT_FOLDER>
 
-   ```bash
-   git clone <REPOSITORY_URL>
-   cd <PROJECT_FOLDER>
-   ```
+# 2️⃣ Instalē atkarības
+npm install
 
-2. Instalē atkarības:
+# 3️⃣ Sagatavo vides mainīgos
+cp .env.example .env     # un aizpildi vērtības
 
-   ```bash
-   npm install
-   ```
+# 4️⃣ Palaid izstrādes serveri
+npm run dev
+```
 
-3. Izveido savu `.env` failu pēc `.env.example` un aizpildi vērtības. Nekopē īstas API atslēgas repozitorijā.
+Pēc tam atver terminālī norādīto vietējo adresi 🌐
 
-4. Palaid izstrādes serveri:
+> Precīzās komandas ir atkarīgas no faktiskā `package.json`.
 
-   ```bash
-   npm run dev
-   ```
-
-5. Atver terminālī norādīto vietējo adresi.
-
-Precīzās komandas ir atkarīgas no faktiskā `package.json`.
-
-## Vides mainīgie
-
-Piemērs `.env.example`:
+## 🔐 Vides mainīgie
 
 ```env
 # Aizpildi tikai tos mainīgos, kurus projekts tiešām izmanto.
@@ -216,71 +269,98 @@ DATABASE_URL=
 AI_API_KEY=
 ```
 
-- Nekad neievieto īstu API atslēgu GitHub repozitorijā.
-- AI pieprasījumus veic tikai servera pusē.
-- `.env` jābūt iekļautam `.gitignore`.
-- Maksas AI API gadījumā izmanto pieprasījumu ierobežojumus un izmaksu uzskaiti.
+- 🚫 Nekad neievieto īstu API atslēgu GitHub repozitorijā.
+- 🖥️ AI pieprasījumus veic tikai **servera pusē**.
+- 🙈 `.env` jābūt iekļautam `.gitignore`.
+- 💸 Maksas AI API gadījumā izmanto pieprasījumu limitus un izmaksu uzskaiti.
 
-## Drošība un datu aizsardzība
+## 🛡️ Drošība un datu aizsardzība
 
-- Slepenās atslēgas glabā tikai servera pusē vai drošā platformas konfigurācijā.
-- Validē lietotāju ievadi un augšupielādētos failus.
-- Ierobežo piekļuvi administratora funkcijām.
-- Neļauj vienam lietotājam piekļūt cita lietotāja privātajiem datiem.
-- Ievieš failu izmēra un pieprasījumu skaita ierobežojumus.
-- Izstrādā datu glabāšanas un dzēšanas kārtību un privātuma paziņojumu (īpaši, jo lietotāji var būt nepilngadīgi).
+- 🔒 Slepenās atslēgas glabā tikai servera pusē vai drošā platformas konfigurācijā.
+- ✅ Validē lietotāju ievadi un augšupielādētos failus.
+- 👮 Ierobežo piekļuvi administratora funkcijām.
+- 🧍 Neļauj vienam lietotājam piekļūt cita lietotāja privātajiem datiem.
+- ⏱️ Ievieš failu izmēra un pieprasījumu skaita ierobežojumus.
+- 📜 Izstrādā datu glabāšanas un dzēšanas kārtību un privātuma paziņojumu (lietotāji var būt nepilngadīgi).
 
-## Attīstības plāns
+## 🗺️ Attīstības plāns
 
-### 1. posms — MVP
+```mermaid
+timeline
+    title Study Pilot ceļvedis
+    1. posms : MVP : Vietne un navigācija : Viens priekšmets : Avoti un meklēšana
+    2. posms : AI palīgs : RAG integrācija : Avotu rādīšana : Precizitātes pārbaude
+    3. posms : Personalizācija : Testi un progress : Adaptīvs mācību plāns : 12. klase
+    4. posms : Nākotne : Mobilā lietotne / PWA : Skolotāju skats : Motivācija
+```
 
-- [ ] Pamata vietne un navigācija.
-- [ ] Eksāmenu sadaļa vienam priekšmetam (9. klases matemātika).
-- [ ] Daži iepriekšējo gadu materiāli un metadati.
-- [ ] Avotu un oficiālo atbilžu norādīšana.
-- [ ] Uzdevumu pārlūkošana un meklēšana.
-- [ ] Materiālu kvalitātes pārbaude.
+<details open>
+<summary><b>🥇 1. posms — MVP</b></summary>
 
-### 2. posms — AI mācību palīgs
+- [ ] Pamata vietne un navigācija
+- [ ] Eksāmenu sadaļa vienam priekšmetam (9. klases matemātika)
+- [ ] Daži iepriekšējo gadu materiāli un metadati
+- [ ] Avotu un oficiālo atbilžu norādīšana
+- [ ] Uzdevumu pārlūkošana un meklēšana
+- [ ] Materiālu kvalitātes pārbaude
 
-- [ ] Servera puses AI API integrācija.
-- [ ] AI saņem atbilstošos avota materiālus (RAG).
-- [ ] Izmantoto avotu rādīšana; AI skaidrojuma un oficiālās atbildes nošķiršana.
-- [ ] Precizitātes pārbaude ar zināmiem uzdevumiem.
-- [ ] Pieprasījumu un izmaksu ierobežojumi.
+</details>
 
-### 3. posms — personalizēta sagatavošanās
+<details>
+<summary><b>🥈 2. posms — AI mācību palīgs</b></summary>
 
-- [ ] Treniņuzdevumi un testi.
-- [ ] Skolēna rezultātu un progresa saglabāšana.
-- [ ] Mācību plāns atbilstoši atlikušajam laikam un grūtajām tēmām.
-- [ ] Paplašināšana uz citiem priekšmetiem un 12. klasi.
-- [ ] Lietotāju testēšana un saskarnes uzlabošana.
+- [ ] Servera puses AI API integrācija
+- [ ] AI saņem atbilstošos avota materiālus (RAG)
+- [ ] Izmantoto avotu rādīšana; AI skaidrojuma un oficiālās atbildes nošķiršana
+- [ ] Precizitātes pārbaude ar zināmiem uzdevumiem
+- [ ] Pieprasījumu un izmaksu ierobežojumi
 
-### 4. posms — ilgtermiņa idejas
+</details>
 
-- [ ] Mobilā lietotne / PWA.
-- [ ] Nedēļas progresa ziņojumi skolēnam (un pēc vēlmes vecākiem).
-- [ ] Skolotāju skats klases progresam.
-- [ ] Mērķi, sērijas un motivācijas elementi.
-- [ ] Papildu valodas (piem., angļu saskarne).
+<details>
+<summary><b>🥉 3. posms — personalizēta sagatavošanās</b></summary>
 
-## Avoti un autortiesības
+- [ ] Treniņuzdevumi un testi
+- [ ] Skolēna rezultātu un progresa saglabāšana
+- [ ] Mācību plāns atbilstoši atlikušajam laikam un grūtajām tēmām
+- [ ] Paplašināšana uz citiem priekšmetiem un 12. klasi
+- [ ] Lietotāju testēšana un saskarnes uzlabošana
 
-Sākotnējais oficiālo materiālu avots ir Valsts izglītības attīstības aģentūra (VIAA):
+</details>
 
-- [VIAA — Valsts pārbaudes darbu programmas](https://www.viaa.gov.lv/lv/valsts-parbaudes-darbu-programmas)
-- [VIAA — Biežāk uzdotie jautājumi par valsts pārbaudes darbiem](https://www.viaa.gov.lv/lv/biezak-uzdotie-jautajumi-par-valsts-parbaudes-darbiem)
+<details>
+<summary><b>🚀 4. posms — ilgtermiņa idejas</b></summary>
 
-Pirms materiālu publicēšanas vai izplatīšanas pārbaudi to izmantošanas nosacījumus un autortiesības. Tas, ka PDF ir publiski pieejams, automātiski nenozīmē, ka to drīkst brīvi pārpublicēt. Ja atļaujas nav skaidras, norādi saiti uz oriģinālu un izmanto paša veidotus skaidrojumus.
+- [ ] Mobilā lietotne / PWA
+- [ ] Nedēļas progresa ziņojumi skolēnam (un pēc vēlmes vecākiem)
+- [ ] Skolotāju skats klases progresam
+- [ ] Mērķi, sērijas un motivācijas elementi
+- [ ] Papildu valodas (piem., angļu saskarne)
 
-## Ieguldījums projektā
+</details>
 
-1. Izveido atsevišķu Git zaru jaunai funkcijai vai labojumam.
-2. Veic izmaiņas un pārbaudi tās lokāli.
-3. Izveido Pull Request ar īsu izmaiņu un pārbaužu aprakstu.
-4. Neiekļauj repozitorijā API atslēgas, paroles vai citus noslēpumus.
+## 📚 Avoti un autortiesības
+
+Sākotnējais oficiālo materiālu avots — **Valsts izglītības attīstības aģentūra (VIAA)**:
+
+- 🔗 [VIAA — Valsts pārbaudes darbu programmas](https://www.viaa.gov.lv/lv/valsts-parbaudes-darbu-programmas)
+- 🔗 [VIAA — Biežāk uzdotie jautājumi par valsts pārbaudes darbiem](https://www.viaa.gov.lv/lv/biezak-uzdotie-jautajumi-par-valsts-parbaudes-darbiem)
+
+> ⚖️ Pirms materiālu publicēšanas vai izplatīšanas pārbaudi to izmantošanas nosacījumus un autortiesības. Tas, ka PDF ir publiski pieejams, automātiski nenozīmē, ka to drīkst brīvi pārpublicēt. Ja atļaujas nav skaidras, norādi saiti uz oriģinālu un izmanto paša veidotus skaidrojumus.
+
+## 🤝 Ieguldījums projektā
+
+1. 🌿 Izveido atsevišķu Git zaru jaunai funkcijai vai labojumam.
+2. 🧪 Veic izmaiņas un pārbaudi tās lokāli.
+3. 📬 Izveido Pull Request ar īsu izmaiņu un pārbaužu aprakstu.
+4. 🔐 Neiekļauj repozitorijā API atslēgas, paroles vai citus noslēpumus.
 
 ---
 
-**Study Pilot** — mācību rīki, kas palīdz skolēniem mācīties gudrāk un sagatavoties eksāmeniem pārliecinošāk.
+<div align="center">
+
+**🧭 Study Pilot** — mācību rīki, kas palīdz skolēniem mācīties gudrāk<br>un sagatavoties eksāmeniem pārliecinošāk.
+
+<sub>Veidots ar ❤️ Latvijas skolēniem</sub>
+
+</div>
