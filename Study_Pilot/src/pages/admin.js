@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import React, { useEffect, useState } from 'react';
+import AppShell from '../components/AppShell';
+import { useApp } from '../lib/AppContext';
+import { fmtDate, relDay } from '../lib/helpers';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
 import CountUp from '../components/CountUp';
 
 export default function AdminPage() {
-  const currentUser = { name: "Administrators", className: "Sistēmas vadība" };
+  return (
+    <AppShell>
+      <Admin />
+    </AppShell>
+  );
+}
 
-  // Parauga dati lietotāju vadībai
-  const [students] = useState([
-    { id: 1, name: 'Anna Bērziņa', grade: '12. klase', tasksDone: 42, lastActive: 'Šodien' },
-    { id: 2, name: 'Markuss Kalniņš', grade: '9. klase', tasksDone: 28, lastActive: 'Vakar' },
-    { id: 3, name: 'Elīza Ozola', grade: '12. klase', tasksDone: 55, lastActive: 'Šodien' },
-  ]);
+function Admin() {
+  const { api } = useApp();
+  // Īstie dati no servera atmiņas (visi šajā palaišanas reizē reģistrētie)
+  const [overview, setOverview] = useState(null);
+  const [loadError, setLoadError] = useState('');
+  useEffect(() => {
+    const load = () => api('/api/admin/overview').then(setOverview).catch((e) => setLoadError(e.message));
+    load();
+    const t = setInterval(load, 10000);
+    return () => clearInterval(t);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const students = overview?.users || [];
+  const stats = overview?.stats || { users: 0, activeToday: 0, quizzes: 0, chat: 0 };
 
   // Modālā loga stāvoklis jauna materiāla augšupielādei
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -29,20 +42,13 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-page flex flex-col">
-      <Navbar user={currentUser} />
-      
-      <div className="flex flex-1">
-        <Sidebar currentPath="/admin" />
-
-        <main className="flex-1 p-4 sm:p-8 overflow-y-auto space-y-6">
-          
+    <>
           {/* Augšējais virsraksts */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-bold text-slate-800">⚙️ Sistēmas Administrēšana</h1>
               <p className="text-sm text-slate-500 mt-1">
-                Pārvaldi Study Pilot lietotājus, eksāmenu materiālus un RAG sistēmas statusu.
+                Lietotāji, kas reģistrējušies kopš servera palaišanas{overview ? ` (${fmtDate(overview.startedAt.slice(0, 10))}, ${new Date(overview.startedAt).toLocaleTimeString('lv-LV', { hour: '2-digit', minute: '2-digit' })})` : ''}.
               </p>
             </div>
             <Button variant="primary" onClick={() => setIsUploadModalOpen(true)}>
@@ -53,52 +59,54 @@ export default function AdminPage() {
           {/* Sistēmas rādītāju kopsavilkums */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
-              <p className="text-xs text-slate-400 font-medium">Reģistrētie skolēni</p>
-              <CountUp as="p" to={1240} className="text-2xl font-bold text-slate-800 mt-1" />
-              <span className="text-xs text-emerald-600 font-medium mt-2 inline-block">● 98 aktīvi šodien</span>
+              <p className="text-xs text-slate-400 font-medium">Reģistrētie lietotāji</p>
+              <CountUp as="p" to={stats.users} className="text-2xl font-bold text-slate-800 mt-1" />
+              <span className="text-xs text-emerald-700 font-medium mt-2 inline-block">● {stats.activeToday} aktīvi šodien</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
-              <p className="text-xs text-slate-400 font-medium">RAG Dokumentu skaits</p>
-              <CountUp as="p" to={342} suffix=" PDF" className="text-2xl font-bold text-slate-800 mt-1" />
-              <span className="text-xs text-indigo-600 font-medium mt-2 inline-block">Oficiālie eksāmeni (2022-2026)</span>
+              <p className="text-xs text-slate-400 font-medium">Pildīti testi</p>
+              <CountUp as="p" to={stats.quizzes} className="text-2xl font-bold text-slate-800 mt-1" />
+              <span className="text-xs text-indigo-600 font-medium mt-2 inline-block">Visi lietotāji kopā</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
-              <p className="text-xs text-slate-400 font-medium">AI Čata pieprasījumi</p>
-              <CountUp as="p" to={8920} className="text-2xl font-bold text-slate-800 mt-1" />
-              <span className="text-xs text-violet-600 font-medium mt-2 inline-block">Šajā mēnesī</span>
+              <p className="text-xs text-slate-400 font-medium">Čata ziņas</p>
+              <CountUp as="p" to={stats.chat} className="text-2xl font-bold text-slate-800 mt-1" />
+              <span className="text-xs text-violet-600 font-medium mt-2 inline-block">Kopš servera palaišanas</span>
             </div>
           </div>
 
           {/* Skolēnu un aktivāšu pārvaldības tabula */}
-          <Card title="👥 Skolēnu aktivitātes pārskats" subtitle="Nesenie platformas lietotāji un progress">
+          <Card title="👥 Lietotāju aktivitātes pārskats" subtitle="Atjaunojas ik pēc 10 sekundēm">
+            {loadError && <p className="text-sm text-rose-600 mb-3">{loadError}</p>}
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-100 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                     <th className="py-3 px-4">Vārds, Uzvārds</th>
-                    <th className="py-3 px-4">Klase</th>
-                    <th className="py-3 px-4">Atrisinātie uzdevumi</th>
+                    <th className="py-3 px-4">Klase / kurss</th>
+                    <th className="py-3 px-4">Priekšmeti</th>
+                    <th className="py-3 px-4">Izpildīti darbi</th>
+                    <th className="py-3 px-4">Testi</th>
                     <th className="py-3 px-4">Pēdējā aktivitāte</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50 text-sm">
                   {students.map((student) => (
                     <tr key={student.id} className="hover:bg-slate-50/50 transition-colors">
-                      <td className="py-3.5 px-4 font-semibold text-slate-800">{student.name}</td>
-                      <td className="py-3.5 px-4 text-slate-500">{student.grade}</td>
-                      <td className="py-3.5 px-4 font-semibold text-slate-700">{student.tasksDone}</td>
-                      <td className="py-3.5 px-4 text-slate-400 text-xs">{student.lastActive}</td>
+                      <td className="py-3.5 px-4 font-semibold text-slate-800">{student.name}{student.school && <span className="block text-xs font-normal text-slate-400">{student.school}</span>}</td>
+                      <td className="py-3.5 px-4 text-slate-500">{student.grade}. {student.level}</td>
+                      <td className="py-3.5 px-4 text-slate-700">{student.subjects}</td>
+                      <td className="py-3.5 px-4 font-semibold text-slate-700">{student.done}</td>
+                      <td className="py-3.5 px-4 text-slate-700">{student.quizzes}</td>
+                      <td className="py-3.5 px-4 text-slate-400 text-xs">{relDay(student.lastActive.slice(0, 10))}, {new Date(student.lastActive).toLocaleTimeString('lv-LV', { hour: '2-digit', minute: '2-digit' })}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </Card>
-
-        </main>
-      </div>
 
       {/* Uznirstošais logs jaunu eksāmena materiālu/PDF augšupielādei AI RAG bāzei */}
       <Modal 
@@ -158,7 +166,6 @@ export default function AdminPage() {
           </div>
         </form>
       </Modal>
-
-    </div>
+    </>
   );
 }

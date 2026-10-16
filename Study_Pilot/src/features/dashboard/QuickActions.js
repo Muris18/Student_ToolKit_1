@@ -1,30 +1,32 @@
 import React from 'react';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
+import { useRouter } from 'next/router';
 
 export default function QuickActions() {
+  const router = useRouter();
   // Ātro darbību saraksts ar ikonām un aprakstiem
   const actions = [
     {
-      title: 'Sākt AI čatu',
-      description: 'Uzdod jautājumu par neskaidru eksāmena uzdevumu',
+      title: 'Atvērt AI čatu',
+      description: 'Pieraksti jautājumu par neskaidru eksāmena uzdevumu',
       icon: '🤖',
       variant: 'primary',
-      onClick: () => window.location.href = '/exams?mode=ai'
+      onClick: () => router.push('/exams?mode=ai')
     },
     {
       title: 'Pievienot termiņu',
       description: 'Ievadi jaunu kontroldarbu vai ieskaiti plānotājā',
       icon: '⏳',
       variant: 'secondary',
-      onClick: () => window.location.href = '/planner'
+      onClick: () => router.push('/planner')
     },
     {
-      title: 'Pildīt testa režīmu',
-      description: 'Ātri pārbaudi zināšanas par izvēlēto tēmu',
+      title: 'Testa režīms',
+      description: 'Izveido savu testu vai pārbaudi zināšanas',
       icon: '⚡',
       variant: 'secondary',
-      onClick: () => window.location.href = '/exams?mode=quiz'
+      onClick: () => router.push('/exams?mode=quiz')
     }
   ];
 

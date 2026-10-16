@@ -2,19 +2,10 @@ import React, { useState } from 'react';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 
-export default function StudyPlannerCalendar({ events = [], onSelectDate }) {
+export default function StudyPlannerCalendar({ events = [], onSelectDate, onSelectEvent }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  // Parauga dati kalendāra notikumiem (eksāmeni, konsultācijas, mācību laiki)
-  const ym = new Date().toISOString().slice(0, 7);
-  const defaultEvents = [
-    { date: ym + '-05', title: 'Matemātikas eksāmens', type: 'exam', subject: 'Matemātika' },
-    { date: ym + '-08', title: 'Latviešu valodas konsultācija', type: 'session', subject: 'Latviešu valoda' },
-    { date: ym + '-12', title: 'Latviešu valodas eksāmens', type: 'exam', subject: 'Latviešu valoda' },
-    { date: ym + '-19', title: 'Angļu valodas eksāmens', type: 'exam', subject: 'Angļu valoda' },
-  ];
-
-  const allEvents = [...defaultEvents, ...events];
+  const allEvents = events;
 
   // Kalendāra dienu aprēķins
   const year = currentDate.getFullYear();
@@ -43,9 +34,10 @@ export default function StudyPlannerCalendar({ events = [], onSelectDate }) {
   return (
     <Card 
       title="📅 Mācību kalendārs" 
-      subtitle="Eksāmenu grafiks un plānotās mācību sesijas"
+      subtitle="Spied uz dienas, lai pievienotu termiņu"
       action={
         <div className="flex items-center gap-2">
+          <Button variant="ghost" onClick={() => setCurrentDate(new Date())} className="text-xs px-2.5 py-1 hidden sm:inline-flex">Šodien</Button>
           <Button variant="secondary" onClick={prevMonth} className="text-xs px-2.5 py-1">
             ◄
           </Button>
@@ -96,8 +88,9 @@ export default function StudyPlannerCalendar({ events = [], onSelectDate }) {
                 <div className="space-y-1 overflow-y-auto">
                   {dayEvents.map((evt, i) => (
                     <div 
-                      key={i} 
-                      className={`text-[10px] px-1.5 py-0.5 rounded-md truncate font-medium ${
+                      key={evt.id || i} 
+                      onClick={(e) => { if (onSelectEvent) { e.stopPropagation(); onSelectEvent(evt); } }}
+                      className={`text-[10px] px-1.5 py-0.5 rounded-md truncate font-medium ${evt.done ? 'line-through opacity-50 ' : ''}${
                         evt.type === 'exam' 
                           ? 'bg-rose-100 text-rose-700 border border-rose-200' 
                           : 'bg-indigo-100 text-indigo-700 border border-indigo-200'
@@ -117,11 +110,11 @@ export default function StudyPlannerCalendar({ events = [], onSelectDate }) {
         <div className="flex items-center gap-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-md bg-rose-100 border border-rose-200 inline-block" />
-            <span>Valsts eksāmens</span>
+            <span>Eksāmens / pārbaudes darbs</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-md bg-indigo-100 border border-indigo-200 inline-block" />
-            <span>Mācību / Konsultācijas sesija</span>
+            <span>Cits termiņš</span>
           </div>
         </div>
 

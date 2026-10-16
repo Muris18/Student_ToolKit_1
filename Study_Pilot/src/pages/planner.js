@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import AppShell, { PageHeader } from '../components/AppShell';
 import StudyPlannerCalendar from '../features/planner/StudyPlannerCalendar';
 import TaskView from '../features/planner/TaskView';
 import DeadlineRadar from '../features/planner/DeadlineRadar';
 import AddTaskModal from '../features/planner/AddTaskModal';
 import Button from '../components/Button';
+import { useApp } from '../lib/AppContext';
+import { uid, isExamType } from '../lib/helpers';
 
-export default function PlannerPage() {
-  const currentUser = { name: 'Markuss Bērziņš', className: '12. klase' };
+function Planner() {
+  const { data, update } = useApp();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tasks, setTasks] = useState([]);
   const [presetDate, setPresetDate] = useState('');
+  const [editTask, setEditTask] = useState(null);
   const [toast, setToast] = useState('');
 
   useEffect(() => {
@@ -20,45 +21,48 @@ export default function PlannerPage() {
     return () => clearTimeout(t);
   }, [toast]);
 
-  const handleAddNewTask = (newTask) => {
-    setTasks((prev) => [newTask, ...prev]);
-    setToast(`Pievienots: ${newTask.title}`);
+  const addTask = (fields) => {
+    update((d) => ({ ...d, tasks: [{ id: uid(), ...fields, status: 'pending', createdAt: new Date().toISOString(), doneAt: null }, ...d.tasks] }));
+    setToast(`Pievienots: ${fields.title}`);
+  };
+  const saveTask = (task) => {
+    update((d) => ({ ...d, tasks: d.tasks.map((t) => (t.id === task.id ? task : t)) }));
+    setToast('Saglabāts');
   };
 
-  const openModal = (date = '') => { setPresetDate(date); setIsModalOpen(true); };
+  const openNew = (date = '') => { setEditTask(null); setPresetDate(date); setIsModalOpen(true); };
+  const openEdit = (task) => { setEditTask(task); setIsModalOpen(true); };
 
-  const events = tasks.map((t) => ({ date: t.dueDate, title: t.title, subject: t.subject, type: t.type === 'Eksāmens' ? 'exam' : 'session' }));
+  const events = data.tasks.map((t) => ({ id: t.id, date: t.dueDate, title: t.title, type: isExamType(t.type) ? 'exam' : 'session', done: t.status === 'completed' }));
 
   return (
-    <div className="min-h-screen bg-page flex flex-col">
-      <Navbar user={currentUser} />
-      <div className="flex flex-1">
-        <Sidebar />
-        <main className="flex-1 p-5 md:p-8 space-y-6 max-w-6xl mx-auto w-full min-w-0">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">📅 Mācību plānotājs un termiņi</h1>
-              <p className="text-sm text-slate-500 mt-1">Sekojiet līdzi eksāmeniem, organizējiet laiku un plānojiet ikdienas darbus.</p>
-            </div>
-            <Button onClick={() => openModal()}>+ Jauns termiņš</Button>
-          </div>
+    <>
+      <PageHeader title="📅 Mācību plānotājs un termiņi" subtitle="Eksāmeni, pārbaudes darbi un ikdienas mācību darbi vienuviet.">
+        <Button onClick={() => openNew()}>+ Jauns termiņš</Button>
+      </PageHeader>
 
-          <DeadlineRadar onViewPlanner={() => document.getElementById('planner-grid')?.scrollIntoView({ behavior: 'smooth' })} />
+      <DeadlineRadar onAdd={() => openNew()} onViewPlanner={() => document.getElementById('planner-grid')?.scrollIntoView({ behavior: 'smooth' })} />
 
-          <div id="planner-grid" className="grid grid-cols-1 lg:grid-cols-2 gap-6 scroll-mt-24">
-            <StudyPlannerCalendar events={events} onSelectDate={(d) => openModal(d)} />
-            <TaskView onAddNewTask={() => openModal()} newTasks={tasks} />
-          </div>
-        </main>
+      <div id="planner-grid" className="grid grid-cols-1 lg:grid-cols-2 gap-6 scroll-mt-24">
+        <StudyPlannerCalendar events={events} onSelectDate={(d) => openNew(d)} onSelectEvent={(e) => openEdit(data.tasks.find((t) => t.id === e.id))} />
+        <TaskView onAddNewTask={() => openNew()} onEditTask={openEdit} />
       </div>
 
-      <AddTaskModal isOpen={isModalOpen} defaultDate={presetDate} onClose={() => setIsModalOpen(false)} onAddTask={handleAddNewTask} />
+      <AddTaskModal isOpen={isModalOpen} defaultDate={presetDate} editTask={editTask} onClose={() => setIsModalOpen(false)} onAddTask={addTask} onSaveTask={saveTask} />
 
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] px-5 py-3 rounded-2xl bg-gradient-to-br from-accent to-accent2 text-white text-sm font-semibold shadow-glow animate-pop">
-          ✓ {toast}
+        <div className="fixed inset-x-0 bottom-24 sm:bottom-6 z-[60] flex justify-center pointer-events-none">
+          <div className="px-5 py-3 rounded-2xl bg-gradient-to-br from-accent to-accent2 text-white text-sm font-semibold shadow-glow animate-pop">✓ {toast}</div>
         </div>
       )}
-    </div>
+    </>
+  );
+}
+
+export default function PlannerPage() {
+  return (
+    <AppShell>
+      <Planner />
+    </AppShell>
   );
 }

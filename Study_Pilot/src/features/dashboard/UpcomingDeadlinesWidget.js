@@ -1,85 +1,51 @@
 import React from 'react';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
+import { EmptyState } from '../../components/AppShell';
+import { useApp } from '../../lib/AppContext';
+import { upcoming, relDay, daysUntil, subjectName, subjectColor } from '../../lib/helpers';
 
-export default function UpcomingDeadlinesWidget({ deadlines = [], onViewAll }) {
-  // Noklusētie paraugdati, ja dati vēl nav saņemti no Supabase vai plānotāja
-  const defaultDeadlines = [
-    { 
-      id: 1, 
-      title: 'Matemātikas valsts pārbaudes darbs', 
-      subject: 'Matemātika', 
-      date: 'Pēc 3 dienām', 
-      priority: 'urgent', // urgent, normal, low
-      type: 'Eksāmens' 
-    },
-    { 
-      id: 2, 
-      title: 'Latviešu valodas eseju sagatavošana', 
-      subject: 'Latviešu valoda', 
-      date: 'Pēc 5 dienām', 
-      priority: 'normal', 
-      type: 'Mājasdarbs' 
-    },
-    { 
-      id: 3, 
-      title: 'Angļu valodas klausīšanās tests', 
-      subject: 'Angļu valoda', 
-      date: 'Pēc 8 dienām', 
-      priority: 'low', 
-      type: 'Pārbaudes darbs' 
-    },
-  ];
+const priorityStyles = {
+  high: 'bg-rose-50 text-rose-700 border-rose-200',
+  normal: 'bg-amber-50 text-amber-700 border-amber-200',
+  low: 'bg-indigo-50 text-indigo-600 border-indigo-200',
+};
+const priorityLabels = { high: 'Steidzami', normal: 'Normāla', low: 'Zema' };
 
-  const displayDeadlines = deadlines.length > 0 ? deadlines : defaultDeadlines;
-
-  // Stili atkarībā no prioritātes
-  const priorityStyles = {
-    urgent: 'bg-rose-50 text-rose-600 border-rose-100',
-    normal: 'bg-amber-50 text-amber-600 border-amber-100',
-    low: 'bg-indigo-50 text-indigo-600 border-indigo-100',
-  };
-
-  const priorityLabels = {
-    urgent: 'Steidzami',
-    normal: 'Plānā',
-    low: 'Gaidāms',
-  };
+export default function UpcomingDeadlinesWidget({ onViewAll }) {
+  const { data } = useApp();
+  const items = upcoming(data, { limit: 5 });
 
   return (
-    <Card 
-      title="⏳ Tuvākie termiņi" 
-      subtitle="Nākamās dienas un eksāmeni"
-      action={
-        onViewAll && (
-          <Button variant="secondary" onClick={onViewAll} className="text-xs py-1.5 px-3">
-            Visi termiņi
-          </Button>
-        )
-      }
+    <Card
+      title="⏳ Tuvākie termiņi"
+      subtitle="Nepabeigtie darbi pēc datuma"
+      action={onViewAll && <Button variant="secondary" onClick={onViewAll} className="text-xs py-1.5 px-3">Plānotājs</Button>}
     >
-      <div className="space-y-3">
-        {displayDeadlines.map((item) => (
-          <div 
-            key={item.id} 
-            className="flex items-center justify-between p-3.5 bg-slate-50/70 hover:bg-slate-50 rounded-2xl border border-slate-100 transition-all"
-          >
-            <div className="space-y-0.5">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">{item.subject}</span>
-                <span className="text-slate-300">•</span>
-                <span className="text-xs text-slate-500 font-medium">{item.type}</span>
+      {items.length === 0 ? (
+        <EmptyState icon="📅" title="Nav gaidāmu termiņu" text="Pievieno eksāmenu, pārbaudes darbu vai mājasdarbu plānotājā.">
+          {onViewAll && <Button onClick={onViewAll} className="text-xs py-2">+ Pievienot termiņu</Button>}
+        </EmptyState>
+      ) : (
+        <div className="space-y-3">
+          {items.map((item) => (
+            <div key={item.id} className="flex items-center justify-between gap-3 p-3.5 bg-slate-50/70 hover:bg-slate-50 rounded-2xl border border-slate-100 transition-all" style={{ borderLeft: `4px solid ${subjectColor(data, item.subjectId)}` }}>
+              <div className="space-y-0.5 min-w-0">
+                <div className="flex items-center gap-2 text-xs">
+                  <span className="font-semibold text-slate-400 uppercase tracking-wide truncate">{subjectName(data, item.subjectId)}</span>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-slate-500 font-medium shrink-0">{item.type}</span>
+                </div>
+                <p className="text-sm font-semibold text-slate-800 truncate">{item.title}</p>
+                <p className={`text-xs ${daysUntil(item.dueDate) <= 2 ? 'text-rose-600 font-semibold' : 'text-slate-500'}`}>{relDay(item.dueDate)}</p>
               </div>
-              <p className="text-sm font-semibold text-slate-800">{item.title}</p>
-              <p className="text-xs text-slate-500">{item.date}</p>
+              <span className={`text-xs font-medium px-2.5 py-1 rounded-lg border shrink-0 ${priorityStyles[item.priority] || priorityStyles.normal}`}>
+                {priorityLabels[item.priority] || 'Normāla'}
+              </span>
             </div>
-
-            <span className={`text-xs font-medium px-2.5 py-1 rounded-lg border ${priorityStyles[item.priority] || priorityStyles.normal}`}>
-              {priorityLabels[item.priority] || 'Aktīvs'}
-            </span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </Card>
   );
 }

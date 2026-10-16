@@ -54,8 +54,9 @@
   ::selection { background: rgb(var(--acc) / .35); }
 }
 .focus\:outline-hidden:focus { outline: none; }
-input:focus, select:focus { box-shadow: 0 0 0 3px rgb(var(--acc) / .2); }
-input, select { @apply bg-white text-slate-800; }
+input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 3px rgb(var(--acc) / .2); }
+input, select, textarea { @apply bg-white text-slate-800; }
+input::placeholder, textarea::placeholder { color: rgb(var(--s400)); }
 input[type='date'] { color-scheme: inherit; }
 
 .text-gradient { background: linear-gradient(120deg, rgb(var(--acc)), rgb(var(--acc2))); -webkit-background-clip: text; background-clip: text; color: transparent; }

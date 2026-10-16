@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import '../styles/globals.css';
 import SplashScreen from '../components/SplashScreen';
 import { applyDevice } from '../lib/device';
+import { AppProvider } from '../lib/AppContext';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -26,10 +27,10 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return (
-    <>
+    <AppProvider>
       <SplashScreen />
       <div className="orb orb-a" /><div className="orb orb-b" />
-      <div key={router.asPath} className="page-enter"><Component {...pageProps} /></div>
-    </>
+      <div key={router.pathname} className="page-enter"><Component {...pageProps} /></div>
+    </AppProvider>
   );
 }

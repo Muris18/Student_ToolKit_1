@@ -9,6 +9,7 @@ export default function Document() {
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#0b0b0d" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script dangerouslySetInnerHTML={{ __html: init }} />
       </Head>
       <body><Main /><NextScript /></body>

@@ -1,118 +1,84 @@
-import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import React from 'react';
+import Link from 'next/link';
+import AppShell, { PageHeader, EmptyState } from '../components/AppShell';
 import Card from '../components/Card';
-import Button from '../components/Button';
 import CountUp from '../components/CountUp';
+import ProgressTracking from '../features/dashboard/ProgressTracking';
+import { useApp } from '../lib/AppContext';
+import { overallStats, subjectStats, toDateStr, dienas } from '../lib/helpers';
 
-export default function ProgressPage() {
-  const currentUser = { name: "Markuss Bērziņš", className: "12. klase" };
+const DAY_LETTERS = ['Sv', 'P', 'O', 'T', 'C', 'Pk', 'S'];
 
-  // Parauga dati progresa analīzei pa priekšmetiem
-  const [subjectProgress] = useState([
-    { id: 1, subject: 'Matemātika', progress: 78, tasksCompleted: 120, totalTasks: 150, status: 'Lieliski' },
-    { id: 2, subject: 'Latviešu valoda', progress: 65, tasksCompleted: 85, totalTasks: 130, status: 'Vidēji' },
-    { id: 3, subject: 'Angļu valoda', progress: 90, tasksCompleted: 110, totalTasks: 120, status: 'Izcili' },
-  ]);
-
-  // Vājās vietas / tēmas, kurām nepieciešams atkārtojums
-  const [weakTopics] = useState([
-    { id: 1, subject: 'Matemātika', topic: 'Trigonometriskās identitātes un vienādojumi', errorRate: '35%' },
-    { id: 2, subject: 'Latviešu valoda', topic: 'Saliktu pakārtotu teikumu pieturzīmes', errorRate: '28%' },
-  ]);
+function Progress() {
+  const { data } = useApp();
+  const all = overallStats(data);
+  const subjects = subjectStats(data);
+  const week = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(Date.now() - (6 - i) * 86400000);
+    return { key: toDateStr(d), label: DAY_LETTERS[d.getDay()], active: data.activity.includes(toDateStr(d)) };
+  });
 
   return (
-    <div className="min-h-screen bg-page flex flex-col">
-      <Navbar user={currentUser} />
-      
-      <div className="flex flex-1">
-        <Sidebar currentPath="/progress" />
+    <>
+      <PageHeader title="📊 Progresa un kļūdu analīze" subtitle="Seko savām sekmēm un atrodi tēmas, ko atkārtot pirms eksāmena." />
 
-        <main className="flex-1 p-4 sm:p-8 overflow-y-auto space-y-6 max-w-5xl">
-          
-          {/* Lapas virsraksts */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-800">📊 Progresa un kļūdu analīze</h1>
-              <p className="text-sm text-slate-500 mt-1">
-                Sekojiet līdzi savām sekmēm un identificējiet tēmas, kuras nepieciešams atkārtot pirms eksāmena.
-              </p>
-            </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+          <p className="text-xs text-slate-400 font-medium">Izpildīti darbi un uzdevumi</p>
+          <p className="text-2xl font-bold text-slate-800 mt-1"><CountUp to={all.completed} /> <span className="text-sm text-slate-400 font-semibold">/ {all.total}</span></p>
+          <span className="text-xs text-emerald-700 font-medium mt-2 inline-block">{all.total ? `${all.progress}% no visiem` : 'Pievieno termiņus un uzdevumus'}</span>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+          <p className="text-xs text-slate-400 font-medium">Pareizo atbilžu īpatsvars testos</p>
+          {all.accuracy === null ? <p className="text-2xl font-bold text-slate-300 mt-1">—</p> : <CountUp as="p" to={all.accuracy} suffix="%" className="text-2xl font-bold text-slate-800 mt-1" />}
+          <span className="text-xs text-indigo-600 font-medium mt-2 inline-block">{data.quizResults.length} {data.quizResults.length % 10 === 1 && data.quizResults.length % 100 !== 11 ? 'pildīts tests' : 'pildīti testi'}</span>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+          <p className="text-xs text-slate-400 font-medium">Aktivitāte šonedēļ</p>
+          <p className="text-2xl font-bold text-slate-800 mt-1">{all.activeThisWeek} {dienas(all.activeThisWeek)}</p>
+          <div className="flex gap-1.5 mt-2">
+            {week.map((d) => (
+              <span key={d.key} title={d.key} className={`flex-1 h-6 rounded-md text-[10px] font-bold flex items-center justify-center ${d.active ? 'bg-gradient-to-br from-accent to-accent2 text-white' : 'bg-slate-100 text-slate-400'}`}>{d.label}</span>
+            ))}
           </div>
-
-          {/* Galvenie statistikas rādītāji */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
-              <p className="text-xs text-slate-400 font-medium">Kopējais izpildīto uzdevumu skaits</p>
-              <CountUp as="p" to={315} className="text-2xl font-bold text-slate-800 mt-1" />
-              <span className="text-xs text-emerald-600 font-medium mt-2 inline-block">↑ Par 15% vairāk nekā pagājušonedēļ</span>
-            </div>
-
-            <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
-              <p className="text-xs text-slate-400 font-medium">Vidējais pareizo atbilžu īpatsvars</p>
-              <CountUp as="p" to={77} suffix="%" className="text-2xl font-bold text-slate-800 mt-1" />
-              <span className="text-xs text-indigo-600 font-medium mt-2 inline-block">Atbilst optimālajam līmenim</span>
-            </div>
-
-            <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
-              <p className="text-xs text-slate-400 font-medium">Aktivitāte šonedēļ</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">5 dienas</p>
-              <span className="text-xs text-violet-600 font-medium mt-2 inline-block">Lieliska disciplīna!</span>
-            </div>
-          </div>
-
-          {/* Progresa sadalījums pa priekšmetiem */}
-          <Card title="📚 Progresa sadalījums pa priekšmetiem" subtitle="Apgūtās tēmas un izpildītie uzdevumi">
-            <div className="space-y-5">
-              {subjectProgress.map((item) => (
-                <div key={item.id} className="space-y-2">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-semibold text-slate-800">{item.subject}</span>
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs text-slate-400">{item.tasksCompleted} / {item.totalTasks} uzdevumi</span>
-                      <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">
-                        {item.progress}%
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Progresa josla */}
-                  <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-indigo-600 rounded-full transition-all duration-500" 
-                      style={{ width: `${item.progress}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Vājo vietu / kļūdu analīze */}
-          <Card title="⚠️ Vājās vietas un ieteiktie atkārtojumi" subtitle="Tēmas, kurās visbiežāk pieļautas kļūdas">
-            <div className="space-y-3">
-              {weakTopics.map((item) => (
-                <div key={item.id} className="p-4 rounded-2xl bg-amber-50/50 border border-amber-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">{item.subject}</span>
-                    <h4 className="font-semibold text-slate-800 text-sm md:text-base">{item.topic}</h4>
-                    <p className="text-xs text-slate-500">Kļūdu īpatsvars šajos uzdevumos: <span className="font-semibold text-rose-600">{item.errorRate}</span></p>
-                  </div>
-
-                  <Button 
-                    variant="primary" 
-                    onClick={() => window.location.href = '/exams?mode=ai'}
-                    className="text-xs py-2 px-3 whitespace-nowrap"
-                  >
-                    🤖 Prasīt AI skaidrojumu
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-        </main>
+        </div>
       </div>
-    </div>
+
+      <Card title="📚 Progress pa priekšmetiem" subtitle="Izpildītie termiņi + uzdevumi un precizitāte testos">
+        {subjects.length === 0 ? (
+          <EmptyState icon="📚" title="Nav priekšmetu" text="Pievieno priekšmetus profilā.">
+            <Link href="/profile" className="text-sm font-semibold text-accent hover:underline">Uz profilu →</Link>
+          </EmptyState>
+        ) : (
+          <div className="space-y-5">
+            {subjects.map((item) => (
+              <div key={item.id} className="space-y-2">
+                <div className="flex flex-wrap justify-between items-center gap-2 text-sm">
+                  <span className="font-semibold text-slate-800 flex items-center gap-2"><i className="w-2.5 h-2.5 rounded-full" style={{ background: item.color }} />{item.name}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-slate-400">{item.completed} / {item.total} darbi</span>
+                    {item.accuracy !== null && <span className="text-xs text-slate-500">testi {item.accuracy}%</span>}
+                    <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">{item.progress}%</span>
+                  </div>
+                </div>
+                <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${item.progress}%`, background: item.color }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </Card>
+
+      <ProgressTracking />
+    </>
+  );
+}
+
+export default function ProgressPage() {
+  return (
+    <AppShell className="max-w-5xl">
+      <Progress />
+    </AppShell>
   );
 }
