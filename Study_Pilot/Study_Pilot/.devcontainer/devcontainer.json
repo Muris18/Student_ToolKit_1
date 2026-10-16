@@ -1,0 +1,15 @@
+{
+  "name": "Study Pilot",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": { "label": "Study Pilot", "onAutoForward": "openPreview" }
+  },
+  "postCreateCommand": "npm install",
+  "postAttachCommand": "npm run dev",
+  "customizations": {
+    "vscode": {
+      "extensions": ["bradlc.vscode-tailwindcss", "dbaeumer.vscode-eslint"]
+    }
+  }
+}
