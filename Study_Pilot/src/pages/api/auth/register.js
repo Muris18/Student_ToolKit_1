@@ -1,7 +1,7 @@
 import { db, createUser, createSession, findByEmail, publicUser, cleanProfile, validateProfile } from '../../../server/db';
 import { allow } from '../../../server/http';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
   const { email, password, profile } = req.body || {};
   const e = String(email || '').trim().toLowerCase();
@@ -10,9 +10,14 @@ export default function handler(req, res) {
   const p = cleanProfile(profile);
   const err = validateProfile(p);
   if (err) return res.status(400).json({ error: err });
-  if (findByEmail(e)) return res.status(409).json({ error: 'Šis e-pasts jau ir reģistrēts' });
+  if (await findByEmail(e)) return res.status(409).json({ error: 'Šis e-pasts jau ir reģistrēts' });
 
-  const user = createUser({ email: e, password, profile: p });
-  const token = createSession(user.id);
-  res.status(201).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data });
+  try {
+    const user = await createUser({ email: e, password, profile: p });
+    const token = await createSession(user.id);
+    res.status(201).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data });
+  } catch (error) {
+    if (error.code === '23505') return res.status(409).json({ error: 'Šis e-pasts jau ir reģistrēts' });
+    throw error;
+  }
 }

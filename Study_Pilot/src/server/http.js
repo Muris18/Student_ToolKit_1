@@ -8,10 +8,21 @@ export function allow(req, res, methods) {
 }
 
 // Atgriež lietotāju vai nosūta 401 un atgriež null
-export function requireUser(req, res) {
-  const { user } = userFromReq(req);
+export async function requireUser(req, res) {
+  const { user } = await userFromReq(req);
   if (!user) {
     res.status(401).json({ error: 'Nav pieslēgts', bootId: db.bootId });
+    return null;
+  }
+  return user;
+}
+
+// Tikai administratoriem: citādi 403
+export async function requireAdmin(req, res) {
+  const user = await requireUser(req, res);
+  if (!user) return null;
+  if (user.role !== 'admin') {
+    res.status(403).json({ error: 'Nav piekļuves' });
     return null;
   }
   return user;

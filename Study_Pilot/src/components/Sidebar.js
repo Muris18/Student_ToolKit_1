@@ -30,13 +30,15 @@ export function useIsActive() {
 export default function Sidebar() {
   const isActive = useIsActive();
   const { user, data } = useApp();
+  // Administrēšanas saite redzama tikai adminam (servera pusē to aizsargā requireAdmin)
+  const items = menuItems.filter((i) => i.href !== '/admin' || user?.role === 'admin');
   return (
     <aside className="w-64 shrink-0 bg-white/60 backdrop-blur border-r border-slate-100 hidden desktop:flex flex-col h-[calc(100vh-4rem)] sticky top-16">
       <div className="px-6 pt-6 pb-2">
         <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Navigācija</span>
       </div>
       <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto">
-        {menuItems.map((item) => (
+        {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}

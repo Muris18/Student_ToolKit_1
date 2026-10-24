@@ -1,12 +1,12 @@
-import { db } from '../../../server/db';
-import { allow, requireUser } from '../../../server/http';
+import { db, allUsers } from '../../../server/db';
+import { allow, requireAdmin } from '../../../server/http';
 
-// Pārskats par visiem šī servera palaišanas reizē reģistrētajiem lietotājiem
-export default function handler(req, res) {
+// Pārskats par visiem lietotājiem — TIKAI administratoriem
+export default async function handler(req, res) {
   if (!allow(req, res, ['GET'])) return;
-  if (!requireUser(req, res)) return;
+  if (!(await requireAdmin(req, res))) return;
   const today = new Date().toISOString().slice(0, 10);
-  const users = [...db.users.values()].map((u) => {
+  const users = (await allUsers()).map((u) => {
     const d = u.data;
     return {
       id: u.id,
