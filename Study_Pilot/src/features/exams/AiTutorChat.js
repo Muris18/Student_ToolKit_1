@@ -46,11 +46,11 @@ export default function AiTutorChat({ draft = '' }) {
     <Card
       title="🤖 Study Pilot AI Skolotājs"
       subtitle="Uzdod jautājumu par eksāmena uzdevumu vai tēmu"
-      className="flex flex-col h-[calc(100svh-15rem)] sm:h-[600px]"
+      className=""
       action={messages.length > 0 && <Button variant="ghost" onClick={clear} className="text-xs py-1.5 px-3">Notīrīt</Button>}
     >
-      <div className="flex flex-col h-full justify-between">
-        <div ref={listRef} className="flex-1 overflow-y-auto space-y-4 pr-2 mb-4">
+      <div>
+        <div ref={listRef} className="h-[calc(100svh-26rem)] min-h-[240px] sm:h-[420px] overflow-y-auto space-y-4 pr-2 mb-4">
           <div className="flex justify-start">
             <div className="max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed bg-slate-100 text-slate-800 rounded-bl-xs border border-slate-200/60">
               Sveiks! Es esmu Study Pilot AI mācību palīgs. Kādu eksāmena uzdevumu vai tēmu šodien vēlies izskaidrot?
