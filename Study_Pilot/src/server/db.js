@@ -10,6 +10,8 @@ if (!g.__SP_POOL__) {
 }
 const pool = g.__SP_POOL__;
 
+export const query = (text, params) => pool.query(text, params);
+
 export const db = { bootId: 'persistent', startedAt: new Date().toISOString() };
 
 export const emptyData = () => ({
@@ -31,13 +33,14 @@ const toUser = (r) => r && ({
   salt: r.salt,
   passHash: r.pass_hash,
   role: r.role,
+  plan: r.plan,
   profile: r.profile,
   data: r.data,
   createdAt: r.created_at.toISOString(),
   lastActive: r.last_active.toISOString(),
 });
 
-export const publicUser = (u) => ({ id: u.id, email: u.email, role: u.role, profile: u.profile, createdAt: u.createdAt });
+export const publicUser = (u) => ({ id: u.id, email: u.email, role: u.role, plan: u.plan, profile: u.profile, createdAt: u.createdAt });
 
 export async function findByEmail(email) {
   const e = String(email || '').trim().toLowerCase();
