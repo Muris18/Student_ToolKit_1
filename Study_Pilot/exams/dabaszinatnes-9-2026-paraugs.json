@@ -1,0 +1,705 @@
+{
+ "subject": "dabaszinātnes",
+ "grade": 9,
+ "year": 2026,
+ "session": "paraugs",
+ "title": "Centralizētais eksāmens dabaszinātņu jomā 9. klasei – paraugs 2026 (VIAA)",
+ "source_url": "",
+ "groups": {
+  "p1": {
+   "section": "1. daļa. Zināšanas un izpratne (30 punkti; katra pareiza atbilde 1 punkts)"
+  },
+  "u1a": {
+   "section": "2. daļa. Prasmes – 1. uzdevums (10 punkti)",
+   "topic": "cilvēka asinsrite, sirds un asinsvadi",
+   "context": "Sirds saraujoties veic darbu, nodrošinot asiņu plūsmu ķermenī. Attēlā ar bultiņām norādīti asins plūsmas virzieni sirds daļu saraušanās laikā.",
+   "figure": "Sirds šķērsgriezums ar bultiņām, kas rāda asins plūsmas virzienus sirds daļu saraušanās laikā."
+  },
+  "u1b": {
+   "section": "2. daļa. Prasmes – 1. uzdevums (10 punkti)",
+   "topic": "pulss, asinsspiediens, gaisa temperatūra, veselība",
+   "context": "Skolēns, lai saglabātu labu veselību, nolēma katru dienu veikt pusstundu ilgus vidējas slodzes skrējienus. Viņš vēlējās noskaidrot, kurā dienas laikā vislabāk to darīt. Bioloģijas stundās viņš bija mācījies, ka apstākļi, kādos atrodas cilvēks, ietekmē sirds darbību. To, cik intensīvi nodarbināta sirds, raksturo divi rādītāji: pulss un asinsspiediens. Izpēti tabulu ar asinsrites un gaisa vides temperatūras rādītājiem dažādos diennakts laikos, lai atbildētu uz jautājumiem.\nTabula – asinsrites un gaisa vides temperatūras rādītāji dažādos diennakts laikos (pulss – reizes/min; sistoliskais jeb optimālais asinsspiediens artērijā sirds saraušanās laikā – mm Hg).\nDiennakts laiks | gaisa temperatūra, °C | pulss miera stāvoklī | pulss skrienot | asinsspiediens miera stāvoklī | asinsspiediens skrienot\n06.00–07.00 | 6–8 | 60–65 | 70–80 | 110–120 | 110\n07.30–08.30 | 8–12 | 60–65 | 70–85 | 110–120 | 125–135\n12.00–13.00 | 14–20 | 60–65 | 85–95 | 110–120 | 130–135\n17.00–18.00 | 12–18 | 60–65 | 80–90 | 110–120 | 125\n21.00–22.00 | 6–12 | 60–70 | 65–85 | 110–120 | 115"
+  },
+  "u2a": {
+   "section": "2. daļa. Prasmes – 2. uzdevums (10 punkti)",
+   "topic": "enerģija, jauda, siltuma pārnese",
+   "context": "Skolēns izmanto klēpjdatoram pieslēdzamu tējas krūzītes sildītāju. Sildītāja pasē rakstīti tā raksturlielumi: darba spriegums U = 5 V; jauda P = 4 W.",
+   "figure": "Zīmējums: tējas krūzīte uz sildītāja, kas pieslēgts klēpjdatoram."
+  },
+  "u2b": {
+   "section": "2. daļa. Prasmes – 2. uzdevums (10 punkti)",
+   "topic": "elektriskā ķēde, paralēlais slēgums, pretestība",
+   "context": "Atvienojis sildītāju no datora, skolēns no sildītāja izņēma sildelementu. Izjaucot sildelementu, skolēns redzēja, ka to veido 20 Ω rezistors un rezistors R, kura pretestība nav zināma. Lai noteiktu abu rezistoru kopējo pretestību, viņš izveidoja jaunu slēgumu.",
+   "figure": "Elektriskā shēma: strāvas avots ar slēdzi, voltmetrs (V) un ampērmetrs (A); sildelementā 20 Ω rezistors un rezistors R ir slēgti paralēli."
+  },
+  "u3a": {
+   "section": "2. daļa. Prasmes – 3. uzdevums (10 punkti)",
+   "topic": "ķīmisko elementu periodiskā tabula, nātrijs",
+   "context": "Ķīmisko elementu periodiskajā tabulā (ĶEPT) elementi ir sakārtoti periodos un grupās."
+  },
+  "u3b": {
+   "section": "2. daļa. Prasmes – 3. uzdevums (10 punkti)",
+   "topic": "ķīmiskā reakcija, nātrijs, ūdeņradis, pH, sārmu metāli",
+   "context": "Skolotājs demonstrēja eksperimentu – nātrija gabaliņu ievietoja traukā ar ūdeni, kuram bija pievienots indikatora fenolftaleīna šķīdums. Eksperimentu apraksta ķīmiskās reakcijas vienādojums 2Na + 2H₂O → 2NaOH + H₂.",
+   "figure": "Zīmējums: trauks ar ūdeni un fenolftaleīnu, tajā nātrija gabaliņš, ap kuru veidojas gāzes burbuļi."
+  },
+  "u4a": {
+   "section": "2. daļa. Prasmes – 4. uzdevums (10 punkti)",
+   "topic": "pētījums, siltumizolācija, dūnas, mainīgie lielumi",
+   "context": "Slēpotāju jakai īpaši labi jāuztur ķermeņa siltums. Jaka veidota no dažādu materiālu slāņiem: ārējais slānis ir ūdensdrošs, vidējais slānis – dūnas, iekšējais slānis – gluds, spožs. Skolēni pētīja dažādu veidu dūnas – J, K, L, M un N –, lai noskaidrotu, no kurām izgatavot jaku, kas labāk uztur siltumu. Katra veida dūnu slāni aptina ap kolbu, kuru piepildīja ar karstu ūdeni. Ūdens temperatūru mērīja katras 10 minūtes 50 minūšu laikā.",
+   "figure": "Zīmējumi: jakas slāņu griezums (ārējais ūdensdrošs, vidējais – dūnas, iekšējais gluds un spožs) un eksperimenta iekārta – kolba ar karstu ūdeni un termometru, ap to dūnu slānis un vārglāze, uz karstumizturīgas pamatnes, ar vāku."
+  },
+  "u4b": {
+   "section": "2. daļa. Prasmes – 4. uzdevums (10 punkti)",
+   "topic": "pētījums, grafiks, siltumizolācija, dūnas, ticamība",
+   "context": "Slēpotāju jakai īpaši labi jāuztur ķermeņa siltums. Jaka veidota no dažādu materiālu slāņiem: ārējais slānis ir ūdensdrošs, vidējais slānis – dūnas, iekšējais slānis – gluds, spožs. Skolēni pētīja dažādu veidu dūnas – J, K, L, M un N –, lai noskaidrotu, no kurām izgatavot jaku, kas labāk uztur siltumu. Katra veida dūnu slāni aptina ap kolbu, kuru piepildīja ar karstu ūdeni. Ūdens temperatūru mērīja katras 10 minūtes 50 minūšu laikā.\nDaļu datu skolēns attēloja grafikā. Mērījumu dati par dūnām M nav attēloti grafikā, bet doti tabulā.\nMērījuma Nr. 1–5; laiks, minūtes: 10, 20, 30, 40, 50; temperatūra, °C: 57,5; 47,5; 40,0; 35,0; 32,5.",
+   "figure": "Zīmējumi: jakas slāņu griezums (ārējais ūdensdrošs, vidējais – dūnas, iekšējais gluds un spožs) un eksperimenta iekārta – kolba ar karstu ūdeni un termometru, ap to dūnu slānis un vārglāze, uz karstumizturīgas pamatnes, ar vāku. Grafiks: temperatūra (°C) pret laiku (līdz 60 min) ar četrām krītošām līknēm dūnām J, K, L un N, sākot ap 75 °C; pēc 50 min līknes J, K un L ir ap 23–26 °C, bet N saglabā augstāko temperatūru, ap 45–46 °C."
+  }
+ },
+ "tasks": [
+  {
+   "number": "1",
+   "group": "p1",
+   "topic": "dzīvnieku valsts, barošanās",
+   "kind": "choice",
+   "text": "Kurš dzīvnieku valsts organismiem raksturīgs process nodrošina šūnu darbībai nepieciešamo organisko vielu iegūšanu?",
+   "options": {
+    "A": "elpošana",
+    "B": "izvadīšana",
+    "C": "augšana",
+    "D": "barošanās"
+   },
+   "points": 1,
+   "answer": "D – barošanās"
+  },
+  {
+   "number": "2",
+   "group": "p1",
+   "topic": "imunitāte, vakcinācija",
+   "kind": "choice",
+   "text": "Kas veido dabīgo aktīvo imunitāti?",
+   "options": {
+    "A": "Inficēšanās ar patogēnu – jā; vakcinācija – jā",
+    "B": "inficēšanās ar patogēnu – jā; vakcinācija – nē",
+    "C": "inficēšanās ar patogēnu – nē; vakcinācija – jā",
+    "D": "inficēšanās ar patogēnu – nē; vakcinācija – nē"
+   },
+   "points": 1,
+   "answer": "B – inficēšanās ar patogēnu – jā; vakcinācija – nē"
+  },
+  {
+   "number": "3",
+   "group": "p1",
+   "topic": "elpošana, dzīvnieku evolūcija",
+   "kind": "choice",
+   "text": "Dzīvniekiem gāzu maiņa notiek caur atšķirīgām elpošanas virsmām. Evolūcijas procesā notiek organismu uzbūves pilnveidošanās, kas nodrošina labāku izdzīvošanu atbilstoši dzīves videi un dzīvesveidam. Kuram dzīvniekam ir lielākais plaušu iekšējās virsmas laukums?",
+   "options": {
+    "A": "krupim",
+    "B": "ķirzakai",
+    "C": "čūskai",
+    "D": "kaķim"
+   },
+   "points": 1,
+   "answer": "D – kaķim"
+  },
+  {
+   "number": "4",
+   "group": "p1",
+   "topic": "dzimumvairošanās, reproduktīvā sistēma",
+   "kind": "choice",
+   "text": "Diagramma ilustrē zīdītāja sievišķo reproduktīvo sistēmu. Apaugļošanās notiek ar X apzīmētajā struktūrā. Savukārt putniem, kuri ir oldējēji, apaugļošanās notiek struktūrā Y. Kādēļ putniem apaugļošanās nenotiek struktūrā X?",
+   "options": {
+    "A": "putniem spermatozoīdi ir mazāki nekā zīdītājiem, tādēļ tie ātrāk sasniedz apaugļošanās vietu",
+    "B": "putnu olšūna ir ar lielākām dzeltenuma rezerves vielām, tādēļ tā lēnāk pārvietojas un tiek ātrāk apaugļota",
+    "C": "apaugļošanās procesam jānotiek tuvāk olnīcai – pirms olšūnai izveidojas apvalki",
+    "D": "putni dēj olas ar lielāku laika intervālu, bet zīdītāji mazuļus citu pēc citas dzemdē ar mazāku laika intervālu"
+   },
+   "points": 1,
+   "answer": "C – apaugļošanās procesam jānotiek tuvāk olnīcai – pirms olšūnai izveidojas apvalki",
+   "figure": "Zīdītāja sievišķās reproduktīvās sistēmas shēma. X norāda uz olvadiem, Y – uz olnīcu (apraksts sagatavots no zīmējuma)."
+  },
+  {
+   "number": "5",
+   "group": "p1",
+   "topic": "sirds un asinsvadu slimības, veselība",
+   "kind": "choice",
+   "text": "Pēdējos gados novērots, ka diagnosticēto sirds un asinsvadu saslimšanas gadījumu skaits palielinās, bet mirstība no šīm slimībām samazinās. Kādēļ tā notiek?",
+   "options": {
+    "A": "lielākai daļai cilvēku slimība tiek atklāta agrāk, un ārstēšana ir efektīvāka",
+    "B": "cilvēkiem ir vairāk kaitīgu ieradumu, kuri izraisa saslimšanu, bet šie ieradumi nepalielina mirstību",
+    "C": "vides piesārņojums palielinās, tāpēc saslimst vairāk cilvēku",
+    "D": "cilvēki vairāk interesējas par pareizu uzturu un savām fiziskajām aktivitātēm"
+   },
+   "points": 1,
+   "answer": "A – lielākai daļai cilvēku slimība tiek atklāta agrāk, un ārstēšana ir efektīvāka"
+  },
+  {
+   "number": "6",
+   "group": "p1",
+   "topic": "barošanās tīkls, biocenoze",
+   "kind": "choice",
+   "text": "Barošanās tīkls parāda organisko vielu pārvietošanos biocenozē. Kuri barošanās tīkla attēlā redzamie organismi ir augstākās pakāpes patērētāji?",
+   "options": {
+    "A": "abinieku kāpuri",
+    "B": "spāru kāpuri",
+    "C": "odu kāpuri",
+    "D": "planktons"
+   },
+   "points": 1,
+   "answer": "B – spāru kāpuri",
+   "figure": "Barošanās tīkla shēma ar planktonu, spāru kāpuriem, odu kāpuriem un abinieku kāpuriem. Bultas virzās no planktona uz kāpuriem un no odu un abinieku kāpuriem uz spāru kāpuriem (apraksts sagatavots no zīmējuma)."
+  },
+  {
+   "number": "7",
+   "group": "p1",
+   "topic": "bioloģiskā daudzveidība, ekosistēma",
+   "kind": "choice",
+   "text": "Skolēns, pētot ekosistēmu, to raksturoja, izmantojot četrus rādītājus: 1) sugu skaits ekosistēmā; 2) organismu skaits katrā pētītajā sugā; 3) barošanās ķēžu skaits ekosistēmā; 4) barošanās tīklu skaits ekosistēmā. Kuri rādītāji raksturo bioloģisko daudzveidību noteiktā ekosistēmā?",
+   "options": {
+    "A": "tikai 1)",
+    "B": "1) un 2)",
+    "C": "3) un 4)",
+    "D": "2) un 3)"
+   },
+   "points": 1,
+   "answer": "B – 1) un 2)"
+  },
+  {
+   "number": "8",
+   "group": "p1",
+   "topic": "dzimumvairošanās, DNS",
+   "kind": "choice",
+   "text": "Kura atbilde ir patiesa par dzimumvairošanos?",
+   "options": {
+    "A": "Pēcnācēja radīšanai nepieciešama apaugļota olšūna – jā; pēcnācēja DNS ir vienāda ar organisma DNS, no kura pēcnācējs radies – jā",
+    "B": "olšūna nepieciešama – jā; DNS vienāda – nē",
+    "C": "olšūna nepieciešama – nē; DNS vienāda – jā",
+    "D": "olšūna nepieciešama – nē; DNS vienāda – nē"
+   },
+   "points": 1,
+   "answer": "B – olšūna nepieciešama – jā; DNS vienāda – nē"
+  },
+  {
+   "number": "9",
+   "group": "p1",
+   "topic": "posmkāji, kukaiņi, sistemātika",
+   "kind": "choice",
+   "text": "Attēlos redzami posmkāji: uts, ods, ērce, krabis. Cik no tiem nav kukaiņi?",
+   "options": {
+    "A": "viens",
+    "B": "divi",
+    "C": "trīs",
+    "D": "četri"
+   },
+   "points": 1,
+   "answer": "B – divi",
+   "figure": "Četri posmkāju zīmējumi: uts, ods, ērce, krabis."
+  },
+  {
+   "number": "10",
+   "group": "p1",
+   "topic": "mērījumi, palielinājums",
+   "kind": "choice",
+   "text": "Ērces garums no galvas sākuma līdz vēdera galam ir 3,5 mm. Attēlā uzzīmētās ērces garums ir 41 mm. Kāds ir uzzīmētās ērces palielinājums?",
+   "options": {
+    "A": "0,09",
+    "B": "8,5",
+    "C": "11,7",
+    "D": "143,5"
+   },
+   "points": 1,
+   "answer": "C – 11,7",
+   "figure": "Ērces zīmējums; zem tā bultiņa ar atzīmi 41 mm."
+  },
+  {
+   "number": "11",
+   "group": "p1",
+   "topic": "mērījumi, laiks",
+   "kind": "choice",
+   "text": "Sportists izmanto hronometru, lai mērītu laiku, skrienot pa apļveida trasi. Attēlā parādīti hronometra rādījumi trijos dažādos laika momentos. Cik ilgi sportists skrēja otro apli?",
+   "options": {
+    "A": "50 s",
+    "B": "73 s",
+    "C": "100 s",
+    "D": "123 s"
+   },
+   "points": 1,
+   "answer": "A – 50 s",
+   "figure": "Hronometra rādījumi (min:s): starts – 00:00; pirmā apļa beigas – 01:13; otrā apļa beigas – 02:03."
+  },
+  {
+   "number": "12",
+   "group": "p1",
+   "topic": "molekulas, siltums",
+   "kind": "choice",
+   "text": "Aukstā ziemas dienā balonu piepūš ar hēliju un cieši aizsien. Pēc tam balonu ienes siltā istabā. Kas notiek ar hēlija molekulām?",
+   "options": {
+    "A": "tās izplešas",
+    "B": "tās kļūst smagākas",
+    "C": "tās atsitas pret balona sienām ar mazāku spēku",
+    "D": "tās kustas ātrāk"
+   },
+   "points": 1,
+   "answer": "D – tās kustas ātrāk",
+   "figure": "Balons, kura iekšpusē zīmētas haotiski kustīgas molekulas ar bultiņām."
+  },
+  {
+   "number": "13",
+   "group": "p1",
+   "topic": "kustība, grafiki",
+   "kind": "choice",
+   "text": "Iesēdies šūpolēs, skolēns centās uzšūpoties, cik augstu vien iespējams. Kurā grafikā vispareizāk parādīts, kā mainās šūpoļu sēdekļa augstums virs zemes atkarībā no laika?",
+   "options": {
+    "A": "grafiks A",
+    "B": "grafiks B",
+    "C": "grafiks C",
+    "D": "grafiks D"
+   },
+   "points": 1,
+   "answer": "A – grafiks A",
+   "figure": "Četri grafiki (Sēdekļa augstums pret Laiku): A – viļņota līnija ar augošu amplitūdu; B – ligzdotas U veida līknes; C – regulāras viļņveida svārstības ar nemainīgu amplitūdu; D – augoša taisne (apraksts aptuvens)."
+  },
+  {
+   "number": "14",
+   "group": "p1",
+   "topic": "spēki, līdzsvars",
+   "kind": "choice",
+   "text": "Gaisa balons pārvietojas ar nemainīgu ātrumu un atrodas nemainīgā augstumā virs zemes. Attēlā parādīti četri spēki (F₁, F₂, F₃ un F₄), kuri iedarbojas uz balonu. Kurā atbildē pareizi salīdzinātas spēku skaitliskās vērtības?",
+   "options": {
+    "A": "F₁ = F₃ un F₂ = F₄",
+    "B": "F₁ = F₃ un F₂ > F₄",
+    "C": "F₁ = F₃ un F₂ < F₄",
+    "D": "F₁ < F₃ un F₂ > F₄"
+   },
+   "points": 1,
+   "answer": "A – F₁ = F₃ un F₂ = F₄",
+   "figure": "Gaisa balons ar četriem spēkiem: F₁ horizontāli pa kreisi, F₃ horizontāli pa labi (kustības virzienā), F₂ vertikāli uz augšu, F₄ vertikāli uz leju."
+  },
+  {
+   "number": "15",
+   "group": "p1",
+   "topic": "svira, līdzsvars",
+   "kind": "choice",
+   "text": "Sviras vienā galā iekārts atsvars P un otrā galā – atsvars Q. Sviras svaru var neievērot. Svira ir līdzsvarota. Atsvari izgatavoti no dažādiem materiāliem. Kurā rindā ir norādītas iespējamās atsvaru P un Q svara vērtības?",
+   "options": {
+    "A": "P = 1 N, Q = 3 N",
+    "B": "P = 9 N, Q = 1 N",
+    "C": "P = 3 N, Q = 1 N",
+    "D": "P = 3 N, Q = 9 N"
+   },
+   "points": 1,
+   "answer": "C – P = 3 N, Q = 1 N",
+   "figure": "Līdzsvarota svira ar atbalstu: attālums no atbalsta līdz atsvaram P ir 30 cm, līdz atsvaram Q – 90 cm."
+  },
+  {
+   "number": "16",
+   "group": "p1",
+   "topic": "enerģija, potenciālā enerģija",
+   "kind": "choice",
+   "text": "Ķieģeļi uz galda var nolikt trijos atšķirīgos stāvokļos. Kurā stāvoklī ķieģeļa potenciālā enerģija attiecībā pret galda virsmu ir lielākā?",
+   "options": {
+    "A": "visos stāvokļos vienāda",
+    "B": "stāvoklī 1",
+    "C": "stāvoklī 2",
+    "D": "stāvoklī 3"
+   },
+   "points": 1,
+   "answer": "C – stāvoklī 2",
+   "figure": "Trīs ķieģeļa stāvokļi uz galda: 1 – guļ uz plašākās skaldnes, 2 – stāv vertikāli uz mazākās skaldnes (augstākais), 3 – guļ zemāk uz vidējās skaldnes."
+  },
+  {
+   "number": "17",
+   "group": "p1",
+   "topic": "agregātstāvokļi, kušana",
+   "kind": "choice",
+   "text": "Nezināmu vielu karsē traukā uz plīts. Grafiks parāda, kā vielas temperatūra mainās laikā. Kurā posmā viela kūst?",
+   "options": {
+    "A": "posmā 1–2",
+    "B": "posmā 2–3",
+    "C": "posmā 3–4",
+    "D": "posmā 4–5"
+   },
+   "points": 1,
+   "answer": "B – posmā 2–3",
+   "figure": "Temperatūras un laika grafiks ar punktiem 0–5: temperatūra strauji aug posmā 1–2, posmā 2–3 līnija ir horizontāla (temperatūra nemainās), posmā 3–4 temperatūra atkal aug, posmā 4–5 līnija atkal ir horizontāla."
+  },
+  {
+   "number": "18",
+   "group": "p1",
+   "topic": "elektriskie lādiņi, elektrizēšana",
+   "kind": "choice",
+   "text": "Skolēns tuvina negatīvi lādētu plastmasas stienīti ūdens strūklai, kas tek no krāna. Ūdens strūkla izliecas stienīša virzienā. Kurā attēlā vispareizāk attēlots elektrisko lādiņu izvietojums ūdens strūklā?",
+   "options": {
+    "A": "attēls A",
+    "B": "attēls B",
+    "C": "attēls C",
+    "D": "attēls D"
+   },
+   "points": 1,
+   "answer": "B – attēls B",
+   "figure": "Četri zīmējumi A–D: negatīvi lādēts stienītis un ūdens strūkla ar dažādi izvietotiem plusa un mīnusa lādiņiem. Precīzo izvietojumu AI neredz, jāskatās eksāmena lapā."
+  },
+  {
+   "number": "19",
+   "group": "p1",
+   "topic": "gaisma, spogulis",
+   "kind": "choice",
+   "text": "Burta F formas priekšmets novietots pie plakana spoguļa. Kurā gadījumā parādīts burta F formas priekšmeta attēls?",
+   "options": {
+    "A": "attēls A",
+    "B": "attēls B",
+    "C": "attēls C",
+    "D": "attēls D"
+   },
+   "points": 1,
+   "answer": "B – attēls B",
+   "figure": "Burts F novietots pa kreisi no vertikāla spoguļa; četri varianti A–D rāda dažādi pagrieztus vai spoguļotus burtus F. Precīzo variantu AI neredz."
+  },
+  {
+   "number": "20",
+   "group": "p1",
+   "topic": "fizikālā un ķīmiskā pārvērtība, kušana",
+   "kind": "choice",
+   "text": "Karstā dienā uz svariem novieto ledus gabaliņu noslēgtā traukā. Kura atbilde vispareizāk apraksta stundas laikā ar ledu notiekošo pārvērtību?",
+   "options": {
+    "A": "svaru rādījums samazinās; ķīmiska pārvērtība; iztvaikošana",
+    "B": "svaru rādījums nemainās; fizikāla pārvērtība; iztvaikošana",
+    "C": "svaru rādījums samazinās; ķīmiska pārvērtība; kušana",
+    "D": "svaru rādījums nemainās; fizikāla pārvērtība; kušana"
+   },
+   "points": 1,
+   "answer": "D – svaru rādījums nemainās; fizikāla pārvērtība; kušana",
+   "figure": "Noslēgts trauks ar ledus gabaliņu uz svariem."
+  },
+  {
+   "number": "21",
+   "group": "p1",
+   "topic": "oksīdi, molekulformula",
+   "kind": "choice",
+   "text": "Kura oksīda molekulformulā ir lielākais atomu skaits?",
+   "options": {
+    "A": "CO",
+    "B": "SO₂",
+    "C": "P₂O₅",
+    "D": "SO₃"
+   },
+   "points": 1,
+   "answer": "C – P₂O₅"
+  },
+  {
+   "number": "22",
+   "group": "p1",
+   "topic": "skābes, neorganisko vielu klases",
+   "kind": "choice",
+   "text": "Dotas neorganisko vielu klašu pārstāvju ķīmiskās formulas. Kurā atbildē ir vienīgi skābju ķīmiskās formulas?",
+   "options": {
+    "A": "H₂SO₃ un H₃PO₄",
+    "B": "H₂CO₃ un Ba(OH)₂",
+    "C": "K₂CO₃ un HCl",
+    "D": "Na₂SiO₃ un HCl"
+   },
+   "points": 1,
+   "answer": "A – H₂SO₃ un H₃PO₄"
+  },
+  {
+   "number": "23",
+   "group": "p1",
+   "topic": "organiskās vielas, alkāni, butāns",
+   "kind": "choice",
+   "text": "Kura ir butāna molekulformula?",
+   "options": {
+    "A": "CH₄",
+    "B": "C₂H₄",
+    "C": "C₄H₁₀",
+    "D": "C₃H₆"
+   },
+   "points": 1,
+   "answer": "C – C₄H₁₀"
+  },
+  {
+   "number": "24",
+   "group": "p1",
+   "topic": "alkāni, agregātstāvokļi",
+   "kind": "choice",
+   "text": "Kurš alkāns istabas temperatūrā (20 °C) ir šķidrā agregātstāvoklī?",
+   "options": {
+    "A": "etāns",
+    "B": "propāns",
+    "C": "butāns",
+    "D": "pentāns"
+   },
+   "points": 1,
+   "answer": "D – pentāns",
+   "context": "Tabulā dotas dažu alkānu fizikālās īpašības (kušanas temperatūra / viršanas temperatūra, °C): etāns –183 / –89; propāns –187 / –42; butāns –138 / –0,5; pentāns –130 / +36."
+  },
+  {
+   "number": "25",
+   "group": "p1",
+   "topic": "ķīmiskā pārvērtība, degšana",
+   "kind": "choice",
+   "text": "Kura ir ķīmiska pārvērtība?",
+   "options": {
+    "A": "malkas degšana",
+    "B": "benzīna iztvaikošana",
+    "C": "miglas veidošanās virs ezera",
+    "D": "sniegpārsliņas veidošanās"
+   },
+   "points": 1,
+   "answer": "A – malkas degšana"
+  },
+  {
+   "number": "26",
+   "group": "p1",
+   "topic": "šķīdumi, masas daļa",
+   "kind": "choice",
+   "text": "Cik gramu ūdens nepieciešams, lai pagatavotu 150 g šķīduma, kas satur 30 gramus sāls?",
+   "options": {
+    "A": "50",
+    "B": "120",
+    "C": "150",
+    "D": "180"
+   },
+   "points": 1,
+   "answer": "B – 120"
+  },
+  {
+   "number": "27",
+   "group": "p1",
+   "topic": "ķīmiskās reakcijas, apmaiņas reakcija",
+   "kind": "choice",
+   "text": "Kurš ķīmiskās reakcijas vienādojums apraksta apmaiņas reakcijas norisi?",
+   "options": {
+    "A": "H₂CO₃ → H₂O + CO₂",
+    "B": "CaO + CO₂ → CaCO₃",
+    "C": "Zn + CuSO₄ → ZnSO₄ + Cu",
+    "D": "NaOH + HNO₃ → NaNO₃ + H₂O"
+   },
+   "points": 1,
+   "answer": "D – NaOH + HNO₃ → NaNO₃ + H₂O"
+  },
+  {
+   "number": "28",
+   "group": "p1",
+   "topic": "organiskās vielas, spirti, molekulas modelis",
+   "kind": "choice",
+   "text": "Attēlā redzams organiskas vielas molekulas uzbūves modelis. Kura ir šīs vielas ķīmiskā formula?",
+   "options": {
+    "A": "CH₃OH",
+    "B": "C₂H₅OH",
+    "C": "CH₃CHO",
+    "D": "C₂H₅CHO"
+   },
+   "points": 1,
+   "answer": "B – C₂H₅OH",
+   "figure": "Molekulas lodīšu modelis: divi melni (oglekļa) atomi, viens skābekļa atoms un vairāki mazie ūdeņraža atomi."
+  },
+  {
+   "number": "29",
+   "group": "p1",
+   "topic": "ķīmiskās formulas, sāļi",
+   "kind": "choice",
+   "text": "Kura ir kalcija hlorīda ķīmiskā formula?",
+   "options": {
+    "A": "CaCl₂",
+    "B": "CaCl",
+    "C": "Ca₂Cl₇",
+    "D": "Ca₇Cl₂"
+   },
+   "points": 1,
+   "answer": "A – CaCl₂"
+  },
+  {
+   "number": "30",
+   "group": "p1",
+   "topic": "ķīmiskās formulas, oksīdi",
+   "kind": "choice",
+   "text": "Kura ir slāpekļa(II) oksīda ķīmiskā formula?",
+   "options": {
+    "A": "N₂O",
+    "B": "N₂O₅",
+    "C": "NO₂",
+    "D": "NO"
+   },
+   "points": 1,
+   "answer": "D – NO"
+  },
+  {
+   "number": "1.1",
+   "group": "u1a",
+   "kind": "open",
+   "text": "Attēlā norādi (pievelc norādes svītriņu) to sirds daļu, kurā izdzen asinis lielajā asinsrites lokā!",
+   "points": 1,
+   "answer": "Vērtēšana (1 p.): 1 p. – svītriņa pievilkta pareizajā vietā: norāda uz kreisā kambara sienu (muskuli), sirds daļu, kura veic lielāko darbu. 0 p. – nav atbildes vai svītriņa pievilkta nepareizajā vietā (piemēram, kreisā kambara iekšpusē vai labajā pusē; atceries, ka attēlā labajā pusē ir sirds kreisā puse)."
+  },
+  {
+   "number": "1.2",
+   "group": "u1a",
+   "kind": "open",
+   "text": "Kā sauc asinsvadus, pa kuriem asinis plūst prom no sirds?",
+   "points": 1,
+   "answer": "Vērtēšana (1 p.): 1 p. – pareizs asinsvadu nosaukums: artērijas. 0 p. – nepareizs nosaukums vai nav atbildes (piemēram, aorta, vēnas)."
+  },
+  {
+   "number": "1.3",
+   "group": "u1b",
+   "kind": "open",
+   "text": "Izmantojot tabulas datus, raksturo gaisa temperatūras ietekmi uz pulsu un asinsspiedienu miera stāvoklī!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – uzraksta neatbilstošu, virspusēju vai nepilnīgu spriedumu vai nav atbildes (piemēri: 'gaisa temperatūra neietekmē miera stāvokļa pulsu'; 'gaisa temperatūra ietekmē pulsu un asinsspiedienu'; 'palielinoties temperatūrai asinsrite ir lielāka'). 1 p. – uzraksta gaisa temperatūras ietekmi uz pulsu un asinsspiedienu, bet nav pamatots ar skaitlisko vērtību izmaiņām, tikai pārrakstīti tabulas dati (piemērs: 'gaisa temperatūra neietekmē miera stāvokļa pulsu, bet paaugstina asinsspiedienu'). 2 p. – uzraksta gaisa temperatūras ietekmi uz pulsu un asinsspiedienu, pamatojot ar tabulā dotām skaitliskām vērtību izmaiņām vai aprēķinātu vērtības izmaiņu, lieto atbilstošus mērvienību nosaukumus. Piemērs 2 p.: paaugstinoties gaisa temperatūrai, pulss miera stāvoklī nemainās (aptuveni 60–65 reizes/min), bet asinsspiediens paaugstinās no 110 līdz 135 mm Hg (par aptuveni 15–25 mm Hg)."
+  },
+  {
+   "number": "1.4",
+   "group": "u1b",
+   "kind": "open",
+   "text": "Paskaidro, kādēļ gaisa temperatūra ietekmē sirds darbību!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – uzraksta nepareizu (tabulas datiem neatbilstošu) vai nepilnīgu spriedumu vai nav atbildes (piemēri: 'karstā dienā, kad mēs svīstam, sirds sāk pukstēt straujāk, jo ķermenis atdod siltumu caur ādu'; 'sirds pielāgojas gaisa temperatūrai'). 1 p. – skaidrojums ietver izpratni, ka sirds darbs (sirds muskuļa saraušanās spēks) ir cēlonis paaugstinātam asinsspiedienam situācijā ar augstāku gaisa temperatūru, vai izprot, ka sirdij jāveic lielāks darbs, lai nodrošinātu relatīvi nemainīgu ķermeņa iekšējo temperatūru. Piemēri 1 p.: asinsvadi paplašinās, un sirdij jāpumpē vairāk asiņu; paaugstinot temperatūru, pulss nemainās, bet asinsspiediens paaugstinās, jo organisms centās saglabāt normālu asinsriti; sirdij jāveic lielāks darbs augstākā gaisa temperatūrā, jo cilvēks vairāk svīst. 2 p. – skaidrojums ietver izpratni par asinsvadu diametra izmaiņām vai aprēķinātu gaisa temperatūras ietekmi uz organisma pašregulācijas mehānismu, kas nodrošina šūnu apgādi ar nepieciešamajām vielām, vai kompensācijas mehānismu – enerģijas patēriņu, kas nepieciešams ķermeņa dzesēšanai. Piemērs 2 p.: karstumā asinsvadi paplašinās, tādēļ sirdij ir spēcīgāk jāsaraujas, lai šūnas nodrošinātu ar vajadzīgajām vielām (skābekli, barības vielām), un papildus svīšanai tiek tērēts vairāk enerģijas."
+  },
+  {
+   "number": "1.5",
+   "group": "u1b",
+   "kind": "open",
+   "text": "Izmantojot tabulas datus, raksturo, kā diennakts laikā mainās asinsrites rādītāji!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – neatbilstošs (tabulas datiem neatbilstošs) vai nepilnīgs spriedums vai nav atbildes (piemēram, 'sirds pielāgojas dienas laikam', 'asinsrites rādītāji diennakts laikā mainās – no sākuma palielinās un tad samazinās'). 1 p. – raksturojumā iekļauj diennakts laika periodu un atbilstošo asinsrites rādītāja izmaiņu (piemēram, 'pusdienlaikā pulss un asinsspiediens paaugstinās, vakarā atkal samazinās'; 'asinsrites rādītāji ir vislielākie laikā no 12.00–13.00'). 2 p. – raksturota diennakts laika ietekme uz pulsu un asinsspiedienu, pamatota ar tabulā dotām skaitliskām vērtību izmaiņām vai aprēķinātu izmaiņu, lietoti atbilstoši mērvienību nosaukumi. Piemērs: dienas laikā pulss miera stāvoklī paliek nemainīgs (60–65 reizes/min), bet vakarā nedaudz paaugstinās līdz 60–70. Skrienot pulss ir visaugstākais pusdienlaikā (85–95) un zemākais no rīta un vakarā. Arī asinsspiediens ir visaugstākais dienas vidū (130–135 mm Hg) un zemākais vakarā (115 mm Hg)."
+  },
+  {
+   "number": "1.6",
+   "group": "u1b",
+   "kind": "open",
+   "text": "Izvērtē tabulas datus un iesaki, cikos labāk veikt ikdienas skriešanu, lai sirds būtu mazāk noslogota! Pamato savu ieteikumu ar tabulas datiem!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – nav uzrakstīts diennakts laiks, nav pamatojuma vai pamatojums neizvērtē datus (piemēram, 'vakarā, jo tad ir zemi rādītāji', 'vakarā, jo tad sirds ir mazāk noslogota'). 1 p. – uzrakstīts konkrēts diennakts laiks, kad skriešana nosloga sirdi vismazāk, un pamatots ar tabulas datiem, izvēli pamatojot ar vienu zemāko asinsrites rādītāju. Piemēri: vēlu vakarā 21.00–22.00, skrienot retāks pulss 65; vēlu vakarā asinsspiediens ir zems (115 mm Hg), nav vairs tik silts kā dienas laikā; skriešana no rīta 06.00–07.00 ir veselīgāka sirdij, jo tās saraujas retāk, vai asinsspiediens ir zemāks kā dienas vidū. 2 p. – uzrakstīts konkrēts diennakts laiks, kad skriešana sirdi noslogo vismazāk, pamatots ar tabulas datiem un pamatots izvēli ar zemākiem rādītājiem (pulss skrienot un/vai sistoliskais spiediens, gaisa temperatūra) vai izsaka viedokli, kas saistīts ar skolas mācību darba dienas režīmu. Piemērs: skriešana no rīta 06.00–07.00 ir sirdij mazāk noslogota, jo tad pulss skrienot nav augstāks par 80, asinsspiediens ir viszemākais – 110 mm Hg, kas ir zemāks nekā visos citos laikos; agri no rīta ir zemākā gaisa temperatūra, mazāk svīst. Vakarā 21.00–22.00 skriešana ir veselīgāka sirdij, jo tad pulss skrienot ir mazākais 65, asinsspiediens ir zems – 115 mm Hg, kas ir zemāks nekā dienā, īpaši pusdienlaikā, kad rādītāji ir visaugstākie."
+  },
+  {
+   "number": "2.1",
+   "group": "u2a",
+   "kind": "open",
+   "text": "Uzraksti divus faktorus, kuri līdzās sildītāja jaudai ietekmē enerģijas pārneses ātrumu no sildītāja uz tēju!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.; par katru nozīmīgu faktoru 1 p.): 0 p. – neuzraksta faktoru, kas ietekmē enerģijas pārneses ātrumu no sildītāja uz tēju, vai uzraksta faktoru, kas ietekmē tējas temperatūras izmaiņu, bet nav saistīts ar siltumapmaiņu starp tēju un sildītāju. Neatbilstoši faktori, piemēram: tējas daudzums, vāciņš, gaisa plūsma virs krūzītes. Jebkuri divi no: krūzītes materiāls; krūzītes biezums; krūzītes un pamatnes (sildvirsmas) saskares laukums; pamatnes (sildvirsmas) temperatūra (krūzītes un pamatnes temperatūru starpība); cits faktors, kas var būtiski ietekmēt siltuma pārnesi."
+  },
+  {
+   "number": "2.2",
+   "group": "u2a",
+   "kind": "open",
+   "text": "Klēpjdators darbojas, izmantojot akumulatora enerģiju. Kā sildītājs izmaina klēpjdatora darbības laiku? Pamato savu atbildi!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – neatbild uz jautājumu vai atbild nepareizi (piemēri: 'datora darbības ilgums nemainās'; 'datora darbības laiks pieaug'). 1 p. – uzraksta atbildi uz jautājumu: datora darbības laiks samazinās. 1 p. – pamatojums iekļauj spriedumu, ka sildītājs patērē daļu akumulatora enerģijas (piemēri: 'sildītājs tērē enerģiju, datora darbībai tās būs mazāk'; 'sildītājs patērē enerģiju, tāpēc datoram tā ātrāk izbeigsies')."
+  },
+  {
+   "number": "2.3",
+   "group": "u2a",
+   "kind": "open",
+   "text": "Cik lielu enerģiju sildītājs patērē piecās minūtēs? Parādi risinājumu!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – aprēķins nav veikts vai nav parādīts risinājums (piemēram, W = P/t = 4/5 = 0,8 J). 1 p. – parāda patērētās enerģijas aprēķinu ar formulu vai ievietojot skaitļus; skaitlisks aprēķins nav veikts, pieļauta kļūda skaitliskajā aprēķinā un/vai nav norādīta mērvienība (piemēram, W = P·t = 4·5 = 20 J). 2 p. – parāda aprēķinu ar formulu vai ievietojot skaitļus un skaitliski aprēķina patērēto enerģiju, norādot mērvienību.",
+   "solution": "W = P·t = 4 W · 5·60 s = 1200 J (var arī kWh: 0,004 kW · 5/60 h ≈ 3,33·10⁻⁴ kWh)."
+  },
+  {
+   "number": "2.4",
+   "group": "u2a",
+   "kind": "open",
+   "text": "Skolēns mērīja tējas temperatūru krūzītē un ievēroja, ka tā saglabājas nemainīga (45 °C), lai gan sildītājs visu laiku ir ieslēgts. Kādēļ tējas temperatūra nepaaugstinās?",
+   "points": 1,
+   "answer": "Vērtēšana (1 p.): 0 p. – atbildes nav vai nepareiza. 1 p. – atbilde iekļauj siltuma zudumus. Piemēri: ir siltuma zudumi; tēja visu laiku arī dziest, jo tās temperatūra ir augstāka par istabas temperatūru; sildītājs silda arī krūzīti un apkārtni. Der arī cita atbilde saistībā ar siltuma zudumiem."
+  },
+  {
+   "number": "2.5",
+   "group": "u2b",
+   "kind": "open",
+   "text": "Izmantojot iegūtos datus, skolēns aprēķināja abu rezistoru kopējo pretestību. Viņa atbilde bija 40 Ω. Pamato, kāpēc skolēna atbilde nevar būt pareiza dotajam rezistoru slēgumam!",
+   "points": 3,
+   "answer": "Vērtēšana (3 p.): 0 p. – pamatojuma nav vai tas ir nepareizs (piemēram, 'skolēna atbilde ir pareiza', 'tā teikts uzdevumā'). 1 p. – pamatojums nepilnīgs, daļēji kļūdains, bet iekļauj vienu atbilstošu spriedumu vai ideju (piemēram, 'saslēdzot rezistorus kā shēmā, pretestība samazinās', 'rezistori slēgti paralēli'). 2 p. – atpazīts paralēlais slēgums: nosaukts vai uzrakstīts paralēlā slēguma kopējās pretestības aprēķina formula, vai pamatojums iekļauj spriedumu, ka paralēlā slēguma kopējā pretestība ir mazāka par rezistora ar mazāko pretestību pretestību (piemēram, rezistori paralēlā slēgumā – kopējai pretestībai jābūt mazākai par rezistora pretestību; kopējai pretestībai nevar būt tik liela). 3 p. – atpazīts paralēlais slēgums, uzrakstīta formula 1/R_kop = 1/R₁ + 1/R₂, un pamatojums iekļauj spriedumu, ka kopējā pretestība ir mazāka nekā rezistoram ar mazāko pretestību, un pretestību salīdzinājumu. Piemērs 3 p.: rezistori paralēlā slēgumā – kopējai pretestībai jābūt mazākai par 20 Ω, tā nevar būt tik liela. 1/R_kop = 1/R₁ + 1/R₂. Kopējai pretestībai jābūt mazākai nekā 20 Ω, tā nevar būt 40 Ω."
+  },
+  {
+   "number": "3.1",
+   "group": "u3a",
+   "kind": "open",
+   "text": "Kurā grupā atrodas nātrijs?",
+   "points": 1,
+   "answer": "Vērtēšana (1 p.): 1 p. – pareizi uzrakstīts grupas numurs, kurā atrodas nātrijs: IA grupā. 0 p. – atbildes nav vai tā nav pareiza (piemēram, IIA grupā)."
+  },
+  {
+   "number": "3.2",
+   "group": "u3b",
+   "kind": "open",
+   "text": "Nosauc divas ķīmiskās reakcijas pazīmes, ko novēro skolēni!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – atbildes nav vai tā nav pareiza (piemēram, veidojās nogulsnes). 1 p. – uzrakstīta tikai viena ķīmiskās reakcijas pazīme (izdalās gāze vai mainījās šķīduma krāsa). 2 p. – uzrakstītas divas pazīmes: izdalās gāze un mainās šķīduma krāsa (šķīdums kļūst aveņsarkans)."
+  },
+  {
+   "number": "3.3",
+   "group": "u3b",
+   "kind": "open",
+   "text": "Aprēķini ūdeņraža H₂ tilpumu (n. a.), kāds izdalījās, ja eksperimentam izlietoja 2,3 g nātrija! M(Na) = 23 g/mol.",
+   "points": 3,
+   "answer": "Vērtēšana (3 p.): 0 p. – uzdevums nav risināts vai risinājums nav pareizs. 1 p. – aprēķina nātrija daudzumu: n(Na) = 2,3 g / 23 g/mol = 0,1 mol. 1 p. – aprēķina ūdeņraža daudzumu: n(H₂) = n(Na)/2 = 0,1 mol / 2 = 0,05 mol. 1 p. – aprēķina ūdeņraža tilpumu: V(H₂) = n(H₂)·V₀ = 0,05 mol · 22,4 L/mol = 1,12 L. Piezīmes: jebkurš loģisks, pamatots un pareizi noformēts risinājums ir pieņemams neatkarīgi no atrisināšanas paņēmiena; ja mērvienība nav norādīta tikai vienā vietā, punktus nesamazina; ja kļūdainas darbības rezultātā nākamā darbība ir pareiza, to uzskata par pareizu.",
+   "solution": "n(Na) = 0,1 mol; n(H₂) = 0,05 mol; V(H₂) = 1,12 L."
+  },
+  {
+   "number": "3.4",
+   "group": "u3b",
+   "kind": "open",
+   "text": "Paskaidro, kā veiktā eksperimenta laikā mainīsies pH vērtība traukā!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – atbildes nav vai tā nav pareiza (piemēram, pH vērtība samazināsies). 1 p. – skaidrojums ietver apgalvojumu, bet trūkst pamatojuma (piemēram, šķīduma pH palielināsies). 2 p. – skaidrojums ietver apgalvojumu un pamatojumu: šķīduma pH vērtība paaugstināsies, jo ķīmiskās reakcijas rezultātā veidojās sārms."
+  },
+  {
+   "number": "3.5",
+   "group": "u3b",
+   "kind": "open",
+   "text": "Prognozē, kāda atšķirība būs eksperimenta novērojamos, ja skolotājs eksperimentu atkārtos, nātrija vietā izmantojot litiju! Pamato atbildi, izmantojot informāciju no ĶEPT!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – atbildes nav vai tā nav pareiza (piemēram, ūdeņraža izdalīšanās intensitāte palielināsies). 1 p. – skaidrojums ietver apgalvojumu, bet trūkst pamatojuma (samazināsies ūdeņraža izdalīšanās intensitāte). 2 p. – apgalvojums un pamatojums: samazināsies ūdeņraža izdalīšanās intensitāte, jo litijs ir mazāk aktīvs metāls salīdzinot ar nātriju (ĶEPT litijs ir IA grupā augstāk par nātriju)."
+  },
+  {
+   "number": "4.1",
+   "group": "u4a",
+   "kind": "open",
+   "text": "Lai varētu salīdzināt rezultātus, katru reizi izmantoja vienādu ūdens tilpumu. Uzraksti vēl vienu lielumu, kuru ir svarīgi saglabāt nemainīgu!",
+   "points": 1,
+   "answer": "Vērtēšana (1 p.): 0 p. – nenosauc vai nepareizi nosauc pētījuma fiksēto lielumu; nosauc neatkarīgo vai atkarīgo lielumu. Neder: ūdens daudzums (jau nosaukts uzdevuma tekstā), dūnu veids (neatkarīgais lielums), 'temperatūra mainās'. 1 p. – nosauc vismaz vienu nozīmīgu pētījuma fiksēto lielumu. Piemēri: dūnu slāņa biezums; telpas temperatūra; vārglāzes novietojums (attālums no siltuma avotiem); ūdens sākuma temperatūra; cits lielums, kas var būtiski ietekmēt pētījuma rezultātu."
+  },
+  {
+   "number": "4.2",
+   "group": "u4b",
+   "kind": "open",
+   "text": "Papildini grafiku ar mērījumu datu punktiem atbilstoši tabulai un iezīmē dūnām M atbilstošo līniju!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.; zīmēšanas uzdevums): 0 p. – datu punkti nav atlikti vai atlikti nepareizi, līnija nav iezīmēta. 1 p. – pareizi atlikti datu punkti (pieļaujama viena nenozīmīga kļūda). 1 p. – atbilstoši atliktajiem datu punktiem iezīmēta gluda līnija."
+  },
+  {
+   "number": "4.3",
+   "group": "u4b",
+   "kind": "open",
+   "text": "Izmantojot grafiku, prognozē, kāda varētu būt ūdens temperatūra vārglāzē pēc vienas stundas!",
+   "points": 1,
+   "answer": "Vērtēšana (1 p.): 0 p. – neuzraksta vai uzraksta nepareizu prognozi, vai bez mērvienības. 1 p. – uzraksta prognozi, norādot mērvienību; prognoze var būt uzrakstīta pie grafika. Pieņemamas prognozes: 45,0 °C; 45 °C; 46 °C; 45,5 °C."
+  },
+  {
+   "number": "4.4",
+   "group": "u4b",
+   "kind": "open",
+   "text": "Kuras dūnas tu ieteiktu izmantot slēpotāja jakas izgatavošanai? Pamato savu izvēli!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – izvēli neizdara vai izvēlas dūnas J, K, L vai M; pamatojuma nav vai tas nepareizs (piemēram, 'L dūnas, jo tā rāda grafiks', 'visas dūnas der jakai'). 1 p. – izvēlas dūnas N, pamatojuma nav, tas nepareizs vai nepilnīgs (piemēram, 'N dūnas, jo tās ir labas'); VAI izvēlas dūnas J, K, L vai M, bet tās pamatojuma ideja ir pareiza (piemēram, 'L dūnas, jo labi saglabā siltumu'). 2 p. – izvēlas dūnas N un sniedz pamatotu, datos balstītu skaidrojumu. Piemērs: izvēlētos dūnas N, jo temperatūra krīt vislēnāk; pēc 50 min N dūnām temperatūra ir visaugstākā."
+  },
+  {
+   "number": "4.5",
+   "group": "u4b",
+   "kind": "open",
+   "text": "Uzraksti divus priekšlikumus, kā varētu palielināt eksperimenta rezultātu ticamību!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – priekšlikumus neuzraksta; priekšlikumi iekļauj jau nosauktos fiksētos lielumus vai uzdevumam neatbilstošas idejas (piemēram, lietot precīzāku termometru; ūdens daudzums vienāds; jāmēra ik pēc 10 min; paņemt vairāk dūnu; zīmēt grafiku rūpīgāk). 1 p. – uzraksta vienu priekšlikumu, kas palielina ticamību; VAI divus priekšlikumus, bet tikai viens palielina ticamību; VAI priekšlikumi atkārto darba uzdevumā teikto un/vai jautājumā 4.1 jau nosaukto fiksēto lielumu (piemēram, atkārtot eksperimentu vairākas reizes; termometru turēt taisni; paņemt vairāk dūnu). 2 p. – uzraksta divus priekšlikumus, kas palielina ticamību un neatkārto uzdevumā teikto vai 4.1 nosaukto fiksēto lielumu. Jebkuri divi no: atkārtot visu mērījumu sēriju; termometru katrā reizē novietot vienā vietā kolbā; neizkustināt dūnu slāni mērījumu gaitā; atkārtot eksperimentu citā dienā, lai pārliecinātos."
+  },
+  {
+   "number": "4.6",
+   "group": "u4b",
+   "kind": "open",
+   "text": "Skaidro, kādēļ, novērtējot jakas piemērotību cilvēka fiziskajām aktivitātēm, pētījums ar karsta ūdens vārglāzi nav pietiekams!",
+   "points": 2,
+   "answer": "Vērtēšana (2 p.): 0 p. – nav skaidrojuma vai tas nav saistīts ar fizisko aktivitāšu veikšanu (piemēram, jakai jābūt piemērotai cilvēka fiziskajām aktivitātēm – ērtai). 1 p. – uzraksta fizioloģiskajam kritērijam atbilstošu skaidrojumu: cilvēks fiziskās aktivitātes laikā svīst, rezultātā izdala ūdeni, kas ietekmē jakas spēju saglabāt siltumu. 2 p. – uzraksta atšķirīgiem kritērijiem atbilstošus skaidrojumus: fizioloģiskajam un jakas dizaina piemērotība. Piemērs: cilvēks fiziskās aktivitātes laikā svīst – rezultātā izdala ūdeni, kas ietekmē jakas spēju saglabāt siltumu. Piemērota fiziskās aktivitātes kustībām (piegriezums, izolācijas materiāla biezums atšķirīgās jakas daļās)."
+  }
+ ]
+}

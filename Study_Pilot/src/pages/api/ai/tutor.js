@@ -24,7 +24,8 @@ export default async function handler(req, res) {
 
   try {
     const grade = user.profile?.level === 'klase' && [9, 12].includes(user.profile.grade) ? user.profile.grade : undefined;
-    const tasks = await findTasks(message, { grade });
+    const earlier = history.filter((m) => m.sender === 'user').slice(-2).map((m) => m.text.slice(0, 400)).join(' ');
+    const tasks = await findTasks(`${earlier} ${message}`.trim(), { grade });
     const { reply, usage, model } = await askDeepSeek(buildMessages({ message, history, tasks }));
     await logUsage(user.id, model, usage);
     res.status(200).json({ reply, sources: tasks.map(taskLabel), remaining: limit - used - 1 });
