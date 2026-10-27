@@ -17,6 +17,9 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://sp:${POSTGRES_PASSWORD}@db:5432/sp
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      AI_DAILY_LIMIT_FREE: ${AI_DAILY_LIMIT_FREE:-10}
+      AI_DAILY_LIMIT_PREMIUM: ${AI_DAILY_LIMIT_PREMIUM:-100}
 
   caddy:
     image: caddy:2

@@ -1,0 +1,19 @@
+{
+  "subject": "matemātika",
+  "grade": 9,
+  "year": 2099,
+  "session": "paraugs",
+  "title": "PARAUGS — nav īsts eksāmens (fails ar _ netiek importēts)",
+  "source_url": "https://visc.gov.lv/",
+  "tasks": [
+    {
+      "number": "1",
+      "section": "A daļa",
+      "topic": "lineārie vienādojumi",
+      "text": "Atrisini vienādojumu $2x + 3 = 11$.",
+      "points": 2,
+      "answer": "x = 4",
+      "solution": "Atņem 3 abās pusēs, tad dali ar 2."
+    }
+  ]
+}
