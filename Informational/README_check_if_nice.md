@@ -12,7 +12,6 @@
 ![AI](https://img.shields.io/badge/AI-RAG%20palīgs-8A2BE2?style=for-the-badge)
 ![Valoda](https://img.shields.io/badge/valoda-latviešu%20🇱🇻-9E1B32?style=for-the-badge)
 ![Frontend](https://img.shields.io/badge/React%20%2F%20Next.js-111?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 
 <br>
@@ -202,14 +201,13 @@ Izvēle var mainīties. Iespējamais prototipa risinājums:
 
 | Daļa | Tehnoloģija | Pielietojums |
 |---|---|---|
-| 🎨 Frontend | React / Next.js | Lietotāja saskarne |
-| 🔑 Autentifikācija | Supabase Auth | Lietotāju konti |
-| 🗄️ Datubāze | PostgreSQL / Supabase | Lietotāji, uzdevumi, progress |
-| 📦 Faili | Supabase Storage | PDF un materiāli |
-| 🤖 AI | AI API servera pusē | Skaidrojumi un atbalsts |
-| 📄 Dokumenti | PDF izvilkšana + OCR | Importēšana |
-| 🔍 Meklēšana | Embeddings + pgvector | Atbilstošu uzdevumu atrašana |
-| ➗ Matemātika | KaTeX / MathJax | Formulu attēlošana |
+| 🎨 Frontend un API | Next.js 15 / React 18 | Lietotāja saskarne un REST API |
+| 🔑 Autentifikācija | Pašu veidota (scrypt + sesijas žetons) | Lietotāju konti |
+| 🗄️ Datubāze | Pašu PostgreSQL 16 (Docker) | Lietotāji, uzdevumi, progress, eksāmeni |
+| 🤖 AI | DeepSeek API servera pusē | Mājieni un skaidrojumi |
+| 🔍 Meklēšana | PostgreSQL pilnteksts (vēlāk embeddings + pgvector) | Atbilstošu uzdevumu atrašana |
+| 🌐 Serveris | Hetzner Cloud + Docker Compose + Caddy (HTTPS) | Darbojas 24/7 |
+| ➗ Matemātika | KaTeX *(plānots)* | Formulu attēlošana |
 
 > 🧪 Pirmajai demo versijai pietiek ar vienu priekšmetu, nelielu pārbaudītu materiālu kopu un vienkāršu meklēšanu.
 
@@ -281,7 +279,7 @@ AI_API_KEY=
 - 👮 Ierobežo piekļuvi administratora funkcijām.
 - 🧍 Neļauj vienam lietotājam piekļūt cita lietotāja privātajiem datiem.
 - ⏱️ Ievieš failu izmēra un pieprasījumu skaita ierobežojumus.
-- 📜 Izstrādā datu glabāšanas un dzēšanas kārtību un privātuma paziņojumu (lietotāji var būt nepilngadīgi).
+- 📜 Privātuma politika: [`PRIVACY.md`](../PRIVACY.md); vācamo datu saraksts — [saknes README](../README.md#kādus-datus-platforma-apstrādā) (lietotāji var būt nepilngadīgi).
 
 ## 🗺️ Attīstības plāns
 
