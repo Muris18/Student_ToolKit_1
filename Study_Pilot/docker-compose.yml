@@ -21,6 +21,23 @@ services:
       AI_DAILY_LIMIT_FREE: ${AI_DAILY_LIMIT_FREE:-10}
       AI_DAILY_LIMIT_PREMIUM: ${AI_DAILY_LIMIT_PREMIUM:-100}
 
+  # Datubāzes rezerves kopija reizi dienā mapē ./backups, glabā 7 dienas (skat. scripts/backup.sh)
+  backup:
+    image: postgres:16
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+      PGUSER: sp
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: sp
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-7}
+    volumes:
+      - ./backups:/backups
+      - ./scripts/backup.sh:/backup.sh:ro
+    entrypoint: ["sh", "/backup.sh"]
+
   caddy:
     image: caddy:2
     restart: always

@@ -47,6 +47,9 @@ desktop.ini
 .turbo
 *.pem
 
+# --- Datubāzes rezerves kopijas (satur personas datus!) ---
+backups/
+
 # --- Server uploads ---
 server/uploads/
 

@@ -18,8 +18,8 @@ Sīkāk — zemāk.
 
 Study Pilot ir mācību platforma skolēniem un studentiem, kas gatavojas valsts pārbaudes darbiem.
 
-Personas datu pārzinis: **Rodrigo [uzvārds]**  
-Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv**
+Personas datu pārziņi: **Rodrigo Šaudiņš** un **Kristers Mortuzāns** (kopīgi pārziņi). Mēs kopā nosakām, kādus datus un kāpēc apstrādājam, un esam savstarpēji vienojušies par pienākumu sadali.  
+Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt par jebkuru jautājumu, un mēs to izskatīsim neatkarīgi no tā, kurš no mums par to atbild.
 
 ## 2. Kādus datus mēs vācam
 
@@ -81,7 +81,7 @@ Ja to pieprasīs likums (piemēram, tiesībsargājošās iestādes), mēs varam 
 - **Konta dati, profils, mācību dati un čata vēsture** — kamēr tev ir konts. Dzēšot kontu, tie tiek izdzēsti uzreiz.
 - **AI lietojuma ieraksti** — kamēr tev ir konts; dzēšot kontu, tie tiek izdzēsti.
 - **Sesijas** — derīgas 30 dienas. Izrakstoties vai dzēšot kontu, tās tiek izdzēstas uzreiz, beigušās sesijas — automātiski.
-- **Rezerves kopijas** — [līdz X dienām; pēc tam dzēstie dati izzūd arī no kopijām].
+- **Rezerves kopijas** — reizi dienā tiek izveidota datubāzes rezerves kopija, kas tiek glabāta **7 dienas** tajā pašā ES serverī un tad automātiski izdzēsta. Tāpēc dzēsti dati no rezerves kopijām pilnībā izzūd 7 dienu laikā. Rezerves kopijas izmantojam tikai datu atjaunošanai pēc kļūmes.
 - **Neaktīvi konti** — ja kontu neesi lietojis 24 mēnešus, tas automātiski tiek dzēsts kopā ar visiem tā datiem.
 
 ## 7. Tavas tiesības
@@ -114,6 +114,7 @@ Ja esi vecāks un uzskati, ka tavs bērns izveidojis kontu bez atļaujas, raksti
 - Datubāze nav pieejama no interneta, tikai pašai lietotnei.
 - Katrs lietotājs var piekļūt tikai saviem datiem; administratora funkcijas pieejamas tikai administratoriem.
 - AI pakalpojuma atslēga glabājas tikai serverī.
+- Datubāzes rezerves kopijas ir pieejamas tikai servera administratoriem.
 
 Neviena sistēma nav pilnīgi droša. Ja notiks datu noplūde, kas var apdraudēt tavas tiesības, mēs tevi informēsim un ziņosim Datu valsts inspekcijai likumā noteiktajā kārtībā.
 

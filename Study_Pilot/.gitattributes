@@ -1,0 +1,2 @@
+# Shell skriptiem vienmēr LF rindu beigas (citādi Linux serverī tie nestrādā, ja izņemti uz Windows)
+*.sh text eol=lf

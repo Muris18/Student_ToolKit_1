@@ -15,7 +15,7 @@ Sīkāk — zemāk.
 
 ## 1. Kas mēs esam
 
-Study Pilot ir mācību platforma skolēniem un studentiem, kas gatavojas valsts pārbaudes darbiem. Platformu uztur **Rodrigo [uzvārds]** (turpmāk — "mēs").
+Study Pilot ir mācību platforma skolēniem un studentiem, kas gatavojas valsts pārbaudes darbiem. Platformu uztur **Rodrigo Šaudiņš** un **Kristers Mortuzāns** (turpmāk — "mēs").
 
 Kontakti: **jautajumi@studypilot.lv**
 

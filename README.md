@@ -150,7 +150,7 @@ Pirms platformu atver reāliem lietotājiem:
 - [ ] Aizpildīt atlikušās vietas politikā — skat. [`PRIVACY.md`](PRIVACY.md).
 - [ ] E-pasta apstiprināšana.
 - [ ] Pieslēgšanās mēģinājumu ierobežojums.
-- [ ] Datubāzes rezerves kopijas (un to glabāšanas termiņš).
+- [x] Datubāzes rezerves kopijas reizi dienā, glabā 7 dienas.
 - [ ] Vektoru meklēšana (RAG) AI skolotājam.
 
 ## Avoti un autortiesības

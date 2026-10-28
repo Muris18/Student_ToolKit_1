@@ -77,11 +77,29 @@ docker compose up -d --build
 docker compose exec app npm run import:exams
 ```
 
-`docker-compose.yml` palaiž trīs konteinerus:
+`docker-compose.yml` palaiž četrus konteinerus:
 
 - **db** — PostgreSQL 16, dati Docker volume `pgdata`, ports uz āru netiek atvērts;
 - **app** — Next.js; startā izpilda `npm run migrate` un `npm start`;
+- **backup** — reizi dienā datubāzes rezerves kopija mapē `backups/`, glabā 7 dienas (`scripts/backup.sh`);
 - **caddy** — HTTPS un reverse proxy uz `app:3000`, sertifikāts automātiski domēnam `DOMAIN`.
+
+### Rezerves kopijas
+
+- Pirmā kopija tiek izveidota uzreiz pēc palaišanas, tad reizi 24 stundās: `backups/sp-<datums>_<laiks>.dump`.
+- Kopijas, kas vecākas par 7 dienām, tiek dzēstas automātiski. Termiņu maina ar `BACKUP_KEEP_DAYS` failā `.env`, bet **tad jāmaina arī privātuma politikas 6. sadaļa**.
+- Kopijas satur visus personas datus: mape `backups/` ir `.gitignore`, tās nekad nelieciet GitHub un nesūtiet pa e-pastu.
+- Pārbaudīt, vai strādā: `docker compose logs backup` un `ls -l backups`.
+
+**Atjaunošana no kopijas** (pārraksta pašreizējos datus!):
+
+```bash
+docker compose stop app
+docker compose exec -T db pg_restore -U sp -d sp --clean --if-exists --no-owner < backups/sp-2026-10-28_030000.dump
+docker compose start app
+```
+
+Kopijas glabājas tajā pašā serverī, tāpēc pasargā no kļūdām un nejaušas dzēšanas, bet ne no servera bojājuma. Lai būtu drošāk, ieslēdziet arī Hetzner Cloud servera rezerves kopijas (Hetzner konsolē → serveris → *Backups*; arī tās glabā 7 kopijas).
 
 ## Kā darbojas dati
 

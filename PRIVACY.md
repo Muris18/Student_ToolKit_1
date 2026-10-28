@@ -13,11 +13,10 @@ Ja kodā mainās vācamie dati vai ārējie servisi, atjauno arī politiku un ta
 
 Kamēr dokumentā ir vietas ar `[ ]`, lapa rāda brīdinājumu "Melnraksts".
 
-- [ ] Izlemt, kas ir pārzinis un pakalpojuma sniedzējs: Rodrigo, visa komanda vai (ja tas ir mācību projekts) tehnikums. Aprunāties ar skolotāju.
-- [ ] Ierakstīt pārziņa pilnu vārdu abos dokumentos (1. sadaļa) — viņam jābūt identificējamam.
+- [ ] **Rakstiska vienošanās starp kopīgajiem pārziņiem** (Rodrigo Šaudiņš un Kristers Mortuzāns, VDAR 26. pants): kurš atbild uz lietotāju pieprasījumiem, kurš uztur serveri un rezerves kopijas, kurš ziņo par datu noplūdi. Pietiek ar īsu dokumentu, ko abi parakstāt. Politikā jau rakstīts, ka tāda vienošanās ir.
 - [ ] Izveidot e-pastu jautajumi@studypilot.lv un pārliecināties, ka kāds to lasa.
 - [ ] Pārbaudīt Hetzner servera atrašanās vietu (5. sadaļa).
-- [ ] Iestatīt datubāzes rezerves kopijas un ierakstīt to glabāšanas termiņu (6. sadaļa).
+- [ ] Serverī ieslēgt arī Hetzner Cloud rezerves kopijas (pēc izvēles, drošībai pret servera bojājumu).
 - [ ] Ierakstīt spēkā stāšanās datumu abos dokumentos.
 - [ ] Ja tiek pievienota e-pasta apstiprināšana vai paroles atjaunošana, ierakstīt e-pasta sūtīšanas pakalpojumu 5. sadaļā.
 - [ ] Ja tiek pievienoti maksājumi (Premium), ierakstīt maksājumu pakalpojumu, kādi dati tam tiek nodoti un cik ilgi glabā rēķinus; papildināt lietošanas noteikumu 3. sadaļu (cena, atteikuma tiesības).
@@ -31,4 +30,6 @@ Kamēr dokumentā ir vietas ar `[ ]`, lapa rāda brīdinājumu "Melnraksts".
 - [x] Reģistrācijā obligātas atzīmes "Man ir vismaz 13 gadi" un "Piekrītu lietošanas noteikumiem un esmu izlasījis privātuma politiku"; apstiprinājuma laiks tiek saglabāts (`users.terms_accepted_at`).
 - [x] Piekrišana pirms pirmā AI jautājuma; laiks tiek saglabāts (`users.ai_consent_at`), atsaukt var profilā. Bez piekrišanas `/api/ai/tutor` atbild ar 403.
 - [x] "Lejupielādēt manus datus" profilā (`GET /api/me/export`, JSON).
+- [x] Pārziņi: Rodrigo Šaudiņš un Kristers Mortuzāns (kopīgi pārziņi).
+- [x] Automātiskas datubāzes rezerves kopijas reizi dienā, glabā 7 dienas (`backup` serviss `docker-compose.yml`); termiņš ierakstīts politikā.
 - [x] Beigušās sesijas un 24 mēnešus neaktīvi konti tiek dzēsti automātiski (ne biežāk kā reizi 6 h; arī `npm run cleanup`). Administratoru kontus nedzēš.
