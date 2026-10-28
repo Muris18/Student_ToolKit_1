@@ -117,7 +117,9 @@ export default function RegisterPage() {
           <label className="flex items-start gap-3 text-sm text-slate-600 cursor-pointer">
             <input type="checkbox" required checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-indigo-600" />
             <span>
-              Esmu izlasījis{' '}
+              Piekrītu{' '}
+              <Link href="/terms" target="_blank" className="font-semibold text-accent hover:underline">lietošanas noteikumiem</Link>
+              {' '}un esmu izlasījis{' '}
               <Link href="/privacy" target="_blank" className="font-semibold text-accent hover:underline">privātuma politiku</Link>
             </span>
           </label>

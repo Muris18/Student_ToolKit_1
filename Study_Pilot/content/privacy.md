@@ -3,6 +3,17 @@
 **Spēkā no:** [datums]  
 **Pēdējās izmaiņas:** [datums]
 
+## Īsumā
+
+- Mēs glabājam tikai to, kas vajadzīgs mācību rīkiem: e-pastu, vārdu, klasi un tavus mācību datus.
+- Tavus datus redzi tu; administratori redz tikai vārdu, klasi, skolu un ierakstu skaitu, ne saturu.
+- AI skolotājs sūta tavus jautājumus uz DeepSeek (Ķīnā) — tikai tad, ja tam piekrīti.
+- Mēs nepārdodam datus, nerādām reklāmas un neizmantojam sīkdatnes.
+- Profilā vari jebkurā laikā lejupielādēt vai izdzēst visus savus datus.
+- Platforma ir paredzēta no 13 gadu vecuma.
+
+Sīkāk — zemāk.
+
 ## 1. Kas mēs esam
 
 Study Pilot ir mācību platforma skolēniem un studentiem, kas gatavojas valsts pārbaudes darbiem.
@@ -12,7 +23,7 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv**
 
 ## 2. Kādus datus mēs vācam
 
-**Datus, ko tu ievadi pats:**
+**Datus, ko tu ievadi pats.** E-pasts, parole un vārds ir obligāti — bez tiem nevar izveidot kontu. Pārējais nav obligāts, bet bez klases AI skolotājs nevarēs piemeklēt tavas klases eksāmenus.
 
 - e-pasta adrese;
 - parole — mēs to neglabājam; glabājam tikai tās šifrētu hash, no kura paroli atjaunot nevar;
@@ -28,6 +39,8 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv**
 - AI lietojuma ieraksti: kad uzdots jautājums, kurš AI modelis atbildēja un cik garš bija jautājums un atbilde (tokenu skaits). Jautājuma teksts šajos ierakstos netiek glabāts;
 - pieslēgšanās sesijas (datubāzē glabājas tikai sesijas koda šifrēts hash);
 - laiks, kad reģistrācijā apstiprināji, ka tev ir vismaz 13 gadi un esi izlasījis šo politiku, un laiks, kad devi piekrišanu AI skolotājam (ja devi).
+
+**Tehniskie dati.** Kad atver platformu, serveris redz tavu IP adresi un pārlūka veidu — bez tā savienojums nav iespējams. Lietotne šos datus neglabā un nesaista ar tavu kontu. Kļūdu gadījumā servera žurnālos var īslaicīgi nonākt tehniska informācija par pieprasījumu.
 
 **Ko mēs NEvācam:** mēs neizmantojam sīkdatnes, analītiku, reklāmas vai citu pušu izsekošanas rīkus. Mēs nepieprasām tavu dzimšanas datumu, adresi, tālruni vai personas kodu. Lūdzam neievadīt šādus datus arī čatā vai uzdevumos.
 
@@ -46,6 +59,8 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv**
 
 Mēs nepārdodam tavus datus un neizmantojam tos reklāmai. Tavi dati netiek izmantoti AI modeļu apmācīšanai no mūsu puses.
 
+**Automatizēti lēmumi.** Platforma nepieņem par tevi automatizētus lēmumus, kam būtu juridiskas vai līdzīgi nozīmīgas sekas, un neveido tavu profilu šādiem lēmumiem. AI skolotājs dod tikai mājienus; tas neliek atzīmes un neietekmē tavus oficiālos rezultātus. Progresa pārskats tiek rādīts tikai tev.
+
 ## 4. Kas redz tavus datus
 
 - **Tu pats** — visus savus datus profilā un lietotnes sadaļās.
@@ -55,7 +70,7 @@ Mēs nepārdodam tavus datus un neizmantojam tos reklāmai. Tavi dati netiek izm
 ## 5. Kam mēs nododam datus
 
 - **Hetzner Online GmbH** (Vācija) — servera nodrošinātājs, uz kura darbojas platforma un datubāze. Dati glabājas Eiropas Savienībā. [Pārbaudi un ieraksti servera atrašanās vietu.]
-- **DeepSeek** — AI pakalpojums, kas ģenerē AI skolotāja atbildes. Kad uzdod jautājumu, DeepSeek saņem tavu jautājumu, pēdējās 6 čata ziņas un saistītos eksāmenu uzdevumus. Tavs vārds, e-pasts un skola **netiek** nosūtīti. **DeepSeek apstrādā datus ārpus Eiropas Savienības (Ķīnā)**, kur personas datu aizsardzības līmenis var būt zemāks nekā ES un tev var nebūt tādu pašu tiesību aizsardzības līdzekļu.
+- **DeepSeek** — AI pakalpojums, kas ģenerē AI skolotāja atbildes. Kad uzdod jautājumu, DeepSeek saņem tavu jautājumu, pēdējās 6 čata ziņas un saistītos eksāmenu uzdevumus. Tavs vārds, e-pasts un skola **netiek** nosūtīti. DeepSeek savā [privātuma politikā](https://chat.deepseek.com/downloads/DeepSeek%20Privacy%20Policy.html) norāda, ka glabā datus serveros Ķīnā, var tos izmantot savu pakalpojumu uzlabošanai un glabā tos, kamēr ir aktīvs konts (mūsu platformas DeepSeek konts), vai ilgāk, ja to prasa likums. Mēs to nevaram ietekmēt, un tavus jautājumus no DeepSeek izdzēst nevaram. **DeepSeek apstrādā datus ārpus Eiropas Savienības (Ķīnā)**, kur personas datu aizsardzības līmenis var būt zemāks nekā ES un tev var nebūt tādu pašu tiesību aizsardzības līdzekļu.
 
   Tāpēc pirms pirmā jautājuma AI skolotājam mēs tev parādām šo brīdinājumu un lūdzam skaidru piekrišanu (VDAR 49. panta 1. punkta a) apakšpunkts). Ja nepiekrīti, AI skolotājs nav pieejams, bet visas pārējās platformas funkcijas strādā kā parasti. Piekrišanu vari atsaukt jebkurā laikā profila sadaļā "Dati"; tas neietekmē jau nosūtītos jautājumus. **Nelieto AI čatā savus personas datus** (vārdu, adresi, tālruni u.c.).
 
@@ -74,18 +89,18 @@ Ja to pieprasīs likums (piemēram, tiesībsargājošās iestādes), mēs varam 
 Saskaņā ar Vispārīgo datu aizsardzības regulu (VDAR) tev ir tiesības:
 
 - **piekļūt** saviem datiem — tos vari redzēt lietotnē, lejupielādēt profilā vai pieprasīt pa e-pastu;
-- **labot** datus — profilā vari mainīt vārdu, klasi, skolu u.c.;
+- **labot** datus — profilā vari mainīt vārdu, klasi, skolu u.c.; e-pasta adresi pagaidām var nomainīt, rakstot uz **jautajumi@studypilot.lv**;
 - **dzēst** datus — profilā vari notīrīt visus savus mācību datus vai dzēst visu kontu;
 - **ierobežot apstrādi** un **iebilst** pret apstrādi, kas balstīta uz leģitīmajām interesēm;
 - **saņemt savus datus** pārnesamā formātā — profila sadaļā "Dati" ar pogu "Lejupielādēt manus datus" (JSON fails);
 - **atsaukt piekrišanu** AI skolotājam — profila sadaļā "Dati";
 - **iesniegt sūdzību** Datu valsts inspekcijā (www.dvi.gov.lv), ja uzskati, ka tavi dati apstrādāti nelikumīgi.
 
-Pieprasījumus sūti uz **jautajumi@studypilot.lv**. Atbildēsim viena mēneša laikā.
+Pieprasījumus sūti uz **jautajumi@studypilot.lv** no e-pasta, ar kuru esi reģistrējies, lai varam pārliecināties, ka tas tiešām esi tu. Atbildēsim viena mēneša laikā. Ja esi jaunāks par 18 gadiem, pieprasījumu var iesniegt arī tavs vecāks.
 
 ## 8. Bērni un jaunieši
 
-Study Pilot ir paredzēts skolēniem, tāpēc daļa lietotāju var būt nepilngadīgi.
+Study Pilot ir paredzēts skolēniem, tāpēc daļa lietotāju var būt nepilngadīgi. Tāpēc šo politiku cenšamies rakstīt vienkārši; ja kaut kas nav skaidrs, pajautā mums vai vecākiem.
 
 Platformu drīkst lietot **tikai no 13 gadu vecuma**. Reģistrējoties tu atzīmē, ka tev ir vismaz 13 gadi. Ja esi jaunāks, lūdzu, nereģistrējies.
 
@@ -104,4 +119,4 @@ Neviena sistēma nav pilnīgi droša. Ja notiks datu noplūde, kas var apdraudē
 
 ## 10. Izmaiņas šajā politikā
 
-Ja mainīsim to, kādus datus vācam vai kam tos nododam, atjaunosim šo lapu un datumu augšā. Par būtiskām izmaiņām paziņosim lietotnē vai pa e-pastu.
+Šī politika darbojas kopā ar [lietošanas noteikumiem](/terms). Ja mainīsim to, kādus datus vācam vai kam tos nododam, atjaunosim šo lapu un datumu augšā. Par būtiskām izmaiņām paziņosim lietotnē vai pa e-pastu.

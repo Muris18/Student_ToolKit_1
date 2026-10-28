@@ -73,7 +73,7 @@ Student_ToolKit_1/
     │   ├── pages/         ← lapas un pages/api/* (REST API)
     │   ├── server/        ← db.js (PostgreSQL), ai.js (DeepSeek), http.js
     │   └── styles/
-    ├── content/           ← privacy.md (privātuma politika, lapa /privacy)
+    ├── content/           ← privacy.md (/privacy) un terms.md (/terms)
     ├── db/                ← init.sql un migrācijas
     ├── exams/             ← eksāmenu JSON faili importam
     ├── scripts/           ← migrate.js, import-exams.js
@@ -142,8 +142,8 @@ Failā `.env` ieraksti paroli pie `POSTGRES_PASSWORD` un to pašu paroli `DATABA
 
 Pirms platformu atver reāliem lietotājiem:
 
-- [x] Lapa `/privacy` un saites uz to.
-- [x] Reģistrācijā obligātas atzīmes "Man ir vismaz 13 gadi" un "Esmu izlasījis privātuma politiku".
+- [x] Lapas `/privacy` (privātuma politika) un `/terms` (lietošanas noteikumi) un saites uz tām.
+- [x] Reģistrācijā obligātas atzīmes "Man ir vismaz 13 gadi" un "Piekrītu lietošanas noteikumiem un esmu izlasījis privātuma politiku".
 - [x] Piekrišana pirms pirmā AI jautājuma (DeepSeek, ārpus ES); atsaukšana profilā.
 - [x] Automātiska beigušos sesiju un 24 mēnešus neaktīvu kontu dzēšana.
 - [x] Datu eksports lietotājam ("Lejupielādēt manus datus").

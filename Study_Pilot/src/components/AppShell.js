@@ -31,8 +31,9 @@ export default function AppShell({ children, className = 'max-w-6xl' }) {
         <Sidebar />
         <main className={`flex-1 p-4 sm:p-8 space-y-6 w-full min-w-0 mx-auto ${className}`}>
           {children}
-          <footer className="pt-6 text-center text-xs text-slate-400">
+          <footer className="pt-6 flex justify-center gap-4 text-xs text-slate-400">
             <Link href="/privacy" className="hover:text-accent transition-colors">Privātuma politika</Link>
+            <Link href="/terms" className="hover:text-accent transition-colors">Lietošanas noteikumi</Link>
           </footer>
         </main>
       </div>

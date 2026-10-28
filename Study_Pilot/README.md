@@ -2,7 +2,7 @@
 
 Eksāmenu sagatavošanās platforma skolēniem (klase) un studentiem (kurss): plānotājs ar termiņu radaru, savi eksāmenu uzdevumi, savi testi, progresa analīze un AI skolotājs.
 
-Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md). Privātuma politika — [`content/privacy.md`](content/privacy.md) (lietotnē lapa `/privacy`; pēc teksta maiņas vajag jaunu build).
+Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md). Privātuma politika — [`content/privacy.md`](content/privacy.md) (lapa `/privacy`), lietošanas noteikumi — [`content/terms.md`](content/terms.md) (lapa `/terms`). Pēc teksta maiņas vajag jaunu build.
 
 ## Prasības
 
@@ -122,11 +122,11 @@ src/
     exams/        ExamSelector, ExamTaskList, QuizMode, QuizBuilder, AiTutorChat
     profile/      SubjectManager
   lib/            AppContext (lietotājs + dati), helpers, device, emptyData, markdown (politikas lapai)
-  pages/          index, login, register, dashboard, planner, exams, progress, profile, admin, privacy
+  pages/          index, login, register, dashboard, planner, exams, progress, profile, admin, privacy, terms
   pages/api/      auth/register, auth/login, auth/logout, me, me/data, me/export, me/ai-consent, ai/tutor, admin/overview, health
   server/         db.js (PostgreSQL), ai.js (DeepSeek + meklēšana), http.js (metodes, pieslēgšanās, admin pārbaude)
 db/               init.sql, migrations/
 scripts/          migrate.js, import-exams.js, cleanup.js
-content/          privacy.md (privātuma politika)
+content/          privacy.md (/privacy), terms.md (/terms)
 exams/            eksāmenu JSON faili
 ```

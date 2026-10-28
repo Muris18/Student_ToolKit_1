@@ -1,27 +1,34 @@
-# Privātuma politika
+# Privātuma politika un lietošanas noteikumi
 
-Pati politika atrodas failā **[`Study_Pilot/content/privacy.md`](Study_Pilot/content/privacy.md)**. Lietotne to rāda lapā `/privacy`, tāpēc labo tikai to failu — tad GitHub un lietotnē būs viens un tas pats teksts.
+- Privātuma politika: **[`Study_Pilot/content/privacy.md`](Study_Pilot/content/privacy.md)** — lietotnē lapa `/privacy`.
+- Lietošanas noteikumi: **[`Study_Pilot/content/terms.md`](Study_Pilot/content/terms.md)** — lietotnē lapa `/terms`.
 
-> Šis nav juridisks atzinums. Ja iespējams, palūdz skolotāju vai juristu politiku pārskatīt.
+Labo tikai šos failus — tad GitHub un lietotnē būs viens un tas pats teksts. Pēc izmaiņām vajag jaunu build.
+
+> Šis nav juridisks atzinums. Ja iespējams, palūdz skolotāju vai juristu abus dokumentus pārskatīt.
 
 Ja kodā mainās vācamie dati vai ārējie servisi, atjauno arī politiku un tabulu [saknes README](README.md#kādus-datus-platforma-apstrādā).
 
 ## Pirms publicēšanas
 
-Kamēr politikā ir vietas ar `[ ]`, lapa `/privacy` rāda brīdinājumu "Melnraksts".
+Kamēr dokumentā ir vietas ar `[ ]`, lapa rāda brīdinājumu "Melnraksts".
 
-- [ ] Ierakstīt Rodrigo uzvārdu (1. sadaļa) — pārzinim jābūt identificējamam.
+- [ ] Izlemt, kas ir pārzinis un pakalpojuma sniedzējs: Rodrigo, visa komanda vai (ja tas ir mācību projekts) tehnikums. Aprunāties ar skolotāju.
+- [ ] Ierakstīt pārziņa pilnu vārdu abos dokumentos (1. sadaļa) — viņam jābūt identificējamam.
 - [ ] Izveidot e-pastu jautajumi@studypilot.lv un pārliecināties, ka kāds to lasa.
 - [ ] Pārbaudīt Hetzner servera atrašanās vietu (5. sadaļa).
 - [ ] Iestatīt datubāzes rezerves kopijas un ierakstīt to glabāšanas termiņu (6. sadaļa).
-- [ ] Ierakstīt spēkā stāšanās datumu.
+- [ ] Ierakstīt spēkā stāšanās datumu abos dokumentos.
 - [ ] Ja tiek pievienota e-pasta apstiprināšana vai paroles atjaunošana, ierakstīt e-pasta sūtīšanas pakalpojumu 5. sadaļā.
-- [ ] Ja tiek pievienoti maksājumi (Premium), ierakstīt maksājumu pakalpojumu un kādi dati tam tiek nodoti.
+- [ ] Ja tiek pievienoti maksājumi (Premium), ierakstīt maksājumu pakalpojumu, kādi dati tam tiek nodoti un cik ilgi glabā rēķinus; papildināt lietošanas noteikumu 3. sadaļu (cena, atteikuma tiesības).
+- [ ] Ja tiek pievienota analītika vai sīkdatnes, pievienot sīkdatņu paziņojumu.
+- [ ] Ja tiek ieviesta konta bloķēšana vai AI ierobežošana administratoram, pārbaudīt, ka tā atbilst lietošanas noteikumu 8. sadaļai.
 
 ## Jau ieviests kodā
 
-- [x] Lapa `/privacy` un saites uz to (sākumlapa, reģistrācija, pieslēgšanās, lietotnes kājene).
-- [x] Reģistrācijā obligātas atzīmes "Man ir vismaz 13 gadi" un "Esmu izlasījis privātuma politiku"; apstiprinājuma laiks tiek saglabāts (`users.terms_accepted_at`).
+- [x] Lapas `/privacy` un `/terms` un saites uz tām (sākumlapa, reģistrācija, pieslēgšanās, lietotnes kājene).
+- [x] Politikā: kopsavilkums "Īsumā", obligātie un neobligātie dati, IP adreses, automatizēti lēmumi, DeepSeek glabāšana un saite uz tā politiku, e-pasta maiņa, pieprasījumi no vecākiem.
+- [x] Reģistrācijā obligātas atzīmes "Man ir vismaz 13 gadi" un "Piekrītu lietošanas noteikumiem un esmu izlasījis privātuma politiku"; apstiprinājuma laiks tiek saglabāts (`users.terms_accepted_at`).
 - [x] Piekrišana pirms pirmā AI jautājuma; laiks tiek saglabāts (`users.ai_consent_at`), atsaukt var profilā. Bez piekrišanas `/api/ai/tutor` atbild ar 403.
 - [x] "Lejupielādēt manus datus" profilā (`GET /api/me/export`, JSON).
 - [x] Beigušās sesijas un 24 mēnešus neaktīvi konti tiek dzēsti automātiski (ne biežāk kā reizi 6 h; arī `npm run cleanup`). Administratoru kontus nedzēš.

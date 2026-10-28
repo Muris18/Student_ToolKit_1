@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
   const { email, password, profile, ageConfirmed, acceptTerms } = req.body || {};
   if (ageConfirmed !== true) return res.status(400).json({ error: 'Study Pilot drīkst lietot tikai no 13 gadu vecuma' });
-  if (acceptTerms !== true) return res.status(400).json({ error: 'Lai izveidotu kontu, jāizlasa privātuma politika' });
+  if (acceptTerms !== true) return res.status(400).json({ error: 'Lai izveidotu kontu, jāpiekrīt lietošanas noteikumiem un jāizlasa privātuma politika' });
   const e = String(email || '').trim().toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return res.status(400).json({ error: 'Nederīgs e-pasts' });
   if (String(password || '').length < 6) return res.status(400).json({ error: 'Parolei jābūt vismaz 6 simbolus garai' });

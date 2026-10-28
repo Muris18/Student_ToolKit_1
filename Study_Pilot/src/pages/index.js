@@ -68,6 +68,7 @@ export default function LandingPage() {
         <span>&copy; 2026 Study Pilot. Izveidots Latvijas skolēniem.</span>
         <div className="flex items-center gap-4">
           <Link href="/privacy" className="hover:text-accent transition-colors">Privātuma politika</Link>
+          <Link href="/terms" className="hover:text-accent transition-colors">Lietošanas noteikumi</Link>
           <Link href="/admin" className="hover:text-accent transition-colors">Sistēmas administrēšana</Link>
         </div>
       </footer>
