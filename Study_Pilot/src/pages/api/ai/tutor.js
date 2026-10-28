@@ -7,6 +7,9 @@ export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
   const user = await requireUser(req, res);
   if (!user) return;
+  if (!user.aiConsentAt) {
+    return res.status(403).json({ error: 'Lai lietotu AI skolotāju, vispirms jāpiekrīt datu nosūtīšanai uz DeepSeek.', code: 'NO_AI_CONSENT' });
+  }
 
   const message = String(req.body?.message || '').trim();
   if (!message) return res.status(400).json({ error: 'Ievadi jautājumu' });

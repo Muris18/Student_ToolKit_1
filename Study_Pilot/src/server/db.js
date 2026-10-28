@@ -38,9 +38,13 @@ const toUser = (r) => r && ({
   data: r.data,
   createdAt: r.created_at.toISOString(),
   lastActive: r.last_active.toISOString(),
+  termsAcceptedAt: r.terms_accepted_at ? r.terms_accepted_at.toISOString() : null,
+  aiConsentAt: r.ai_consent_at ? r.ai_consent_at.toISOString() : null,
 });
 
-export const publicUser = (u) => ({ id: u.id, email: u.email, role: u.role, plan: u.plan, profile: u.profile, createdAt: u.createdAt });
+export const publicUser = (u) => ({
+  id: u.id, email: u.email, role: u.role, plan: u.plan, profile: u.profile, createdAt: u.createdAt, aiConsentAt: u.aiConsentAt,
+});
 
 export async function findByEmail(email) {
   const e = String(email || '').trim().toLowerCase();
@@ -51,7 +55,7 @@ export async function findByEmail(email) {
 export async function createUser({ email, password, profile }) {
   const salt = crypto.randomBytes(16).toString('hex');
   const { rows } = await pool.query(
-    'INSERT INTO users (email, salt, pass_hash, profile, data) VALUES ($1,$2,$3,$4,$5) RETURNING *',
+    'INSERT INTO users (email, salt, pass_hash, profile, data, terms_accepted_at) VALUES ($1,$2,$3,$4,$5, now()) RETURNING *',
     [String(email).trim().toLowerCase(), salt, hash(password, salt), profile, emptyData()]
   );
   return toUser(rows[0]);
@@ -70,6 +74,8 @@ export async function createSession(userId) {
     "INSERT INTO sessions (token_hash, user_id, expires_at) VALUES ($1,$2, now() + interval '30 days')",
     [sha(token), userId]
   );
+  // Pieslēgšanās skaitās kā aktivitāte (lai neaktīvo kontu tīrīšana neizdzēstu tikko pieslēgušos lietotāju)
+  await pool.query('UPDATE users SET last_active = now() WHERE id = $1', [userId]);
   return token;
 }
 
@@ -90,6 +96,63 @@ export const deleteSession = (token) => pool.query('DELETE FROM sessions WHERE t
 export const deleteUser = (id) => pool.query('DELETE FROM users WHERE id = $1', [id]);
 export const updateProfile = (id, profile) => pool.query('UPDATE users SET profile = $2 WHERE id = $1', [id, profile]);
 export const saveData = (id, data) => pool.query('UPDATE users SET data = $2 WHERE id = $1', [id, data]);
+// AI piekrišana (datu nosūtīšana uz DeepSeek). true -> saglabā laiku, false -> atsauc.
+export async function setAiConsent(id, given) {
+  const { rows } = await pool.query(
+    'UPDATE users SET ai_consent_at = $2 WHERE id = $1 RETURNING ai_consent_at',
+    [id, given ? new Date() : null]
+  );
+  return rows[0]?.ai_consent_at ? rows[0].ai_consent_at.toISOString() : null;
+}
+
+// Viss, kas par lietotāju glabājas datubāzē (datu eksportam, VDAR 15. un 20. pants)
+export async function exportUser(user) {
+  const usage = await pool.query(
+    'SELECT created_at, model, prompt_tokens, completion_tokens FROM ai_usage WHERE user_id = $1 ORDER BY created_at',
+    [user.id]
+  );
+  const sessions = await pool.query('SELECT created_at, expires_at FROM sessions WHERE user_id = $1 ORDER BY created_at', [user.id]);
+  return {
+    exportedAt: new Date().toISOString(),
+    account: {
+      email: user.email,
+      role: user.role,
+      plan: user.plan,
+      createdAt: user.createdAt,
+      lastActive: user.lastActive,
+      termsAcceptedAt: user.termsAcceptedAt,
+      aiConsentAt: user.aiConsentAt,
+    },
+    profile: user.profile,
+    data: user.data,
+    aiUsage: usage.rows,
+    sessions: sessions.rows,
+  };
+}
+
+// Glabāšanas termiņi (skat. PRIVACY / content/privacy.md 6. sadaļu)
+export const INACTIVE_MONTHS = 24;
+
+// Dzēš beigušās sesijas un kontus, kas nav lietoti INACTIVE_MONTHS mēnešus (administratorus nedzēš).
+export async function cleanup() {
+  const s = await pool.query('DELETE FROM sessions WHERE expires_at < now()');
+  const u = await pool.query(
+    "DELETE FROM users WHERE role <> 'admin' AND last_active < now() - make_interval(months => $1)",
+    [INACTIVE_MONTHS]
+  );
+  return { sessions: s.rowCount, users: u.rowCount };
+}
+
+// Palaiž cleanup() ne biežāk kā reizi 6 stundās; kļūda netraucē pieprasījumam.
+export function maybeCleanup() {
+  const now = Date.now();
+  if (g.__SP_CLEANUP_AT__ && now - g.__SP_CLEANUP_AT__ < 6 * 3600 * 1000) return;
+  g.__SP_CLEANUP_AT__ = now;
+  cleanup()
+    .then((r) => { if (r.sessions || r.users) console.log('Tīrīšana: sesijas', r.sessions, 'konti', r.users); })
+    .catch((e) => console.error('Tīrīšanas kļūda:', e.message));
+}
+
 export const allUsers = async () => (await pool.query('SELECT * FROM users ORDER BY created_at')).rows.map(toUser);
 
 // --- Validācija ---

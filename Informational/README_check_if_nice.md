@@ -279,7 +279,7 @@ AI_API_KEY=
 - 👮 Ierobežo piekļuvi administratora funkcijām.
 - 🧍 Neļauj vienam lietotājam piekļūt cita lietotāja privātajiem datiem.
 - ⏱️ Ievieš failu izmēra un pieprasījumu skaita ierobežojumus.
-- 📜 Privātuma politika: [`PRIVACY.md`](../PRIVACY.md); vācamo datu saraksts — [saknes README](../README.md#kādus-datus-platforma-apstrādā) (lietotāji var būt nepilngadīgi).
+- 📜 Privātuma politika: [`content/privacy.md`](../Study_Pilot/content/privacy.md) (lapa `/privacy`); vācamo datu saraksts — [saknes README](../README.md#kādus-datus-platforma-apstrādā) (lietotāji var būt nepilngadīgi).
 
 ## 🗺️ Attīstības plāns
 

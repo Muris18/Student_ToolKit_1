@@ -2,7 +2,7 @@
 
 Eksāmenu sagatavošanās platforma skolēniem (klase) un studentiem (kurss): plānotājs ar termiņu radaru, savi eksāmenu uzdevumi, savi testi, progresa analīze un AI skolotājs.
 
-Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md). Privātuma politika — [`PRIVACY.md`](../PRIVACY.md).
+Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md). Privātuma politika — [`content/privacy.md`](content/privacy.md) (lietotnē lapa `/privacy`; pēc teksta maiņas vajag jaunu build).
 
 ## Prasības
 
@@ -66,6 +66,7 @@ docker compose exec db psql -U sp -c "UPDATE users SET role='admin' WHERE email=
 | `npm run build` un `npm start` | Produkcijas režīms |
 | `npm run migrate` | Piemēro jaunās `db/migrations/*.sql` (drīkst palaist atkārtoti) |
 | `npm run import:exams` | Ielādē `exams/*.json` datubāzē (skat. [`exams/README.md`](exams/README.md)) |
+| `npm run cleanup` | Dzēš beigušās sesijas un 24 mēnešus neaktīvus kontus (lietotne to dara arī pati) |
 
 ## Serverī (Hetzner, Docker Compose)
 
@@ -88,7 +89,7 @@ Visi lietotāju dati glabājas **PostgreSQL** datubāzē un saglabājas arī pē
 
 | Tabula | Saturs |
 |---|---|
-| `users` | e-pasts, paroles hash + sāls, loma, plāns, `profile` (vārds, uzvārds, līmenis, klase/kurss, skola, programma), `data` (priekšmeti, termiņi, uzdevumi, testi, rezultāti, čats, aktivitāte), izveides un pēdējās aktivitātes laiks |
+| `users` | e-pasts, paroles hash + sāls, loma, plāns, `terms_accepted_at`, `ai_consent_at`, `profile` (vārds, uzvārds, līmenis, klase/kurss, skola, programma), `data` (priekšmeti, termiņi, uzdevumi, testi, rezultāti, čats, aktivitāte), izveides un pēdējās aktivitātes laiks |
 | `sessions` | sesijas žetona SHA-256 hash, lietotājs, derīguma termiņš (30 dienas) |
 | `ai_usage` | lietotājs, laiks, modelis, tokenu skaits — tikai limitiem un izmaksām |
 | `exam_documents`, `exam_tasks` | eksāmenu uzdevumi AI skolotājam (bez personas datiem) |
@@ -96,15 +97,18 @@ Visi lietotāju dati glabājas **PostgreSQL** datubāzē un saglabājas arī pē
 - Klients visu `data` objektu sūta ar `PUT /api/me/data` (līdz 2 MB).
 - `DELETE /api/me` dzēš lietotāju; sesijas un `ai_usage` tiek izdzēstas automātiski (`ON DELETE CASCADE`).
 - Pārlūkā glabājas tikai `sp-session` (žetons), `sp-theme` un `sp-splash`. Sīkdatņu un analītikas nav.
-- Beigušās sesijas pašlaik netiek dzēstas automātiski. Manuāli: `DELETE FROM sessions WHERE expires_at < now();`
+- `GET /api/me/export` atdod visus lietotāja datus (poga "Lejupielādēt manus datus" profilā).
+- Reģistrācija (`POST /api/auth/register`) prasa `ageConfirmed: true` un `acceptTerms: true`; laiks tiek saglabāts `terms_accepted_at`.
+- Beigušās sesijas un konti, kas nav lietoti 24 mēnešus (izņemot `admin`), tiek dzēsti automātiski — ne biežāk kā reizi 6 h, pie jebkura pieslēgta pieprasījuma (`maybeCleanup` failā `src/server/db.js`). Termiņš `INACTIVE_MONTHS` jāsaskaņo ar `scripts/cleanup.js` un politiku.
 
-**Ja pievieno jaunu lauku ar personas datiem vai jaunu ārēju servisu, atjauno datu tabulu saknes README un `PRIVACY.md`.**
+**Ja pievieno jaunu lauku ar personas datiem vai jaunu ārēju servisu, atjauno datu tabulu saknes README un `content/privacy.md`.**
 
 ## AI skolotājs
 
 - Kods: `src/server/ai.js` (meklēšana, limiti, DeepSeek izsaukums) un `src/pages/api/ai/tutor.js`.
 - Uz DeepSeek tiek sūtīts: sistēmas instrukcija, līdz 4 atrasti eksāmenu uzdevumi, pēdējās 6 čata ziņas un jaunais jautājums (līdz 1500 simboliem). Vārds, e-pasts un skola **netiek** sūtīti.
 - Dienas limits pēc Rīgas laika: free 10, premium 100.
+- **Piekrišana:** pirms pirmā jautājuma čats parāda brīdinājumu par datu nosūtīšanu ārpus ES. `POST /api/me/ai-consent` saglabā piekrišanu, `DELETE` to atsauc (profilā). Bez piekrišanas `/api/ai/tutor` atbild ar 403 (`NO_AI_CONSENT`).
 - Bez `DEEPSEEK_API_KEY` API atbild ar 503 un čats parāda, ka AI nav ieslēgts.
 
 ## Struktūra
@@ -117,11 +121,12 @@ src/
     planner/      DeadlineRadar, StudyPlannerCalendar, TaskView, AddTaskModal
     exams/        ExamSelector, ExamTaskList, QuizMode, QuizBuilder, AiTutorChat
     profile/      SubjectManager
-  lib/            AppContext (lietotājs + dati), helpers, device, emptyData
-  pages/          index, login, register, dashboard, planner, exams, progress, profile, admin
-  pages/api/      auth/register, auth/login, auth/logout, me, me/data, ai/tutor, admin/overview, health
+  lib/            AppContext (lietotājs + dati), helpers, device, emptyData, markdown (politikas lapai)
+  pages/          index, login, register, dashboard, planner, exams, progress, profile, admin, privacy
+  pages/api/      auth/register, auth/login, auth/logout, me, me/data, me/export, me/ai-consent, ai/tutor, admin/overview, health
   server/         db.js (PostgreSQL), ai.js (DeepSeek + meklēšana), http.js (metodes, pieslēgšanās, admin pārbaude)
 db/               init.sql, migrations/
-scripts/          migrate.js, import-exams.js
+scripts/          migrate.js, import-exams.js, cleanup.js
+content/          privacy.md (privātuma politika)
 exams/            eksāmenu JSON faili
 ```

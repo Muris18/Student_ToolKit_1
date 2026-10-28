@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import AppShell, { PageHeader, inputCls, labelCls } from '../components/AppShell';
 import Card from '../components/Card';
 import Button from '../components/Button';
@@ -70,15 +71,38 @@ export default function ProfilePage() {
 }
 
 function DangerZone() {
-  const { update, deleteAccount } = useApp();
+  const { user, update, deleteAccount, setAiConsent, exportData } = useApp();
+  const [error, setError] = useState('');
+  const run = (fn) => async () => {
+    setError('');
+    try { await fn(); } catch (err) { setError(err.message); }
+  };
+  const consentDate = user.aiConsentAt ? new Date(user.aiConsentAt).toLocaleDateString('lv-LV') : null;
   return (
-    <Card title="Dati" subtitle="Visi dati glabājas tikai šī lokālā servera atmiņā">
-      <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
-        <p className="text-sm text-slate-500">Notīrīt visu (priekšmetus, termiņus, uzdevumus, testus, čatu), paturot kontu — vai dzēst kontu pavisam.</p>
-        <div className="flex gap-2 shrink-0">
-          <Button variant="secondary" onClick={() => window.confirm('Notīrīt visus savus datus?') && update(() => emptyClientData(), { activity: false })}>Notīrīt datus</Button>
-          <Button variant="danger" onClick={() => window.confirm('Dzēst kontu? To nevar atsaukt.') && deleteAccount()}>Dzēst kontu</Button>
+    <Card title="Dati un privātums" subtitle={<>Kā mēs apstrādājam datus — <Link href="/privacy" className="text-accent hover:underline">privātuma politika</Link></>}>
+      <div className="space-y-5">
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+          <p className="text-sm text-slate-500">Lejupielādē visus datus, kas par tevi glabājas (konts, profils, mācību dati, čats, AI lietojums), JSON failā.</p>
+          <Button variant="secondary" onClick={run(exportData)} className="shrink-0">Lejupielādēt manus datus</Button>
         </div>
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+          <p className="text-sm text-slate-500">
+            {consentDate
+              ? `AI skolotājs: piekriti datu nosūtīšanai uz DeepSeek (ārpus ES) ${consentDate}. Atsaucot piekrišanu, AI skolotājs nebūs pieejams.`
+              : 'AI skolotājs: piekrišana datu nosūtīšanai uz DeepSeek nav dota. To vari dot AI čatā eksāmenu sadaļā.'}
+          </p>
+          {consentDate && (
+            <Button variant="secondary" onClick={run(() => window.confirm('Atsaukt piekrišanu? AI skolotājs vairs nebūs pieejams.') && setAiConsent(false))} className="shrink-0">Atsaukt piekrišanu</Button>
+          )}
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+          <p className="text-sm text-slate-500">Notīrīt visu (priekšmetus, termiņus, uzdevumus, testus, čatu), paturot kontu — vai dzēst kontu pavisam.</p>
+          <div className="flex gap-2 shrink-0">
+            <Button variant="secondary" onClick={() => window.confirm('Notīrīt visus savus datus?') && update(() => emptyClientData(), { activity: false })}>Notīrīt datus</Button>
+            <Button variant="danger" onClick={run(() => window.confirm('Dzēst kontu? To nevar atsaukt.') && deleteAccount())}>Dzēst kontu</Button>
+          </div>
+        </div>
+        {error && <p className="text-sm text-rose-600">{error}</p>}
       </div>
     </Card>
   );

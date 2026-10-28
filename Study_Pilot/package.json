@@ -10,7 +10,8 @@
     "start": "next start -p 3000",
     "lint": "next lint",
     "migrate": "node scripts/migrate.js",
-    "import:exams": "node scripts/import-exams.js"
+    "import:exams": "node scripts/import-exams.js",
+    "cleanup": "node scripts/cleanup.js"
   },
   "engines": {
     "node": ">=18.17"

@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useRef, useSt
 import { todayStr } from './helpers';
 
 // Klienta stāvoklis: kurš ir pieslēdzies + visi viņa dati.
-// Dati glabājas servera atmiņā (src/server/db.js). Pārlūkā glabājam tikai sesijas žetonu.
+// Dati glabājas PostgreSQL (src/server/db.js). Pārlūkā glabājam tikai sesijas žetonu.
 const AppContext = createContext(null);
 const TOKEN_KEY = 'sp-session';
 
@@ -24,6 +24,8 @@ async function call(path, { method = 'GET', body, token } = {}) {
   if (!res.ok) {
     const err = new Error(json.error || 'Servera kļūda');
     err.status = res.status;
+    err.code = json.code;
+    if (typeof json.remaining === 'number') err.remaining = json.remaining;
     throw err;
   }
   return json;
@@ -59,7 +61,7 @@ export function AppProvider({ children }) {
         setStatus('ready');
       })
       .catch((e) => {
-        signOutLocal(e.status === 401 ? 'Serveris tika palaists no jauna — visi dati ir notīrīti. Lūdzu, reģistrējies vēlreiz.' : '');
+        signOutLocal(e.status === 401 ? 'Sesija beigusies. Lūdzu, pieslēdzies vēlreiz.' : '');
       });
   }, [signOutLocal]);
 
@@ -69,7 +71,7 @@ export function AppProvider({ children }) {
     const body = { data: pending.current };
     pending.current = null;
     call('/api/me/data', { method: 'PUT', body, token: tokenRef.current }).catch((e) => {
-      if (e.status === 401) signOutLocal('Sesija beigusies (serveris restartēts). Reģistrējies no jauna.');
+      if (e.status === 401) signOutLocal('Sesija beigusies. Lūdzu, pieslēdzies vēlreiz.');
     });
   }, [signOutLocal]);
 
@@ -123,10 +125,31 @@ export function AppProvider({ children }) {
     signOutLocal('Konts dzēsts.');
   };
 
+  // AI piekrišana (datu nosūtīšana uz DeepSeek): true -> piekrīt, false -> atsauc
+  const setAiConsent = async (given) => {
+    const r = await call('/api/me/ai-consent', { method: given ? 'POST' : 'DELETE', token: tokenRef.current });
+    setUser((u) => (u ? { ...u, aiConsentAt: r.aiConsentAt } : u));
+  };
+
+  // Lejupielādē visus lietotāja datus JSON failā
+  const exportData = async () => {
+    flush();
+    const r = await call('/api/me/export', { token: tokenRef.current });
+    const blob = new Blob([JSON.stringify(r, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `study-pilot-dati-${r.exportedAt.slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
   const api = (path, opts = {}) => call(path, { ...opts, token: tokenRef.current });
 
   return (
-    <AppContext.Provider value={{ status, user, data, notice, update, register, login, logout, saveProfile, deleteAccount, api }}>
+    <AppContext.Provider value={{ status, user, data, notice, update, register, login, logout, saveProfile, deleteAccount, setAiConsent, exportData, api }}>
       {children}
     </AppContext.Provider>
   );

@@ -10,6 +10,8 @@ export default function RegisterPage() {
   const { status, register, notice } = useApp();
   const router = useRouter();
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: '', level: 'klase', grade: 12, school: '', program: '' });
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -29,7 +31,7 @@ export default function RegisterPage() {
     setBusy(true);
     try {
       const { email, password, ...profile } = form;
-      await register({ email, password, profile });
+      await register({ email, password, profile, ageConfirmed, acceptTerms });
     } catch (err) {
       setError(err.message);
       setBusy(false);
@@ -107,11 +109,22 @@ export default function RegisterPage() {
           </div>
         </div>
 
+        <div className="space-y-2.5 pt-1">
+          <label className="flex items-start gap-3 text-sm text-slate-600 cursor-pointer">
+            <input type="checkbox" required checked={ageConfirmed} onChange={(e) => setAgeConfirmed(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-indigo-600" />
+            <span>Man ir vismaz 13 gadi</span>
+          </label>
+          <label className="flex items-start gap-3 text-sm text-slate-600 cursor-pointer">
+            <input type="checkbox" required checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-indigo-600" />
+            <span>
+              Esmu izlasījis{' '}
+              <Link href="/privacy" target="_blank" className="font-semibold text-accent hover:underline">privātuma politiku</Link>
+            </span>
+          </label>
+        </div>
+
         {error && <p className="text-sm text-rose-600 font-medium">{error}</p>}
-        <Button type="submit" disabled={busy} className="w-full py-3">{busy ? 'Veido kontu…' : 'Reģistrēties'}</Button>
-        <p className="text-[11px] text-slate-400 text-center leading-relaxed">
-          Dati glabājas tikai lokālā servera atmiņā. Pēc servera restarta viss tiek notīrīts.
-        </p>
+        <Button type="submit" disabled={busy || !ageConfirmed || !acceptTerms} className="w-full py-3">{busy ? 'Veido kontu…' : 'Reģistrēties'}</Button>
       </form>
     </AuthLayout>
   );

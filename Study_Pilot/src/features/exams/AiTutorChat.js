@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import { useApp } from '../../lib/AppContext';
@@ -7,7 +8,8 @@ import { uid } from '../../lib/helpers';
 // AI skolotājs: ziņa tiek nosūtīta uz /api/ai/tutor (DeepSeek atslēga ir tikai serverī).
 // Sarunas vēsture saglabājas lietotāja datos.
 export default function AiTutorChat({ draft = '' }) {
-  const { data, update, api } = useApp();
+  const { user, data, update, api, setAiConsent } = useApp();
+  const [consentBusy, setConsentBusy] = useState(false);
   const [inputValue, setInputValue] = useState(draft);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -15,6 +17,14 @@ export default function AiTutorChat({ draft = '' }) {
   const listRef = useRef(null);
   const inputRef = useRef(null);
   const messages = data.chat;
+  const hasConsent = Boolean(user?.aiConsentAt);
+
+  const giveConsent = async () => {
+    setConsentBusy(true);
+    setError('');
+    try { await setAiConsent(true); } catch (err) { setError(err.message); }
+    setConsentBusy(false);
+  };
 
   useEffect(() => { if (draft) { setInputValue(draft); inputRef.current?.focus(); } }, [draft]);
   useEffect(() => { listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' }); }, [messages.length, loading]);
@@ -81,6 +91,26 @@ export default function AiTutorChat({ draft = '' }) {
           )}
         </div>
 
+        {!hasConsent ? (
+          <div className="pt-4 border-t border-slate-100 space-y-3">
+            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-sm leading-relaxed space-y-2">
+              <p className="font-semibold">Pirms lieto AI skolotāju</p>
+              <p>
+                AI atbildes ģenerē <strong>DeepSeek</strong>, kas datus apstrādā <strong>ārpus Eiropas Savienības (Ķīnā)</strong>,
+                kur datu aizsardzība var būt vājāka nekā ES. Uz turieni tiek nosūtīts tavs jautājums un pēdējās 6 čata ziņas.
+                Tavs vārds, e-pasts un skola netiek sūtīti.
+              </p>
+              <p><strong>Neraksti čatā savus personas datus</strong> (vārdu, adresi, tālruni u.c.).</p>
+              <p>
+                Piekrišanu vari atsaukt profilā. Sīkāk —{' '}
+                <Link href="/privacy" target="_blank" className="underline font-semibold">privātuma politikā</Link>.
+              </p>
+            </div>
+            <Button onClick={giveConsent} disabled={consentBusy} className="w-full">
+              {consentBusy ? 'Saglabā…' : 'Piekrītu un vēlos lietot AI skolotāju'}
+            </Button>
+          </div>
+        ) : (
         <form onSubmit={handleSendMessage} className="flex gap-2 pt-3 border-t border-slate-100">
           <input
             ref={inputRef}
@@ -93,6 +123,7 @@ export default function AiTutorChat({ draft = '' }) {
           />
           <Button type="submit" disabled={!inputValue.trim() || loading}>Sūtīt</Button>
         </form>
+        )}
       </div>
     </Card>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
@@ -28,7 +29,12 @@ export default function AppShell({ children, className = 'max-w-6xl' }) {
       <Navbar />
       <div className="flex flex-1">
         <Sidebar />
-        <main className={`flex-1 p-4 sm:p-8 space-y-6 w-full min-w-0 mx-auto ${className}`}>{children}</main>
+        <main className={`flex-1 p-4 sm:p-8 space-y-6 w-full min-w-0 mx-auto ${className}`}>
+          {children}
+          <footer className="pt-6 text-center text-xs text-slate-400">
+            <Link href="/privacy" className="hover:text-accent transition-colors">Privātuma politika</Link>
+          </footer>
+        </main>
       </div>
     </div>
   );

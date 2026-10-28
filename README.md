@@ -63,7 +63,7 @@ Supabase vairs **netiek** izmantots.
 ```text
 Student_ToolKit_1/
 ├── README.md              ← šis fails
-├── PRIVACY.md             ← privātuma politikas melnraksts
+├── PRIVACY.md             ← norāde uz politiku + kas vēl jāizdara pirms publicēšanas
 ├── Informational/         ← plāni, ceļa karte, darba plūsma
 └── Study_Pilot/           ← lietotne
     ├── src/
@@ -73,6 +73,7 @@ Student_ToolKit_1/
     │   ├── pages/         ← lapas un pages/api/* (REST API)
     │   ├── server/        ← db.js (PostgreSQL), ai.js (DeepSeek), http.js
     │   └── styles/
+    ├── content/           ← privacy.md (privātuma politika, lapa /privacy)
     ├── db/                ← init.sql un migrācijas
     ├── exams/             ← eksāmenu JSON faili importam
     ├── scripts/           ← migrate.js, import-exams.js
@@ -98,7 +99,7 @@ Failā `.env` ieraksti paroli pie `POSTGRES_PASSWORD` un to pašu paroli `DATABA
 
 ## Kādus datus platforma apstrādā
 
-Šī sadaļa ir pamats [privātuma politikai](PRIVACY.md). Ja kodā mainās vācamie dati, **jāatjauno arī šī tabula un `PRIVACY.md`**.
+Šī sadaļa ir pamats [privātuma politikai](Study_Pilot/content/privacy.md) (lietotnē — lapa `/privacy`). Ja kodā mainās vācamie dati, **jāatjauno arī šī tabula un `Study_Pilot/content/privacy.md`**.
 
 | Dati | Kur glabājas | Kāpēc |
 |---|---|---|
@@ -110,7 +111,9 @@ Failā `.env` ieraksti paroli pie `POSTGRES_PASSWORD` un to pašu paroli `DATABA
 | AI čata vēsture (lietotāja jautājumi un AI atbildes) | `users.data.chat` | Čata vēsture lietotājam |
 | Aktivitātes dienas | `users.data.activity` | Progresa pārskats |
 | Konta loma un plāns (`user`/`admin`, `free`/`premium`) | `users.role`, `users.plan` | Piekļuve un AI limiti |
-| Konta izveides laiks, pēdējās aktivitātes laiks | `users.created_at`, `users.last_active` | Admin pārskats, drošība |
+| Konta izveides laiks, pēdējās aktivitātes laiks | `users.created_at`, `users.last_active` | Admin pārskats, drošība, neaktīvo kontu dzēšana |
+| Reģistrācijas apstiprinājuma laiks ("vismaz 13 gadi" + "izlasīju politiku") | `users.terms_accepted_at` | Pierādīt, ka apstiprinājums dots |
+| AI piekrišanas laiks (datu nosūtīšana uz DeepSeek) | `users.ai_consent_at` — `NULL`, ja nav dota vai atsaukta | Bez piekrišanas AI skolotājs nestrādā |
 | Sesijas | `sessions` — tikai žetona SHA-256 hash, derīgs 30 dienas | Pieslēgšanās uzturēšana |
 | AI lietojuma žurnāls | `ai_usage` — laiks, modelis, tokenu skaits (bez jautājuma teksta) | Dienas limiti, izmaksu uzskaite |
 
@@ -118,10 +121,10 @@ Failā `.env` ieraksti paroli pie `POSTGRES_PASSWORD` un to pašu paroli `DATABA
 
 **Trešās puses, kas saņem datus:**
 
-- **DeepSeek** — saņem lietotāja AI jautājumu, pēdējās 6 čata ziņas un atrastos eksāmenu uzdevumus. Vārds, e-pasts un skola netiek sūtīti. DeepSeek apstrādā datus ārpus Eiropas Savienības.
+- **DeepSeek** — tikai pēc lietotāja piekrišanas saņem AI jautājumu, pēdējās 6 čata ziņas un atrastos eksāmenu uzdevumus. Vārds, e-pasts un skola netiek sūtīti. DeepSeek apstrādā datus ārpus Eiropas Savienības.
 - **Hetzner** — servera nodrošinātājs; uz tā glabājas datubāze.
 
-**Dzēšana:** profilā lietotājs var notīrīt visus savus datus vai dzēst kontu. Dzēšot kontu, no datubāzes tiek izdzēsts lietotājs, visas viņa sesijas un AI lietojuma ieraksti (`ON DELETE CASCADE`).
+**Dzēšana un eksports:** profilā lietotājs var lejupielādēt visus savus datus (JSON), notīrīt mācību datus vai dzēst kontu. Dzēšot kontu, tiek izdzēsts lietotājs, visas viņa sesijas un AI lietojuma ieraksti (`ON DELETE CASCADE`). Beigušās sesijas un 24 mēnešus neaktīvi konti (izņemot administratorus) tiek dzēsti automātiski.
 
 **Kas redz datus:** administratoram ir pieejams vārds, uzvārds, līmenis, klase, skola, ierakstu skaits, izveides un pēdējās aktivitātes laiks. Čata tekstu admin skats nerāda.
 
@@ -139,15 +142,15 @@ Failā `.env` ieraksti paroli pie `POSTGRES_PASSWORD` un to pašu paroli `DATABA
 
 Pirms platformu atver reāliem lietotājiem:
 
-- [ ] Aizpildīt `PRIVACY.md` (pārziņa vārds, kontakti) un ielikt to lietotnē kā lapu `/privacy`.
-- [ ] Reģistrācijā pievienot saiti uz privātuma politiku un atzīmi "Esmu izlasījis".
-- [ ] Reģistrācijā obligāta atzīme "Man ir vismaz 13 gadi" (platforma tikai no 13 gadiem).
-- [ ] Pirms pirmā AI jautājuma prasīt piekrišanu datu nosūtīšanai uz DeepSeek (ārpus ES) un ļaut to atsaukt profilā.
+- [x] Lapa `/privacy` un saites uz to.
+- [x] Reģistrācijā obligātas atzīmes "Man ir vismaz 13 gadi" un "Esmu izlasījis privātuma politiku".
+- [x] Piekrišana pirms pirmā AI jautājuma (DeepSeek, ārpus ES); atsaukšana profilā.
+- [x] Automātiska beigušos sesiju un 24 mēnešus neaktīvu kontu dzēšana.
+- [x] Datu eksports lietotājam ("Lejupielādēt manus datus").
+- [ ] Aizpildīt atlikušās vietas politikā — skat. [`PRIVACY.md`](PRIVACY.md).
 - [ ] E-pasta apstiprināšana.
 - [ ] Pieslēgšanās mēģinājumu ierobežojums.
-- [ ] Automātiski dzēst beigušās sesijas un neaktīvus kontus pēc noteikta laika.
 - [ ] Datubāzes rezerves kopijas (un to glabāšanas termiņš).
-- [ ] Datu eksports lietotājam (lejupielādēt savus datus).
 - [ ] Vektoru meklēšana (RAG) AI skolotājam.
 
 ## Avoti un autortiesības
@@ -165,4 +168,4 @@ Pirms eksāmenu uzdevumus ielikt publiskā repozitorijā vai rādīt lietotājie
 2. Veic izmaiņas un pārbaudi tās lokāli.
 3. Izveido Pull Request ar īsu izmaiņu aprakstu.
 4. Neiekļauj repozitorijā API atslēgas, paroles vai citus noslēpumus.
-5. Ja maini, kādus datus lietotne vāc vai kam tos nosūta, atjauno sadaļu [Kādus datus platforma apstrādā](#kādus-datus-platforma-apstrādā) un `PRIVACY.md`.
+5. Ja maini, kādus datus lietotne vāc vai kam tos nosūta, atjauno sadaļu [Kādus datus platforma apstrādā](#kādus-datus-platforma-apstrādā) un `Study_Pilot/content/privacy.md`.
