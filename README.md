@@ -141,7 +141,8 @@ Pirms platformu atver reāliem lietotājiem:
 
 - [ ] Aizpildīt `PRIVACY.md` (pārziņa vārds, kontakti) un ielikt to lietotnē kā lapu `/privacy`.
 - [ ] Reģistrācijā pievienot saiti uz privātuma politiku un atzīmi "Esmu izlasījis".
-- [ ] Izlemt, kā rīkoties ar lietotājiem, kas jaunāki par 13 gadiem (vecāku piekrišana).
+- [ ] Reģistrācijā obligāta atzīme "Man ir vismaz 13 gadi" (platforma tikai no 13 gadiem).
+- [ ] Pirms pirmā AI jautājuma prasīt piekrišanu datu nosūtīšanai uz DeepSeek (ārpus ES) un ļaut to atsaukt profilā.
 - [ ] E-pasta apstiprināšana.
 - [ ] Pieslēgšanās mēģinājumu ierobežojums.
 - [ ] Automātiski dzēst beigušās sesijas un neaktīvus kontus pēc noteikta laika.

@@ -12,8 +12,8 @@
 
 Study Pilot ir mācību platforma skolēniem un studentiem, kas gatavojas valsts pārbaudes darbiem.
 
-Personas datu pārzinis: **[vārds, uzvārds vai organizācijas nosaukums]**
-Kontakti privātuma jautājumiem: **[e-pasts]**
+Personas datu pārzinis: **Rodrigo [uzvārds]**
+Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv**
 
 ## 2. Kādus datus mēs vācam
 
@@ -43,7 +43,7 @@ Kontakti privātuma jautājumiem: **[e-pasts]**
 |---|---|---|
 | Konta izveide un pieslēgšanās | e-pasts, parole (hash), sesijas | līguma izpilde — bez tā nevar lietot kontu |
 | Plānotāja, testu un progresa darbība | profils, priekšmeti, termiņi, uzdevumi, testi, aktivitāte | līguma izpilde |
-| AI skolotājs | jautājums, pēdējās čata ziņas, klase | līguma izpilde [skat. 5. sadaļu par datu nosūtīšanu ārpus ES] |
+| AI skolotājs | jautājums, pēdējās čata ziņas, klase | līguma izpilde; datu nosūtīšanai uz DeepSeek ārpus ES — tava skaidra piekrišana (skat. 5. sadaļu) |
 | AI dienas limiti un izmaksu kontrole | AI lietojuma ieraksti, plāns | leģitīmās intereses — novērst ļaunprātīgu izmantošanu un nekontrolētas izmaksas |
 | Drošība un platformas uzturēšana | pēdējās aktivitātes laiks, sesijas | leģitīmās intereses |
 
@@ -58,7 +58,9 @@ Mēs nepārdodam tavus datus un neizmantojam tos reklāmai. Tavi dati netiek izm
 ## 5. Kam mēs nododam datus
 
 - **Hetzner Online GmbH** (Vācija) — servera nodrošinātājs, uz kura darbojas platforma un datubāze. Dati glabājas Eiropas Savienībā. [Pārbaudi un ieraksti servera atrašanās vietu.]
-- **DeepSeek** — AI pakalpojums, kas ģenerē AI skolotāja atbildes. Kad uzdod jautājumu, DeepSeek saņem tavu jautājumu, pēdējās 6 čata ziņas un saistītos eksāmenu uzdevumus. Tavs vārds, e-pasts un skola **netiek** nosūtīti. **DeepSeek apstrādā datus ārpus Eiropas Savienības (Ķīnā).** [Skat. "Pirms publicēšanas" — šim punktam vajadzīgs lēmums.]
+- **DeepSeek** — AI pakalpojums, kas ģenerē AI skolotāja atbildes. Kad uzdod jautājumu, DeepSeek saņem tavu jautājumu, pēdējās 6 čata ziņas un saistītos eksāmenu uzdevumus. Tavs vārds, e-pasts un skola **netiek** nosūtīti. **DeepSeek apstrādā datus ārpus Eiropas Savienības (Ķīnā)**, kur personas datu aizsardzības līmenis var būt zemāks nekā ES un tev var nebūt tādu pašu tiesību aizsardzības līdzekļu.
+
+  Tāpēc pirms pirmā jautājuma AI skolotājam mēs tev parādām šo brīdinājumu un lūdzam skaidru piekrišanu (VDAR 49. panta 1. punkta a) apakšpunkts). Ja nepiekrīti, AI skolotājs nav pieejams, bet visas pārējās platformas funkcijas strādā kā parasti. Piekrišanu vari atsaukt jebkurā laikā profilā; tas neietekmē jau nosūtītos jautājumus. **Nelieto AI čatā savus personas datus** (vārdu, adresi, tālruni u.c.).
 
 Ja to pieprasīs likums (piemēram, tiesībsargājošās iestādes), mēs varam būt spiesti nodot datus arī valsts iestādēm.
 
@@ -78,21 +80,18 @@ Saskaņā ar Vispārīgo datu aizsardzības regulu (VDAR) tev ir tiesības:
 - **labot** datus — profilā vari mainīt vārdu, klasi, skolu u.c.;
 - **dzēst** datus — profilā vari notīrīt visus savus mācību datus vai dzēst visu kontu;
 - **ierobežot apstrādi** un **iebilst** pret apstrādi, kas balstīta uz leģitīmajām interesēm;
-- **saņemt savus datus** pārnesamā formātā — [pagaidām pēc pieprasījuma pa e-pastu];
+- **saņemt savus datus** pārnesamā formātā — pieprasot tos pa e-pastu **jautajumi@studypilot.lv**;
 - **iesniegt sūdzību** Datu valsts inspekcijā (www.dvi.gov.lv), ja uzskati, ka tavi dati apstrādāti nelikumīgi.
 
-Pieprasījumus sūti uz **[e-pasts]**. Atbildēsim viena mēneša laikā.
+Pieprasījumus sūti uz **jautajumi@studypilot.lv**. Atbildēsim viena mēneša laikā.
 
 ## 8. Bērni un jaunieši
 
 Study Pilot ir paredzēts skolēniem, tāpēc daļa lietotāju var būt nepilngadīgi.
 
-[Izvēlies vienu variantu:]
+Platformu drīkst lietot **tikai no 13 gadu vecuma**. Reģistrējoties tu apstiprini, ka tev ir vismaz 13 gadi. Ja esi jaunāks, lūdzu, nereģistrējies.
 
-- [A] Platformu drīkst lietot no 13 gadu vecuma. Ja esi jaunāks par 13 gadiem, konta izveidei vajadzīga vecāka vai likumiskā pārstāvja piekrišana.
-- [B] Platformu drīkst lietot tikai no 13 gadu vecuma.
-
-Ja esi vecāks un uzskati, ka tavs bērns izveidojis kontu bez atļaujas, raksti uz **[e-pasts]**, un mēs konta datus izdzēsīsim.
+Ja esi vecāks un uzskati, ka tavs bērns izveidojis kontu bez atļaujas, raksti uz **jautajumi@studypilot.lv**, un mēs konta datus izdzēsīsim.
 
 ## 9. Kā mēs aizsargājam datus
 
@@ -113,12 +112,10 @@ Ja mainīsim to, kādus datus vācam vai kam tos nododam, atjaunosim šo lapu un
 
 ## Pirms publicēšanas (izdzēs šo sadaļu, kad viss izdarīts)
 
-- [ ] Aizpildīt pārziņa vārdu un kontakta e-pastu (1. sadaļa).
-- [ ] **DeepSeek un datu nosūtīšana uz Ķīnu.** Ķīnai nav ES "pietiekamības lēmuma", tāpēc šāda nosūtīšana pēc VDAR ir problemātiska, īpaši ja lietotāji ir nepilngadīgi. Varianti:
-  - pāriet uz AI pakalpojumu, kas apstrādā datus ES (vai ir līgums ar ES standartklauzulām);
-  - vai lietot DeepSeek modeli, kas darbojas ES serverī (pašu vai ES nodrošinātāja);
-  - vai vismaz prasīt atsevišķu piekrišanu pirms pirmā AI jautājuma un skaidri brīdināt nelikt čatā personas datus.
-- [ ] Izvēlēties variantu 8. sadaļā par bērniem līdz 13 gadiem (Latvijā šī ir robeža, no kuras bērns pats var dot piekrišanu informācijas sabiedrības pakalpojumiem) un pielāgot reģistrāciju.
+- [ ] Ierakstīt Rodrigo uzvārdu (1. sadaļa) — pārzinim jābūt identificējamam.
+- [ ] Izveidot e-pastu jautajumi@studypilot.lv un pārliecināties, ka kāds to lasa.
+- [ ] Ieviest kodā piekrišanu pirms pirmā AI jautājuma (brīdinājums + "Piekrītu"), saglabāt piekrišanas laiku un ļaut to atsaukt profilā (5. sadaļa).
+- [ ] Reģistrācijas formā pievienot obligātu atzīmi "Man ir vismaz 13 gadi" un "Esmu izlasījis privātuma politiku" (8. sadaļa).
 - [ ] Ielikt šo tekstu lietotnē kā lapu `/privacy` un pievienot saiti reģistrācijas formā un kājenē.
 - [ ] Iestatīt datubāzes rezerves kopijas un ierakstīt to glabāšanas termiņu (6. sadaļa).
 - [ ] Izlemt neaktīvo kontu dzēšanas termiņu un to ieviest kodā (6. sadaļa).
