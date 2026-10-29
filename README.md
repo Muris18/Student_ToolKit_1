@@ -84,18 +84,14 @@ Student_ToolKit_1/
 
 ## Palaišana
 
-Īsumā (Windows CMD, mapē `Study_Pilot`):
+Vajag Node.js 20 un Docker Desktop (atvērtu). Mapē `Study_Pilot` (Windows CMD):
 
 ```cmd
-copy .env.example .env
-notepad .env
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db
-npm install
-npm run migrate
+powershell -ExecutionPolicy Bypass -File setup.ps1
 npm run dev
 ```
 
-Failā `.env` ieraksti paroli pie `POSTGRES_PASSWORD` un to pašu paroli `DATABASE_URL` vietā `TAVA_PAROLE`. Pēc tam atver http://localhost:3000. Detalizēti — [`Study_Pilot/README.md`](Study_Pilot/README.md).
+Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, palaiž datubāzi, piemēro migrācijas un ielādē eksāmenus. Ja ports 5432 ir aizņemts vai rodas kļūdas, skat. [`Study_Pilot/README.md`](Study_Pilot/README.md) (soļi un sadaļa *Biežākās problēmas*).
 
 ## Kādus datus platforma apstrādā
 

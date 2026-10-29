@@ -1,3 +1,5 @@
+# Tikai lokālai izstrādei. Ports nāk no DB_PORT (.env), pēc noklusējuma 5432.
+# Ja 5432 jau aizņem cita PostgreSQL, .env ieraksti DB_PORT=5433 un to pašu portu DATABASE_URL.
 services:
   db:
-    ports: ["127.0.0.1:5432:5432"]
+    ports: ["127.0.0.1:${DB_PORT:-5432}:5432"]
