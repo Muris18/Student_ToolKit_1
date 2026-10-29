@@ -11,30 +11,55 @@ Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md).
 
 ## Palaišana lokāli (Windows CMD)
 
-1. Izveido vides failu:
+Pirms sākšanas atver **Docker Desktop** un pagaidi, līdz tas ir startējis.
+
+### Ātrākais veids
+
+Mapē `Study_Pilot`:
+
+```cmd
+powershell -ExecutionPolicy Bypass -File setup.ps1
+npm run dev
+```
+
+Skripts izveido `.env` ar nejaušu paroli, `.env.local` ar `DATABASE_URL`, instalē pakotnes, palaiž datubāzi, piemēro migrācijas un ielādē eksāmenus. Esošu `.env.local` tas nepārraksta. Pēc tam atver **http://localhost:3000** → *Izveidot kontu*. (Linux/macOS: `bash setup.sh`.)
+
+Ja ports 5432 jau ir aizņemts (skat. [Biežākās problēmas](#biežākās-problēmas)), pirms skripta palaišanas izveido failu `.env` ar rindu `DB_PORT=5433`.
+
+### Pa soļiem (ja skripts neder)
+
+1. Izveido vides failus:
 
    ```cmd
    copy .env.example .env
    notepad .env
    ```
 
-   Aizpildi:
+   Aizpildi `.env`:
 
    ```env
    POSTGRES_PASSWORD=izdomā_paroli
+   DB_PORT=5432
+   ```
+
+   Un izveido `.env.local` (tur ir `DATABASE_URL`, un šis fails nekad neiet Git):
+
+   ```cmd
+   notepad .env.local
+   ```
+
+   ```env
    DATABASE_URL=postgres://sp:izdomā_paroli@localhost:5432/sp
    DEEPSEEK_API_KEY=
    ```
 
-   `DEEPSEEK_API_KEY` var atstāt tukšu — tad AI čats paziņos, ka AI nav ieslēgts. Neliec komentārus tajā pašā rindā aiz vērtības.
+   Parolei abos failos jābūt vienādai. `DEEPSEEK_API_KEY` var atstāt tukšu, tad AI čats paziņos, ka AI nav ieslēgts. Neliec komentārus tajā pašā rindā aiz vērtības.
 
 2. Palaid datubāzi (tikai lokāli, ports atvērts tikai uz 127.0.0.1):
 
    ```cmd
    docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db
    ```
-
-   Pirmajā palaišanā automātiski izpildās `db/init.sql` (tabulas `users` un `sessions`).
 
 3. Instalē, piemēro migrācijas, ielādē eksāmenus un palaid:
 
@@ -47,7 +72,7 @@ Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md).
 
 4. Atver **http://localhost:3000** → *Izveidot kontu*.
 
-`setup.sh` / `setup.ps1` dara 2. soli automātiski un izveido paroli.
+Pēc datora restarta nākamreiz pietiek ar: atvērt Docker Desktop, `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db` un `npm run dev`. Dati datubāzē saglabājas.
 
 ### Administratora konts
 
@@ -67,6 +92,30 @@ docker compose exec db psql -U sp -c "UPDATE users SET role='admin' WHERE email=
 | `npm run migrate` | Piemēro jaunās `db/migrations/*.sql` (drīkst palaist atkārtoti) |
 | `npm run import:exams` | Ielādē `exams/*.json` datubāzē (skat. [`exams/README.md`](exams/README.md)) |
 | `npm run cleanup` | Dzēš beigušās sesijas un 24 mēnešus neaktīvus kontus (lietotne to dara arī pati) |
+
+## Biežākās problēmas
+
+| Kļūda | Cēlonis un risinājums |
+|---|---|
+| `password authentication failed for user "sp"` | Vai nu ports 5432 jau aizņemts ar citu PostgreSQL (pārbaudi `netstat -ano \| findstr :5432`), vai arī parole `.env.local` nesakrīt ar `POSTGRES_PASSWORD`. Risinājums: `.env` ieraksti `DB_PORT=5433`, `.env.local` nomaini `localhost:5432` uz `localhost:5433`, tad pārveido datubāzi (zemāk). |
+| `docker` nav atpazīts | Docker nav uzstādīts vai CMD logs atvērts pirms instalēšanas. Aizver un atver jaunu CMD logu. |
+| `ECONNREFUSED` | Datubāze nedarbojas. Atver Docker Desktop un palaid `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db`. |
+| `column ... does not exist` vai `relation ... does not exist` | Nav piemērotas migrācijas: `npm run migrate`. |
+| `Port 3000 is in use` | Cits `npm run dev` jau darbojas. Aizver to vai atrodi procesu: `netstat -ano \| findstr :3000` (jāaptur LISTENING process, ne pārlūks). |
+| Čats raksta, ka AI nav ieslēgts | Nav `DEEPSEEK_API_KEY` failā `.env.local`. Pēc pievienošanas pārstartē `npm run dev`. |
+| Čats raksta, ka dienas limits izmantots | Testēšanai `.env.local` pievieno `AI_DAILY_LIMIT_FREE=200` un pārstartē serveri. |
+| Lapa izskatās vecā vai nemainās | Pārlūkā `Ctrl+F5`. Pārbaudi, ka izmaiņas nav ielikušās nepareizā mapē (mapei `Study_Pilot` nedrīkst būt iekšā vēl viena `Study_Pilot`). |
+
+**Datubāzes pārveidošana no nulles** (lokāli; izdzēš visus lokālos lietotājus un datus):
+
+```cmd
+docker compose -f docker-compose.yml -f docker-compose.dev.yml down -v
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db
+npm run migrate
+npm run import:exams
+```
+
+Paroli `docker` ieraksta tikai pirmajā izveidošanas reizē. Ja maini `POSTGRES_PASSWORD`, vajag `down -v`.
 
 ## Serverī (Hetzner, Docker Compose)
 
