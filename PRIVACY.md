@@ -13,7 +13,8 @@ Ja kodā mainās vācamie dati vai ārējie servisi, atjauno arī politiku un ta
 
 Kamēr dokumentā ir vietas ar `[ ]`, lapa rāda brīdinājumu "Melnraksts".
 
-- [ ] **Rakstiska vienošanās starp kopīgajiem pārziņiem** (Rodrigo Šaudiņš un Kristers Mortuzāns, VDAR 26. pants): kurš atbild uz lietotāju pieprasījumiem, kurš uztur serveri un rezerves kopijas, kurš ziņo par datu noplūdi. Pietiek ar īsu dokumentu, ko abi parakstāt. Politikā jau rakstīts, ka tāda vienošanās ir.
+- [ ] **Parakstīt kopīgo pārziņu vienošanos** (Rodrigo Šaudiņš un Kristers Mortuzāns, VDAR 26. pants). Dokuments ir sagatavots; atliek ierakstīt e-pastus, datumu un abiem parakstīt.
+- [ ] **Kad tiks dibināta SIA:** pārzinis kļūst SIA, nevis Rodrigo un Kristers personīgi — jāatjauno politikas 1. sadaļa un lietošanas noteikumi.
 - [ ] Izveidot e-pastu jautajumi@studypilot.lv un pārliecināties, ka kāds to lasa.
 - [ ] Pārbaudīt Hetzner servera atrašanās vietu (5. sadaļa).
 - [ ] Serverī ieslēgt arī Hetzner Cloud rezerves kopijas (pēc izvēles, drošībai pret servera bojājumu).
