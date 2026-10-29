@@ -21,18 +21,20 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
-  const page = <Component {...pageProps} />;
+  const chrome = !NO_CHROME.includes(router.pathname);
   return (
     <AppProvider>
-      {NO_CHROME.includes(router.pathname) ? page : (
-        <div className="min-h-screen bg-page flex flex-col">
-          <Navbar />
+      <div className="min-h-screen bg-page flex flex-col">
+        <Navbar app={chrome} />
+        {chrome ? (
           <div className="flex flex-1">
             <Sidebar />
-            <div className="flex-1 min-w-0">{page}</div>
+            <div className="flex-1 min-w-0"><Component {...pageProps} /></div>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="flex-1 flex flex-col"><Component {...pageProps} /></div>
+        )}
+      </div>
     </AppProvider>
   );
 }
