@@ -62,13 +62,6 @@ html[data-device='mobile'] main { padding-bottom: calc(6.5rem + env(safe-area-in
 html[data-device='mobile'] input, html[data-device='mobile'] select, html[data-device='mobile'] textarea { font-size: 16px !important; min-height: 46px; }
 html[data-device='mobile'] button { min-height: 40px; }
 
-/* ---------- Splash / ielādes ekrāns ---------- */
-.splash { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgb(var(--bg)); cursor: pointer; transition: opacity .35s ease; padding: env(safe-area-inset-top) 24px env(safe-area-inset-bottom); }
-html[data-splash='off'] .splash { display: none; }
-.splash-out { opacity: 0; pointer-events: none; }
-.splash-logo { width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 24px; background: rgb(var(--acc)); animation: fadeUp .5s ease both; }
-.splash-title { font-size: clamp(2rem, 9vw, 3rem); font-weight: 600; letter-spacing: -.02em; color: rgb(var(--s900)); line-height: 1; animation: fadeUp .5s ease .1s both; }
-.splash-sub { font-size: .9rem; color: rgb(var(--s500)); animation: fadeUp .5s ease .2s both; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Animācijas (tikai atbildes uz darbību) ---------- */
@@ -89,6 +82,6 @@ button.border-emerald-500 { animation: okPop .6s; }
 .confetti i { position: absolute; width: 8px; height: 14px; border-radius: 2px; animation: confetti 1.9s cubic-bezier(.1,.7,.3,1) forwards; }
 
 @media (prefers-reduced-motion: reduce) {
-  .splash *, .rounded-full[style*='width'] { animation: none !important; }
+  .rounded-full[style*='width'] { animation: none !important; }
   .confetti { display: none; }
 }

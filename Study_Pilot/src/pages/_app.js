@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import '../styles/globals.css';
-import SplashScreen from '../components/SplashScreen';
 import { applyDevice } from '../lib/device';
 import { AppProvider } from '../lib/AppContext';
 import Navbar from '../components/Navbar';
@@ -25,7 +24,6 @@ export default function App({ Component, pageProps }) {
   const page = <Component {...pageProps} />;
   return (
     <AppProvider>
-      <SplashScreen />
       {NO_CHROME.includes(router.pathname) ? page : (
         <div className="min-h-screen bg-page flex flex-col">
           <Navbar />
