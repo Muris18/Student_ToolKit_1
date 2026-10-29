@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from '../components/Button';
-import ThemeSwitcher from '../components/ThemeSwitcher';
 import { useApp } from '../lib/AppContext';
 
 const features = [
@@ -18,19 +17,7 @@ export default function LandingPage() {
   const go = (href) => () => router.push(href);
   const loggedIn = status === 'ready';
   return (
-    <div className="min-h-screen bg-page flex flex-col">
-      <header className="max-w-6xl mx-auto w-full p-6 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-accent to-accent2 text-white flex items-center justify-center font-extrabold shadow-glow">SP</div>
-          <span className="font-extrabold text-slate-800 text-lg tracking-tight">Study Pilot</span>
-        </Link>
-        <div className="flex items-center gap-3">
-          <ThemeSwitcher />
-          {loggedIn
-            ? <Button variant="secondary" onClick={go('/dashboard')} className="hidden sm:flex">Mans panelis</Button>
-            : <Button variant="secondary" onClick={go('/login')} className="hidden sm:flex">Pieslēgties</Button>}
-        </div>
-      </header>
+    <div className="flex-1 flex flex-col">
 
       <main className="max-w-5xl mx-auto px-6 pt-12 pb-20 text-center space-y-8 flex-1">
         <span className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-xs font-bold px-4 py-1.5 rounded-full border border-indigo-100 animate-fadeIn">

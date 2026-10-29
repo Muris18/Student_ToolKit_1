@@ -8,9 +8,9 @@ module.exports = {
   content: ['./src/**/*.{js,jsx}'],
   theme: {
     extend: {
-      fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
+      fontFamily: { sans: ['"Instrument Sans"', 'system-ui', 'sans-serif'], display: ['Fraunces', 'Georgia', 'serif'] },
       colors: {
-        page: c('bg'), white: c('w'), accent: c('acc'), accent2: c('acc2'),
+        page: c('bg'), white: c('w'), hl: c('hl'), accent: c('acc'), accent2: c('acc2'),
         slate: scale({ 50: 's50', 100: 's100', 200: 's200', 300: 's300', 400: 's400', 500: 's500', 600: 's600', 700: 's700', 800: 's800', 900: 's900' }),
         indigo: scale({ 50: 'a50', 100: 'a100', 200: 'a200', 300: 'a200', 400: 'a600', 500: 'a600', 600: 'a600', 700: 'a700', 800: 'a700', 900: 'a700' }),
         violet: scale({ 50: 'a50', 100: 'a100', 200: 'a200', 500: 'acc2', 600: 'acc2', 700: 'a700' }),
@@ -20,9 +20,9 @@ module.exports = {
       },
       boxShadow: {
         '2xs': '0 1px 1px rgb(0 0 0 / .05)', xs: '0 1px 2px rgb(0 0 0 / .08)',
-        glow: '0 8px 28px -8px rgb(var(--acc) / .65)', soft: '0 10px 40px -12px rgb(0 0 0 / .25)',
+        glow: '0 1px 2px rgb(0 0 0 / .12)', soft: '0 1px 2px rgb(0 0 0 / .05), 0 8px 24px -12px rgb(0 0 0 / .18)',
       },
-      borderRadius: { xs: '4px' }, blur: { xs: '2px' },
+      borderRadius: { xs: '4px', xl: '0.625rem', '2xl': '0.875rem', '3xl': '1rem' }, blur: { xs: '2px' },
       keyframes: {
         fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
         pop: { from: { opacity: 0, transform: 'translateY(12px) scale(.97)' }, to: { opacity: 1, transform: 'none' } },
