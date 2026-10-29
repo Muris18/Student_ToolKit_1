@@ -38,7 +38,7 @@ export function PageHeader({ title, subtitle, children }) {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
-        <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">{title}</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold text-slate-900">{title}</h1>
         {subtitle && <p className="text-sm text-slate-500 mt-1">{subtitle}</p>}
       </div>
       {children && <div className="flex flex-wrap gap-2">{children}</div>}
@@ -48,7 +48,7 @@ export function PageHeader({ title, subtitle, children }) {
 
 export function EmptyState({ icon = '✨', title, text, children }) {
   return (
-    <div className="text-center py-8 px-4 rounded-2xl border border-dashed border-slate-200 bg-slate-50/50">
+    <div className="text-center py-8 px-4 rounded-xl border border-dashed border-slate-300 bg-slate-50">
       <div className="text-3xl mb-2">{icon}</div>
       <p className="font-semibold text-slate-800 text-sm">{title}</p>
       {text && <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto leading-relaxed">{text}</p>}
