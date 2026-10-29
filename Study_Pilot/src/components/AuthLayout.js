@@ -1,15 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import ThemeSwitcher from './ThemeSwitcher';
+import Brand from './Brand';
 
 export default function AuthLayout({ title, subtitle, children, footer }) {
   return (
     <div className="min-h-screen bg-page flex flex-col">
-      <header className="max-w-6xl mx-auto w-full p-6 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-accent text-white flex items-center justify-center font-semibold text-sm">SP</div>
-          <span className="font-display font-semibold text-slate-900 text-xl">Study Pilot</span>
-        </Link>
+      <header className="w-full h-16 px-4 md:px-6 flex items-center justify-between gap-4 border-b border-slate-200 bg-white">
+        <Brand href="/" />
         <ThemeSwitcher />
       </header>
       <div className="flex-1 flex items-start sm:items-center justify-center px-4 pb-16">

@@ -27,7 +27,7 @@
 
 /* ---------- BASE ---------- */
 @layer base {
-  html { color-scheme: light; scroll-behavior: smooth; }
+  html { color-scheme: light; scroll-behavior: smooth; scrollbar-gutter: stable; }
   [data-theme='ink'] { color-scheme: dark; }
   body { @apply bg-page text-slate-800 antialiased font-sans; }
   ::selection { background: rgb(var(--hl) / .55); color: rgb(var(--s900)); }

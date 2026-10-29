@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ThemeSwitcher from './ThemeSwitcher';
 import Button from './Button';
 import Icon from './Icon';
+import Brand from './Brand';
 import { menuItems, useIsActive } from './Sidebar';
 import { useApp } from '../lib/AppContext';
 import { gradeLabel } from '../lib/helpers';
@@ -19,12 +20,11 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 glass border-b border-slate-200">
-      <div className="h-16 px-4 md:px-8 flex items-center justify-between gap-4">
-        <Link href="/dashboard" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-lg bg-accent text-white flex items-center justify-center font-semibold text-sm">SP</div>
-          <span className="font-display font-semibold text-slate-900 text-xl hidden sm:block">Study Pilot</span>
-        </Link>
-        <div className="flex items-center gap-3">
+      <div className="h-16 flex items-stretch">
+        <div className="flex items-center px-4 md:px-6 desktop:w-64 desktop:shrink-0 desktop:border-r desktop:border-slate-200">
+          <Brand href={user ? '/dashboard' : '/'} />
+        </div>
+        <div className="flex-1 min-w-0 px-4 md:px-8 flex items-center justify-end gap-3">
           <ThemeSwitcher />
           {user && (
             <Link href="/profile" className="hidden lg:flex items-center gap-2.5 pl-3 border-l border-slate-200 hover:opacity-80 transition-opacity" title="Profils">
@@ -35,7 +35,7 @@ export default function Navbar() {
               </div>
             </Link>
           )}
-          <Button variant="secondary" onClick={logout} className="text-xs py-2 px-3">Iziet</Button>
+          {user && <Button variant="secondary" onClick={logout} className="text-xs py-2 px-3">Iziet</Button>}
         </div>
       </div>
       {/* Mobilā apakšējā tab josla */}

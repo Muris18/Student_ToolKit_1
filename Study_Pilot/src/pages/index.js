@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Brand from '../components/Brand';
 import { useRouter } from 'next/router';
 import Button from '../components/Button';
 import ThemeSwitcher from '../components/ThemeSwitcher';
@@ -19,11 +20,8 @@ export default function LandingPage() {
   const loggedIn = status === 'ready';
   return (
     <div className="min-h-screen bg-page flex flex-col">
-      <header className="max-w-6xl mx-auto w-full p-6 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-accent to-accent2 text-white flex items-center justify-center font-extrabold shadow-glow">SP</div>
-          <span className="font-extrabold text-slate-800 text-lg tracking-tight">Study Pilot</span>
-        </Link>
+      <header className="w-full h-16 px-4 md:px-6 flex items-center justify-between gap-4 border-b border-slate-200 bg-white">
+        <Brand href="/" />
         <div className="flex items-center gap-3">
           <ThemeSwitcher />
           {loggedIn

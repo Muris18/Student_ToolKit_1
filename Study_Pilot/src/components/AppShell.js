@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
 import { useApp } from '../lib/AppContext';
 
 // Kopīgais izkārtojums visām lapām, kurām vajag pieslēgtu lietotāju
-export default function AppShell({ children, className = 'max-w-6xl' }) {
+// Pārbauda pieteikšanos un ieliek lapas saturu. Navbar un Sidebar ir _app.js, tāpēc starp lapām nemirgo.
+export default function AppShell({ children }) {
   const { status } = useApp();
   const router = useRouter();
 
@@ -13,24 +12,14 @@ export default function AppShell({ children, className = 'max-w-6xl' }) {
     if (status === 'guest') router.replace(`/login?next=${encodeURIComponent(router.asPath)}`);
   }, [status, router]);
 
-  if (status !== 'ready') {
-    return (
-      <div className="min-h-screen bg-page flex items-center justify-center">
-        <div className="flex items-center gap-3 text-sm text-slate-400">
+  return (
+    <main className="p-4 sm:p-8 space-y-6 w-full min-w-0 max-w-6xl mx-auto">
+      {status === 'ready' ? children : (
+        <div className="flex items-center gap-3 text-sm text-slate-400 py-10">
           <span className="w-4 h-4 rounded-full border-2 border-accent border-t-transparent animate-spin" /> Ielādē…
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-page flex flex-col">
-      <Navbar />
-      <div className="flex flex-1">
-        <Sidebar />
-        <main className={`flex-1 p-4 sm:p-8 space-y-6 w-full min-w-0 mx-auto ${className}`}>{children}</main>
-      </div>
-    </div>
+      )}
+    </main>
   );
 }
 

@@ -4,6 +4,11 @@ import '../styles/globals.css';
 import SplashScreen from '../components/SplashScreen';
 import { applyDevice } from '../lib/device';
 import { AppProvider } from '../lib/AppContext';
+import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
+
+// Lapas bez kopīgā rāmja (navigācijas)
+const NO_CHROME = ['/', '/login', '/register'];
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -11,26 +16,25 @@ export default function App({ Component, pageProps }) {
     applyDevice();
     window.addEventListener('resize', applyDevice);
     window.addEventListener('orientationchange', applyDevice);
-    const move = (e) => {
-      const c = e.target.closest && e.target.closest('.card-fx');
-      if (!c) return;
-      const r = c.getBoundingClientRect();
-      c.style.setProperty('--mx', `${e.clientX - r.left}px`);
-      c.style.setProperty('--my', `${e.clientY - r.top}px`);
-    };
-    window.addEventListener('pointermove', move, { passive: true });
     return () => {
-      window.removeEventListener('pointermove', move);
       window.removeEventListener('resize', applyDevice);
       window.removeEventListener('orientationchange', applyDevice);
     };
   }, []);
 
+  const page = <Component {...pageProps} />;
   return (
     <AppProvider>
       <SplashScreen />
-      <div className="orb orb-a" /><div className="orb orb-b" />
-      <div key={router.pathname} className="page-enter"><Component {...pageProps} /></div>
+      {NO_CHROME.includes(router.pathname) ? page : (
+        <div className="min-h-screen bg-page flex flex-col">
+          <Navbar />
+          <div className="flex flex-1">
+            <Sidebar />
+            <div className="flex-1 min-w-0">{page}</div>
+          </div>
+        </div>
+      )}
     </AppProvider>
   );
 }
