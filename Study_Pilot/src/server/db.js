@@ -5,7 +5,7 @@ import { Pool } from 'pg';
 
 const g = globalThis;
 if (!g.__SP_POOL__) {
-  g.__SP_POOL__ = new Pool({ connectionString: process.env.DATABASE_URL, max: 10 });
+  g.__SP_POOL__ = new Pool({ connectionString: process.env.DATABASE_URL, max: 10, connectionTimeoutMillis: 5000 });
   g.__SP_POOL__.on('error', (e) => console.error('PostgreSQL pool kļūda:', e.message));
 }
 const pool = g.__SP_POOL__;

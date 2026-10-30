@@ -7,6 +7,7 @@ import Icon from './Icon';
 
 export const menuItems = [
   { name: 'Vadības panelis', href: '/dashboard', icon: 'dashboard' },
+  { name: 'Fokusa režīms', href: '/focus', icon: 'bolt' },
   { name: 'Plānotājs un termiņi', href: '/planner', icon: 'calendar' },
   { name: 'Eksāmenu sagatavošanās', href: '/exams', icon: 'book' },
   { name: 'Testa režīms', href: '/exams?mode=quiz', icon: 'bolt' },

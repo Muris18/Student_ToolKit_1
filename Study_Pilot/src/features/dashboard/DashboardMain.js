@@ -43,8 +43,9 @@ export default function DashboardMain() {
             {gradeLabel(p)}{p.program ? ` · ${p.program}` : ''}{p.school ? ` · ${p.school}` : ''}
           </span>
           <h2 className="text-2xl md:text-3xl font-bold mt-2">
-            {isNew ? 'Laipni lūdzam' : 'Sveicināts atpakaļ'}, {p.firstName}! 👋
+            Čau, {p.firstName || 'draugs'}! 👋
           </h2>
+          <p className="text-accent text-sm mt-2">Šodien viens solis tuvāk.</p>
           <p className="text-slate-500 mt-1 max-w-xl text-sm md:text-base">{line}</p>
         </div>
         <SeasonalArt />

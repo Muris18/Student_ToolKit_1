@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from '../components/Button';
-import SeasonalArt from '../components/SeasonalArt';
+import SeasonalArt, { SeasonalBadge, SeasonalNote } from '../components/SeasonalArt';
 import { useApp } from '../lib/AppContext';
 
 export default function LandingPage() {
@@ -14,7 +14,7 @@ export default function LandingPage() {
     <main className="pilot-home">
       <section className="pilot-hero">
         <div className="pilot-hero-copy">
-          <span className="pilot-season-badge">✦ Mazliet maģijas. Daudz progresa.</span>
+          <SeasonalBadge />
           <h1>Mazāk haosa.<br />Vairāk <span>“gatavs!”</span></h1>
           <p>Tavi priekšmeti, eksāmeni un nākamais solis — vienā vietā. Paņem vienu uzdevumu un dodamies uz priekšu.</p>
           <div className="pilot-hero-actions">
@@ -31,7 +31,7 @@ export default function LandingPage() {
         <article className="pilot-feature"><span className="pilot-eyebrow">02 / VIETA SKAIDRAI GALVAI</span><h2>Viss ieplānots.<br />Vari uzelpot.</h2><p>Saliec termiņus kalendārā un zini, kam pievērsties šodien.</p><button type="button" onClick={enter('/planner')}>Atvērt plānotāju <span aria-hidden="true">↗</span></button></article>
         <article className="pilot-feature pilot-feature-goal"><span className="pilot-goal-icon" aria-hidden="true">⚑</span><span className="pilot-eyebrow">03 / TAVAS MAZĀS UZVARAS</span><h2>Progress,<br />ko vari redzēt.</h2><p>Seko paveiktajam un atrodi tēmas, kurām vajag vēl mazliet uzmanības.</p><button type="button" onClick={enter('/progress')}>Apskatīt progresu <span aria-hidden="true">↗</span></button></article>
       </section>
-      <div className="pilot-season-note"><span aria-hidden="true">🎃</span> Vienīgais biedējošais? Atstāt visu uz pēdējo vakaru.</div>
+      <SeasonalNote />
     </main>
     <footer className="pilot-footer"><span>© 2026 Study Pilot · Izveidots Latvijas skolēniem.</span><div><Link href="/privacy">Privātuma politika</Link><Link href="/terms">Lietošanas noteikumi</Link><Link href="/admin">Administrēšana</Link></div></footer>
   </div>;

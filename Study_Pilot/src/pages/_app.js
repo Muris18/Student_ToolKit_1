@@ -4,10 +4,11 @@ import '../styles/globals.css';
 import { applyDevice } from '../lib/device';
 import { AppProvider } from '../lib/AppContext';
 import Navbar from '../components/Navbar';
+import CompletionFeedback from '../components/CompletionFeedback';
 import Sidebar from '../components/Sidebar';
 
 // Lapas bez kopīgā rāmja (navigācijas)
-const NO_CHROME = ['/', '/login', '/register', '/privacy', '/terms'];
+const NO_CHROME = ['/', '/login', '/register', '/privacy', '/terms', '/focus'];
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function App({ Component, pageProps }) {
   const chrome = !NO_CHROME.includes(router.pathname);
   return (
     <AppProvider>
+      <CompletionFeedback />
       <div className="min-h-screen bg-page flex flex-col">
         <Navbar app={chrome} />
         {chrome ? (
