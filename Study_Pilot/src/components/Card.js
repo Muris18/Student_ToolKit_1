@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Card({ children, title, subtitle, action, className = '' }) {
   return (
-    <div className={`bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 ${className}`}>
+    <div className={`pilot-card bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 ${className}`}>
       {(title || action) && (
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100">
           <div>

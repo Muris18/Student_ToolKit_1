@@ -6,7 +6,7 @@ export default function Brand({ href = '/dashboard', className = '' }) {
   return (
     <Link href={href} className={`flex items-center gap-3 shrink-0 ${className}`} aria-label="Study Pilot">
       <span className="w-9 h-9 rounded-lg bg-accent text-white flex items-center justify-center font-semibold text-sm leading-none">SP</span>
-      <span className="font-display font-semibold text-slate-900 text-xl leading-none whitespace-nowrap">Study Pilot</span>
+      <span className="font-sans font-semibold text-accent text-xl leading-none whitespace-nowrap">study pilot</span>
     </Link>
   );
 }
