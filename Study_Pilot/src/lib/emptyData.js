@@ -7,4 +7,5 @@ export const emptyClientData = () => ({
   quizResults: [],
   chat: [],
   activity: [],
+  examAttempts: [], // valsts eksāmenu uzdevumi: { taskId, correct, at }
 });

@@ -4,11 +4,12 @@ import Card from '../../components/Card';
 import Button from '../../components/Button';
 import { useApp } from '../../lib/AppContext';
 import { uid } from '../../lib/helpers';
+import MathText from '../../components/MathText';
 
 // AI skolotājs: ziņa tiek nosūtīta uz /api/ai/tutor (DeepSeek atslēga ir tikai serverī).
 // Sarunas vēsture saglabājas lietotāja datos.
 export default function AiTutorChat({ draft = '' }) {
-  const { user, data, update, api, setAiConsent } = useApp();
+  const { user, data, update, api, setAiConsent, config } = useApp();
   const [consentBusy, setConsentBusy] = useState(false);
   const [inputValue, setInputValue] = useState(draft);
   const [loading, setLoading] = useState(false);
@@ -26,11 +27,16 @@ export default function AiTutorChat({ draft = '' }) {
     setConsentBusy(false);
   };
 
-  useEffect(() => { if (draft) { setInputValue(draft); inputRef.current?.focus(); } }, [draft]);
+  // Uzdevuma teksts no citas sadaļas (saglabāts arī sesijā, ja lapa pārlādējas)
+  useEffect(() => {
+    let d = draft;
+    try { d = d || sessionStorage.getItem('sp-ai-draft') || ''; sessionStorage.removeItem('sp-ai-draft'); } catch (e) {}
+    if (d) { setInputValue(d); inputRef.current?.focus(); }
+  }, [draft]);
   useEffect(() => { listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' }); }, [messages.length, loading]);
 
   const handleSendMessage = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     const text = inputValue.trim();
     if (!text || loading) return;
     const history = messages.slice(-6).map((m) => ({ sender: m.sender, text: m.text }));
@@ -69,8 +75,8 @@ export default function AiTutorChat({ draft = '' }) {
 
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${msg.sender === 'user' ? 'bg-indigo-600 text-white rounded-br-xs' : 'bg-slate-100 text-slate-800 rounded-bl-xs border border-slate-200/60'}`}>
-                {msg.text}
+              <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-indigo-600 text-white rounded-br-xs' : 'bg-slate-100 text-slate-800 rounded-bl-xs border border-slate-200/60'}`}>
+                <MathText as="div" text={msg.text} />
                 {msg.sender === 'ai' && msg.sources?.length > 0 && (
                   <p className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-slate-500">
                     Līdzīgi eksāmenu uzdevumi: {msg.sources.join('; ')}
@@ -85,7 +91,12 @@ export default function AiTutorChat({ draft = '' }) {
               <div className="p-4 rounded-2xl text-sm bg-slate-100 text-slate-500 border border-slate-200/60">AI raksta…</div>
             </div>
           )}
-          {error && <p role="alert" className="text-center text-xs text-red-600">{error}</p>}
+          {error && (
+            <p role="alert" className="text-center text-xs text-red-600">
+              {error}
+              {/Premium/.test(error) && <> <Link href="/premium" className="underline font-semibold">Uzzināt par Premium</Link></>}
+            </p>
+          )}
           {remaining !== null && !error && (
             <p className="text-center text-[11px] text-slate-400">Šodien atlikuši AI jautājumi: {remaining}</p>
           )}
@@ -111,17 +122,22 @@ export default function AiTutorChat({ draft = '' }) {
             </Button>
           </div>
         ) : (
-        <form onSubmit={handleSendMessage} className="flex gap-2 pt-3 border-t border-slate-100">
-          <input
-            ref={inputRef}
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Uzdod jautājumu…"
-            aria-label="Ziņa"
-            className="flex-1 min-w-0 px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-indigo-600 transition-colors"
-          />
-          <Button type="submit" disabled={!inputValue.trim() || loading}>Sūtīt</Button>
+        <form onSubmit={handleSendMessage} className="pt-3 border-t border-slate-100">
+          <div className="flex gap-2 items-end">
+            <textarea
+              ref={inputRef}
+              rows={Math.min(5, Math.max(1, inputValue.split('\n').length))}
+              value={inputValue}
+              maxLength={1500}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); } }}
+              placeholder="Uzdod jautājumu… (formulas: $x^2$, $\frac{a}{b}$)"
+              aria-label="Ziņa"
+              className="flex-1 min-w-0 px-4 py-2.5 rounded-xl border border-slate-200 text-sm resize-none focus:outline-hidden focus:border-indigo-600 transition-colors"
+            />
+            <Button type="submit" disabled={!inputValue.trim() || loading}>Sūtīt</Button>
+          </div>
+          <p className="text-[11px] text-slate-400 mt-1.5">Enter — sūtīt, Shift+Enter — jauna rinda. {user?.plan === 'premium' ? config.aiLimitPremium : config.aiLimitFree} jautājumi dienā.</p>
         </form>
         )}
       </div>

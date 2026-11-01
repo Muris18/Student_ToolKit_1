@@ -5,11 +5,13 @@ import ExamSelector from '../features/exams/ExamSelector';
 import ExamTaskList from '../features/exams/ExamTaskList';
 import QuizMode from '../features/exams/QuizMode';
 import AiTutorChat from '../features/exams/AiTutorChat';
+import OfficialExams from '../features/exams/OfficialExams';
 import { useApp } from '../lib/AppContext';
 import { subjectName } from '../lib/helpers';
 
 const MODES = [
   { id: 'select', label: 'Priekšmeti' },
+  { id: 'official', label: '📄 Valsts eksāmeni' },
   { id: 'tasks', label: 'Uzdevumi' },
   { id: 'quiz', label: '⚡ Tests' },
   { id: 'ai', label: '🤖 AI Skolotājs' },
@@ -68,6 +70,17 @@ function Exams() {
       )}
 
       {activeMode === 'quiz' && <QuizMode key={subjectId} subjectId={subjectId} onChangeSubject={(id) => go('quiz', id)} />}
+
+      {activeMode === 'official' && (
+        <OfficialExams
+          onAskAi={(text) => {
+            const t = text.slice(0, 1400);
+            try { sessionStorage.setItem('sp-ai-draft', t); } catch (e) {}
+            setDraft(t);
+            go('ai');
+          }}
+        />
+      )}
 
       {activeMode === 'ai' && <AiTutorChat draft={draft} />}
     </>

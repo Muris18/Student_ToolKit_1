@@ -2,6 +2,11 @@ services:
   db:
     image: postgres:16
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sp -d sp"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       POSTGRES_USER: sp
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -14,12 +19,29 @@ services:
     build: .
     restart: always
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgres://sp:${POSTGRES_PASSWORD}@db:5432/sp
+      APP_URL: https://${DOMAIN}
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       AI_DAILY_LIMIT_FREE: ${AI_DAILY_LIMIT_FREE:-10}
       AI_DAILY_LIMIT_PREMIUM: ${AI_DAILY_LIMIT_PREMIUM:-100}
+      AI_PRICE_IN: ${AI_PRICE_IN:-}
+      AI_PRICE_OUT: ${AI_PRICE_OUT:-}
+      EMAIL_PROVIDER: ${EMAIL_PROVIDER:-brevo}
+      EMAIL_API_KEY: ${EMAIL_API_KEY:-}
+      EMAIL_FROM: ${EMAIL_FROM:-Study Pilot <jautajumi@studypilot.lv>}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_PRICE_ID: ${STRIPE_PRICE_ID:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      PREMIUM_PRICE_TEXT: ${PREMIUM_PRICE_TEXT:-}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
 
   # Datubāzes rezerves kopija reizi dienā mapē ./backups, glabā 7 dienas (skat. scripts/backup.sh)
   backup:

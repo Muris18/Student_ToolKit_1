@@ -10,10 +10,12 @@ export const menuItems = [
   { name: 'Fokusa režīms', href: '/focus', icon: 'bolt' },
   { name: 'Plānotājs un termiņi', href: '/planner', icon: 'calendar' },
   { name: 'Eksāmenu sagatavošanās', href: '/exams', icon: 'book' },
+  { name: 'Valsts eksāmeni', href: '/exams?mode=official', icon: 'doc' },
   { name: 'Testa režīms', href: '/exams?mode=quiz', icon: 'bolt' },
   { name: 'AI Mācību palīgs', href: '/exams?mode=ai', icon: 'chat' },
   { name: 'Progress', href: '/progress', icon: 'chart' },
   { name: 'Profils un priekšmeti', href: '/profile', icon: 'user' },
+  { name: 'Premium', href: '/premium', icon: 'star' },
   { name: 'Administrēšana', href: '/admin', icon: 'settings' },
 ];
 
@@ -24,7 +26,7 @@ export function useIsActive() {
     const mode = qs ? qs.split('=')[1] : null;
     if (path !== pathname) return false;
     if (path !== '/exams') return true;
-    const cur = query.mode === 'quiz' || query.mode === 'ai' ? query.mode : null;
+    const cur = ['quiz', 'ai', 'official'].includes(query.mode) ? query.mode : null;
     return cur === mode;
   };
 }

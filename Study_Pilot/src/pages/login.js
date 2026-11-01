@@ -7,7 +7,7 @@ import { inputCls, labelCls } from '../components/AppShell';
 import { useApp } from '../lib/AppContext';
 
 export default function LoginPage() {
-  const { status, login, notice } = useApp();
+  const { status, login, notice, config } = useApp();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,7 +35,7 @@ export default function LoginPage() {
   return (
     <AuthLayout
       title="Pieslēgties"
-      subtitle="Ievadi e-pastu un paroli, ar ko reģistrējies šajā sesijā."
+      subtitle="Laipni lūgts atpakaļ! Ievadi savu e-pastu un paroli."
       footer={<>Vēl nav konta? <Link href={`/register${router.query.next ? `?next=${encodeURIComponent(next)}` : ''}`} className="font-semibold text-accent hover:underline">Reģistrēties</Link></>}
     >
       {notice && <div className="mb-5 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700 text-sm">{notice}</div>}
@@ -45,7 +45,12 @@ export default function LoginPage() {
           <input id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
         </div>
         <div>
-          <label className={labelCls} htmlFor="password">Parole</label>
+          <div className="flex items-center justify-between">
+            <label className={labelCls} htmlFor="password">Parole</label>
+            {config.email
+              ? <Link href="/forgot" className="text-xs font-semibold text-accent hover:underline mb-1.5">Aizmirsi paroli?</Link>
+              : <a href="mailto:jautajumi@studypilot.lv?subject=Aizmirsu%20paroli" className="text-xs text-slate-400 hover:text-accent mb-1.5">Aizmirsi paroli?</a>}
+          </div>
           <input id="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} />
         </div>
         {error && <p className="text-sm text-rose-600 font-medium">{error}</p>}

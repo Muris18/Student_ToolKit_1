@@ -92,6 +92,7 @@ docker compose exec db psql -U sp -c "UPDATE users SET role='admin' WHERE email=
 | `npm run migrate` | Piemēro jaunās `db/migrations/*.sql` (drīkst palaist atkārtoti) |
 | `npm run import:exams` | Ielādē `exams/*.json` datubāzē (skat. [`exams/README.md`](exams/README.md)) |
 | `npm run cleanup` | Dzēš beigušās sesijas un 24 mēnešus neaktīvus kontus (lietotne to dara arī pati) |
+| `npm run create-admin -- e-pasts [parole]` | Padara kontu par administratoru (vai izveido jaunu) |
 
 ## Biežākās problēmas
 
@@ -119,12 +120,16 @@ Paroli `docker` ieraksta tikai pirmajā izveidošanas reizē. Ja maini `POSTGRES
 
 ## Serverī (Hetzner, Docker Compose)
 
-`.env` serverī: `POSTGRES_PASSWORD`, `DOMAIN`, `DEEPSEEK_API_KEY` (pēc izvēles `AI_DAILY_LIMIT_FREE`, `AI_DAILY_LIMIT_PREMIUM`).
+**Pilna instrukcija: [DEPLOY.md](DEPLOY.md).** Īsumā — tukšā Ubuntu serverī:
 
 ```bash
-docker compose up -d --build
-docker compose exec app npm run import:exams
+git clone https://github.com/Muris18/Student_ToolKit_1.git
+cd Student_ToolKit_1/Study_Pilot
+sudo bash scripts/server-setup.sh     # Docker, ugunsmūris, .env, HTTPS, eksāmeni, admins
+sudo bash scripts/update.sh           # vēlāk: jaunākā versija no GitHub
 ```
+
+Visi iestatījumi (`DOMAIN`, `DEEPSEEK_API_KEY`, `EMAIL_*`, `STRIPE_*` u.c.) ir aprakstīti [`.env.example`](.env.example). Neobligātās funkcijas (e-pasts, maksājumi) vienkārši ir izslēgtas, kamēr atslēga nav ievadīta.
 
 `docker-compose.yml` palaiž četrus konteinerus:
 

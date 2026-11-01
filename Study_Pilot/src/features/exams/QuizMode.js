@@ -6,16 +6,19 @@ import SubjectSelect from '../../components/SubjectSelect';
 import { EmptyState } from '../../components/AppShell';
 import QuizBuilder from './QuizBuilder';
 import { useApp } from '../../lib/AppContext';
+import { canAdd, FREE_LIMITS } from '../../lib/plans';
 import { uid, subjectName, subjectColor, fmtDate } from '../../lib/helpers';
 
 // Testu saraksts → izveide/labošana → pildīšana → rezultāts
 export default function QuizMode({ subjectId, onChangeSubject }) {
-  const { data, update } = useApp();
+  const { data, update, user, setSaveError } = useApp();
   const [view, setView] = useState({ name: 'list' }); // list | build | play
 
   const quizzes = data.quizzes.filter((q) => !subjectId || q.subjectId === subjectId);
 
   const saveQuiz = (quiz) => {
+    const isNew = !data.quizzes.some((q) => q.id === quiz.id);
+    if (isNew && !canAdd(user, data, 'quizzes')) { setSaveError(`Bezmaksas plānā var būt līdz ${FREE_LIMITS.quizzes} saviem testiem. Premium — bez ierobežojuma.`); return; }
     update((d) => ({ ...d, quizzes: d.quizzes.some((q) => q.id === quiz.id) ? d.quizzes.map((q) => (q.id === quiz.id ? quiz : q)) : [...d.quizzes, quiz] }));
     setView({ name: 'list' });
   };

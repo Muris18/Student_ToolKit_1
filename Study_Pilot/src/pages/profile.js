@@ -6,6 +6,8 @@ import Button from '../components/Button';
 import SubjectManager from '../features/profile/SubjectManager';
 import { useApp } from '../lib/AppContext';
 import { emptyClientData } from '../lib/emptyData';
+import ThemeSwitcher from '../components/ThemeSwitcher';
+import { isPremium } from '../lib/plans';
 
 function ProfileForm() {
   const { user, saveProfile } = useApp();
@@ -65,8 +67,77 @@ export default function ProfilePage() {
         <Card title="Par mani" subtitle="Redzams navigācijā un vadības panelī"><ProfileForm /></Card>
         <Card title="📚 Mani priekšmeti" subtitle="No tiem veidojas plānotājs, uzdevumi, testi un progress"><SubjectManager /></Card>
       </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        <AccountCard />
+        <PasswordCard />
+      </div>
       <DangerZone />
     </AppShell>
+  );
+}
+
+// Konts: e-pasts, plāns, tēma (telefonā tēmas pārslēdzējs ir tikai šeit)
+function AccountCard() {
+  const { user, config } = useApp();
+  const premium = isPremium(user);
+  return (
+    <Card title="Konts" subtitle={user.email}>
+      <div className="space-y-4 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span className="text-slate-500">Plāns</span>
+          <span className="flex items-center gap-3">
+            <strong className={premium ? 'text-accent' : 'text-slate-800'}>{premium ? 'Premium ✦' : 'Bezmaksas'}</strong>
+            <Link href="/premium" className="text-xs font-semibold text-accent hover:underline">{premium ? 'Pārvaldīt' : 'Uzlabot'}</Link>
+          </span>
+        </div>
+        {config.email && (
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="text-slate-500">E-pasts</span>
+            <strong className={user.emailVerified ? 'text-emerald-700' : 'text-amber-700'}>{user.emailVerified ? 'Apstiprināts' : 'Nav apstiprināts'}</strong>
+          </div>
+        )}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span className="text-slate-500">Tēma</span>
+          <ThemeSwitcher />
+        </div>
+        <p className="text-xs text-slate-400">E-pasta adreses maiņai raksti uz <a className="underline" href="mailto:jautajumi@studypilot.lv">jautajumi@studypilot.lv</a>.</p>
+      </div>
+    </Card>
+  );
+}
+
+function PasswordCard() {
+  const { changePassword } = useApp();
+  const [current, setCurrent] = useState('');
+  const [password, setPassword] = useState('');
+  const [msg, setMsg] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const submit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setMsg('');
+    setBusy(true);
+    try {
+      await changePassword(current, password);
+      setCurrent('');
+      setPassword('');
+      setMsg('Parole nomainīta. Citās ierīcēs tu tiki izrakstīts.');
+    } catch (err) {
+      setError(err.message);
+    }
+    setBusy(false);
+  };
+  return (
+    <Card title="Parole" subtitle="Pēc maiņas citās ierīcēs būs jāpieslēdzas no jauna">
+      <form onSubmit={submit} className="space-y-4">
+        <div><label className={labelCls} htmlFor="pw-cur">Pašreizējā parole</label><input id="pw-cur" type="password" required autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} className={inputCls} /></div>
+        <div><label className={labelCls} htmlFor="pw-new">Jaunā parole</label><input id="pw-new" type="password" required minLength={8} maxLength={200} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} /></div>
+        {error && <p className="text-sm text-rose-600">{error}</p>}
+        {msg && <p className="text-sm text-emerald-700" role="status">{msg}</p>}
+        <div className="flex justify-end"><Button type="submit" variant="secondary" disabled={busy}>{busy ? 'Saglabā…' : 'Mainīt paroli'}</Button></div>
+      </form>
+    </Card>
   );
 }
 

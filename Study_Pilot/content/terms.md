@@ -30,9 +30,22 @@ Reģistrējoties tu piekrīti šiem noteikumiem. Kā mēs apstrādājam tavus da
 
 ## 3. Ko platforma piedāvā
 
-- Mācību plānotāju, termiņu radaru, savus uzdevumus un testus, progresa pārskatu un AI skolotāju.
-- Šobrīd platforma ir **bezmaksas**. AI skolotājam ir dienas jautājumu limits. Ja ieviesīsim maksas plānu, pirms tam papildināsim šos noteikumus un tev par to paziņosim.
+- Mācību plānotāju, termiņu radaru, fokusa režīmu, savus uzdevumus un testus, valsts eksāmenu uzdevumus ar atbilžu pārbaudi, progresa pārskatu un AI skolotāju.
+- **Bezmaksas plāns** ir pieejams visiem. Tajā ir dienas limits AI skolotāja jautājumiem un ierobežots savu testu un uzdevumu skaits.
+- **Premium** ir maksas abonements ar lielāku AI limitu un bez savu testu un uzdevumu ierobežojuma. Tā nosacījumi ir 3.a sadaļā.
 - Platforma ir **izstrādes stadijā**. Funkcijas var mainīties, un platforma var īslaicīgi nedarboties, piemēram, atjauninājumu laikā. Mēs negarantējam, ka tā būs pieejama vienmēr.
+
+## 3.a Premium abonements un maksājumi
+
+- **Cena** ir redzama Premium lapā un Stripe maksājumu lapā pirms apmaksas. Tā ir galīgā cena.
+- **Maksājumu apstrādā Stripe.** Kartes datus mēs nesaņemam un neglabājam.
+- **Abonements atjaunojas automātiski** katru apmaksas periodu (piem., katru mēnesi), līdz tu to atcel.
+- **Atcelt vari jebkurā laikā** profilā vai Premium lapā ("Pārvaldīt abonementu"). Premium darbojas līdz apmaksātā perioda beigām, un vairāk maksājumi netiek ņemti. Dzēšot kontu, abonements tiek atcelts automātiski.
+- **Atteikuma tiesības.** Patērētājam parasti ir 14 dienu atteikuma tiesības distances līgumiem. Iegādājoties Premium, tu skaidri piekrīti, ka pakalpojums sākas uzreiz, un apstiprini, ka tādējādi zaudē atteikuma tiesības par jau sākto apmaksas periodu. Ja Premium nestrādā tā, kā solīts, raksti mums — izskatīsim atmaksu.
+- **Nepilngadīgie.** Ja tev nav 18 gadu, Premium drīkst iegādāties tikai ar vecāka vai likumiskā pārstāvja piekrišanu.
+- **Cenas maiņa.** Par cenas maiņu paziņosim vismaz 30 dienas iepriekš. Jaunā cena attiecas tikai uz nākamajiem apmaksas periodiem, un tu vari abonementu atcelt.
+- **Pārdevējs** ir 1. sadaļā minētās personas. Rēķinus izsniedz Stripe pēc katras apmaksas.
+- Ja Premium tev piešķir administrators (piem., par palīdzību projektam), par to nav jāmaksā, un administrators to var noņemt.
 
 ## 4. AI skolotājs
 

@@ -1,5 +1,9 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { todayStr } from './helpers';
+import { emptyClientData } from './emptyData';
+
+// Vecākiem kontiem var trūkt jaunāku datu lauku
+const withDefaults = (d) => ({ ...emptyClientData(), ...(d || {}) });
 
 // Klienta stāvoklis: kurš ir pieslēdzies + visi viņa dati.
 // Dati glabājas PostgreSQL (src/server/db.js). Pārlūkā glabājam tikai sesijas žetonu.
@@ -36,6 +40,8 @@ export function AppProvider({ children }) {
   const [user, setUser] = useState(null);
   const [data, setData] = useState(null);
   const [notice, setNotice] = useState(''); // piem. "serveris restartēts"
+  const [saveError, setSaveError] = useState(''); // piem. bezmaksas plāna limits
+  const [config, setConfig] = useState({ email: false, payments: false, premiumPrice: '', aiLimitFree: 10, aiLimitPremium: 100 });
   const tokenRef = useRef(null);
   const saveTimer = useRef(null);
   const pending = useRef(null);
@@ -57,7 +63,7 @@ export function AppProvider({ children }) {
       .then((r) => {
         tokenRef.current = s.token;
         setUser(r.user);
-        setData(r.data);
+        setData(withDefaults(r.data));
         setStatus('ready');
       })
       .catch((e) => {
@@ -70,9 +76,12 @@ export function AppProvider({ children }) {
     if (!pending.current || !tokenRef.current) return;
     const body = { data: pending.current };
     pending.current = null;
-    call('/api/me/data', { method: 'PUT', body, token: tokenRef.current }).catch((e) => {
-      if (e.status === 401) signOutLocal('Sesija beigusies. Lūdzu, pieslēdzies vēlreiz.');
-    });
+    call('/api/me/data', { method: 'PUT', body, token: tokenRef.current })
+      .then(() => setSaveError(''))
+      .catch((e) => {
+        if (e.status === 401) signOutLocal('Sesija beigusies. Lūdzu, pieslēdzies vēlreiz.');
+        else setSaveError(e.message || 'Izmaiņas neizdevās saglabāt');
+      });
   }, [signOutLocal]);
 
   useEffect(() => {
@@ -101,7 +110,7 @@ export function AppProvider({ children }) {
     tokenRef.current = r.token;
     writeSession({ token: r.token, bootId: r.bootId });
     setUser(r.user);
-    setData(r.data);
+    setData(withDefaults(r.data));
     setNotice('');
     setStatus('ready');
   };
@@ -146,10 +155,30 @@ export function AppProvider({ children }) {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
-  const api = (path, opts = {}) => call(path, { ...opts, token: tokenRef.current });
+  const api = useCallback((path, opts = {}) => call(path, { ...opts, token: tokenRef.current }), []);
+
+  // Pārlādē lietotāja stāvokli no servera (pēc e-pasta apstiprināšanas, Premium iegādes u.c.)
+  const refreshUser = useCallback(async () => {
+    if (!tokenRef.current) return null;
+    const r = await call('/api/me', { token: tokenRef.current });
+    setUser(r.user);
+    return r.user;
+  }, []);
+
+  // Paroles maiņa: serveris izbeidz visas sesijas un iedod jaunu žetonu
+  const changePassword = async (current, password) => {
+    const r = await call('/api/me/password', { method: 'POST', body: { current, password }, token: tokenRef.current });
+    tokenRef.current = r.token;
+    writeSession({ token: r.token, bootId: 'persistent' });
+    setUser(r.user);
+  };
+
+  useEffect(() => {
+    call('/api/config').then(setConfig).catch(() => {});
+  }, []);
 
   return (
-    <AppContext.Provider value={{ status, user, data, notice, update, register, login, logout, saveProfile, deleteAccount, setAiConsent, exportData, api }}>
+    <AppContext.Provider value={{ status, user, data, notice, saveError, setSaveError, config, update, register, login, logout, saveProfile, deleteAccount, setAiConsent, exportData, api, refreshUser, changePassword }}>
       {children}
     </AppContext.Provider>
   );

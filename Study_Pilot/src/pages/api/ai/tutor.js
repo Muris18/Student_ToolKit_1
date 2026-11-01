@@ -1,4 +1,5 @@
 import { allow, requireUser } from '../../../server/http';
+import { emailEnabled } from '../../../server/email';
 import { findTasks, taskLabel, buildMessages, askDeepSeek, usedToday, limitFor, logUsage } from '../../../server/ai';
 
 // POST { message, history?: [{ sender, text }] }
@@ -7,6 +8,9 @@ export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
   const user = await requireUser(req, res);
   if (!user) return;
+  if (emailEnabled() && !user.emailVerifiedAt) {
+    return res.status(403).json({ error: 'Lai lietotu AI skolotāju, vispirms apstiprini savu e-pastu.', code: 'EMAIL_UNVERIFIED' });
+  }
   if (!user.aiConsentAt) {
     return res.status(403).json({ error: 'Lai lietotu AI skolotāju, vispirms jāpiekrīt datu nosūtīšanai uz DeepSeek.', code: 'NO_AI_CONSENT' });
   }

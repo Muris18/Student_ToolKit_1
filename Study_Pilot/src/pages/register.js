@@ -105,7 +105,8 @@ export default function RegisterPage() {
           </div>
           <div>
             <label className={labelCls} htmlFor="pw">Parole</label>
-            <input id="pw" type="password" required minLength={6} autoComplete="new-password" value={form.password} onChange={set('password')} className={inputCls} />
+            <input id="pw" type="password" required minLength={8} maxLength={200} autoComplete="new-password" value={form.password} onChange={set('password')} className={inputCls} aria-describedby="pw-hint" />
+            <p id="pw-hint" className="text-[11px] text-slate-400 mt-1">Vismaz 8 simboli, ne tikai cipari.</p>
           </div>
         </div>
 
