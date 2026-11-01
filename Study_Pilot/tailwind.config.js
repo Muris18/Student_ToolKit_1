@@ -8,7 +8,7 @@ module.exports = {
   content: ['./src/**/*.{js,jsx}'],
   theme: {
     extend: {
-      fontFamily: { sans: ['"Instrument Sans"', 'system-ui', 'sans-serif'], display: ['Fraunces', 'Georgia', 'serif'] },
+      fontFamily: { sans: ['var(--font-sans)', '"Instrument Sans"', 'system-ui', 'sans-serif'], display: ['var(--font-display)', 'Fraunces', 'Georgia', 'serif'] },
       colors: {
         page: c('bg'), white: c('w'), hl: c('hl'), accent: c('acc'), accent2: c('acc2'),
         slate: scale({ 50: 's50', 100: 's100', 200: 's200', 300: 's300', 400: 's400', 500: 's500', 600: 's600', 700: 's700', 800: 's800', 900: 's900' }),

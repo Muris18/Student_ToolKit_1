@@ -4,9 +4,11 @@
 
 **Study Pilot** ir tīmekļa platforma skolēniem un studentiem, kas gatavojas Latvijas 9. un 12. klases valsts pārbaudes darbiem. Tajā ir mācību plānotājs ar termiņu radaru, savi uzdevumi un testi, progresa pārskats un AI skolotājs, kas izmanto iepriekšējo gadu eksāmenu uzdevumus un dod mājienus, nevis gatavas atbildes.
 
-> **Statuss:** prototips (versija 0.2.0). Funkcijas var mainīties.
+> **Statuss:** gatavs palaišanai (versija 1.0.0).
 
-Pats lietotnes kods atrodas mapē [`Study_Pilot/`](Study_Pilot/). Tehniskā palaišanas instrukcija — [`Study_Pilot/README.md`](Study_Pilot/README.md).
+**🚀 Palaist internetā:** [`Study_Pilot/DEPLOY.md`](Study_Pilot/DEPLOY.md) — serveris + domēns + viena komanda.
+
+Pats lietotnes kods atrodas mapē [`Study_Pilot/`](Study_Pilot/). Lokālā izstrāde — [`Study_Pilot/README.md`](Study_Pilot/README.md).
 
 ## Satura rādītājs
 
@@ -23,14 +25,14 @@ Pats lietotnes kods atrodas mapē [`Study_Pilot/`](Study_Pilot/). Tehniskā pala
 
 ## Kas jau strādā
 
-- **Konti** — reģistrācija ar e-pastu un paroli, pieslēgšanās, izrakstīšanās, profila labošana, konta dzēšana.
-- **Dashboard** — tuvākie termiņi, progress un ātrās darbības vienuviet.
-- **Deadline Radar un Study Planner** — kontroldarbu, projektu un eksāmenu termiņi kalendārā.
-- **Eksāmenu sadaļa** — savi eksāmenu uzdevumi pa priekšmetiem.
-- **Quiz Mode** — savu testu veidošana un pildīšana.
-- **Progress Tracking** — rezultāti un aktivitāte pa dienām.
-- **AI skolotājs** — čats, kas meklē līdzīgus uzdevumus eksāmenu bāzē un palīdz ar mājieniem.
-- **Administratora skats** — lietotāju un aktivitātes pārskats (tikai lomai `admin`).
+- **Sākumlapa** — tumšais „Nakts” dizains ar zelta akcentu (noklusētais; „Gaišs” un „Tumšs” paliek izvēlami), cenas un biežāk uzdotie jautājumi.
+- **Konti** — reģistrācija, pieslēgšanās, paroles maiņa, paroles atjaunošana un e-pasta apstiprināšana (ieslēdzas ar e-pasta atslēgu), konta dzēšana.
+- **Valsts eksāmeni** — VIAA eksāmenu uzdevumi pa klasēm ar automātisku testa atbilžu pārbaudi; atvērtos uzdevumus pārbauda AI skolotājs.
+- **AI skolotājs** — mājieni pa solim, līdzīgu eksāmenu uzdevumu meklēšana, formulas ar KaTeX.
+- **Dashboard, plānotājs, termiņu radars, fokusa režīms, testi, progress.**
+- **Premium** — Stripe abonements (ieslēdzas ar Stripe atslēgām) vai administratora piešķirts.
+- **Administrēšana** — lietotāji (Premium, bloķēšana, dzēšana, admin loma), eksāmenu augšupielāde no pārlūka, AI lietojums un izmaksas, sistēmas stāvoklis.
+- **Privātums** — `/privacy`, `/terms`, AI piekrišana, datu eksports, automātiska dzēšana, rezerves kopijas.
 
 ## AI skolotājs
 
@@ -53,7 +55,11 @@ Pagaidām tiek lietota vārdu meklēšana, nevis vektoru meklēšana (RAG ar emb
 | Autentifikācija | Pašu veidota: e-pasts + parole (scrypt hash), sesijas žetons 30 dienas |
 | AI | DeepSeek API, izsaukts tikai no servera |
 | Meklēšana eksāmenos | PostgreSQL pilnteksta meklēšana (`tsvector` + `unaccent`) |
-| Izvietošana | Hetzner Cloud serveris, Docker Compose |
+| Formulas | KaTeX (no servera, bez CDN) |
+| Fonti | next/font — tiek piegādāti no servera, bez Google pieprasījumiem |
+| E-pasts | Brevo vai Resend HTTP API (pēc izvēles) |
+| Maksājumi | Stripe Checkout + klientu portāls + webhook (pēc izvēles) |
+| Izvietošana | Hetzner Cloud serveris, Docker Compose, `scripts/server-setup.sh` |
 | HTTPS | Caddy (automātisks Let's Encrypt sertifikāts savam domēnam) |
 
 Supabase vairs **netiek** izmantots.
@@ -111,6 +117,11 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 | Reģistrācijas apstiprinājuma laiks ("vismaz 13 gadi" + "izlasīju politiku") | `users.terms_accepted_at` | Pierādīt, ka apstiprinājums dots |
 | AI piekrišanas laiks (datu nosūtīšana uz DeepSeek) | `users.ai_consent_at` — `NULL`, ja nav dota vai atsaukta | Bez piekrišanas AI skolotājs nestrādā |
 | Sesijas | `sessions` — tikai žetona SHA-256 hash, derīgs 30 dienas | Pieslēgšanās uzturēšana |
+| E-pasta apstiprinājums, bloķēšana | `users.email_verified_at`, `users.blocked_at` | Drošība |
+| Vienreizējās saites | `email_tokens` — tikai hash; 48 h (apstiprināšana) / 1 h (parole) | E-pasta apstiprināšana, paroles atjaunošana |
+| Pieslēgšanās mēģinājumi | `login_attempts` — e-pasts, IP, laiks; dzēsti pēc 24 h | Aizsardzība pret paroļu minēšanu |
+| Premium | `users.plan_source`, `stripe_customer_id`, `stripe_subscription_id`, `stripe_status`, `premium_until` | Abonements |
+| Valsts eksāmenu mēģinājumi | `users.data.examAttempts` | Progress |
 | AI lietojuma žurnāls | `ai_usage` — laiks, modelis, tokenu skaits (bez jautājuma teksta) | Dienas limiti, izmaksu uzskaite |
 
 **Pārlūkā** (`localStorage`/`sessionStorage`) tiek glabāts tikai sesijas žetons (`sp-session`), izvēlētā tēma (`sp-theme`) un tas, vai rādīts sākuma ekrāns (`sp-splash`). Sīkdatnes, analītika, reklāmas un trešo pušu skripti **netiek** izmantoti.
@@ -119,10 +130,12 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 
 - **DeepSeek** — tikai pēc lietotāja piekrišanas saņem AI jautājumu, pēdējās 6 čata ziņas un atrastos eksāmenu uzdevumus. Vārds, e-pasts un skola netiek sūtīti. DeepSeek apstrādā datus ārpus Eiropas Savienības.
 - **Hetzner** — servera nodrošinātājs; uz tā glabājas datubāze.
+- **Stripe** — tikai, ja pērk Premium: e-pasts un maksājuma dati (kartes datus saņem tikai Stripe).
+- **Brevo / Resend** — tikai, ja ieslēgta e-pasta sūtīšana: e-pasts un vēstules saturs.
 
 **Dzēšana un eksports:** profilā lietotājs var lejupielādēt visus savus datus (JSON), notīrīt mācību datus vai dzēst kontu. Dzēšot kontu, tiek izdzēsts lietotājs, visas viņa sesijas un AI lietojuma ieraksti (`ON DELETE CASCADE`). Beigušās sesijas un 24 mēnešus neaktīvi konti (izņemot administratorus) tiek dzēsti automātiski.
 
-**Kas redz datus:** administratoram ir pieejams vārds, uzvārds, līmenis, klase, skola, ierakstu skaits, izveides un pēdējās aktivitātes laiks. Čata tekstu admin skats nerāda.
+**Kas redz datus:** administratoram ir pieejams e-pasts, vārds, uzvārds, klase, skola, plāns, AI jautājumu skaits, ierakstu skaits, izveides un pēdējās aktivitātes laiks. Čata tekstu admin skats nerāda.
 
 ## Drošība
 
@@ -132,22 +145,21 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 - Lietotājs piekļūst tikai saviem datiem (dati tiek ņemti no sesijas, nevis no pieprasījuma ID).
 - Ievades ierobežojumi: AI jautājums līdz 1500 simboliem, datu saglabāšana līdz 2 MB.
 - HTTPS caur Caddy; datubāzes ports produkcijā nav atvērts uz āru.
-- Slepenās vērtības (`POSTGRES_PASSWORD`, `DEEPSEEK_API_KEY`) tikai `.env` / `.env.local`, kas ir `.gitignore`.
+- Slepenās vērtības (`POSTGRES_PASSWORD`, `DEEPSEEK_API_KEY`, `STRIPE_*`, `EMAIL_API_KEY`) tikai `.env` / `.env.local`, kas ir `.gitignore`.
+- Pieslēgšanās limits: 5 nepareizas paroles vienam e-pastam vai 30 no vienas IP 15 minūtēs → pauze.
+- Paroles: vismaz 8 simboli, ne tikai cipari; maiņa vai atjaunošana izbeidz visas citas sesijas.
+- Drošības galvenes (CSP, X-Frame-Options, HSTS u.c.) — `next.config.js` un `Caddyfile`.
+- Stripe webhook paraksta pārbaude (HMAC-SHA256) un atkārtotu notikumu aizsardzība.
+- Lietotne konteinerā darbojas kā parasts lietotājs (ne root); serverī ugunsmūris atļauj tikai 22, 80, 443.
 
 ## Kas vēl jāizdara
 
-Pirms platformu atver reāliem lietotājiem:
+Pirms platformu atver reāliem lietotājiem — skat. [`Study_Pilot/DEPLOY.md`](Study_Pilot/DEPLOY.md#6-pirms-atver-skolēniem) un [`PRIVACY.md`](PRIVACY.md).
 
-- [x] Lapas `/privacy` (privātuma politika) un `/terms` (lietošanas noteikumi) un saites uz tām.
-- [x] Reģistrācijā obligātas atzīmes "Man ir vismaz 13 gadi" un "Piekrītu lietošanas noteikumiem un esmu izlasījis privātuma politiku".
-- [x] Piekrišana pirms pirmā AI jautājuma (DeepSeek, ārpus ES); atsaukšana profilā.
-- [x] Automātiska beigušos sesiju un 24 mēnešus neaktīvu kontu dzēšana.
-- [x] Datu eksports lietotājam ("Lejupielādēt manus datus").
-- [ ] Aizpildīt atlikušās vietas politikā — skat. [`PRIVACY.md`](PRIVACY.md).
-- [ ] E-pasta apstiprināšana.
-- [ ] Pieslēgšanās mēģinājumu ierobežojums.
-- [x] Datubāzes rezerves kopijas reizi dienā, glabā 7 dienas.
+Vēlāk:
+- [ ] Vairāk valsts eksāmenu (9. un 12. klase, visi priekšmeti).
 - [ ] Vektoru meklēšana (RAG) AI skolotājam.
+- [ ] Kad dibināta SIA: atjaunot pārzini un pārdevēju politikā un noteikumos.
 
 ## Avoti un autortiesības
 

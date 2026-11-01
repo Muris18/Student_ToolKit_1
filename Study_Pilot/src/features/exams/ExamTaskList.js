@@ -5,6 +5,8 @@ import SubjectSelect from '../../components/SubjectSelect';
 import { EmptyState, inputCls, labelCls } from '../../components/AppShell';
 import { useApp } from '../../lib/AppContext';
 import { uid, subjectName, subjectColor } from '../../lib/helpers';
+import { canAdd, FREE_LIMITS } from '../../lib/plans';
+import MathText from '../../components/MathText';
 
 const DIFFICULTIES = ['Viegla', 'Vidēja', 'Sarežģīta'];
 const diffColor = { Viegla: 'text-emerald-700', Vidēja: 'text-amber-700', Sarežģīta: 'text-rose-700' };
@@ -12,7 +14,7 @@ const blank = { title: '', source: '', points: '', difficulty: 'Vidēja', notes:
 
 // Eksāmenu uzdevumi, ko lietotājs pats pievieno (piem., no VISC/VIAA iepriekšējo gadu darbiem)
 export default function ExamTaskList({ subjectId, onChangeSubject, onOpenAiHelp }) {
-  const { data, update } = useApp();
+  const { data, update, user, setSaveError } = useApp();
   const [form, setForm] = useState(blank);
   const [open, setOpen] = useState(false);
   const [formSubject, setFormSubject] = useState(subjectId || '');
@@ -30,6 +32,7 @@ export default function ExamTaskList({ subjectId, onChangeSubject, onOpenAiHelp 
     e.preventDefault();
     const sid = subjectId || formSubject;
     if (!form.title.trim() || !sid) return;
+    if (!canAdd(user, data, 'exercises')) { setSaveError(`Bezmaksas plānā var būt līdz ${FREE_LIMITS.exercises} saviem uzdevumiem. Premium — bez ierobežojuma.`); return; }
     update((d) => ({
       ...d,
       exercises: [...d.exercises, { id: uid(), subjectId: sid, ...form, title: form.title.trim(), completed: false, createdAt: new Date().toISOString(), doneAt: null }],
@@ -107,7 +110,7 @@ export default function ExamTaskList({ subjectId, onChangeSubject, onOpenAiHelp 
                   </div>
                 </div>
                 {expanded === task.id && task.notes && (
-                  <p className="mt-3 pt-3 border-t border-slate-100 text-sm text-slate-600 whitespace-pre-wrap">{task.notes}</p>
+                  <MathText text={task.notes} className="mt-3 pt-3 border-t border-slate-100 text-sm text-slate-600" />
                 )}
               </li>
             ))}

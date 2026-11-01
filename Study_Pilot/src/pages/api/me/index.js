@@ -1,5 +1,6 @@
 import { publicUser, deleteUser, updateProfile, cleanProfile, validateProfile, db } from '../../../server/db';
 import { allow, requireUser } from '../../../server/http';
+import { cancelOnDelete } from '../../../server/stripe';
 
 // GET    -> lietotājs + visi viņa dati
 // PATCH  -> profila labošana { profile }
@@ -20,6 +21,8 @@ export default async function handler(req, res) {
     user.profile = p;
     return res.status(200).json({ user: publicUser(user) });
   }
+  // Aktīvs Stripe abonements tiek atcelts, lai par dzēstu kontu nauda vairs netiktu norakstīta
+  await cancelOnDelete(user);
   await deleteUser(user.id);
   return res.status(200).json({ ok: true });
 }

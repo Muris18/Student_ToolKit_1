@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 export const THEMES = [
+  { id: 'night', label: 'Nakts' },
   { id: 'paper', label: 'Gaišs' },
   { id: 'ink', label: 'Tumšs' },
 ];
 
 export default function ThemeSwitcher() {
-  const [theme, setTheme] = useState('paper');
+  const [theme, setTheme] = useState('night');
 
   useEffect(() => {
-    setTheme(document.documentElement.dataset.theme || 'paper');
+    setTheme(document.documentElement.dataset.theme || 'night');
   }, []);
 
   const apply = (id) => {

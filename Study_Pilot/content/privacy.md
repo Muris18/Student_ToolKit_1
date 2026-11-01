@@ -9,6 +9,7 @@
 - Tavus datus redzi tu; administratori redz tikai vārdu, klasi, skolu un ierakstu skaitu, ne saturu.
 - AI skolotājs sūta tavus jautājumus uz DeepSeek (Ķīnā) — tikai tad, ja tam piekrīti.
 - Mēs nepārdodam datus, nerādām reklāmas un neizmantojam sīkdatnes.
+- Ja pērc Premium, maksājumu apstrādā Stripe — tavas kartes datus mēs neredzam un neglabājam.
 - Profilā vari jebkurā laikā lejupielādēt vai izdzēst visus savus datus.
 - Platforma ir paredzēta no 13 gadu vecuma.
 
@@ -38,9 +39,13 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 - dienas, kurās mācījies (progresa pārskatam);
 - AI lietojuma ieraksti: kad uzdots jautājums, kurš AI modelis atbildēja un cik garš bija jautājums un atbilde (tokenu skaits). Jautājuma teksts šajos ierakstos netiek glabāts;
 - pieslēgšanās sesijas (datubāzē glabājas tikai sesijas koda šifrēts hash);
-- laiks, kad reģistrācijā apstiprināji, ka tev ir vismaz 13 gadi un esi izlasījis šo politiku, un laiks, kad devi piekrišanu AI skolotājam (ja devi).
+- laiks, kad reģistrācijā apstiprināji, ka tev ir vismaz 13 gadi un esi izlasījis šo politiku, un laiks, kad devi piekrišanu AI skolotājam (ja devi);
+- vai tavs e-pasts ir apstiprināts, un vienreizējo saišu (e-pasta apstiprināšanai, paroles atjaunošanai) šifrēts hash — saites derīgas 48 h un 1 h;
+- valsts eksāmenu uzdevumi, kurus esi risinājis, un vai atbilde bija pareiza;
+- pieslēgšanās mēģinājumi (e-pasts, IP adrese, laiks, vai izdevās) — tikai aizsardzībai pret paroļu minēšanu, tiek dzēsti pēc 24 stundām;
+- ja pērc Premium: Stripe klienta un abonementa identifikators, abonementa statuss un apmaksātā perioda beigu datums. **Kartes datus mēs nesaņemam un neglabājam** — tos apstrādā tikai Stripe.
 
-**Tehniskie dati.** Kad atver platformu, serveris redz tavu IP adresi un pārlūka veidu — bez tā savienojums nav iespējams. Lietotne šos datus neglabā un nesaista ar tavu kontu. Kļūdu gadījumā servera žurnālos var īslaicīgi nonākt tehniska informācija par pieprasījumu.
+**Tehniskie dati.** Kad atver platformu, serveris redz tavu IP adresi un pārlūka veidu — bez tā savienojums nav iespējams. Lietotne tos neglabā un nesaista ar tavu kontu, izņemot iepriekš minētos pieslēgšanās mēģinājumus. Īslaicīgi (servera atmiņā, līdz 1 stundai) IP adrese tiek izmantota, lai ierobežotu pārāk biežus pieprasījumus. Kļūdu gadījumā servera žurnālos var īslaicīgi nonākt tehniska informācija par pieprasījumu.
 
 **Ko mēs NEvācam:** mēs neizmantojam sīkdatnes, analītiku, reklāmas vai citu pušu izsekošanas rīkus. Mēs nepieprasām tavu dzimšanas datumu, adresi, tālruni vai personas kodu. Lūdzam neievadīt šādus datus arī čatā vai uzdevumos.
 
@@ -56,6 +61,9 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 | AI dienas limiti un izmaksu kontrole | AI lietojuma ieraksti, plāns | leģitīmās intereses — novērst ļaunprātīgu izmantošanu un nekontrolētas izmaksas |
 | Drošība un platformas uzturēšana | pēdējās aktivitātes laiks, sesijas | leģitīmās intereses |
 | Pierādīt, ka piekrišana tika dota | reģistrācijas apstiprinājuma un AI piekrišanas laiks | juridisks pienākums (VDAR 7. panta 1. punkts) |
+| Aizsardzība pret paroļu minēšanu un ļaunprātīgu izmantošanu | pieslēgšanās mēģinājumi, IP adrese | leģitīmās intereses — konta drošība |
+| E-pasta apstiprināšana un paroles atjaunošana | e-pasts, vienreizējās saites | līguma izpilde |
+| Premium abonements | Stripe identifikatori, abonementa statuss | līguma izpilde; rēķinu glabāšana — juridisks pienākums (grāmatvedības normatīvie akti) |
 
 Mēs nepārdodam tavus datus un neizmantojam tos reklāmai. Tavi dati netiek izmantoti AI modeļu apmācīšanai no mūsu puses.
 
@@ -64,12 +72,14 @@ Mēs nepārdodam tavus datus un neizmantojam tos reklāmai. Tavi dati netiek izm
 ## 4. Kas redz tavus datus
 
 - **Tu pats** — visus savus datus profilā un lietotnes sadaļās.
-- **Platformas administratori** — redz tavu vārdu, uzvārdu, klasi vai kursu, skolu, cik ierakstu tev ir (priekšmeti, testi, čata ziņas), konta izveides un pēdējās aktivitātes laiku. Administratora pārskatā netiek rādīts tavu čata ziņu, uzdevumu vai testu saturs.
+- **Platformas administratori** — redz tavu e-pastu, vārdu, uzvārdu, klasi vai kursu, skolu, plānu (bezmaksas/Premium), cik AI jautājumu esi uzdevis, cik ierakstu tev ir, konta izveides un pēdējās aktivitātes laiku. Administratora panelī netiek rādīts tavu čata ziņu, uzdevumu vai testu saturs. Administrators var piešķirt Premium, bloķēt kontu par noteikumu pārkāpumu vai dzēst kontu pēc tava pieprasījuma.
 - **Citi lietotāji** tavus datus neredz.
 
 ## 5. Kam mēs nododam datus
 
 - **Hetzner Online GmbH** (Vācija) — servera nodrošinātājs, uz kura darbojas platforma un datubāze. Dati glabājas Eiropas Savienībā. [Pārbaudi un ieraksti servera atrašanās vietu.]
+- **Stripe Payments Europe Ltd.** (Īrija) — maksājumu apstrāde, ja pērc Premium. Stripe saņem tavu e-pastu un maksājuma datus, ko ievadi Stripe maksājumu lapā, un ir neatkarīgs pārzinis šiem datiem saskaņā ar savu [privātuma politiku](https://stripe.com/privacy). Daļa datu var tikt apstrādāta ASV, izmantojot ES–ASV Datu privātuma regulējumu un līguma standartklauzulas.
+- **E-pasta sūtīšanas pakalpojums** (Brevo, Sendinblue SAS, Francija, vai Resend, ASV — atkarībā no iestatījumiem) — tikai, ja e-pasta apstiprināšana ir ieslēgta. Tas saņem tavu e-pastu un vēstules saturu (apstiprināšanas vai paroles atjaunošanas saiti).
 - **DeepSeek** — AI pakalpojums, kas ģenerē AI skolotāja atbildes. Kad uzdod jautājumu, DeepSeek saņem tavu jautājumu, pēdējās 6 čata ziņas un saistītos eksāmenu uzdevumus. Tavs vārds, e-pasts un skola **netiek** nosūtīti. DeepSeek savā [privātuma politikā](https://chat.deepseek.com/downloads/DeepSeek%20Privacy%20Policy.html) norāda, ka glabā datus serveros Ķīnā, var tos izmantot savu pakalpojumu uzlabošanai un glabā tos, kamēr ir aktīvs konts (mūsu platformas DeepSeek konts), vai ilgāk, ja to prasa likums. Mēs to nevaram ietekmēt, un tavus jautājumus no DeepSeek izdzēst nevaram. **DeepSeek apstrādā datus ārpus Eiropas Savienības (Ķīnā)**, kur personas datu aizsardzības līmenis var būt zemāks nekā ES un tev var nebūt tādu pašu tiesību aizsardzības līdzekļu.
 
   Tāpēc pirms pirmā jautājuma AI skolotājam mēs tev parādām šo brīdinājumu un lūdzam skaidru piekrišanu (VDAR 49. panta 1. punkta a) apakšpunkts). Ja nepiekrīti, AI skolotājs nav pieejams, bet visas pārējās platformas funkcijas strādā kā parasti. Piekrišanu vari atsaukt jebkurā laikā profila sadaļā "Dati"; tas neietekmē jau nosūtītos jautājumus. **Nelieto AI čatā savus personas datus** (vārdu, adresi, tālruni u.c.).
@@ -83,6 +93,8 @@ Ja to pieprasīs likums (piemēram, tiesībsargājošās iestādes), mēs varam 
 - **Sesijas** — derīgas 30 dienas. Izrakstoties vai dzēšot kontu, tās tiek izdzēstas uzreiz, beigušās sesijas — automātiski.
 - **Rezerves kopijas** — reizi dienā tiek izveidota datubāzes rezerves kopija, kas tiek glabāta **7 dienas** tajā pašā ES serverī un tad automātiski izdzēsta. Tāpēc dzēsti dati no rezerves kopijām pilnībā izzūd 7 dienu laikā. Rezerves kopijas izmantojam tikai datu atjaunošanai pēc kļūmes.
 - **Neaktīvi konti** — ja kontu neesi lietojis 24 mēnešus, tas automātiski tiek dzēsts kopā ar visiem tā datiem.
+- **Pieslēgšanās mēģinājumi** — 24 stundas.
+- **Maksājumi** — dzēšot kontu, aktīvs abonements tiek automātiski atcelts. Rēķini un maksājumu ieraksti glabājas Stripe sistēmā tik ilgi, cik to prasa grāmatvedības normatīvie akti (parasti 5 gadi), arī pēc konta dzēšanas.
 
 ## 7. Tavas tiesības
 
@@ -113,7 +125,9 @@ Ja esi vecāks un uzskati, ka tavs bērns izveidojis kontu bez atļaujas, raksti
 - Datubāzē glabājas tikai pieslēgšanās koda hash, nevis pats kods.
 - Datubāze nav pieejama no interneta, tikai pašai lietotnei.
 - Katrs lietotājs var piekļūt tikai saviem datiem; administratora funkcijas pieejamas tikai administratoriem.
-- AI pakalpojuma atslēga glabājas tikai serverī.
+- AI pakalpojuma un maksājumu atslēgas glabājas tikai serverī.
+- Pēc 5 nepareizām parolēm 15 minūšu laikā pieslēgšanās šim kontam uz laiku tiek apturēta.
+- Paroles maiņa vai atjaunošana izraksta tevi no visām citām ierīcēm.
 - Datubāzes rezerves kopijas ir pieejamas tikai servera administratoriem.
 
 Neviena sistēma nav pilnīgi droša. Ja notiks datu noplūde, kas var apdraudēt tavas tiesības, mēs tevi informēsim un ziņosim Datu valsts inspekcijai likumā noteiktajā kārtībā.

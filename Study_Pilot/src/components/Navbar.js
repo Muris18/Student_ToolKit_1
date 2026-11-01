@@ -29,7 +29,7 @@ export default function Navbar({ app = true }) {
           <Brand href={app ? '/dashboard' : '/'} />
         </div>
         <div className="flex-1 min-w-0 px-4 md:px-8 flex items-center justify-end gap-3">
-          <ThemeSwitcher />
+          <div className="hidden sm:block"><ThemeSwitcher /></div>
           {user && pathname === '/' && <Button variant="secondary" onClick={() => router.push('/dashboard')} className="hidden sm:flex text-xs py-2 px-3">Mans panelis</Button>}
           {!user && pathname !== '/login' && pathname !== '/register' && <Button variant="secondary" onClick={() => router.push('/login')} className="text-xs py-2 px-3">Pieslēgties</Button>}
           {user && (

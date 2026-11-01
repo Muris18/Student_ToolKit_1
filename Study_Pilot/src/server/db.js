@@ -11,6 +11,7 @@ if (!g.__SP_POOL__) {
 const pool = g.__SP_POOL__;
 
 export const query = (text, params) => pool.query(text, params);
+export const getPool = () => pool;
 
 export const db = { bootId: 'persistent', startedAt: new Date().toISOString() };
 
@@ -22,6 +23,7 @@ export const emptyData = () => ({
   quizResults: [],
   chat: [],
   activity: [], // 'YYYY-MM-DD'
+  examAttempts: [], // { taskId, correct, at }
 });
 
 const hash = (password, salt) => crypto.scryptSync(password, salt, 64).toString('hex');
@@ -40,10 +42,19 @@ const toUser = (r) => r && ({
   lastActive: r.last_active.toISOString(),
   termsAcceptedAt: r.terms_accepted_at ? r.terms_accepted_at.toISOString() : null,
   aiConsentAt: r.ai_consent_at ? r.ai_consent_at.toISOString() : null,
+  blockedAt: r.blocked_at ? r.blocked_at.toISOString() : null,
+  emailVerifiedAt: r.email_verified_at ? r.email_verified_at.toISOString() : null,
+  planSource: r.plan_source || null,
+  stripeCustomerId: r.stripe_customer_id || null,
+  stripeSubscriptionId: r.stripe_subscription_id || null,
+  stripeStatus: r.stripe_status || null,
+  premiumUntil: r.premium_until ? r.premium_until.toISOString() : null,
 });
 
 export const publicUser = (u) => ({
   id: u.id, email: u.email, role: u.role, plan: u.plan, profile: u.profile, createdAt: u.createdAt, aiConsentAt: u.aiConsentAt,
+  emailVerified: Boolean(u.emailVerifiedAt), planSource: u.planSource, stripeStatus: u.stripeStatus, premiumUntil: u.premiumUntil,
+  hasBilling: Boolean(u.stripeCustomerId),
 });
 
 export async function findByEmail(email) {
@@ -52,14 +63,61 @@ export async function findByEmail(email) {
   return toUser(rows[0]);
 }
 
-export async function createUser({ email, password, profile }) {
+// verified=false: e-pasts vēl jāapstiprina (tikai, ja e-pasta sūtīšana ir ieslēgta)
+export async function createUser({ email, password, profile, verified = true }) {
   const salt = crypto.randomBytes(16).toString('hex');
   const { rows } = await pool.query(
-    'INSERT INTO users (email, salt, pass_hash, profile, data, terms_accepted_at) VALUES ($1,$2,$3,$4,$5, now()) RETURNING *',
-    [String(email).trim().toLowerCase(), salt, hash(password, salt), profile, emptyData()]
+    `INSERT INTO users (email, salt, pass_hash, profile, data, terms_accepted_at, email_verified_at)
+     VALUES ($1,$2,$3,$4,$5, now(), CASE WHEN $6 THEN now() END) RETURNING *`,
+    [String(email).trim().toLowerCase(), salt, hash(password, salt), profile, emptyData(), verified]
   );
   return toUser(rows[0]);
 }
+
+export const findById = async (id) => toUser((await pool.query('SELECT * FROM users WHERE id = $1', [id])).rows[0]);
+
+// Jauna parole: jauns sāls, visas sesijas tiek izbeigtas (arī citās ierīcēs)
+export async function setPassword(userId, password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  await pool.query('UPDATE users SET salt = $2, pass_hash = $3, password_changed_at = now() WHERE id = $1', [userId, salt, hash(password, salt)]);
+  await pool.query('DELETE FROM sessions WHERE user_id = $1', [userId]);
+}
+
+// Paroles prasības: 8–200 simboli, ne tikai cipari, nav tāda pati kā e-pasts
+export function passwordProblem(password, email = '') {
+  const p = String(password || '');
+  if (p.length < 8) return 'Parolei jābūt vismaz 8 simbolus garai';
+  if (p.length > 200) return 'Parole ir pārāk gara';
+  if (/^\d+$/.test(p)) return 'Parolē jābūt ne tikai cipariem';
+  if (email && p.toLowerCase() === String(email).toLowerCase()) return 'Parole nedrīkst būt tāda pati kā e-pasts';
+  if (['password', 'parole123', '12345678', 'qwertyui', 'studypilot'].includes(p.toLowerCase())) return 'Šī parole ir pārāk vienkārša';
+  return null;
+}
+
+// Vienreizējs žetons e-pastam (apstiprināšana vai paroles atjaunošana). Datubāzē tikai hash.
+export async function createEmailToken(userId, kind, hours) {
+  const token = crypto.randomBytes(32).toString('hex');
+  await pool.query("UPDATE email_tokens SET used_at = now() WHERE user_id = $1 AND kind = $2 AND used_at IS NULL", [userId, kind]);
+  await pool.query(
+    'INSERT INTO email_tokens (token_hash, user_id, kind, expires_at) VALUES ($1,$2,$3, now() + make_interval(hours => $4))',
+    [sha(token), userId, kind, hours]
+  );
+  return token;
+}
+
+// Atgriež user_id un atzīmē žetonu kā izlietotu; nederīgs / beidzies / izlietots -> null
+export async function consumeEmailToken(token, kind) {
+  if (!/^[a-f0-9]{64}$/.test(String(token || ''))) return null;
+  const { rows } = await pool.query(
+    `UPDATE email_tokens SET used_at = now()
+     WHERE token_hash = $1 AND kind = $2 AND used_at IS NULL AND expires_at > now()
+     RETURNING user_id`,
+    [sha(token), kind]
+  );
+  return rows[0]?.user_id || null;
+}
+
+export const markEmailVerified = (userId) => pool.query('UPDATE users SET email_verified_at = COALESCE(email_verified_at, now()) WHERE id = $1', [userId]);
 
 export function checkPassword(user, password) {
   const a = Buffer.from(hash(String(password || ''), user.salt), 'hex');
@@ -86,6 +144,7 @@ export async function userFromReq(req) {
   const { rows } = await pool.query(
     `UPDATE users SET last_active = now()
      WHERE id = (SELECT user_id FROM sessions WHERE token_hash = $1 AND expires_at > now())
+       AND blocked_at IS NULL
      RETURNING *`,
     [sha(token)]
   );
@@ -116,6 +175,10 @@ export async function exportUser(user) {
     exportedAt: new Date().toISOString(),
     account: {
       email: user.email,
+      emailVerifiedAt: user.emailVerifiedAt,
+      planSource: user.planSource,
+      stripeStatus: user.stripeStatus,
+      premiumUntil: user.premiumUntil,
       role: user.role,
       plan: user.plan,
       createdAt: user.createdAt,
@@ -136,6 +199,8 @@ export const INACTIVE_MONTHS = 24;
 // Dzēš beigušās sesijas un kontus, kas nav lietoti INACTIVE_MONTHS mēnešus (administratorus nedzēš).
 export async function cleanup() {
   const s = await pool.query('DELETE FROM sessions WHERE expires_at < now()');
+  await pool.query("DELETE FROM login_attempts WHERE created_at < now() - interval '1 day'");
+  await pool.query("DELETE FROM email_tokens WHERE expires_at < now() - interval '1 day'");
   const u = await pool.query(
     "DELETE FROM users WHERE role <> 'admin' AND last_active < now() - make_interval(months => $1)",
     [INACTIVE_MONTHS]

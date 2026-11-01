@@ -11,12 +11,14 @@
     "lint": "next lint",
     "migrate": "node scripts/migrate.js",
     "import:exams": "node scripts/import-exams.js",
-    "cleanup": "node scripts/cleanup.js"
+    "cleanup": "node scripts/cleanup.js",
+    "create-admin": "node scripts/create-admin.js"
   },
   "engines": {
     "node": ">=18.17"
   },
   "dependencies": {
+    "katex": "^0.16.47",
     "next": "15.5.24",
     "pg": "^8.23.1",
     "react": "18.3.1",

@@ -19,8 +19,7 @@ Kamēr dokumentā ir vietas ar `[ ]`, lapa rāda brīdinājumu "Melnraksts".
 - [ ] Pārbaudīt Hetzner servera atrašanās vietu (5. sadaļa).
 - [ ] Serverī ieslēgt arī Hetzner Cloud rezerves kopijas (pēc izvēles, drošībai pret servera bojājumu).
 - [ ] Ierakstīt spēkā stāšanās datumu abos dokumentos.
-- [ ] Ja tiek pievienota e-pasta apstiprināšana vai paroles atjaunošana, ierakstīt e-pasta sūtīšanas pakalpojumu 5. sadaļā.
-- [ ] Ja tiek pievienoti maksājumi (Premium), ierakstīt maksājumu pakalpojumu, kādi dati tam tiek nodoti un cik ilgi glabā rēķinus; papildināt lietošanas noteikumu 3. sadaļu (cena, atteikuma tiesības).
+- [ ] Pirms Stripe ieslēgšanas: reģistrēt saimniecisko darbību VID vai dibināt SIA (tad atjaunot pārdevēju noteikumu 1. sadaļā).
 - [ ] Ja tiek pievienota analītika vai sīkdatnes, pievienot sīkdatņu paziņojumu.
 - [ ] Ja tiek ieviesta konta bloķēšana vai AI ierobežošana administratoram, pārbaudīt, ka tā atbilst lietošanas noteikumu 8. sadaļai.
 
@@ -34,3 +33,5 @@ Kamēr dokumentā ir vietas ar `[ ]`, lapa rāda brīdinājumu "Melnraksts".
 - [x] Pārziņi: Rodrigo Šaudiņš un Kristers Mortuzāns (kopīgi pārziņi).
 - [x] Automātiskas datubāzes rezerves kopijas reizi dienā, glabā 7 dienas (`backup` serviss `docker-compose.yml`); termiņš ierakstīts politikā.
 - [x] Beigušās sesijas un 24 mēnešus neaktīvi konti tiek dzēsti automātiski (ne biežāk kā reizi 6 h; arī `npm run cleanup`). Administratoru kontus nedzēš.
+- [x] Politikā un noteikumos: Stripe maksājumi (3.a sadaļa), e-pasta sūtīšanas pakalpojums, pieslēgšanās mēģinājumu glabāšana (24 h), atteikuma tiesības.
+- [x] Premium iegādei obligātas atzīmes: pilngadība vai vecāku atļauja un piekrišana tūlītējam sākumam.

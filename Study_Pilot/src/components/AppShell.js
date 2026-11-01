@@ -1,10 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useApp } from '../lib/AppContext';
 
 // Kopīgais izkārtojums visām lapām, kurām vajag pieslēgtu lietotāju
 // Pārbauda pieteikšanos un ieliek lapas saturu. Navbar un Sidebar ir _app.js, tāpēc starp lapām nemirgo.
+// Paziņojumi visām lietotnes lapām: neapstiprināts e-pasts, neizdevusies saglabāšana
+function Banners() {
+  const { user, config, api, saveError, setSaveError } = useApp();
+  const [sent, setSent] = useState('');
+  const resend = async () => {
+    try { await api('/api/auth/resend', { method: 'POST' }); setSent('Nosūtīts! Pārbaudi e-pastu (arī mēstules).'); } catch (e) { setSent(e.message); }
+  };
+  return (
+    <>
+      {config.email && user && !user.emailVerified && (
+        <div role="status" className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-sm">
+          <span>Apstiprini savu e-pastu <strong>{user.email}</strong> — saiti nosūtījām uz to. Bez apstiprināšanas AI skolotājs un Premium nav pieejami.</span>
+          {sent ? <span className="font-semibold">{sent}</span> : <button type="button" onClick={resend} className="font-semibold underline cursor-pointer">Sūtīt vēlreiz</button>}
+        </div>
+      )}
+      {saveError && (
+        <div role="alert" className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+          <span>{saveError}</span>
+          <span className="flex gap-4">
+            {/Premium/.test(saveError) && <Link href="/premium" className="font-semibold underline">Uzzināt par Premium</Link>}
+            <button type="button" onClick={() => setSaveError('')} className="underline cursor-pointer">Aizvērt</button>
+          </span>
+        </div>
+      )}
+    </>
+  );
+}
+
 export default function AppShell({ children }) {
   const { status } = useApp();
   const router = useRouter();
@@ -15,6 +43,7 @@ export default function AppShell({ children }) {
 
   return (
     <main className="p-4 sm:p-8 space-y-6 w-full min-w-0 max-w-6xl mx-auto">
+      {status === 'ready' && <Banners />}
       {status === 'ready' ? children : (
         <div className="flex items-center gap-3 text-sm text-slate-400 py-10">
           <span className="w-4 h-4 rounded-full border-2 border-accent border-t-transparent animate-spin" /> Ielādē…
