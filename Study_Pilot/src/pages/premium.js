@@ -55,7 +55,7 @@ function Premium() {
 
   return (
     <>
-      <PageHeader title="Premium" subtitle="Vairāk AI jautājumu un neierobežoti savi testi un uzdevumi." />
+      <PageHeader title="Premium" subtitle="Vairāk AI jautājumu un testu pēc kļūdām, neierobežoti savi uzdevumi." />
 
       {status === 'success' && !premium && (
         <div role="status" className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm">Paldies! Maksājums saņemts — Premium aktivizējas dažu sekunžu laikā.</div>
@@ -104,7 +104,7 @@ function Premium() {
             <li className="flex gap-2"><span className="text-slate-400">•</span>{config.aiLimitFree} AI skolotāja jautājumi dienā</li>
             <li className="flex gap-2"><span className="text-slate-400">•</span>Valsts eksāmenu uzdevumi ar atbilžu pārbaudi</li>
             <li className="flex gap-2"><span className="text-slate-400">•</span>Plānotājs, termiņu radars, fokusa režīms un progress</li>
-            <li className="flex gap-2"><span className="text-slate-400">•</span>Līdz {FREE_LIMITS.quizzes} saviem testiem un {FREE_LIMITS.exercises} saviem uzdevumiem</li>
+            <li className="flex gap-2"><span className="text-slate-400">•</span>Līdz {FREE_LIMITS.exercises} saviem uzdevumiem</li>
           </ul>
           <p className="text-xs text-slate-400 mt-5">Ja Premium beidzas, tavi testi un uzdevumi paliek — vienkārši nevarēsi pievienot jaunus virs bezmaksas limita.</p>
         </Card>

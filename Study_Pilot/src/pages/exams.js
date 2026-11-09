@@ -69,7 +69,7 @@ function Exams() {
         />
       )}
 
-      {activeMode === 'quiz' && <QuizMode key={subjectId} subjectId={subjectId} onChangeSubject={(id) => go('quiz', id)} />}
+      {activeMode === 'quiz' && <QuizMode />}
 
       {activeMode === 'official' && (
         <OfficialExams

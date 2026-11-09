@@ -90,18 +90,18 @@ export function buildMessages({ message, history = [], tasks = [] }) {
   return [{ role: 'system', content: SYSTEM + ctx }, ...past, { role: 'user', content: message }];
 }
 
-export async function askDeepSeek(messages) {
+export async function askDeepSeek(messages, { maxTokens = 900, temperature = 0.2, json: jsonMode = false } = {}) {
   const key = process.env.DEEPSEEK_API_KEY;
   if (!key) { const e = new Error('AI vēl nav konfigurēts'); e.code = 'NO_KEY'; throw e; }
   const model = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
   const base = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com';
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 40000);
+  const timer = setTimeout(() => ctrl.abort(), jsonMode ? 90000 : 40000);
   try {
     const res = await fetch(`${base}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
-      body: JSON.stringify({ model, messages, temperature: 0.2, max_tokens: 900, stream: false }),
+      body: JSON.stringify({ model, messages, temperature, max_tokens: maxTokens, stream: false, ...(jsonMode ? { response_format: { type: 'json_object' } } : {}) }),
       signal: ctrl.signal,
     });
     if (!res.ok) {

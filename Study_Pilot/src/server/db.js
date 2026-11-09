@@ -24,6 +24,7 @@ export const emptyData = () => ({
   chat: [],
   activity: [], // 'YYYY-MM-DD'
   examAttempts: [], // { taskId, correct, at }
+  aiQuizzes: [], // testa režīma testi pēc kļūdām (pēdējie 20)
 });
 
 const hash = (password, salt) => crypto.scryptSync(password, salt, 64).toString('hex');

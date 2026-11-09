@@ -105,7 +105,7 @@ export default function LandingPage() {
                 <li>{config.aiLimitFree} AI skolotāja jautājumi dienā</li>
                 <li>Valsts eksāmenu uzdevumi ar pārbaudi</li>
                 <li>Plānotājs, termiņu radars un fokusa režīms</li>
-                <li>Līdz {FREE_LIMITS.quizzes} saviem testiem un {FREE_LIMITS.exercises} uzdevumiem</li>
+                <li>Līdz {FREE_LIMITS.exercises} saviem uzdevumiem</li>
               </ul>
               <Link href={start} className="np-btn np-btn-ghost">{loggedIn ? 'Atvērt paneli' : 'Izveidot kontu'}</Link>
             </div>

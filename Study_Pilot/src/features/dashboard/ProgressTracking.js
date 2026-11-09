@@ -12,13 +12,13 @@ export default function ProgressTracking() {
   const router = useRouter();
 
   const rows = [];
-  for (const quiz of data.quizzes) {
+  for (const quiz of [...data.quizzes, ...(data.aiQuizzes || [])]) {
     const results = data.quizResults.filter((r) => r.quizId === quiz.id);
     if (!results.length) continue;
     for (const q of quiz.questions) {
       const wrong = results.filter((r) => (r.wrong || []).includes(q.id)).length;
       if (!wrong) continue;
-      rows.push({ id: q.id, subjectId: quiz.subjectId, quiz: quiz.title, question: q.question, rate: Math.round((wrong / results.length) * 100), attempts: results.length });
+      rows.push({ id: q.id, subjectId: quiz.subjectId, subject: quiz.subject, quiz: quiz.title, question: q.question, rate: Math.round((wrong / results.length) * 100), attempts: results.length });
     }
   }
   rows.sort((a, b) => b.rate - a.rate || b.attempts - a.attempts);
@@ -39,7 +39,7 @@ export default function ProgressTracking() {
           {top.map((item) => (
             <div key={item.id} className="p-4 rounded-2xl bg-amber-50/50 border border-amber-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="space-y-1 min-w-0">
-                <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">{subjectName(data, item.subjectId)} · {item.quiz}</span>
+                <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">{item.subject ? item.subject[0].toUpperCase() + item.subject.slice(1) : subjectName(data, item.subjectId)} · {item.quiz}</span>
                 <h4 className="font-semibold text-slate-800 text-sm md:text-base">{item.question}</h4>
                 <p className="text-xs text-slate-500">Kļūdas: <span className="font-semibold text-rose-700">{item.rate}%</span> no {item.attempts} mēģinājumiem</p>
               </div>
