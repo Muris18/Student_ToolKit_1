@@ -1,0 +1,566 @@
+{
+ "subject": "matemātika",
+ "grade": 12,
+ "year": 2024,
+ "session": "optimālais līmenis",
+ "title": "Centralizētais eksāmens matemātikā, optimālais līmenis, 2024 (VIAA)",
+ "source_url": "https://www.viaa.gov.lv/lv/media/21939/download?attachment",
+ "groups": {
+  "alg": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "algebra"
+  },
+  "fun": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "funkcijas"
+  },
+  "geo": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "ģeometrija"
+  },
+  "an": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "analītiskā ģeometrija, vektori"
+  },
+  "trig": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "trigonometrija"
+  },
+  "stat": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "kombinatorika, varbūtība, statistika"
+  },
+  "p2": {
+   "section": "2. daļa. Kompleksu problēmu risināšana"
+  }
+ },
+ "tasks": [
+  {
+   "number": "1.1",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Summa $1+\\frac1x$ vienāda ar",
+   "answer": "A",
+   "options": {
+    "A": "$\\frac{x+1}{x}$",
+    "B": "$\\frac2x$",
+    "C": "$x+1$",
+    "D": "$2x$"
+   }
+  },
+  {
+   "number": "1.2",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Summa $\\log_6 12+\\log_6 2$ vienāda ar",
+   "answer": "D",
+   "options": {
+    "A": "$\\log_{10}14$",
+    "B": "$\\log_{10}24$",
+    "C": "$\\log_6 14$",
+    "D": "$\\log_6 24$"
+   }
+  },
+  {
+   "number": "1.3",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Summa $5^{x+1}+5^x$ vienāda ar",
+   "answer": "B",
+   "options": {
+    "A": "$5^{2x+1}$",
+    "B": "$5^x\\cdot6$",
+    "C": "$5^{x^2+x}$",
+    "D": "$5^{2x}+5$"
+   }
+  },
+  {
+   "number": "2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzraksti daļu, kuras skaitītājs ir skaitlis divi un saucējs ir skaitļu x un y kubu summa.",
+   "answer": "$\\frac{2}{x^3+y^3}$"
+  },
+  {
+   "number": "3.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots funkcijas $f(x)=\\frac{1}{3x}+1$ grafiks. Salīdzini $f(-2)$ un $f(-1)$.",
+   "answer": "$f(-2)=\\frac56>f(-1)=\\frac23$"
+  },
+  {
+   "number": "3.2",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki funkcijas $f(x)=\\frac{1}{3x}+1$ vērtību kopu.",
+   "answer": "$(-\\infty;1)\\cup(1;+\\infty)$"
+  },
+  {
+   "number": "3.3",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Punkts $(m;2)$ pieder funkcijas $f(x)=\\frac{1}{3x}+1$ grafikam. Aprēķini $m$.",
+   "answer": "$\\frac{1}{3m}=1$ ⇒ $m=\\frac13$"
+  },
+  {
+   "number": "4",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota ģeometriskā progresija 12; 30; … Nosaki kvocientu.",
+   "answer": "$q=2{,}5$"
+  },
+  {
+   "number": "5",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Atrisini nevienādību $0{,}5^x>1$.",
+   "answer": "D",
+   "options": {
+    "A": "$x>1$",
+    "B": "$x<1$",
+    "C": "$x>0$",
+    "D": "$x<0$"
+   }
+  },
+  {
+   "number": "6.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots funkcijas $y=2^{x+2}-2$ grafiks. Nosaki visas $x$ vērtības, ar kurām funkcijas vērtības ir pozitīvas.",
+   "answer": "$x>-1$"
+  },
+  {
+   "number": "6.2",
+   "group": "fun",
+   "kind": "choice",
+   "points": 1,
+   "text": "Nosaki funkcijas $y=2^{x+2}-2$ pieaugumu, ja $x$ pieaug no −2 līdz 1.",
+   "answer": "D",
+   "options": {
+    "A": "3",
+    "B": "6",
+    "C": "5",
+    "D": "7"
+   },
+   "solution": "$y(1)=6$, $y(-2)=-1$."
+  },
+  {
+   "number": "6.3",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Paskaidro, kā, izmantojot grafiku $y=2^{x+2}-2$, var atrisināt vienādojumu $2^{x+2}-2=5$ (sakne nav jānosaka).",
+   "answer": "Novelk taisni $y=5$; krustpunkta ar grafiku abscisa ir sakne."
+  },
+  {
+   "number": "6.4",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Konstruē funkcijas $y=2^{x+2}-3$ grafiku, izmantojot $y=2^{x+2}-2$ grafiku.",
+   "answer": "Doto grafiku pārbīda par 1 vienību uz leju."
+  },
+  {
+   "number": "7",
+   "group": "alg",
+   "kind": "open",
+   "points": 2,
+   "text": "Sadali reizinātājos $x^3-3x^2+2x$, uzrakstot to kā trīs polinomu reizinājumu.",
+   "answer": "$x(x-1)(x-2)$"
+  },
+  {
+   "number": "8",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini nevienādību $\\frac{x+5}{1-x}>0$.",
+   "answer": "$x\\in(-5;1)$"
+  },
+  {
+   "number": "9",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzzīmē vektoru $\\vec m=(3;2)$.",
+   "answer": "Vektors, piem., no $(0;0)$ uz $(3;2)$."
+  },
+  {
+   "number": "10",
+   "group": "an",
+   "kind": "choice",
+   "points": 1,
+   "text": "Dots paralelograms ABCD un vektori $\\overrightarrow{AD}=\\vec d$ un $\\overrightarrow{AB}=\\vec b$. Kura vienādība ir patiesa?",
+   "answer": "A",
+   "options": {
+    "A": "$\\overrightarrow{DB}=\\vec b-\\vec d$",
+    "B": "$\\overrightarrow{DB}=-\\vec b+\\vec d$",
+    "C": "$\\overrightarrow{DB}=-\\vec b-\\vec d$",
+    "D": "$\\overrightarrow{DB}=\\vec b+\\vec d$"
+   }
+  },
+  {
+   "number": "11.1",
+   "group": "an",
+   "kind": "choice",
+   "points": 1,
+   "text": "Dots kubs ABCDEFGH un vektors $\\overrightarrow{BE}=(0;-4;4)$. Vektora $\\overrightarrow{BE}$ modulis ir",
+   "answer": "B",
+   "options": {
+    "A": "$2\\sqrt2$",
+    "B": "$4\\sqrt2$",
+    "C": "5",
+    "D": "8"
+   }
+  },
+  {
+   "number": "11.2",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Kubā ABCDEFGH (A – sākumpunktā, B uz y ass, D uz x ass, E virs A, $\\overrightarrow{BE}=(0;-4;4)$) nosaki punkta F koordinātas.",
+   "answer": "$F(0;4;4)$ (risinājumu sagatavoja Study Pilot; VIAA kritēriji nav publicēti)"
+  },
+  {
+   "number": "11.3",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Tam pašam kubam nosaki vektora $\\overrightarrow{CH}$ koordinātas.",
+   "answer": "$(0;-4;4)$ (risinājumu sagatavoja Study Pilot; VIAA kritēriji nav publicēti)"
+  },
+  {
+   "number": "12",
+   "group": "an",
+   "kind": "open",
+   "points": 2,
+   "text": "Pamato, ka vektori $\\overrightarrow{AB}=(7;-4)$ un $\\overrightarrow{AC}=(-3{,}5;2)$ atrodas uz vienas taisnes.",
+   "answer": "$\\overrightarrow{AC}=-0{,}5\\overrightarrow{AB}$ – kolineāri un ar kopīgu sākumpunktu A, tātad punkti A, B, C uz vienas taisnes."
+  },
+  {
+   "number": "13.1",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota taisne $6x-3y+7=0$. Nosaki koordinātas vienam punktam uz tās.",
+   "answer": "Piem., $\\left(-1;\\frac13\\right)$."
+  },
+  {
+   "number": "13.2",
+   "group": "an",
+   "kind": "open",
+   "points": 2,
+   "text": "Taisne $mx+2y-5=0$ ir paralēla taisnei $6x-3y+7=0$. Nosaki $m$.",
+   "answer": "$k=2$ ⇒ $-\\frac m2=2$ ⇒ $m=-4$"
+  },
+  {
+   "number": "14",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki septiņstūra piramīdas skaldņu skaitu.",
+   "answer": "8"
+  },
+  {
+   "number": "15",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Pret taisnleņķa trijstūra ADC ($\\angle D=90°$) plakni ir novilkts perpendikuls FA. Uzzīmē perpendikulu no punkta F pret taisni DC.",
+   "answer": "FD (pēc trīs perpendikulu teorēmas, jo $AD\\perp DC$)."
+  },
+  {
+   "number": "16",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Regulāras četrstūra piramīdas pamata laukums ir 25 cm² un sānu virsmas laukums ir 50 cm². Aprēķini divplakņu kakta leņķa pie pamata lielumu grādos.",
+   "answer": "Mala 5, apotēma $h$: $4\\cdot\\frac{5h}{2}=50$ ⇒ $h=5$; $\\cos\\varphi=\\frac{2{,}5}{5}$ ⇒ $\\varphi=60°$"
+  },
+  {
+   "number": "17",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Taisnleņķa trijstūris ar katetēm 4 cm un 3 cm rotē ap īsāko kateti. Nosaki iegūtā ķermeņa (konusa) rādiusa garumu.",
+   "answer": "Konuss, $r=4$ cm"
+  },
+  {
+   "number": "18.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots taisnstūra paralēlskaldnis, $DC=10$ cm, $AD=8$ cm un $AA_1=11$ cm. Aprēķini sānu virsmas laukumu.",
+   "answer": "$2(10+8)\\cdot11=396$ cm²"
+  },
+  {
+   "number": "18.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Aprēķini laukumu taisnstūrim $DA_1B_1C$ ($DC=10$, $AD=8$, $AA_1=11$).",
+   "answer": "$DA_1=\\sqrt{185}$; $S=10\\sqrt{185}\\approx136{,}0$ cm²"
+  },
+  {
+   "number": "19",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots cilindrs, kura aksiālšķēlums ir ABCD, $AC=2\\sqrt3$ cm un $\\angle ACD=60°$ (AD – pamata diametrs). Aprēķini rādiusu.",
+   "answer": "$AD=2\\sqrt3\\sin60°=3$ ⇒ $r=1{,}5$ cm"
+  },
+  {
+   "number": "20.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Lodes rādiuss ir 10 cm, tā ir ievilkta kubā. Nosaki kuba šķautnes garumu.",
+   "answer": "20 cm"
+  },
+  {
+   "number": "20.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki, cik kopīgi punkti ir kubā ievilktas lodes un kuba virsmai.",
+   "answer": "6"
+  },
+  {
+   "number": "21",
+   "group": "trig",
+   "kind": "open",
+   "points": 1,
+   "text": "Izsaki leņķa $\\frac{4\\pi}{5}$ lielumu grādos.",
+   "answer": "144°"
+  },
+  {
+   "number": "22",
+   "group": "trig",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots pagrieziena leņķis α un punkts $P\\left(\\frac35;\\frac45\\right)$ uz vienības riņķa līnijas. Nosaki $\\sin\\alpha$.",
+   "answer": "$\\frac45$"
+  },
+  {
+   "number": "23",
+   "group": "trig",
+   "kind": "open",
+   "points": 1,
+   "text": "Atrisini vienādojumu $\\sin x=1$, ja $x\\in[0;2\\pi]$.",
+   "answer": "$x=\\frac{\\pi}{2}$"
+  },
+  {
+   "number": "24.1",
+   "group": "trig",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots funkcijas $y=3\\cos2x$ grafiks. Nosaki periodu T.",
+   "answer": "$T=\\pi$ (180°)"
+  },
+  {
+   "number": "24.2",
+   "group": "trig",
+   "kind": "open",
+   "points": 1,
+   "text": "Punkts A ir grafika $y=3\\cos2x$ krustpunkts ar y asi. Nosaki tā ordinātu.",
+   "answer": "3"
+  },
+  {
+   "number": "24.3",
+   "group": "trig",
+   "kind": "choice",
+   "points": 1,
+   "text": "Funkcija $y=3\\cos2x$ intervālā $x\\in\\left(-\\frac{\\pi}{2};-\\frac{\\pi}{4}\\right)$ ir",
+   "answer": "C",
+   "options": {
+    "A": "augoša un tās vērtības ir pozitīvas",
+    "B": "dilstoša un tās vērtības ir pozitīvas",
+    "C": "augoša un tās vērtības ir negatīvas",
+    "D": "dilstoša un tās vērtības ir negatīvas"
+   }
+  },
+  {
+   "number": "24.4",
+   "group": "trig",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki vienādojuma $3\\cos2x=0$ sakņu skaitu intervālā $\\left[-\\pi;\\frac{\\pi}{2}\\right]$.",
+   "answer": "3 saknes ($-\\frac{3\\pi}{4}$, $-\\frac{\\pi}{4}$, $\\frac{\\pi}{4}$)"
+  },
+  {
+   "number": "25",
+   "group": "trig",
+   "kind": "open",
+   "points": 3,
+   "text": "Saīsini daļu $\\frac{\\sin\\left(\\frac{3\\pi}{2}+x\\right)}{\\sin2x}$.",
+   "answer": "$\\frac{-\\cos x}{2\\sin x\\cos x}=-\\frac{1}{2\\sin x}$"
+  },
+  {
+   "number": "26.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota kopa $A=\\{1;3;5;7\\}$. Uzraksti apakškopu B, kura sastāv no diviem vai trīs A elementiem.",
+   "answer": "Piem., $\\{1;3\\}$"
+  },
+  {
+   "number": "26.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota kopa $C=\\{a;b;10;15\\}$, $a,b\\in\\mathbb N$ un $a<b$. Nosaki a un b, ja $A\\setminus C=\\{3;7\\}$ ($A=\\{1;3;5;7\\}$).",
+   "answer": "$a=1$, $b=5$"
+  },
+  {
+   "number": "27.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini $2\\cdot3!$.",
+   "answer": "12"
+  },
+  {
+   "number": "27.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini $A_5^3$.",
+   "answer": "60"
+  },
+  {
+   "number": "28",
+   "group": "stat",
+   "kind": "choice",
+   "points": 1,
+   "text": "Kuru no lielumiem nevar noteikt no kastu diagrammas?",
+   "answer": "D",
+   "options": {
+    "A": "Minimālo vērtību",
+    "B": "Mediānu",
+    "C": "Trešo kvartili",
+    "D": "Modu"
+   }
+  },
+  {
+   "number": "29",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Autobuss pirmās četras stundas brauca ar ātrumu 86 km/h un pēc tam – vēl trīs stundas ar ātrumu x km/h. Aprēķini x, ja vidējais ātrums bija 80 km/h.",
+   "answer": "$\\frac{344+3x}{7}=80$ ⇒ $x=72$"
+  },
+  {
+   "number": "30",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Grupā tūristi runā angļu vai franču valodā, vai abās. Angļu – 24, franču – 15, abās – 8. Cik tūristu grupā?",
+   "answer": "$24+15-8=31$"
+  },
+  {
+   "number": "31",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Zināms, ka $P(A)=0{,}12$ un $P(A\\cup B)=0{,}60$. Notikumi A un B ir nesavienojami. Nosaki $P(B)$.",
+   "answer": "0,48"
+  },
+  {
+   "number": "32",
+   "group": "stat",
+   "kind": "open",
+   "points": 3,
+   "text": "Spēlei pieteikti 20 sportisti: 11 uzbrucēji, 7 aizsargi un 2 vārtsargi. Aprēķini varbūtību, ka dopinga kontrolei nejauši izvēlētie trīs sportisti būs uzbrucēji.",
+   "answer": "$\\frac{C_{11}^3}{C_{20}^3}=\\frac{165}{1140}=\\frac{11}{76}\\approx0{,}145$"
+  },
+  {
+   "number": "33.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Kastu diagrammā: minimums 3, $Q_1=4$, mediāna 6, $Q_3=11$, maksimums 14. Nosaki starpkvartiļu amplitūdu.",
+   "answer": "$11-4=7$"
+  },
+  {
+   "number": "33.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Spēlētāji ieguva punktus (augošā secībā): 3; 3; 4; 4; 5; 5; 7; 8; 10; x; 13; 14. $Q_3=11$. Nosaki un pamato x.",
+   "answer": "$Q_3=\\frac{10+x}{2}=11$ ⇒ $x=12$"
+  },
+  {
+   "number": "II.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Negaisa laikā koks vēja brāzmu ietekmē tika sašķiebts par 10 grādiem (pret observētāju). Aprēķini koka garumu x, ja 12,9 m attālumā no pamatnes tā galotni redz 52° leņķī attiecībā pret zemi. Noapaļo līdz desmitdaļām.",
+   "answer": "Leņķis pie koka pamatnes $80°$, pie galotnes $48°$: $x=\\frac{12{,}9\\sin52°}{\\sin48°}\\approx13{,}7$ m (risinājumu sagatavoja Study Pilot; VIAA kritēriji nav publicēti)"
+  },
+  {
+   "number": "II.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 5,
+   "text": "Objekta temperatūra mainās pēc likuma $T(t)=T_{vide}+(T_0-T_{vide})\\cdot2{,}4^{-0{,}2t}$. $T_{vide}=35$°C un $T_0=95$°C. Pēc cik minūtēm temperatūra samazinās līdz 38°C? Noapaļo līdz desmitdaļām.",
+   "answer": "$3=60\\cdot2{,}4^{-0{,}2t}$ ⇒ $t=\\frac{\\ln20}{0{,}2\\ln2{,}4}\\approx17{,}1$ min (risinājumu sagatavoja Study Pilot; VIAA kritēriji nav publicēti)"
+  },
+  {
+   "number": "II.3",
+   "group": "p2",
+   "kind": "open",
+   "points": 5,
+   "text": "Atrisini vienādojumu $2\\cdot2^x-\\frac{3}{2^x}+5=0$.",
+   "answer": "$a=2^x$: $2a^2+5a-3=0$ ⇒ $a=\\frac12$ ⇒ $x=-1$"
+  },
+  {
+   "number": "II.4",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Riņķa līnijas $(x-2)^2+(y+1)^2=4$ centrs ir A, otras centrs $E(-4;3)$. Aprēķini trijstūra AEF mediānas FM garumu, ja $F(6;4)$.",
+   "answer": "$A(2;-1)$, $M(-1;1)$, $FM=\\sqrt{49+9}=\\sqrt{58}$"
+  },
+  {
+   "number": "II.5",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Pierādi, ka izteiksmes $\\left(\\frac{1}{x-2}-\\frac{1}{x-1}\\right):\\frac{x-1}{x-2}$ vērtība ir pozitīva visiem x, ar kuriem izteiksme ir definēta.",
+   "answer": "$=\\frac{1}{(x-2)(x-1)}\\cdot\\frac{x-2}{x-1}=\\frac{1}{(x-1)^2}>0$"
+  },
+  {
+   "number": "II.6.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "Konusu augstums ir H. 1. konusa tilpums $V_1=3328$ cm³, katra nākamā konusa rādiuss ir divas reizes mazāks. Nosaki $\\frac{V_2}{V_1}$.",
+   "answer": "$\\frac14$"
+  },
+  {
+   "number": "II.6.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki 5. konusa tilpumu $V_5$.",
+   "answer": "$3328:4^4=13$ cm³"
+  },
+  {
+   "number": "II.6.3",
+   "group": "p2",
+   "kind": "open",
+   "points": 2,
+   "text": "Uzraksti n-tā konusa tilpuma formulu un pamato.",
+   "answer": "$V_n=3328\\cdot\\left(\\frac14\\right)^{n-1}$ – tilpums proporcionāls $R^2$, katru reizi samazinās 4 reizes."
+  }
+ ]
+}
