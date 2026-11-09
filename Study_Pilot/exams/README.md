@@ -29,3 +29,20 @@ Uzdevuma lauki:
 
 Faili, kuru nosaukums sākas ar `_`, netiek importēti. Importu drīkst palaist atkārtoti — esošie uzdevumi tiek atjaunināti.
 Pirms ielikšanas publiskā repozitorijā pārbaudi VIAA lietošanas noteikumus (vai drīkst publicēt uzdevumus).
+
+## VIAA eksāmeni, kas jau ir pārveidoti
+
+Avots: [viaa.gov.lv – Valsts pārbaudes darbu uzdevumi](https://www.viaa.gov.lv/lv/valsts-parbaudes-darbu-uzdevumi). Katram failam `source_url` norāda uz oriģinālo PDF.
+
+| Gads | 9. klase | 12. klase |
+|---|---|---|
+| 2026 | latviešu, angļu (monitoringa darbs), matemātika | latviešu (optimālais, augstākais), angļu (optimālais, augstākais), matemātika (vispārīgais, optimālais, augstākais) |
+
+Ko pārveidojot izlaižam vai pielāgojam:
+- **Klausīšanās daļa** (angļu valoda) un **mutvārdu daļa** – vajag audio vai intervētāju, tāpēc nav iekļauta.
+- **Zīmējumi un grafiki** – aprakstīti tekstā laukā `figure` (AI zīmējumus neredz); oriģinālu skolēns var atvērt ar saiti.
+- **Atbildes** – no VIAA vērtēšanas kritērijiem. Kur kritērijos skaitliskā atbilde bija tikai attēlā, atbilde ir aprēķināta un pārbaudīta atsevišķi.
+- Uzdevumi, kuros oriģinālā skolēns ieraksta zīmi (<, >, =), pārveidoti par izvēles jautājumiem.
+- 2. daļas uzdevumu numuri sākas ar `II.` (piem. `II.3`), lai tie nesajauktos ar 1. daļas apakšpunktiem.
+
+PDF failus lokāli glabā mapē `exams/_pdf/` (tā netiek augšupielādēta GitHub).
