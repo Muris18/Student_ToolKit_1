@@ -39,6 +39,7 @@ Avots: [viaa.gov.lv – Valsts pārbaudes darbu uzdevumi](https://www.viaa.gov.l
 | 2026 | latviešu, angļu (monitoringa darbs), matemātika | latviešu (optimālais, augstākais), angļu (optimālais, augstākais), matemātika (vispārīgais, optimālais, augstākais) |
 | 2025 | latviešu, angļu, matemātika | latviešu (optimālais, augstākais), angļu (optimālais, augstākais), matemātika (vispārīgais, optimālais, augstākais*) |
 | 2024 | latviešu, angļu, matemātika | latviešu (optimālais, augstākais), angļu (optimālais, augstākais), matemātika (vispārīgais, optimālais, augstākais*) |
+| 2023 | latviešu, angļu, matemātika | — |
 
 Ko pārveidojot izlaižam vai pielāgojam:
 - **Klausīšanās daļa** (angļu valoda) un **mutvārdu daļa** – vajag audio vai intervētāju, tāpēc nav iekļauta.
