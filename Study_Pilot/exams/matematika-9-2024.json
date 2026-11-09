@@ -1,0 +1,415 @@
+{
+ "subject": "matemātika",
+ "grade": 9,
+ "year": 2024,
+ "session": "",
+ "title": "Centralizētais eksāmens matemātikā 9. klasei, 2024 (VIAA)",
+ "source_url": "https://www.viaa.gov.lv/lv/media/22431/download?attachment",
+ "groups": {
+  "alg": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "algebra"
+  },
+  "fun": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "funkcijas"
+  },
+  "geo": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "ģeometrija"
+  },
+  "stat": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "kombinatorika, varbūtība, statistika"
+  },
+  "p2": {
+   "section": "2. daļa. Kompleksu problēmu risināšana"
+  }
+ },
+ "tasks": [
+  {
+   "number": "1.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $3^4$",
+   "answer": "81"
+  },
+  {
+   "number": "1.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $6^{-2}$",
+   "answer": "$\\frac{1}{36}$"
+  },
+  {
+   "number": "1.3",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $\\left(2\\frac13\\right)^2$",
+   "answer": "$\\left(\\frac73\\right)^2=\\frac{49}{9}=5\\frac49$"
+  },
+  {
+   "number": "2.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $9n+8-2n$",
+   "answer": "$7n+8$"
+  },
+  {
+   "number": "2.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $(3a-5)^2$",
+   "answer": "$9a^2-30a+25$"
+  },
+  {
+   "number": "2.3",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Izpildi darbības: $(3m-2)(8+4m)+7(m-1)$",
+   "answer": "$24m+12m^2-16-8m+7m-7=12m^2+23m-23$ (VIAA vērtēšanas kritēriji šim gadam nav publicēti; risinājumu sagatavoja Study Pilot.)"
+  },
+  {
+   "number": "3.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini $\\sqrt{81}$.",
+   "answer": "9"
+  },
+  {
+   "number": "3.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Saskaiti $\\sqrt6+\\sqrt6$.",
+   "answer": "$2\\sqrt6$"
+  },
+  {
+   "number": "3.3",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "$\\sqrt{9+25}=$",
+   "answer": "D",
+   "options": {
+    "A": "8",
+    "B": "17",
+    "C": "$\\sqrt{17}$",
+    "D": "$\\sqrt{34}$"
+   }
+  },
+  {
+   "number": "4",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Elektroskūtera atbloķēšanas maksa ir 0,4 eiro un maksa par katru minūti ir 0,12 eiro. Izmaksas par $t$ minūtēm veidojas no atbloķēšanas maksas un maksas par katru minūti. Kura no izteiksmēm apraksta elektroskūtera nomas kopējās izmaksas par $t$ minūtēm?",
+   "answer": "B",
+   "options": {
+    "A": "$0{,}12+0{,}4t$",
+    "B": "$0{,}4+0{,}12t$",
+    "C": "$0{,}52t$",
+    "D": "$0{,}52+t$"
+   }
+  },
+  {
+   "number": "5",
+   "group": "alg",
+   "kind": "open",
+   "points": 2,
+   "text": "Tuvojoties izlaidumam, skolēnu pašpārvalde sagādāja baltu atlasa lenti, kuras platums ir 3,5 cm un to var sagriezt 126 vienādos 15 centimetru garos gabalos. Aprēķini, cik gabalu iegūs, ja skolēnu pašpārvalde visu sagādāto lenti sagriezīs 10 cm garos gabalos.",
+   "answer": "Lentes garums $126\\cdot15=1890$ cm; $1890:10=189$ gabali. (VIAA vērtēšanas kritēriji šim gadam nav publicēti; risinājumu sagatavoja Study Pilot.)"
+  },
+  {
+   "number": "6.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota aritmētiskā progresija $a_1=7$; $a_2=12$; … Aprēķini diferenci $d$.",
+   "answer": "$d=5$"
+  },
+  {
+   "number": "6.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Progresijai $a_1=7$, $d=5$ aprēķini piekto locekli $a_5$.",
+   "answer": "$a_5=7+4\\cdot5=27$"
+  },
+  {
+   "number": "6.3",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Progresijai $a_1=7$, $d=5$ nosaki vispārīgo locekli $a_n$.",
+   "answer": "$a_n=7+5(n-1)=5n+2$"
+  },
+  {
+   "number": "7",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki $t$ vērtību, ja $\\frac{t-3}{12}=0$.",
+   "answer": "$t=3$"
+  },
+  {
+   "number": "8.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Atrisini vienādojumu $2x-1=5$.",
+   "answer": "$x=3$"
+  },
+  {
+   "number": "8.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini vienādojumu $3x^2-7x+2=0$.",
+   "answer": "$D=25$; $x_1=2$, $x_2=\\frac13$"
+  },
+  {
+   "number": "9",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzraksti vienādojumu, kurā, abas puses reizinot ar 5, ieguva vienādojumu $x^2-x-20=0$.",
+   "answer": "Piemēram, $\\frac{x^2-x-20}{5}=0$ jeb $0{,}2x^2-0{,}2x-4=0$. (VIAA vērtēšanas kritēriji šim gadam nav publicēti; risinājumu sagatavoja Study Pilot.)"
+  },
+  {
+   "number": "10",
+   "group": "fun",
+   "kind": "choice",
+   "points": 1,
+   "text": "Kurā zīmējumā attēlots funkcijas $y=-2x+1$ grafiks?",
+   "answer": "A",
+   "options": {
+    "A": "taisne caur $(0;1)$ un $(0{,}5;0)$",
+    "B": "taisne caur $(0;0)$ ar slīpumu $-2$",
+    "C": "taisne caur $(0;-2)$ ar slīpumu $-1$",
+    "D": "taisne caur $(0;0{,}5)$ ar slīpumu $-0{,}5$"
+   }
+  },
+  {
+   "number": "11",
+   "group": "fun",
+   "kind": "open",
+   "points": 3,
+   "text": "Dotajā koordinātu plaknē konstruē funkcijas $y=x^2-2x$ grafiku.",
+   "answer": "Parabola ar zariem uz augšu, virsotne $(1;-1)$, krusto x asi punktos 0 un 2, iet caur $(-1;3)$ un $(3;3)$."
+  },
+  {
+   "number": "12.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Zita ar kājām no mājām devās uz pakomātu. Grafikā: 0–20 min attālums no 0 līdz 1200 m, 20–24 min – 1200 m (izņem sūtījumu), 24–40 min atpakaļ līdz 0. Dots apgalvojums: „Zitas iešanas ātrums pēc paciņas izņemšanas bija mazāks nekā pirms paciņas izņemšanas”. Pamato, vai apgalvojums ir patiess.",
+   "answer": "Nepatiess: uz pakomātu $1200:20=60$ m/min, atpakaļ $1200:16=75$ m/min – pēc izņemšanas ātrums lielāks."
+  },
+  {
+   "number": "12.2",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Cikos Zita bija 600 metru attālumā no mājām, ja zināms, ka no tām izgāja plkst. 14.05?",
+   "answer": "Pēc 10 min (plkst. 14.15) un atpakaļceļā pēc 32 min (plkst. 14.37)."
+  },
+  {
+   "number": "13",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini nevienādību $x^2-4\\le0$, atbildi pieraksti kā skaitļu intervālu.",
+   "answer": "$x\\in[-2;2]$"
+  },
+  {
+   "number": "14",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Uz taisnes ir leņķi ∢2, taisns leņķis un ∢1 (kopā izstiepts leņķis). Aprēķini ∢1, ja zināms, ka ∢2 = 46°.",
+   "answer": "$180°-90°-46°=44°$"
+  },
+  {
+   "number": "15",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Izmantojot cirkuli un lineālu, konstruē leņķa A bisektrisi.",
+   "answer": "Ar centru A novelk loku, kas krusto abas malas; no krustpunktiem novelk vienāda rādiusa lokus; caur to krustpunktu un A novelk staru."
+  },
+  {
+   "number": "16",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota trapece RKLP ($KL\\parallel RP$), $KL=17$ cm un $RP=25$ cm; NE ir viduslīnija. Aprēķini NE garumu.",
+   "answer": "$NE=\\frac{17+25}{2}=21$ cm"
+  },
+  {
+   "number": "17",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots trijstūris PKS, $\\angle S=90°$, $PK=7$ cm un $PS=6$ cm. Aprēķini malas SK garumu.",
+   "answer": "$SK=\\sqrt{49-36}=\\sqrt{13}$ cm"
+  },
+  {
+   "number": "18",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots trijstūris ART, kura laukums ir 144 cm². Aprēķini trijstūra augstumu RS, kas vilkts pret malu AT, ja $AT=36$ cm.",
+   "answer": "$RS=\\frac{2\\cdot144}{36}=8$ cm"
+  },
+  {
+   "number": "19",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Kvadrātā ABCD ievilkta riņķa līnija. Aprēķini riņķa līnijas rādiusu, ja kvadrāta perimetrs ir 24 cm.",
+   "answer": "Mala 6 cm, $r=3$ cm"
+  },
+  {
+   "number": "20",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "$\\triangle ABC\\sim\\triangle FDE$, $\\angle A=35°$, $\\angle B=100°$ un $\\angle C=45°$. Nosaki $\\angle E$ lielumu.",
+   "answer": "$\\angle E=\\angle C=45°$"
+  },
+  {
+   "number": "21",
+   "group": "geo",
+   "kind": "open",
+   "points": 3,
+   "text": "Taisnleņķa trijstūrī ART ($\\angle A=90°$) no malas AT punkta E novilkts perpendikuls EK pret malu RT ($K\\in RT$). $EK=4$ cm, $ET=5$ cm un $AR=20$ cm. Aprēķini malas RT garumu, papildinot atrisinājumu: 1) ∢TAR = ∢EKT = 90°; 2) ___ – kopīgs leņķis; Tātad △ART ∼ △KET pēc pazīmes ___; $\\frac{RT}{\\ldots}=\\ldots$",
+   "answer": "2) ∢T; pazīme ll; $\\frac{RT}{ET}=\\frac{AR}{EK}$ ⇒ $RT=\\frac{5\\cdot20}{4}=25$ cm"
+  },
+  {
+   "number": "22",
+   "group": "geo",
+   "kind": "choice",
+   "points": 1,
+   "text": "Dots kubs. Nosaki kuba šķautņu skaitu.",
+   "answer": "C",
+   "options": {
+    "A": "4",
+    "B": "6",
+    "C": "12",
+    "D": "16"
+   }
+  },
+  {
+   "number": "23",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Taisnstūra paralēlskaldņa tilpums ir 120 cm³. Aprēķini tilpumu, ja tā pamata malu $a$ palielina 3 reizes, augstumu $c$ samazina 2 reizes un pamata malu $b$ nemaina.",
+   "answer": "$120\\cdot3:2=180$ cm³"
+  },
+  {
+   "number": "24.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Vienlaikus iegriež divus laimes ratus: pirmajā sektori 1, 2, 3, 4; otrajā – 2, 3, 4, 5, 7. Uzraksti visus iespējamos iznākumus, kuros uzgriezto skaitļu summa ir 8.",
+   "answer": "$(1;7)$, $(3;5)$, $(4;4)$"
+  },
+  {
+   "number": "24.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Aprēķini varbūtību, ka, vienlaikus iegriežot abus laimes ratus (1–4 un 2, 3, 4, 5, 7), uzgriezto skaitļu summa ir 8.",
+   "answer": "$P=\\frac{3}{4\\cdot5}=\\frac{3}{20}$"
+  },
+  {
+   "number": "25.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "VII pasaules diktātā izlaboti 2290 darbi. Kļūdu skaits: 1–10 – 1531 dalībnieks, 11–20 – 631, 21–30 – 80, 31–40 – 19, 41–50 – 9; 8 darbos vairāk nekā 50 kļūdu. Aprēķini, cik dalībnieku diktātu uzrakstīja ar vismaz 31 kļūdu.",
+   "answer": "$19+9+8=36$ dalībnieki (31–40, 41–50 un vairāk nekā 50 kļūdu). (VIAA vērtēšanas kritēriji šim gadam nav publicēti; risinājumu sagatavoja Study Pilot.)"
+  },
+  {
+   "number": "25.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Ja dalībnieks nav kļūdījies nevienu reizi, darbu uzskata par teicamu. Nosaki, cik dalībnieku darbu ir uzrakstījuši teicami (dati kā iepriekš: kopā 2290, ar 1–50 kļūdām $1531+631+80+19+9$, 8 darbos >50).",
+   "answer": "$2290-2270-8=12$"
+  },
+  {
+   "number": "25.3",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots apgalvojums: „19% no visiem dalībniekiem ir pieļāvuši 31 līdz 40 kļūdu”. Nosaki un pamato apgalvojuma patiesumu.",
+   "answer": "Nepatiess: 19 ir dalībnieku skaits, nevis procenti; $\\frac{19}{2290}\\approx0{,}8\\%$."
+  },
+  {
+   "number": "II.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Atrisini vienādojumu $\\frac{8x-6}{3}-\\frac{5x+1}{6}=x-3$.",
+   "answer": "$16x-12-5x-1=6x-18$ ⇒ $5x=-5$ ⇒ $x=-1$"
+  },
+  {
+   "number": "II.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Divpusējās kāpnes ar grīdu veido 72° lielu leņķi (virsotnē). Aprēķini kāpņu garumu $x$ ar precizitāti līdz centimetram, ja atvēruma platums ir 96 cm.",
+   "answer": "Vienādsānu trijstūris, pusleņķis 36°: $x=\\frac{48}{\\sin36°}\\approx81{,}66\\approx82$ cm. (VIAA vērtēšanas kritēriji šim gadam nav publicēti; risinājumu sagatavoja Study Pilot.)"
+  },
+  {
+   "number": "II.3.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "No baltām un melnām flīzēm veido figūras: 1. figūra 2×2 ar 2 melnām, 2. figūra 3×3 ar 3 melnām, 3. figūra 4×4 ar 4 melnām. Aprēķini melno flīžu skaitu 17. figūrai.",
+   "answer": "18"
+  },
+  {
+   "number": "II.3.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini, cik balto flīžu ir izmantotas figūrā, kas veidota no 900 flīzēm.",
+   "answer": "$900=30^2$ ⇒ 30 melnas, $900-30=870$ baltas."
+  },
+  {
+   "number": "II.3.3",
+   "group": "p2",
+   "kind": "open",
+   "points": 2,
+   "text": "Uzraksti izteiksmi, kā aprēķināt balto flīžu skaitu $n$-tajai figūrai, un pamato, ka tā ir patiesa.",
+   "answer": "$n$-tā figūra ir $(n+1)\\times(n+1)$ kvadrāts ar $n+1$ melnu flīzi: baltās $(n+1)^2-(n+1)=n(n+1)$."
+  },
+  {
+   "number": "II.4",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Dots paralelograms ADCB un rombs DGFE. AE ir ∢A bisektrise ($E\\in DC$). Pierādi, ka $GE=AE$, ja ∢A = ∢G.",
+   "answer": "∢DAE = ∢EAB = ∢DEA (šķērsleņķi), tātad △ADE vienādsānu, $AD=DE$. Rombā $DG=DE$ un diagonāle GE dala ∢G uz pusēm: ∢DEG = ∢G/2 = ∢A/2 = ∢DEA. △ADE = △GDE pēc pazīmes mlm (DE kopīga, $AD=GD$, ∢ADE=∢GDE vai ∢DEA=∢DEG) ⇒ $AE=GE$. (VIAA vērtēšanas kritēriji šim gadam nav publicēti; risinājumu sagatavoja Study Pilot.)"
+  },
+  {
+   "number": "II.5",
+   "group": "p2",
+   "kind": "open",
+   "points": 5,
+   "text": "Taisnstūrveida kartona loksnei viena mala ir 2 reizes garāka nekā otra. Loksnes stūros izgrieza kvadrātus ar malas garumu 2 cm un izveidoja kārbu, kuras tilpums ir 192 cm³. Aprēķini kartona loksnes malu garumus.",
+   "answer": "$(x-4)(2x-4)\\cdot2=192$ ⇒ $x^2-6x-40=0$ ⇒ $x=10$. Malas 10 cm un 20 cm."
+  }
+ ]
+}
