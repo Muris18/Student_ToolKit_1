@@ -15,7 +15,8 @@ export function canAdd(user, data, key) {
 // cfg = /api/config (AI limiti nāk no servera .env)
 export const premiumFeatures = (cfg = {}) => [
   `${cfg.aiLimitPremium || 100} AI skolotāja jautājumi dienā (bezmaksas — ${cfg.aiLimitFree || 10})`,
-  'Neierobežoti savi testi un eksāmenu uzdevumi',
+  'Vairāk AI testu pēc tavām kļūdām (katrs tests = 1 AI jautājums)',
+  'Neierobežoti savi eksāmenu uzdevumi',
   'Viss, kas ir bezmaksas plānā',
   'Atbalsti Study Pilot attīstību',
 ];
