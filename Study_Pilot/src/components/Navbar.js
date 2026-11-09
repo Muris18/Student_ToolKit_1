@@ -5,7 +5,7 @@ import ThemeSwitcher from './ThemeSwitcher';
 import Button from './Button';
 import Icon from './Icon';
 import Brand from './Brand';
-import { menuItems, useIsActive } from './Sidebar';
+import { flatMenu, useIsActive } from './Sidebar';
 import { useApp } from '../lib/AppContext';
 import { gradeLabel } from '../lib/helpers';
 
@@ -46,7 +46,7 @@ export default function Navbar({ app = true }) {
       </div>
       {/* Mobilā apakšējā tab josla */}
       <nav className={`${app ? 'hidden mobile:grid' : 'hidden'} fixed bottom-0 inset-x-0 z-40 glass border-t border-slate-200 grid grid-cols-5 px-2 pt-2`} style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 8px)' }}>
-        {menuItems.filter((i) => tabs.includes(i.href)).map((item) => (
+        {flatMenu.filter((i) => tabs.includes(i.href)).map((item) => (
           <Link key={item.href} href={item.href} className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl text-[10px] font-semibold transition-all active:scale-95 ${isActive(item.href) ? 'text-accent' : 'text-slate-400'}`}>
             <span className={`w-11 h-7 flex items-center justify-center rounded-full ${isActive(item.href) ? 'bg-indigo-50' : ''}`}><Icon name={item.icon} className="w-5 h-5" /></span>
             {short[item.href]}

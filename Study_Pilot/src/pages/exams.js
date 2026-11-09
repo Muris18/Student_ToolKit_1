@@ -13,8 +13,8 @@ const MODES = [
   { id: 'select', label: 'Priekšmeti' },
   { id: 'official', label: '📄 Valsts eksāmeni' },
   { id: 'tasks', label: 'Uzdevumi' },
-  { id: 'quiz', label: '⚡ Tests' },
-  { id: 'ai', label: '🤖 AI Skolotājs' },
+  { id: 'quiz', label: '⚡ Testa režīms' },
+  { id: 'ai', label: '🤖 AI mācību palīgs' },
 ];
 
 function Exams() {
