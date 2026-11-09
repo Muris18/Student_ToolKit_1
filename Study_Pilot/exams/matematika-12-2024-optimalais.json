@@ -54,13 +54,13 @@
    "group": "alg",
    "kind": "choice",
    "points": 1,
-   "text": "Summa $\\log_6 12+\\log_6 2$ vienāda ar",
+   "text": "Summa $\\log_5 12+\\log_5 2$ vienāda ar",
    "answer": "D",
    "options": {
     "A": "$\\log_{10}14$",
     "B": "$\\log_{10}24$",
-    "C": "$\\log_6 14$",
-    "D": "$\\log_6 24$"
+    "C": "$\\log_5 14$",
+    "D": "$\\log_5 24$"
    }
   },
   {

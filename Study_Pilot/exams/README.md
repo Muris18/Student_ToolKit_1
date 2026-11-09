@@ -38,13 +38,15 @@ Avots: [viaa.gov.lv – Valsts pārbaudes darbu uzdevumi](https://www.viaa.gov.l
 |---|---|---|
 | 2026 | latviešu, angļu (monitoringa darbs), matemātika | latviešu (optimālais, augstākais), angļu (optimālais, augstākais), matemātika (vispārīgais, optimālais, augstākais) |
 | 2025 | latviešu, angļu, matemātika | latviešu (optimālais, augstākais), angļu (optimālais, augstākais), matemātika (vispārīgais, optimālais, augstākais*) |
+| 2024 | latviešu, angļu, matemātika | latviešu (optimālais, augstākais), angļu (optimālais, augstākais), matemātika (vispārīgais, optimālais, augstākais*) |
 
 Ko pārveidojot izlaižam vai pielāgojam:
 - **Klausīšanās daļa** (angļu valoda) un **mutvārdu daļa** – vajag audio vai intervētāju, tāpēc nav iekļauta.
 - **Zīmējumi un grafiki** – aprakstīti tekstā laukā `figure` (AI zīmējumus neredz); oriģinālu skolēns var atvērt ar saiti.
 - **Atbildes** – no VIAA vērtēšanas kritērijiem. Kur kritērijos skaitliskā atbilde bija tikai attēlā, atbilde ir aprēķināta un pārbaudīta atsevišķi.
 - Uzdevumi, kuros oriģinālā skolēns ieraksta zīmi (<, >, =), pārveidoti par izvēles jautājumiem.
-- \* 2025. gada augstākā līmeņa matemātikā 1. un 2. daļa ir kopīga ar optimālo līmeni; augstākā līmeņa 3. un 4. daļas uzdevumi numurēti `III.` un `IV.`.
+- **2024. gads un vecāki:** VIAA nav publicējusi vērtēšanas kritērijus (izņemot 2024. g. vispārīgā līmeņa matemātiku), tāpēc atbildes un risinājumus sagatavoja un pārbaudīja Study Pilot.
+- \* 2025. un 2024. gada augstākā līmeņa matemātikā 1. un 2. daļa ir kopīga ar optimālo līmeni; augstākā līmeņa 3. un 4. daļas uzdevumi numurēti `III.` un `IV.`.
 - 2. daļas uzdevumu numuri sākas ar `II.` (piem. `II.3`), lai tie nesajauktos ar 1. daļas apakšpunktiem.
 
 PDF failus lokāli glabā mapē `exams/_pdf/` (tā netiek augšupielādēta GitHub).
