@@ -9,6 +9,14 @@ const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const docLabel = (d) => `${cap(d.subject)} · ${d.grade}. klase · ${d.year}${d.session ? ` (${d.session})` : ''}`;
 
 // Valsts eksāmenu treniņš: VIAA uzdevumi, testa jautājumu pārbaude, atvērtie uzdevumi -> AI skolotājs
+const LEVEL_ORDER = ['vispārīgais līmenis', 'optimālais līmenis', 'augstākais līmenis'];
+const levelRank = (l) => { const i = LEVEL_ORDER.indexOf(l); return i < 0 ? 9 : i; };
+const SUBJECT_ICON = { 'latviešu valoda': '📖', 'angļu valoda': '🇬🇧', matemātika: '📐', dabaszinātnes: '🔬' };
+// Latviešu skaitlis: 1, 21, 31 … uzdevums; 11 un pārējie – uzdevumi
+const lv = (n, one, many) => (n % 10 === 1 && n % 100 !== 11 ? one : many);
+const chip = (on) => `px-3 py-1.5 rounded-xl text-xs font-medium cursor-pointer transition-colors ${on ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+
+// Valsts eksāmenu treniņš: VIAA uzdevumi, testa jautājumu pārbaude, atvērtie uzdevumi -> AI skolotājs
 export default function OfficialExams({ onAskAi }) {
   const { user, api } = useApp();
   const defaultGrade = user.profile.level === 'klase' && [9, 12].includes(user.profile.grade) ? user.profile.grade : 12;
@@ -16,14 +24,21 @@ export default function OfficialExams({ onAskAi }) {
   const [docs, setDocs] = useState(null);
   const [docId, setDocId] = useState(null);
   const [error, setError] = useState('');
-  const [subject, setSubject] = useState('all');
+  const [subject, setSubject] = useState('');
+  const [level, setLevel] = useState('all');
 
   useEffect(() => {
     setDocs(null);
-    setSubject('all');
     setError('');
     api(`/api/exams?grade=${grade}`).then((r) => setDocs(r.docs)).catch((e) => setError(e.message));
   }, [grade, api]);
+
+  const subjects = useMemo(() => [...new Set((docs || []).map((d) => d.subject))], [docs]);
+  const current = subjects.includes(subject) ? subject : subjects[0];
+  const ofSubject = (docs || []).filter((d) => d.subject === current);
+  const levels = [...new Set(ofSubject.map((d) => d.session).filter(Boolean))].sort((x, y) => levelRank(x) - levelRank(y));
+  const shown = ofSubject.filter((d) => level === 'all' || d.session === level || !levels.includes(level));
+  const years = [...new Set(shown.map((d) => d.year))].sort((x, y) => y - x);
 
   if (docId) return <ExamDoc id={docId} onBack={() => setDocId(null)} onAskAi={onAskAi} />;
 
@@ -44,32 +59,51 @@ export default function OfficialExams({ onAskAi }) {
       {docs && docs.length === 0 && (
         <EmptyState icon="📄" title={`${grade}. klases eksāmeni vēl tiek pievienoti`} text="Administrators tos pievieno sadaļā Administrēšana. Pagaidām vari jautāt AI skolotājam vai pārslēgt klasi." />
       )}
-      {docs && docs.length > 0 && (() => {
-        const subjects = [...new Set(docs.map((d) => d.subject))];
-        const shown = docs.filter((d) => subject === 'all' || d.subject === subject);
-        return (
-        <>
-        {subjects.length > 1 && (
-          <div className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Priekšmets">
-            {['all', ...subjects].map((s) => (
-              <button key={s} type="button" aria-pressed={subject === s} onClick={() => setSubject(s)} className={`px-3 py-1.5 rounded-xl text-xs font-medium cursor-pointer ${subject === s ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
-                {s === 'all' ? `Visi (${docs.length})` : `${cap(s)} (${docs.filter((d) => d.subject === s).length})`}
-              </button>
+      {docs && docs.length > 0 && (
+        <div className="space-y-5">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Priekšmets">
+            {subjects.map((s) => {
+              const n = docs.filter((d) => d.subject === s).length;
+              const on = s === current;
+              return (
+                <button key={s} type="button" aria-pressed={on} onClick={() => { setSubject(s); setLevel('all'); }} className={`flex-1 min-w-[10rem] flex items-center gap-3 p-3 rounded-2xl border text-left cursor-pointer transition-colors ${on ? 'border-indigo-500 bg-indigo-50' : 'border-slate-200 bg-white hover:border-indigo-300'}`}>
+                  <span className="text-2xl" aria-hidden="true">{SUBJECT_ICON[s] || '📄'}</span>
+                  <span>
+                    <span className={`block font-semibold text-sm ${on ? 'text-indigo-700' : 'text-slate-900'}`}>{cap(s)}</span>
+                    <span className="block text-xs text-slate-500">{n} {lv(n, 'eksāmens', 'eksāmeni')}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {levels.length > 1 && (
+            <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Līmenis">
+              <span className="text-xs font-semibold text-slate-400 mr-1">Līmenis:</span>
+              {['all', ...levels].map((l) => (
+                <button key={l} type="button" aria-pressed={level === l} onClick={() => setLevel(l)} className={chip(level === l)}>{l === 'all' ? 'Visi' : cap(l.replace(' līmenis', ''))}</button>
+              ))}
+            </div>
+          )}
+
+          <div className="space-y-4">
+            {years.map((y) => (
+              <section key={y} aria-label={`${y}. gads`}>
+                <h4 className="text-sm font-bold text-slate-900 mb-2">{y}</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {shown.filter((d) => d.year === y).sort((x, z) => levelRank(x.session) - levelRank(z.session)).map((d) => (
+                    <button key={d.id} type="button" onClick={() => setDocId(d.id)} className="group p-3 rounded-xl border border-slate-200 bg-white text-left cursor-pointer transition-colors hover:border-indigo-400">
+                      <p className="font-semibold text-sm text-slate-900">{d.session ? cap(d.session) : 'Centralizētais eksāmens'}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">{d.tasks} {lv(d.tasks, 'uzdevums', 'uzdevumi')}</p>
+                      <span className="text-xs font-semibold text-accent mt-2 inline-block">Sākt treniņu →</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
-        )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {shown.map((d) => (
-            <button key={d.id} type="button" onClick={() => setDocId(d.id)} className="group p-4 rounded-2xl border border-slate-200 bg-white text-left cursor-pointer transition-colors hover:border-indigo-400">
-              <p className="font-semibold text-slate-900">{d.title}</p>
-              <p className="text-xs text-slate-500 mt-1">{docLabel(d)} · {d.tasks} uzdevumi</p>
-              <span className="text-xs font-semibold text-accent mt-3 inline-block">Sākt treniņu →</span>
-            </button>
-          ))}
         </div>
-        </>
-        );
-      })()}
+      )}
     </Card>
   );
 }
