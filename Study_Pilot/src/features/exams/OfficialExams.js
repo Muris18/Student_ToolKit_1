@@ -16,9 +16,11 @@ export default function OfficialExams({ onAskAi }) {
   const [docs, setDocs] = useState(null);
   const [docId, setDocId] = useState(null);
   const [error, setError] = useState('');
+  const [subject, setSubject] = useState('all');
 
   useEffect(() => {
     setDocs(null);
+    setSubject('all');
     setError('');
     api(`/api/exams?grade=${grade}`).then((r) => setDocs(r.docs)).catch((e) => setError(e.message));
   }, [grade, api]);
@@ -42,9 +44,22 @@ export default function OfficialExams({ onAskAi }) {
       {docs && docs.length === 0 && (
         <EmptyState icon="📄" title={`${grade}. klases eksāmeni vēl tiek pievienoti`} text="Administrators tos pievieno sadaļā Administrēšana. Pagaidām vari jautāt AI skolotājam vai pārslēgt klasi." />
       )}
-      {docs && docs.length > 0 && (
+      {docs && docs.length > 0 && (() => {
+        const subjects = [...new Set(docs.map((d) => d.subject))];
+        const shown = docs.filter((d) => subject === 'all' || d.subject === subject);
+        return (
+        <>
+        {subjects.length > 1 && (
+          <div className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Priekšmets">
+            {['all', ...subjects].map((s) => (
+              <button key={s} type="button" aria-pressed={subject === s} onClick={() => setSubject(s)} className={`px-3 py-1.5 rounded-xl text-xs font-medium cursor-pointer ${subject === s ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                {s === 'all' ? `Visi (${docs.length})` : `${cap(s)} (${docs.filter((d) => d.subject === s).length})`}
+              </button>
+            ))}
+          </div>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {docs.map((d) => (
+          {shown.map((d) => (
             <button key={d.id} type="button" onClick={() => setDocId(d.id)} className="group p-4 rounded-2xl border border-slate-200 bg-white text-left cursor-pointer transition-colors hover:border-indigo-400">
               <p className="font-semibold text-slate-900">{d.title}</p>
               <p className="text-xs text-slate-500 mt-1">{docLabel(d)} · {d.tasks} uzdevumi</p>
@@ -52,7 +67,9 @@ export default function OfficialExams({ onAskAi }) {
             </button>
           ))}
         </div>
-      )}
+        </>
+        );
+      })()}
     </Card>
   );
 }
@@ -100,18 +117,41 @@ function ExamDoc({ id, onBack, onAskAi }) {
           </div>
         )}
       </Card>
-      {tasks.map((t) => <ExamTask key={t.id} task={t} doc={doc} attempt={attempts[t.id]} onResult={record} onAskAi={onAskAi} />)}
+      {tasks.map((t, i) => (
+        <ExamTask
+          key={t.id}
+          task={t}
+          doc={doc}
+          attempt={attempts[t.id]}
+          onResult={record}
+          onAskAi={onAskAi}
+          showContext={Boolean(t.context) && (i === 0 || tasks[i - 1].context !== t.context)}
+          showFigure={Boolean(t.figure) && (i === 0 || tasks[i - 1].figure !== t.figure)}
+        />
+      ))}
     </>
   );
 }
 
-function ExamTask({ task, doc, attempt, onResult, onAskAi }) {
+function ExamTask({ task, doc, attempt, onResult, onAskAi, showContext, showFigure }) {
   const { api } = useApp();
   const [picked, setPicked] = useState('');
   const [result, setResult] = useState(null);
   const [answer, setAnswer] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [model, setModel] = useState(null);
+
+  const reveal = async () => {
+    setBusy(true);
+    setError('');
+    try {
+      setModel(await api('/api/exams/answer', { method: 'POST', body: { taskId: task.id } }));
+    } catch (e) {
+      setError(e.message);
+    }
+    setBusy(false);
+  };
 
   const check = async (key) => {
     setPicked(key);
@@ -138,8 +178,8 @@ function ExamTask({ task, doc, attempt, onResult, onAskAi }) {
         {task.points != null && <span className="text-slate-400">· {task.points} p.</span>}
         {attempt && <span className={`ml-auto font-semibold ${attempt.correct ? 'text-emerald-700' : 'text-rose-700'}`}>{attempt.correct ? '✓ Atrisināts' : '✗ Mēģināts'}</span>}
       </header>
-      {task.context && <MathText text={task.context} className="text-sm text-slate-600 leading-relaxed p-3 rounded-xl bg-slate-50 border border-slate-100 mb-3" />}
-      {task.figure && <p className="text-xs text-slate-500 italic mb-3">Attēls: {task.figure} (skaties oriģinālajā eksāmenā)</p>}
+      {showContext && <MathText text={task.context} className="text-sm text-slate-600 leading-relaxed p-3 rounded-xl bg-slate-50 border border-slate-100 mb-3 max-h-[32rem] overflow-y-auto" />}
+      {showFigure && <p className="text-xs text-slate-500 italic mb-3">Attēls: {task.figure} (skaties oriģinālajā eksāmenā)</p>}
       <MathText text={task.text} className="text-[15px] text-slate-900 leading-relaxed" />
 
       {task.kind === 'choice' && task.options.length > 0 ? (
@@ -168,7 +208,15 @@ function ExamTask({ task, doc, attempt, onResult, onAskAi }) {
           <div className="flex flex-wrap gap-2">
             <Button onClick={ask} className="text-xs py-2">{answer.trim() ? 'Pārbaudīt ar AI skolotāju' : 'Saņemt mājienu no AI'}</Button>
             {!attempt && answer.trim() && <Button variant="secondary" onClick={() => onResult(task.id, true)} className="text-xs py-2">Atzīmēt kā izdarītu</Button>}
+            {task.has_answer && !model && <Button variant="secondary" disabled={busy} onClick={reveal} className="text-xs py-2">Parādīt atbildes paraugu</Button>}
           </div>
+          {model && (
+            <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-100 text-sm">
+              <p className="text-xs font-semibold text-emerald-800 mb-1">Atbildes paraugs</p>
+              {model.answer && <MathText text={model.answer} className="text-slate-800" />}
+              {model.solution && model.solution !== model.answer && <MathText text={model.solution} className="mt-2 text-slate-600" />}
+            </div>
+          )}
         </div>
       )}
       {error && <p className="text-xs text-rose-600 mt-2">{error}</p>}

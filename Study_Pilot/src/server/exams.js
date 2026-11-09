@@ -34,24 +34,51 @@ export async function docWithTasks(id) {
      FROM exam_tasks WHERE doc_id = $1`,
     [id]
   );
-  // Dabiskā secība: 1.1, 1.2, ..., 1.10, 2.1
-  const key = (n) => String(n).split(/[^0-9]+/).filter(Boolean).map((x) => x.padStart(4, '0')).join('.');
-  rows.sort((a, b) => key(a.number).localeCompare(key(b.number)) || String(a.number).localeCompare(String(b.number)));
+  rows.sort((a, b) => taskOrder(a.number).localeCompare(taskOrder(b.number)) || String(a.number).localeCompare(String(b.number)));
   return { ...doc, tasks: rows.map((t) => ({ ...t, options: parseOptions(t.options) })) };
+}
+
+// Dabiskā secība: 1.1, 1.2, ..., 1.10, 2.1, tad II.1, II.2, III.1, IV.1 (daļas romiešu cipariem),
+// beigās rakstīšanas uzdevumi bez daļas numura (W, W-A, W1).
+const ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5 };
+export function taskOrder(number) {
+  const n = String(number).trim();
+  const m = n.match(/^(IV|V|I{1,3})(?=$|[.\s-])[.\s-]*(.*)$/);
+  const part = m ? ROMAN[m[1]] : /^\d/.test(n) ? 1 : 9;
+  const rest = m ? m[2] : n;
+  const digits = rest.split(/[^0-9]+/).filter(Boolean).map((x) => x.padStart(4, '0')).join('.');
+  return `${part}|${digits}`;
 }
 
 const norm = (s) => String(s || '').trim().toUpperCase().replace(/[\s.)]/g, '');
 
+// Pareizā atbilde var būt "B", "B) teksts", "B – teksts" vai vairāki burti "A, C".
+// Ņem katras daļas sākuma burtu/ciparu un patur tikai tos, kas ir starp atbilžu variantiem.
+export function answerKeys(answer, keys) {
+  const valid = new Set(keys.map(norm));
+  const out = String(answer || '').split(/[,;]/)
+    .map((x) => norm((x.trim().match(/^([A-Za-zĀ-ž0-9]+)(?=$|[\s.)–-])/) || [])[1]))
+    .filter((k) => k && valid.has(k));
+  return [...new Set(out)];
+}
+
 // Testa uzdevuma pārbaude. Atvērtos uzdevumus pārbauda AI skolotājs.
 export async function checkAnswer(taskId, answer) {
-  const t = (await query('SELECT id, kind, answer, solution FROM exam_tasks WHERE id = $1', [taskId])).rows[0];
+  const t = (await query('SELECT id, kind, options, answer, solution FROM exam_tasks WHERE id = $1', [taskId])).rows[0];
   if (!t) return null;
   if (t.kind !== 'choice' || !t.answer) return { kind: t.kind, checkable: false };
-  // Pareizā atbilde var būt "B" vai "B) teksts" vai vairāki burti "A, C"
-  const correctKeys = t.answer.split(/[,;]/).map((x) => norm(x.split(')')[0])).filter(Boolean).sort().join(',');
+  const correctKeys = answerKeys(t.answer, parseOptions(t.options).map((o) => o.key)).sort().join(',');
+  if (!correctKeys) return { kind: t.kind, checkable: false };
   const givenKeys = String(answer || '').split(/[,;]/).map(norm).filter(Boolean).sort().join(',');
   const correct = Boolean(givenKeys) && givenKeys === correctKeys;
   return { kind: 'choice', checkable: true, correct, solution: correct ? t.solution : '' };
+}
+
+// Atvērtā uzdevuma atbildes paraugs (testa uzdevumiem atbildi atklāj tikai pārbaude)
+export async function openTaskAnswer(taskId) {
+  const t = (await query('SELECT kind, answer, solution FROM exam_tasks WHERE id = $1', [taskId])).rows[0];
+  if (!t || t.kind === 'choice' || !(t.answer || t.solution)) return null;
+  return { answer: t.answer, solution: t.solution };
 }
 
 // Eksāmena saglabāšana (tas pats formāts kā exams/*.json; atkārtota augšupielāde atjaunina)
