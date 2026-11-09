@@ -1,0 +1,89 @@
+{
+ "subject": "matemātika",
+ "grade": 9,
+ "year": 2026,
+ "session": "",
+ "title": "Centralizētais eksāmens matemātikā 9. klasei, 2026 (VIAA)",
+ "source_url": "https://www.viaa.gov.lv/lv/media/50205/download?attachment",
+ "groups": {
+  "alg": { "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "algebra" },
+  "geo": { "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "ģeometrija" },
+  "stat": { "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "kombinatorika, varbūtība, statistika" },
+  "u11": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "lineāra funkcija, grafiki",
+   "context": "Divas filmu straumēšanas platformas piedāvā šādus nosacījumus.\nPiedāvājums A: abonēšanas maksa – nav, filmas straumēšana – 2 EUR.\nPiedāvājums B: abonēšanas maksa – 7,50 EUR mēnesī, filmas straumēšana – 50 centi.",
+   "figure": "2. att.: maksa (EUR) atkarībā no filmu skaita. 1. grafiks ir taisne, kas sākas punktā (0; 7,5) un lēnām kāpj; 2. grafiks ir taisne caur (0; 0), kas kāpj straujāk; tās krustojas pie 5 filmām (10 EUR). 3. att.: 3. grafiks ir horizontāla taisne y = 9."
+  },
+  "u12": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "kvadrātfunkcija",
+   "context": "Izmanto doto kvadrātfunkcijas grafiku (4. att.).",
+   "figure": "4. att.: parabola ar zariem uz augšu; krusto x asi punktos x = 1 un x = 5, y asi punktā y = 5, virsotne (3; −4)."
+  },
+  "u14": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "leņķi pie paralēlām taisnēm",
+   "context": "Dotas divas taisnes a un b, kuras krusto trešā taisne c (6. att.).",
+   "figure": "6. att.: taisne c krusto taisnes a un b. Pie taisnes b krustpunkta atzīmēts 105° leņķis, un tam blakus esošais leņķis ir ∢1; ∢2 ir pie taisnes a krustpunkta."
+  },
+  "u18": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "trijstūru līdzība",
+   "context": "Nogriežņi AC un BD krustojas punktā O un ∢A = ∢C (10. att.).",
+   "figure": "10. att.: nogriežņi AC un BD krustojas punktā O; augšā mazais trijstūris AOB, apakšā lielais trijstūris COD."
+  },
+  "u21": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "kombinatorika, varbūtība",
+   "context": "Draugiem Gustavam un Mārim ir pieejamas skrituļslidas, velosipēdi un skrejriteņi. Katrs var izvēlēties citu pārvietošanās veidu vai abi vienādu veidu.",
+   "figure": "13. att.: koka diagramma. Gustavs: skrituļslidas, velosipēds, skrejritenis; no katra 3 zari Mārim (aizpildīti tikai pie skrituļslidām: skrituļslidas, velosipēds, skrejritenis)."
+  },
+  "u22": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes", "topic": "statistika, diagrammas",
+   "context": "Stabiņveida diagrammā (14. att.) attēlots laiks, ko Alise un Amanda pavadīja, skatoties televīziju piecās dienās.\nDiena | Alise, h | Amanda, h\nPirmdiena | 1 | 2\nOtrdiena | 3 | 3\nTrešdiena | 4 | 1\nCeturtdiena | 1 | 2\nPiektdiena | 1 | 2",
+   "figure": "15. att.: sektoru diagramma ar 5 sektoriem – viens liels, viens vidējs un trīs mazi vienādi sektori."
+  },
+  "p2": { "section": "2. daļa. Kompleksu problēmu risināšana (zinātniskais kalkulators atļauts)" }
+ },
+ "tasks": [
+  { "number": "1.1", "group": "alg", "kind": "open", "points": 1, "text": "Nosaki izteiksmes vērtību: $2^3$", "answer": "8. Kāpina naturālu skaitli kubā – 1 punkts." },
+  { "number": "1.2", "group": "alg", "kind": "open", "points": 1, "text": "Nosaki izteiksmes vērtību: $0{,}7^2$", "answer": "0,49. Kāpina decimāldaļu – 1 punkts." },
+  { "number": "1.3", "group": "alg", "kind": "open", "points": 1, "text": "Nosaki izteiksmes vērtību: $10^{-3}$", "answer": "$\\frac{1}{1000} = 0{,}001$. Kāpina skaitli ar negatīvu kāpinātāju – 1 punkts." },
+  { "number": "2", "group": "alg", "kind": "open", "points": 1, "text": "Aprēķini izteiksmes $3x - 5$ vērtību, ja $x = 4$.", "answer": "$3\\cdot4-5=7$. Aprēķina izteiksmes vērtību – 1 punkts." },
+  { "number": "3.1", "group": "alg", "kind": "open", "points": 1, "text": "Saskaiti: $4x + 7 + 9x$", "answer": "$13x + 7$. Saskaita līdzīgus monomus – 1 punkts." },
+  { "number": "3.2", "group": "alg", "kind": "open", "points": 3, "text": "Izpildi darbības: $(6x - 2)(2x + 5) + 5(2x - 3)$", "answer": "$12x^2+30x-4x-10+10x-15 = 12x^2+36x-25$. Sareizina binomus – 1 p.; sareizina monomu ar binomu – 1 p.; savelk līdzīgos – 1 p. Vērtē arī korektu vienādības zīmes lietojumu." },
+  { "number": "4", "group": "alg", "kind": "choice", "points": 1, "text": "Salīdzini skaitļus: $4\\frac{1}{3}$ ___ $4{,}33$", "options": { "A": "$4\\frac{1}{3} > 4{,}33$", "B": "$4\\frac{1}{3} < 4{,}33$", "C": "$4\\frac{1}{3} = 4{,}33$" }, "answer": "A", "solution": "$4\\frac{1}{3} = 4{,}333\\ldots > 4{,}33$. (Oriģinālā skolēns pats ieraksta zīmi.)" },
+  { "number": "5", "group": "alg", "kind": "open", "points": 1, "text": "Ar $p$ apzīmē pildspalvas cenu centos, ar $k$ – klades cenu centos. Zaiga nopirka 2 pildspalvas un 3 klades. Uzraksti izteiksmi, kas apraksta maksu par Zaigas pirkumu centos.", "answer": "$2p + 3k$. Uzraksta algebrisku izteiksmi atbilstoši aprakstam – 1 punkts." },
+  { "number": "6", "group": "alg", "kind": "open", "points": 2, "text": "Gatis apgalvo, ka izteiksmju $-\\sqrt{9}$ un $\\sqrt{-9}$ vērtības ir vienādas. Pamato, ka viņa apgalvojums **nav** patiess.", "answer": "$-\\sqrt{9} = -3$, bet $\\sqrt{-9}$ nav jēgas – zemsaknes izteiksmē nevar būt negatīvs skaitlis, tāpēc vērtības nav vienādas. Precīzs, korekts pamatojums – 2 p.; nepilnīgs, bet doma saprotama – 1 p." },
+  { "number": "7.1", "group": "alg", "kind": "open", "points": 3, "text": "Atrisini vienādojumu $2x^2 + 7x - 4 = 0$.", "answer": "$D = 49 + 32 = 81$; $x_1 = \\frac{-7+9}{4} = 0{,}5$; $x_2 = \\frac{-7-9}{4} = -4$. Aprēķina diskriminantu – 1 p.; atrisina vienādojumu (abas saknes) – 2 p. (viena sakne vai kļūda – 1 p.)." },
+  { "number": "7.2", "group": "alg", "kind": "open", "points": 2, "text": "Atrisini vienādojumu $\\frac{x}{\\sqrt{3}} = \\frac{\\sqrt{3}}{2}$.", "answer": "$x = \\frac{\\sqrt3\\cdot\\sqrt3}{2} = \\frac{3}{2} = 1{,}5$. Izvēlas paņēmienu un veic pārveidojumu – 1 p.; aprēķina vērtību – 1 p." },
+  { "number": "8.1", "group": "alg", "kind": "open", "points": 2, "text": "Atrisini nevienādību $2x + 3 > 11$.", "answer": "$2x > 8$, $x > 4$, t.i. $x \\in (4; +\\infty)$. Ekvivalents pārveidojums – 1 p.; pareizs atrisinājums – 2 p." },
+  { "number": "8.2", "group": "alg", "kind": "choice", "points": 1, "text": "Dota kvadrātnevienādība $x^2 - 6x \\le 0$. Kurā no zīmējumiem attēlots tās atrisinājums?", "figure": "Četras parabolas ar zariem uz augšu, krusto x asi punktos 0 un 6. A: iesvītrots pa labi no 6 (tukši punkti); B: iesvītrots ārpus [0; 6] (aizpildīti punkti); C: iesvītrots ārpus (0; 6) (tukši punkti); D: iesvītrots starp 0 un 6 (aizpildīti punkti).", "options": { "A": "iesvītrots $x > 6$", "B": "iesvītrots $x \\le 0$ un $x \\ge 6$", "C": "iesvītrots $x < 0$ un $x > 6$", "D": "iesvītrots $0 \\le x \\le 6$" }, "answer": "D", "solution": "$x(x-6) \\le 0$, tātad $x \\in [0; 6]$ – aizpildīti punkti un iesvītrots starp tiem." },
+  { "number": "9", "group": "alg", "kind": "open", "points": 3, "text": "Dota aritmētiskā progresija $(a_n)$, kurai $a_2 = -2$ un $a_3 = 1$. Aprēķini progresijas devītā locekļa $a_9$ vērtību.", "answer": "$d = a_3 - a_2 = 3$; $a_9 = a_3 + 6d = 1 + 18 = 19$. Aprēķina diferenci – 1 p.; aprēķina $a_9$ – 2 p. (iesāk vai kļūdās – 1 p.)." },
+  { "number": "10", "group": "alg", "kind": "open", "points": 2, "text": "Dotajā koordinātu plaknē konstruē funkcijas $y = 3x + 1$ grafiku.", "figure": "1. att.: koordinātu plakne, x no −4 līdz 4, y no −3 līdz 9.", "answer": "Taisne caur punktiem, piem., $(0; 1)$ un $(1; 4)$ (arī $(-1; -2)$, $(2; 7)$). Atliek/aprēķina divus punktus – 1 p.; konstruē grafiku – 2 p." },
+  { "number": "11.1", "group": "u11", "kind": "choice", "points": 1, "text": "Nosaki, kurš grafiks (2. att.) atbilst piedāvājumam A.", "options": { "A": "1. grafiks", "B": "2. grafiks" }, "answer": "B", "solution": "Piedāvājumam A nav abonēšanas maksas, tāpēc grafiks sākas koordinātu sākumpunktā – tas ir 2. grafiks." },
+  { "number": "11.2", "group": "u11", "kind": "open", "points": 1, "text": "Nosaki, cik filmas jānoskatās, lai piedāvājumi A un B būtu vienādi izdevīgi.", "answer": "5 filmas ($2\\cdot5 = 7{,}5 + 0{,}5\\cdot5 = 10$ EUR)." },
+  { "number": "11.3", "group": "u11", "kind": "open", "points": 1, "text": "Izveido piedāvājumu, kas atbilst 3. grafikam (3. att.).", "answer": "Piemēram: abonēšanas maksa 9 eiro mēnesī, par filmu straumēšanu papildus nav jāmaksā." },
+  { "number": "12.1", "group": "u12", "kind": "open", "points": 1, "text": "Nosaki funkcijas vērtību $y$, kas atbilst argumenta vērtībai $x = 2$.", "answer": "$y = -3$ (nolasīts no grafika; $y = (x-1)(x-5)$)." },
+  { "number": "12.2", "group": "u12", "kind": "open", "points": 1, "text": "Nosaki funkcijas vērtību apgabalu. $y \\in$ ___", "answer": "$y \\in [-4; +\\infty)$" },
+  { "number": "12.3", "group": "u12", "kind": "open", "points": 1, "text": "Nosaki visas tās argumenta vērtības $x$, ar kurām funkcijas vērtības ir pozitīvas un funkcija ir augoša.", "answer": "$x \\in (5; +\\infty)$" },
+  { "number": "12.4", "group": "u12", "kind": "open", "points": 1, "text": "Uzraksti, kā sauc dotās funkcijas grafiku.", "answer": "Parabola." },
+  { "number": "13", "group": "geo", "kind": "open", "points": 2, "text": "Nogriežņi $RT = 15$ cm un $PT = 3$ cm. Punkts $S$ ir nogriežņa $RP$ viduspunkts. Aprēķini nogriežņa $RS$ garumu.", "figure": "5. att.: uz taisnes pēc kārtas punkti R, S, P, T.", "answer": "$RP = 15 - 3 = 12$ cm; $RS = 12 : 2 = 6$ cm. Aprēķina RP – 1 p.; aprēķina RS – 1 p." },
+  { "number": "14.1", "group": "u14", "kind": "open", "points": 1, "text": "Nosaki $\\angle 1$ lielumu.", "answer": "$\\angle 1 = 180° - 105° = 75°$ (blakusleņķi)." },
+  { "number": "14.2", "group": "u14", "kind": "open", "points": 1, "text": "Paskaidro, vai vienmēr $\\angle 1$ un $\\angle 2$ ir vienādi.", "answer": "Nē. $\\angle 1$ un $\\angle 2$ ir vienādi tikai tad, ja taisnes $a \\parallel b$." },
+  { "number": "14.3", "group": "u14", "kind": "choice", "points": 1, "text": "Nosaki $\\angle 1$ un $\\angle 2$ veidu.", "options": { "A": "blakusleņķi", "B": "krustleņķi", "C": "iekšējie vienpusleņķi", "D": "kāpšļu leņķi" }, "answer": "D" },
+  { "number": "15", "group": "geo", "kind": "open", "points": 1, "text": "Trijstūrī $ABC$ uzzīmē augstumu pret malu $AB$.", "figure": "7. att.: platleņķa trijstūris ABC ar platu leņķi pie C; mala AB ir garākā.", "answer": "No virsotnes C novelk perpendikulu pret malu AB un apzīmē to (piem., CH ⊥ AB) – 1 punkts." },
+  { "number": "16", "group": "geo", "kind": "open", "points": 3, "text": "Dots rombs $ABCD$, $\\angle A = 50°$. Aprēķini leņķa $ABD$ lielumu. Aprēķinus pamato ar īpašībām.", "figure": "8. att.: rombs ABCD ar diagonāli BD.", "answer": "Romba vienas malas pieleņķu summa ir 180°, tāpēc $\\angle B = 130°$. Romba diagonāle ir leņķa bisektrise, tāpēc $\\angle ABD = 65°$. Aprēķina leņķi – 2 p.; pamato ar īpašībām – 1 p." },
+  { "number": "17", "group": "geo", "kind": "open", "points": 2, "text": "Dots trijstūris $ABC$, $\\angle B = 90°$, $AC = 12$ cm un $AB = 7$ cm. Aprēķini malas $BC$ garumu.", "figure": "9. att.: taisnleņķa trijstūris ar taisno leņķi pie B.", "answer": "$BC = \\sqrt{12^2 - 7^2} = \\sqrt{95} \\approx 9{,}75$ cm. Pitagora teorēma – 1 p.; aprēķina malu – 1 p." },
+  { "number": "18.1", "group": "u18", "kind": "open", "points": 2, "text": "Pamato, ka $\\triangle COD$ un $\\triangle AOB$ ir līdzīgi (aizpildi tukšās vietas):\n1) $\\angle A = \\angle C$ (dots).\n2) ______ kā krustleņķi.\nTātad $\\triangle COD \\sim \\triangle AOB$ pēc pazīmes ______.", "answer": "2) $\\angle AOB = \\angle COD$ kā krustleņķi. Pazīme: leņķis–leņķis (ll). Krustleņķi – 1 p.; pazīme – 1 p." },
+  { "number": "18.2", "group": "u18", "kind": "open", "points": 2, "text": "$\\triangle COD$ un $\\triangle AOB$ ir līdzīgi. $S_{\\triangle AOB} = 25\\%$ no $S_{\\triangle COD}$. Aprēķini trijstūru līdzības koeficientu $k$.", "answer": "$\\frac{S_{AOB}}{S_{COD}} = \\frac14 = k^2$, tātad $k = \\frac12$ (vai $k = 2$, ja attiecība ņemta otrādi). Laukumu attiecība – 1 p.; koeficients – 1 p." },
+  { "number": "19", "group": "geo", "kind": "open", "points": 2, "text": "Dots $\\triangle KLM$, $LM = 8$ cm, $LA = 7$ cm un $KB = 9$ cm. Aprēķini $\\triangle KLM$ laukumu.", "figure": "11. att.: trijstūris KLM; LA ir augstums pret malu KM; KB ir augstums pret malu LM.", "answer": "$S = \\frac{LM \\cdot KB}{2} = \\frac{8 \\cdot 9}{2} = 36$ cm². Izteiksme ar atbilstošo augstumu – 1 p.; vērtība – 1 p." },
+  { "number": "20", "group": "geo", "kind": "open", "points": 2, "text": "Veikalā var nopirkt lielo cilindra veida konservu iepakojumu. Tajā cita virs citas ir ievietotas piecas vienādas mazākas cilindra veida konservu kārbas. Lielā iepakojuma pamata laukums ir 50 cm², tā augstums ir 10 cm. Aprēķini vienas mazās konservu kārbas tilpumu.", "figure": "12. att.: cilindrs, kas sadalīts 5 vienādos slāņos.", "answer": "Mazās kārbas augstums $10 : 5 = 2$ cm; $V = 50 \\cdot 2 = 100$ cm³. Pilns aprēķins – 2 p." },
+  { "number": "21.1", "group": "u21", "kind": "open", "points": 1, "text": "Papildini koka diagrammu – ieraksti visus iespējamos variantus.", "answer": "Pie velosipēda un skrejriteņa katram 3 zari: skrituļslidas, velosipēds, skrejritenis (kopā 9 varianti)." },
+  { "number": "21.2", "group": "u21", "kind": "open", "points": 1, "text": "Nosaki, cik liela iespējamība, ka Gustavs izvēlējās braukt ar skrituļslidām un Māris – ar velosipēdu.", "answer": "$P = \\frac{1}{9}$" },
+  { "number": "21.3", "group": "u21", "kind": "open", "points": 1, "text": "Draugi izvēlas dažādus pārvietošanās veidus. Nosaki, cik veidos to var izdarīt.", "answer": "6 veidi ($9 - 3$)." },
+  { "number": "22.1", "group": "u22", "kind": "open", "points": 1, "text": "Nosaki, cik stundas Alise vidēji vienā dienā pavadīja, skatoties televīziju.", "answer": "$(1+3+4+1+1):5 = 2$ stundas." },
+  { "number": "22.2", "group": "u22", "kind": "open", "points": 2, "text": "Paskaidro, kuras meitenes pavadītais laiks, skatoties televīziju, ir attēlots sektoru diagrammā (15. att.).", "answer": "Alises. Diagrammā ir trīs mazi vienādi sektori – tikai Alise trīs dienas pavadīja vienādu, turklāt īsāko laiku (1 h). Pilns skaidrojums – 2 p.; nepilnīgs – 1 p." },
+  { "number": "II.1", "group": "p2", "kind": "open", "points": 5, "text": "Draugi iegādājās biļetes uz Latvijas hokeja izlases divām pārbaudes spēlēm. Uz pirmo spēli tika iegādātas divas biļetes A sektorā un četras biļetes C sektorā, kopā samaksājot 124 EUR. Uz otro spēli tika nopirktas trīs biļetes A sektorā un divas biļetes C sektorā, kopā samaksājot 122 EUR. Biļetes cena jebkurā sektorā abās spēlēs ir nemainīga. Aprēķini, cik EUR maksāja viena biļete A sektorā un cik – C sektorā.", "answer": "$\\begin{cases}2a+4c=124\\\\3a+2c=122\\end{cases}$ ⇒ $a = 30$, $c = 16$. Atbilde: A sektorā 30 EUR, C sektorā 16 EUR. Sistēma – 1 p.; vienādojums ar vienu mainīgo – 2 p.; katrs nezināmais – 1 p." },
+  { "number": "II.2", "group": "p2", "kind": "open", "points": 4, "text": "Uz 800 m garas, taisnas pastaigu takas būvniekiem jāizvieto 4,05 m augstas laternas. Vienas laternas apgaismojuma leņķis ir 126°. Zīmējumā dota būvnieku izveidota skice. Ar aprēķiniem pamato, vai ar 50 iepirktajām laternām pietiek, lai apgaismotu pastaigu taku visā tās garumā. Aprēķinos skaitļus noapaļo līdz simtdaļām.", "figure": "1. att.: vienādsānu trijstūris ABC, virsotnē B (laterna) leņķis 126°, AC – apgaismotā takas daļa.", "answer": "Novelk augstumu BE = 4,05 m (vienādsānu trijstūrī tas ir arī bisektrise un mediāna). $\\angle A = 27°$, $AE = \\frac{4{,}05}{\\tan 27°} \\approx 7{,}95$ m, $AC \\approx 15{,}90$ m. $50 \\cdot 15{,}90 = 795$ m < 800 m. Atbilde: ar 50 laternām nepietiek. Vērtē pēc snieguma līmeņa (1–4 p.)." },
+  { "number": "II.3", "group": "p2", "kind": "open", "points": 3, "text": "Dārza svētkos no zemes tika izšauta pirotehnikas raķete. Tās atrašanās augstumu $h$ (metri) atkarībā no lidojuma laika $t$ (sekundes) apraksta formula $h = 50t - 5t^2$. Aprēķini maksimālo augstumu, ko var sasniegt raķete.", "answer": "Parabolas zari vērsti uz leju, maksimums virsotnē: $t = \\frac{-50}{2\\cdot(-5)} = 5$ s; $h = 50\\cdot5 - 5\\cdot25 = 125$ m. Vērtē pēc snieguma līmeņa (1–3 p.)." },
+  { "number": "II.4", "group": "p2", "kind": "open", "points": 4, "text": "No vienādiem tumšiem kvadrātiem pēc noteiktas likumsakarības veido figūras. Uzraksti vispārīgā locekļa formulu, ar kuru var aprēķināt tumšo kvadrātu skaitu figūrā, ja zināms figūras kārtas numurs $n$. Paskaidro, kā to ieguvi.", "figure": "2. att.: 1. figūra – kvadrāts 3×3 ar 1 baltu rūtiņu; 2. figūra – 4×4 ar 2 baltām; 3. figūra – 5×5 ar 3 baltām; 4. figūra – 6×6 ar 4 baltām.", "answer": "$n$-tā figūra ir kvadrāts ar malu $n+2$ un tajā ir $n$ baltu kvadrātu, tātad tumšo skaits $a_n = (n+2)^2 - n$ (= $n^2+3n+4$). Pārbaude: 8, 14, 22, 32. Vērtē pēc snieguma līmeņa (1–4 p.)." },
+  { "number": "II.5", "group": "p2", "kind": "open", "points": 4, "text": "Dots kvadrāts $ABCD$. Uz kvadrāta malām atlikti punkti $A_1, B_1, C_1$ un $D_1$, $AA_1 = BB_1 = CC_1 = DD_1$. Pierādi, ka $A_1B_1C_1D_1$ ir kvadrāts.", "figure": "3. att.: kvadrāts ABCD; A₁ uz AD, B₁ uz AB, C₁ uz BC, D₁ uz CD; ievilkts četrstūris A₁B₁C₁D₁.", "answer": "1) Stūru trijstūri $AB_1A_1$, $BC_1B_1$, $CD_1C_1$, $DA_1D_1$ ir vienādi pēc pazīmes mlm (katetes vienādas, leņķis 90°). 2) Tātad $A_1B_1 = B_1C_1 = C_1D_1 = D_1A_1$ – četrstūris ir rombs. 3) Ja $\\angle AB_1A_1 = \\alpha$, tad $\\angle AA_1B_1 = 90° - \\alpha$; vienādo trijstūru atbilstošie leņķi dod $\\angle BB_1C_1 = 90° - \\alpha$. 4) Izstieptais leņķis pie $B_1$: $\\angle A_1B_1C_1 = 180° - \\alpha - (90° - \\alpha) = 90°$. Rombs ar taisnu leņķi ir kvadrāts. Vērtē pēc snieguma līmeņa (1–4 p.)." }
+ ]
+}
