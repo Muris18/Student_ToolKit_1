@@ -57,3 +57,6 @@ server/uploads/
 # --- Local stuff, not for GitHub ---
 txts/
 preview/
+
+# VIAA eksāmenu PDF (tikai lokāli, pārveidošanai uz JSON)
+exams/_pdf/

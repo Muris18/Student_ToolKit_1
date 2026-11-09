@@ -1,0 +1,409 @@
+{
+ "subject": "matemātika",
+ "grade": 12,
+ "year": 2025,
+ "session": "vispārīgais līmenis",
+ "title": "Centralizētais eksāmens matemātikā, vispārīgais līmenis, 2025 (VIAA)",
+ "source_url": "https://www.viaa.gov.lv/lv/media/44528/download?attachment",
+ "groups": {
+  "alg": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "algebra"
+  },
+  "fun": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "funkcijas"
+  },
+  "geo": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "ģeometrija"
+  },
+  "an": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "analītiskā ģeometrija, vektori"
+  },
+  "stat": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "kombinatorika, varbūtība, statistika"
+  },
+  "p2": {
+   "section": "2. daļa. Kompleksu problēmu risināšana"
+  }
+ },
+ "tasks": [
+  {
+   "number": "1.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $\\sqrt[4]{81}$",
+   "answer": "3"
+  },
+  {
+   "number": "1.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $6{,}2\\cdot10^3$",
+   "answer": "6200"
+  },
+  {
+   "number": "1.3",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $\\log_2 8$",
+   "answer": "3"
+  },
+  {
+   "number": "2",
+   "group": "alg",
+   "kind": "open",
+   "points": 2,
+   "text": "Aprēķini, cik eiro būs jāmaksā, ja tiks pirkti 120 Amerikas dolāri (USD). Valūtas kurss 1 USD = 0,9389 EUR.",
+   "answer": "$120\\cdot0{,}9389=112{,}668\\approx112{,}67$ EUR"
+  },
+  {
+   "number": "3.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Ģeometriskās progresijas $(b_n)$ pirmie trīs locekļi ir 2; 6; 18. Nosaki kvocientu $q$.",
+   "answer": "$q=3$"
+  },
+  {
+   "number": "3.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Ģeometriskās progresijas pirmie trīs locekļi ir 2; 6; 18. Nosaki ceturto locekli $b_4$.",
+   "answer": "$b_4=54$"
+  },
+  {
+   "number": "4.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Saskaiti daļas un savelc līdzīgos saskaitāmos: $\\frac{3+x}{7x}+\\frac{6}{7x}$",
+   "answer": "$\\frac{x+9}{7x}$"
+  },
+  {
+   "number": "4.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Saīsini daļu: $\\frac{6x+9}{3x}$",
+   "answer": "$\\frac{3(2x+3)}{3x}=\\frac{2x+3}{x}$"
+  },
+  {
+   "number": "5.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini vienādojumu $x(x^2-16)=0$.",
+   "answer": "$x=0$, $x=4$, $x=-4$"
+  },
+  {
+   "number": "5.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini vienādojumu $7^{4x-10}=49$.",
+   "answer": "$4x-10=2$ ⇒ $x=3$"
+  },
+  {
+   "number": "6",
+   "group": "fun",
+   "kind": "open",
+   "points": 3,
+   "text": "Uzzīmē funkcijas grafiku $y=\\frac{-4}{x}$ dotajā koordinātu plaknē.",
+   "answer": "Hiperbola II un IV kvadrantā caur punktiem, piem., $(1;-4)$, $(2;-2)$, $(4;-1)$, $(-1;4)$, $(-2;2)$, $(-4;1)$."
+  },
+  {
+   "number": "7",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Automašīnas īres maksa ir 35 eiro dienā un 0,10 eiro par katru nobraukto kilometru. Uzraksti izteiksmi, lai noteiktu, cik būs jāmaksā par automašīnas iznomāšanu uz 5 dienām, ja plānots nobraukt $x$ kilometrus.",
+   "answer": "$5\\cdot35+0{,}10x=175+0{,}1x$"
+  },
+  {
+   "number": "8.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Pēc maizes klaipa izņemšanas no krāsns to atdzesē 5 stundas. Grafikā attēlota temperatūra: sākumā 180 °C, pēc 1 h – 100 °C, pēc 2 h – 60 °C, pēc 3 h – 40 °C. Nosaki maizes klaipa temperatūru brīdī, kad tas tiek izņemts no krāsns.",
+   "answer": "180 °C"
+  },
+  {
+   "number": "8.2",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Paskaidro, kuras stundas (pirmās, otrās vai trešās) laikā maizes klaipa temperatūra samazinājās visstraujāk.",
+   "answer": "1. stundā $180-100=80$ °C, 2. stundā $40$ °C, 3. stundā $20$ °C – visstraujāk pirmajā stundā."
+  },
+  {
+   "number": "9",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Koordinātu plaknē dots punkts $C(1;2)$. Uzzīmē vektoru $\\overrightarrow{CD}=(2;-3)$.",
+   "answer": "Vektors no $C(1;2)$ uz $D(3;-1)$."
+  },
+  {
+   "number": "10",
+   "group": "an",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots vektors $\\overrightarrow{AB}=(x;12)$ un zināms, ka $|\\overrightarrow{AB}|=13$. Aprēķini visas iespējamās $x$ vērtības.",
+   "answer": "$x^2+144=169$ ⇒ $x=\\pm5$"
+  },
+  {
+   "number": "11",
+   "group": "an",
+   "kind": "choice",
+   "points": 1,
+   "text": "Dots taisnes vienādojums $4x+2y-6=0$. Šīs taisnes vienādojums formā $y=kx+b$ ir",
+   "answer": "D",
+   "options": {
+    "A": "$y=4x+6$",
+    "B": "$y=-4x+6$",
+    "C": "$y=2x+3$",
+    "D": "$y=-2x+3$"
+   }
+  },
+  {
+   "number": "12",
+   "group": "an",
+   "kind": "open",
+   "points": 2,
+   "text": "Plaknē doti punkti $A(-4;1)$ un $B(2;-2)$. Aprēķini taisnes AB virziena koeficientu $k$.",
+   "answer": "$k=\\frac{-2-1}{2-(-4)}=-\\frac12$"
+  },
+  {
+   "number": "13.1",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots taisnstūra paralēlskaldnis $ABCDA_1B_1C_1D_1$, $B(0;0;0)$ un $D_1(3;4;8)$ (BA pa x asi, BC pa y asi). Nosaki $DD_1$ garumu.",
+   "answer": "$DD_1=8$"
+  },
+  {
+   "number": "13.2",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Tam pašam paralēlskaldnim ($B(0;0;0)$, $D_1(3;4;8)$) nosaki virsotnes C koordinātas.",
+   "answer": "$C(0;4;0)$"
+  },
+  {
+   "number": "13.3",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Tam pašam paralēlskaldnim nosaki vektora $\\overrightarrow{D_1B}$ koordinātas.",
+   "answer": "$\\overrightarrow{D_1B}=(-3;-4;-8)$"
+  },
+  {
+   "number": "14.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota taisna prizma $ABCA_1B_1C_1$, kuras pamats ir vienādmalu trijstūris. Uzraksti vienu plakni, kas ir perpendikulāra plaknei $BB_1C_1C$.",
+   "answer": "Piemēram, $ABC$ (vai $A_1B_1C_1$) – pamata plakne."
+  },
+  {
+   "number": "14.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 3,
+   "text": "Taisnai prizmai $ABCA_1B_1C_1$ (pamatā vienādmalu trijstūris) $AC=20$ cm un $AC_1=29$ cm. Aprēķini prizmas sānu virsmas laukumu.",
+   "answer": "$CC_1=\\sqrt{29^2-20^2}=21$ cm; $S_s=3\\cdot20\\cdot21=1260$ cm²"
+  },
+  {
+   "number": "15",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots konuss, kura rādiuss ir 6 dm. Veidule SA ar pamata plakni veido leņķi $\\angle SAO=45°$. Aprēķini konusa tilpumu.",
+   "answer": "$h=r=6$ dm; $V=\\frac13\\pi\\cdot36\\cdot6=72\\pi\\approx226{,}2$ dm³"
+  },
+  {
+   "number": "16",
+   "group": "geo",
+   "kind": "open",
+   "points": 3,
+   "text": "Uz sienas uzzīmētu ornamentu veido 12 vienādi rombi (zvaigzne), kuru šaurais leņķis ir 30° un malas garums 1,8 m. To paredzēts krāsot vienā kārtā, izmantojot krāsu, kuras patēriņš ir 8 m²/l. Aprēķini krāsas patēriņu litros visa ornamenta nokrāsošanai.",
+   "answer": "$S_{rombs}=1{,}8^2\\sin30°=1{,}62$ m²; $12\\cdot1{,}62=19{,}44$ m²; $19{,}44:8=2{,}43$ l"
+  },
+  {
+   "number": "17.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota kopa $L=\\{2;3;5;9\\}$. Uzraksti vienu kopas L apakškopu B, kurā ir divi elementi.",
+   "answer": "Piemēram, $B=\\{2;3\\}$."
+  },
+  {
+   "number": "17.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki kopu $K=\\{4;6;10\\}$ un $M=\\{2;4;8\\}$ apvienojumu $K\\cup M$.",
+   "answer": "$\\{2;4;6;8;10\\}$"
+  },
+  {
+   "number": "18",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Lai nokļūtu tehnikumā, 25 trešā kursa audzēkņi brauc ar sabiedrisko transportu (autobusu, tramvaju vai ar abiem). 15 no viņiem brauc ar autobusu, 20 – ar tramvaju. Aprēķini, cik no šiem audzēkņiem brauc gan ar autobusu, gan ar tramvaju.",
+   "answer": "$15+20-25=10$"
+  },
+  {
+   "number": "19.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Shēmā parādīti maršruti no pilsētas A uz D: no A uz B – 3 ceļi, no B uz C – 2 ceļi, no C uz D – 5 ceļi. Aprēķini, cik veidos var izvēlēties maršrutu no A uz D.",
+   "answer": "$3\\cdot2\\cdot5=30$"
+  },
+  {
+   "number": "19.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Papildini shēmu, lai maršrutu skaits no A uz D palielinātos par 1.",
+   "answer": "Pievieno vienu tiešu ceļu no A uz D."
+  },
+  {
+   "number": "20.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Parole veidota no četriem dažādiem simboliem: pirmais ir burts, otrais ir burts, trešais ir cipars, ceturtais ir cipars. Paroles veidošanā izmanto burtus A, B un C un ciparus 3, 5, 7 un 9. Simboli neatkārtojas. Uzraksti vienu no iespējamām parolēm.",
+   "answer": "Piemēram, AB59."
+  },
+  {
+   "number": "20.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Ja paroles (burts, burts, cipars, cipars; burti A, B, C; cipari 3, 5, 7, 9; bez atkārtošanās) pēdējais cipars ir 7, tad kopējo paroļu skaitu izsaka izteiksme $3\\cdot2\\cdot m\\cdot1$. Nosaki $m$ vērtību.",
+   "answer": "$m=3$"
+  },
+  {
+   "number": "21.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Kastē, kurā ir 20 detaļas, 5 ir standarta un 15 ir nestandarta detaļas. No kastes uz labu laimi izņēma vienu detaļu. Aprēķini varbūtību, ka izņemtā detaļa ir standarta.",
+   "answer": "$P=\\frac{5}{20}=\\frac14$"
+  },
+  {
+   "number": "21.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Kastē ir 5 standarta un 15 nestandarta detaļas. Uz labu laimi izņēma 7 detaļas. Uzraksti vienu neiespējamu notikumu.",
+   "answer": "Piemēram, “izņemtas 7 standarta detaļas”."
+  },
+  {
+   "number": "22.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots datu kopas attēlojums kastu diagrammā: minimums $a$, $Q_1=60$, mediāna 65, $Q_3=80$, maksimums 96. Nosaki trešo kvartili $Q_3$.",
+   "answer": "$Q_3=80$"
+  },
+  {
+   "number": "22.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Kastu diagrammā maksimums ir 96. Zināms, ka datu kopas amplitūda ir 45. Aprēķini $a$ (minimumu).",
+   "answer": "$a=96-45=51$"
+  },
+  {
+   "number": "23.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Bīstamie atkritumi (tūkst. t): gadi 2019–2024; radītie: 90, 150, 111, 79, 55, 70; savāktie: 75, 150, 111, 79, 80, 80; pārstrādātie: 10, 27, 19, 14, 16, 20. Kurā gadā radīto atkritumu bija vairāk nekā savākto un pārstrādāto kopā?",
+   "answer": "2019. gadā ($90>75+10$)."
+  },
+  {
+   "number": "23.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Radītie bīstamie atkritumi (tūkst. t) 2019.–2024. g.: 90, 150, 111, 79, 55, 70. Aprēķini vidējo radīto atkritumu daudzumu.",
+   "answer": "$\\frac{555}{6}=92{,}5$ tūkst. t"
+  },
+  {
+   "number": "23.3",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "2020. gadā radīja 150 tūkst. t, 2021. gadā – 111 tūkst. t bīstamo atkritumu. Pamato secinājuma “2021. gadā radīto atkritumu skaits samazinājās par aptuveni 26 % salīdzinājumā ar 2020. gadu” patiesumu.",
+   "answer": "$\\frac{150-111}{150}=0{,}26=26\\%$ – secinājums patiess."
+  },
+  {
+   "number": "II.1.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "Gada sākumā pilsētā bija 50 tūkstoši iedzīvotāju. Iedzīvotāju skaitu apraksta funkcija $g(x)=50\\cdot2{,}5^{0{,}2x}$, kur $x$ ir laiks gados. Aprēķini, cik iedzīvotāju būs pēc 10 gadiem.",
+   "answer": "$g(10)=50\\cdot2{,}5^2=312{,}5$ tūkstoši"
+  },
+  {
+   "number": "II.1.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Iedzīvotāju skaitu apraksta $g(x)=50\\cdot2{,}5^{0{,}2x}$ (tūkstošos). Aprēķini, pēc cik gadiem būs 125 tūkstoši iedzīvotāju.",
+   "answer": "$125=50\\cdot2{,}5^{0{,}2x}$ ⇒ $2{,}5=2{,}5^{0{,}2x}$ ⇒ $x=5$ gadi"
+  },
+  {
+   "number": "II.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Augļu grozā ir 6 āboli un 5 bumbieri. Ieliekot grozā vēl dažus bumbierus, varbūtība no groza izņemt bumbieri ir 0,7. Aprēķini, cik bumbieru ielika grozā.",
+   "answer": "$\\frac{5+b}{11+b}=0{,}7$ ⇒ $0{,}3b=2{,}7$ ⇒ $b=9$"
+  },
+  {
+   "number": "II.3.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Saldumu kastes: ražotāja A paciņu skaits 1., 2., 3. izmēra kastē – 1, 4, 9; ražotāja B – 5, 10, 15. Uzraksti izteiksmi, kā aprēķināt kopējo paciņu skaitu $n$-tajā kastē.",
+   "answer": "$n^2+5n$"
+  },
+  {
+   "number": "II.3.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 2,
+   "text": "Kādā kastē ir ražotāja B 35 saldumu paciņas (B: $5n$, A: $n^2$). Aprēķini, cik šajā kastē ir ražotāja A saldumu paciņu.",
+   "answer": "$5n=35$ ⇒ $n=7$; A: $49$"
+  },
+  {
+   "number": "II.4",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "No koka sagataves, kurai ir kuba forma un tā šķautnes garums 12 cm, izvirpota lielākā iespējamā lode. Aprēķini, cik procentu (ar precizitāti līdz desmitdaļām) no sākotnējā kuba tilpuma veido skaidas.",
+   "answer": "$V_{kubs}=1728$ cm³; $r=6$, $V_{lode}=288\\pi\\approx904{,}78$ cm³; skaidas $\\approx823{,}22$ cm³ $\\approx47{,}6\\%$"
+  },
+  {
+   "number": "II.5",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Pamato, ka izteiksmes $\\frac{2-x^3}{x^2}$ vērtība ir lielāka par nulli visām negatīvām $x$ vērtībām.",
+   "answer": "Ja $x<0$, tad $x^3<0$, tātad $2-x^3>2>0$; $x^2>0$. Pozitīvs skaitlis dalīts ar pozitīvu – pozitīvs."
+  }
+ ]
+}

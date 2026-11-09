@@ -1,0 +1,460 @@
+{
+ "subject": "matemātika",
+ "grade": 9,
+ "year": 2023,
+ "session": "",
+ "title": "Centralizētais eksāmens matemātikā 9. klasei, 2023 (VIAA)",
+ "source_url": "https://www.viaa.gov.lv/lv/media/22476/download?attachment",
+ "groups": {
+  "alg": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "algebra"
+  },
+  "fun": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "funkcijas"
+  },
+  "geo": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "ģeometrija"
+  },
+  "stat": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "kombinatorika, varbūtība, statistika"
+  },
+  "p2": {
+   "section": "2. daļa. Kompleksu problēmu risināšana"
+  }
+ },
+ "tasks": [
+  {
+   "number": "1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini izteiksmes $5m-4$ vērtību, ja $m=3$.",
+   "answer": "11"
+  },
+  {
+   "number": "2.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $5b-3-2b$",
+   "answer": "$3b-3$"
+  },
+  {
+   "number": "2.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Izpildi darbības: $(2a+3)(2a-6)-3(a-1)$",
+   "answer": "$4a^2-12a+6a-18-3a+3=4a^2-9a-15$"
+  },
+  {
+   "number": "3",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Monomu $6x^6$ dalot ar monomu $3x^2$, iegūst",
+   "answer": "B",
+   "options": {
+    "A": "$3x^4$",
+    "B": "$2x^4$",
+    "C": "$2x^8$",
+    "D": "$3x^8$"
+   }
+  },
+  {
+   "number": "4",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Izteiksmes $6^{-2}$ vērtība ir",
+   "answer": "D",
+   "options": {
+    "A": "36",
+    "B": "−36",
+    "C": "$-\\frac{1}{36}$",
+    "D": "$\\frac{1}{36}$"
+   }
+  },
+  {
+   "number": "5",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "$1{,}2023\\cdot10^4=$",
+   "answer": "B",
+   "options": {
+    "A": "120,23",
+    "B": "12023",
+    "C": "120230",
+    "D": "1202,3"
+   }
+  },
+  {
+   "number": "6.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $\\sqrt{64}$",
+   "answer": "8"
+  },
+  {
+   "number": "6.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $(3\\sqrt2)^2$",
+   "answer": "18"
+  },
+  {
+   "number": "7",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Kurš punkts uz skaitļu ass visprecīzāk atbilst skaitlim $\\sqrt{14}$? (A ≈ 3,25; B ≈ 3,75; C ≈ 4,25; D ≈ 7)",
+   "answer": "B",
+   "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+   },
+   "solution": "$\\sqrt{14}\\approx3{,}74$"
+  },
+  {
+   "number": "8.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Sadali reizinātājos: $2a+8$",
+   "answer": "$2(a+4)$"
+  },
+  {
+   "number": "8.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Sadali reizinātājos: $a^2-64$",
+   "answer": "$(a-8)(a+8)$"
+  },
+  {
+   "number": "8.3",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Sadali reizinātājos: $1-6a+9a^2$",
+   "answer": "$(1-3a)^2$"
+  },
+  {
+   "number": "9",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Atrisini vienādojumu $5x+35=0$.",
+   "answer": "$x=-7$"
+  },
+  {
+   "number": "10",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini vienādojumu $4x^2-5x+1=0$.",
+   "answer": "$D=9$; $x_1=1$, $x_2=\\frac14$"
+  },
+  {
+   "number": "11",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini nevienādību $5x-6<3x-3$ un atbildi pieraksti kā skaitļu intervālu.",
+   "answer": "$2x<3$ ⇒ $x\\in(-\\infty;1{,}5)$"
+  },
+  {
+   "number": "12",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzraksti nevienādību, kas tika atrisināta, izpildot pārveidojumu „abas puses izdalītas ar 2” un iegūstot $x>6$.",
+   "answer": "$2x>12$"
+  },
+  {
+   "number": "13.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Konstruē funkcijas $y=2x-1$ grafiku.",
+   "answer": "Taisne caur $(0;-1)$ un $(1;1)$."
+  },
+  {
+   "number": "13.2",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Funkcijas $y=2x-1$ grafiks iet caur punktu $A(x;93)$. Aprēķini $x$.",
+   "answer": "$93=2x-1$ ⇒ $x=47$"
+  },
+  {
+   "number": "14.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots funkcijas $y=-x^2-2x+3$ grafiks. Nosaki funkcijas nulles.",
+   "answer": "$x=-3$ un $x=1$"
+  },
+  {
+   "number": "14.2",
+   "group": "fun",
+   "kind": "choice",
+   "points": 1,
+   "text": "Nevienādības $-x^2-2x+3>0$ atrisinājums ir",
+   "answer": "C",
+   "options": {
+    "A": "$x\\in(0;4)$",
+    "B": "$x\\in(-\\infty;-3)\\cup(1;+\\infty)$",
+    "C": "$x\\in(-3;1)$",
+    "D": "$x\\in(-\\infty;4)$"
+   }
+  },
+  {
+   "number": "15.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota aritmētiskā progresija, kurai $a_4=6$ un $a_5=14$. Aprēķini diferenci.",
+   "answer": "$d=8$"
+  },
+  {
+   "number": "15.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Progresijai ($a_4=6$, $d=8$) aprēķini pirmo locekli.",
+   "answer": "$a_1=6-3\\cdot8=-18$"
+  },
+  {
+   "number": "16",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Ar cirkuli un lineālu konstruē nogriežņa MN viduspunktu A.",
+   "answer": "No M un N novelk vienāda rādiusa lokus (rādiuss > MN/2); caur to krustpunktiem novilktā taisne krusto MN viduspunktā A."
+  },
+  {
+   "number": "17",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzzīmē taisni AB un atliec uz tās punktu K tā, ka K nepieder nogrieznim AB.",
+   "answer": "Punkts K uz taisnes AB ārpus nogriežņa AB (piem., aiz B)."
+  },
+  {
+   "number": "18.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Divas taisnes krustojas, veidojot leņķus 1, 2, 3, 4 (1 un 3 – krustleņķi). Dots, ka ∢1 = 38°. Aprēķini ∢4.",
+   "answer": "$180°-38°=142°$"
+  },
+  {
+   "number": "18.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots, ka $AB\\perp CF$ un ∢EOC = 40° (E, O, D uz vienas taisnes). Aprēķini ∢BOD.",
+   "answer": "$180°-40°-90°=50°$ (risinājumu sagatavoja Study Pilot)"
+  },
+  {
+   "number": "19.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots paralelograms ABCD, $AD=10$ cm, $DC=12$ cm, augstums $BE=8$ cm (pret DC). Aprēķini laukumu.",
+   "answer": "$12\\cdot8=96$ cm²"
+  },
+  {
+   "number": "19.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Paralelogramam ($S=96$ cm², $AD=10$ cm) aprēķini augstuma BF (pret AD) garumu.",
+   "answer": "$96:10=9{,}6$ cm"
+  },
+  {
+   "number": "20",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots taisnstūris ABDE. Diagonāle $AD=3$ cm, mala $AE=2$ cm. Aprēķini malas DE garumu.",
+   "answer": "$\\sqrt{9-4}=\\sqrt5$ cm"
+  },
+  {
+   "number": "21",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Kuba skaldnes laukums ir 25 cm². Aprēķini kuba virsmas laukumu.",
+   "answer": "150 cm²"
+  },
+  {
+   "number": "22",
+   "group": "geo",
+   "kind": "choice",
+   "points": 1,
+   "text": "Cilindra pamata rādiuss ir 8 cm, augstums 0,5 cm. Cilindra tilpums ir",
+   "answer": "A",
+   "options": {
+    "A": "$32\\pi$ cm³",
+    "B": "$64\\pi$ cm³",
+    "C": "$128\\pi$ cm³",
+    "D": "$320\\pi$ cm³"
+   }
+  },
+  {
+   "number": "23",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Kurā no atbilžu variantiem trijstūri noteikti ir vienādi? (Zīmējumi skatāmi oriģinālajā eksāmenā.)",
+   "answer": "Trijstūri noteikti ir vienādi, ja tiem vienādas divas malas un leņķis starp tām (mlm), mala un abi pieleņķi (lml) vai trīs malas (mmm); trīs vienādi leņķi vai divas malas un leņķis, kas nav starp tām, vienādību negarantē. Pārbaudi zīmējumus oriģinālā. (risinājumu sagatavoja Study Pilot)"
+  },
+  {
+   "number": "24.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots, ka $\\triangle ABC=\\triangle DEF$, ∢BAC = 68°, ∢DEF = 74°, $AD=20$ cm un $DC=12$ cm (A, D, C, F uz vienas taisnes). Nosaki malas DF garumu.",
+   "answer": "$DF=AC=20+12=32$ cm"
+  },
+  {
+   "number": "24.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini ∢DFE (dati kā iepriekš).",
+   "answer": "$\\angle DFE=\\angle ACB=180°-68°-74°=38°$"
+  },
+  {
+   "number": "25.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 3,
+   "text": "Trijstūrī PRS nogrieznis TU novilkts paralēli malai PS. Pierādi, ka PRS un TRU ir līdzīgi, aizpildot: ∢___ – kopīgs; ∢RTU = ∢RPS kā ___ pie ___ taisnēm; pazīme ___.",
+   "answer": "∢R – kopīgs; kāpšļu leņķi pie paralēlām taisnēm TU un PS (šķērse PR); pazīme ll."
+  },
+  {
+   "number": "25.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Par PRS zināms, ka $PR=12$ cm, $RT=4$ cm un $TU=7$ cm. Aprēķini PS.",
+   "answer": "$\\frac{PS}{TU}=\\frac{PR}{RT}=3$ ⇒ $PS=21$ cm"
+  },
+  {
+   "number": "26.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dotas četras kartītes ar skaitļiem 1; 2; 6 un 9. Uz labu laimi izvēlas divas un aprēķina summu. Uzraksti visas iespējamās summas.",
+   "answer": "3, 7, 10, 8, 11, 15"
+  },
+  {
+   "number": "26.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Aprēķini varbūtību, ka, izvēloties divas kartītes (1; 2; 6; 9), skaitļu summa būs pāra skaitlis.",
+   "answer": "$\\frac26=\\frac13$ (8 un 10)"
+  },
+  {
+   "number": "27.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Liepu ģimene četros gados patērējusi 456 m³ dabasgāzes: 2019. g. – 100, 2020. g. – 132, 2022. g. – 120. Aprēķini patēriņu 2021. gadā.",
+   "answer": "$456-352=104$ m³"
+  },
+  {
+   "number": "27.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Cik m³ dabasgāzes ģimene vidēji patērēja vienā mēnesī 2022. gadā (120 m³ gadā)?",
+   "answer": "10 m³"
+  },
+  {
+   "number": "27.3",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Par cik procentiem 2020. gadā (132 m³) patērēja vairāk nekā 2019. gadā (100 m³)?",
+   "answer": "32 %"
+  },
+  {
+   "number": "II.1.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Atrisini vienādojumu sistēmu $\\begin{cases}4x+7y=51\\\\x-8y=-36\\end{cases}$",
+   "answer": "$x=8y-36$ ⇒ $39y=195$ ⇒ $y=5$, $x=4$"
+  },
+  {
+   "number": "II.1.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "Izveido citu vienādojumu, kura atrisinājums ir sistēmas atrisinājums $(4;5)$.",
+   "answer": "Piemēram, $x+y=9$."
+  },
+  {
+   "number": "II.2.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "No kvadrātiem veido figūras (krustiņus): 1. figūrā 5, 2. – 8, 3. – 11 kvadrāti. Nosaki kvadrātu skaitu 4. un 5. figūrā.",
+   "answer": "14 un 17 (risinājumu sagatavoja Study Pilot)"
+  },
+  {
+   "number": "II.2.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 2,
+   "text": "Aprēķini kvadrātu skaitu 50. figūrai.",
+   "answer": "$3\\cdot50+2=152$"
+  },
+  {
+   "number": "II.2.3",
+   "group": "p2",
+   "kind": "open",
+   "points": 2,
+   "text": "Uzraksti izteiksmi kvadrātu skaitam n-tajai figūrai un paskaidro.",
+   "answer": "$3n+2$ – katra nākamā figūra iegūst 3 kvadrātus vairāk, pirmajā ir 5."
+  },
+  {
+   "number": "II.3",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Dota vienādsānu trapece ABCD ($BC\\parallel AD$), ∢A = ∢D = 60°. No virsotnes B paralēli malai CD novilkts nogrieznis BE ($E\\in AD$). Pierādi, ka $AE=CD$.",
+   "answer": "BCDE – paralelograms ⇒ $BE=CD$. ∢BEA = ∢D = 60° (kāpšļu leņķi), ∢A = 60° ⇒ △ABE vienādmalu ⇒ $AE=BE=CD$."
+  },
+  {
+   "number": "II.4",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Pēc sitiena bumbas augstumu (m) atkarībā no laika (s) izsaka $h(t)=20t-2{,}5t^2$. Aprēķini maksimālo augstumu un pēc cik ilga laika tas tiek sasniegts.",
+   "answer": "$t=\\frac{20}{5}=4$ s; $h=80-40=40$ m"
+  },
+  {
+   "number": "II.5",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Garāžas durvis (2,25 m garas, eņģes augšā) atveras tikai 70° leņķī. Ar aprēķiniem pamato, vai garāžā netraucēti varēs iebraukt automašīna, kuras augstums ir 1433 mm, ja garāžas augstums ir 2,25 m. Sinusa/kosinusa vērtību noapaļo līdz tūkstošdaļām.",
+   "answer": "Durvju apakšmala paceļas līdz $2{,}25-2{,}25\\cos70°=2{,}25-2{,}25\\cdot0{,}342\\approx1{,}48$ m $>1{,}433$ m – var iebraukt. (risinājumu sagatavoja Study Pilot)"
+  }
+ ]
+}

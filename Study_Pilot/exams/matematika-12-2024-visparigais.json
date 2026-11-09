@@ -1,0 +1,426 @@
+{
+ "subject": "matemātika",
+ "grade": 12,
+ "year": 2024,
+ "session": "vispārīgais līmenis",
+ "title": "Centralizētais eksāmens matemātikā, vispārīgais līmenis, 2024 (VIAA)",
+ "source_url": "https://www.viaa.gov.lv/lv/media/21900/download?attachment",
+ "groups": {
+  "alg": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "algebra"
+  },
+  "fun": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "funkcijas"
+  },
+  "geo": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "ģeometrija"
+  },
+  "an": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "analītiskā ģeometrija, vektori"
+  },
+  "stat": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "kombinatorika, varbūtība, statistika"
+  },
+  "p2": {
+   "section": "2. daļa. Kompleksu problēmu risināšana"
+  }
+ },
+ "tasks": [
+  {
+   "number": "1.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini izteiksmes vērtību: $\\sqrt[5]{243}$",
+   "answer": "3"
+  },
+  {
+   "number": "1.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Noapaļo kalkulatora ekrānā redzamo izteiksmes $\\sqrt[4]{22}$ vērtību (2,165736771) līdz tūkstošdaļām.",
+   "answer": "2,166"
+  },
+  {
+   "number": "2",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Atrisinot nevienādību $3^x>3$, iegūst",
+   "answer": "B",
+   "options": {
+    "A": "$x>0$",
+    "B": "$x>1$",
+    "C": "$x<0$",
+    "D": "$x<1$"
+   }
+  },
+  {
+   "number": "3",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Jupitera masa ir $1{,}8987\\cdot10^{27}$ kg, bet Saturna masa – $5{,}6851\\cdot10^{26}$ kg. Kura izteiksme izsaka, cik reižu Jupitera masa ir lielāka nekā Saturna masa?",
+   "answer": "A",
+   "options": {
+    "A": "$\\frac{1{,}8987\\cdot10^{27}}{5{,}6851\\cdot10^{26}}$",
+    "B": "$\\frac{5{,}6851\\cdot10^{26}}{1{,}8987\\cdot10^{27}}$",
+    "C": "$5{,}6851\\cdot10^{26}-1{,}8987\\cdot10^{27}$",
+    "D": "$1{,}8987\\cdot10^{27}-5{,}6851\\cdot10^{26}$"
+   }
+  },
+  {
+   "number": "4",
+   "group": "alg",
+   "kind": "open",
+   "points": 2,
+   "text": "Projektam paredzēti 1200 eiro. Tie jāsadala transporta, ēdināšanas un naktsmītņu izdevumiem attiecībā 3:5:2. Aprēķini projektā paredzētos transporta izdevumus.",
+   "answer": "$10x=1200$, $x=120$; transports $3\\cdot120=360$ EUR"
+  },
+  {
+   "number": "5",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini vienādojumu $5^{3x+8}=25$.",
+   "answer": "$3x+8=2$ ⇒ $x=-2$"
+  },
+  {
+   "number": "6",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini ģeometriskās progresijas kvocientu $q$, ja $b_1=16$ un $b_2=8$.",
+   "answer": "$q=\\frac12$"
+  },
+  {
+   "number": "7",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Saskaiti daļas un skaitītājā savelc līdzīgos saskaitāmos: $\\frac2x+\\frac{3}{x+1}$",
+   "answer": "$\\frac{2(x+1)+3x}{x(x+1)}=\\frac{5x+2}{x(x+1)}$"
+  },
+  {
+   "number": "8",
+   "group": "alg",
+   "kind": "open",
+   "points": 2,
+   "text": "Atrisini vienādojumu $\\frac{24}{2-x}=6$, ja zināms, ka $x\\ne2$.",
+   "answer": "$24=12-6x$ ⇒ $x=-2$"
+  },
+  {
+   "number": "9",
+   "group": "fun",
+   "kind": "open",
+   "points": 3,
+   "text": "Uzzīmē funkcijas $y=\\frac6x$ grafiku dotajā koordinātu plaknē.",
+   "answer": "Hiperbola I un III kvadrantā caur $(1;6)$, $(2;3)$, $(3;2)$, $(6;1)$ un $(-1;-6)$, $(-2;-3)$, $(-3;-2)$, $(-6;-1)$."
+  },
+  {
+   "number": "10.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota funkcija $y=\\left(\\frac12\\right)^x$. Nosaki funkcijas vērtību, ja $x=-3$.",
+   "answer": "$y=8$"
+  },
+  {
+   "number": "10.2",
+   "group": "fun",
+   "kind": "choice",
+   "points": 1,
+   "text": "Funkcijas $y=\\left(\\frac12\\right)^x$ vērtību kopa ir",
+   "answer": "B",
+   "options": {
+    "A": "$x\\in(0;+\\infty)$",
+    "B": "$y\\in(0;+\\infty)$",
+    "C": "$x\\in(-\\infty;+\\infty)$",
+    "D": "$y\\in(-\\infty;+\\infty)$"
+   }
+  },
+  {
+   "number": "10.3",
+   "group": "fun",
+   "kind": "choice",
+   "points": 1,
+   "text": "Ja funkcijas $y=\\left(\\frac12\\right)^x$ argumenta $x$ vērtības pieaug no −3 līdz 0, tad funkcijas vērtība",
+   "answer": "D",
+   "options": {
+    "A": "palielinās par 3 vienībām",
+    "B": "samazinās par 3 vienībām",
+    "C": "palielinās par 7 vienībām",
+    "D": "samazinās par 7 vienībām"
+   },
+   "solution": "$y(-3)=8$, $y(0)=1$: samazinās par 7."
+  },
+  {
+   "number": "10.4",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Paskaidro, kā, izmantojot grafiku, var atrisināt vienādojumu $\\left(\\frac12\\right)^x=6$. Vienādojuma sakne nav jānosaka.",
+   "answer": "Novelk taisni $y=6$; tās krustpunkta ar grafiku abscisa ir vienādojuma sakne."
+  },
+  {
+   "number": "11.1",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzzīmē vektoru $\\vec b=(2;3)$ koordinātu plaknē.",
+   "answer": "Vektors no jebkura punkta, piem., no $(0;0)$ uz $(2;3)$."
+  },
+  {
+   "number": "11.2",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Nosaki vektora $\\vec b=(2;3)$ moduli (garumu).",
+   "answer": "$\\sqrt{13}$"
+  },
+  {
+   "number": "12",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Doti punkti $A(6;20)$ un $B(7;15)$. Nosaki vektora $\\overrightarrow{AB}$ koordinātas.",
+   "answer": "$(1;-5)$"
+  },
+  {
+   "number": "13",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota taisne $y=5x-8$. Uzraksti dotajai taisnei paralēlas taisnes vienādojumu.",
+   "answer": "Piemēram, $y=5x+3$ (jebkurš $b\\ne-8$)."
+  },
+  {
+   "number": "14",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Konusa pilnas virsmas laukums ir 80 cm², tā sānu virsmas laukums ir 60 cm². Aprēķini konusa pamata laukumu.",
+   "answer": "$80-60=20$ cm²"
+  },
+  {
+   "number": "15.1",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota regulāra četrstūra piramīda SABCD (O – pamata centrs, M – malas CD viduspunkts). Nosaki leņķi, ko veido šķautne SA ar pamata plakni ABCD.",
+   "answer": "$\\angle SAO$"
+  },
+  {
+   "number": "15.2",
+   "group": "geo",
+   "kind": "open",
+   "points": 3,
+   "text": "Regulārai četrstūra piramīdai SABCD $AD=6$ un $SM=5$ (SM – sānu skaldnes augstums). Aprēķini piramīdas tilpumu.",
+   "answer": "$OM=3$, $H=\\sqrt{25-9}=4$; $V=\\frac13\\cdot36\\cdot4=48$"
+  },
+  {
+   "number": "16.1",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots taisnstūra paralēlskaldnis $ABCDA_1B_1C_1D_1$, kur $D(0;0;0)$ un $A(0;6;0)$. Šķautnes $DD_1$ garums ir 2 vienības. Nosaki punkta $A_1$ koordinātas.",
+   "answer": "$A_1(0;6;2)$"
+  },
+  {
+   "number": "16.2",
+   "group": "an",
+   "kind": "open",
+   "points": 1,
+   "text": "Nogriežņa $AB_1$ viduspunkta M koordinātas ir $(4;6;1)$, $A(0;6;0)$. Nosaki nogriežņa $AB_1$ galapunkta $B_1$ koordinātas.",
+   "answer": "$B_1(8;6;2)$"
+  },
+  {
+   "number": "17",
+   "group": "geo",
+   "kind": "open",
+   "points": 4,
+   "text": "Dota kvadrātveida metāla loksne ABCD. No loksnes izgriezts četrstūris BCEF, $AF=DE=3$ cm. Trijstūra CED laukums ir 12 cm². Aprēķini izgrieztā četrstūra BCEF laukumu, ja $BC=8$ cm.",
+   "answer": "$S_{ABCD}=64$; $AE=5$, $S_{AFE}=\\frac{5\\cdot3}{2}=7{,}5$; $S_{BCEF}=64-7{,}5-12=44{,}5$ cm²"
+  },
+  {
+   "number": "18.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dotas kopas $A=\\{2;4;6;8;10\\}$ un $B=\\{1;2;3;4\\}$. Nosaki $A\\cap B$.",
+   "answer": "$\\{2;4\\}$"
+  },
+  {
+   "number": "18.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Dotas kopas $A=\\{2;4;6;8;10\\}$ un $B=\\{1;2;3;4\\}$. Nosaki $B\\setminus A$.",
+   "answer": "$\\{1;3\\}$"
+  },
+  {
+   "number": "19",
+   "group": "stat",
+   "kind": "choice",
+   "points": 1,
+   "text": "Kurš no atbilžu variantiem ir kvantitatīvi dati?",
+   "answer": "B",
+   "options": {
+    "A": "Datora korpusa materiāls",
+    "B": "Datora cena",
+    "C": "Datora ražotājs",
+    "D": "Datora modelis"
+   }
+  },
+  {
+   "number": "20.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Tabulā doti aptaujas dati par datora lietošanas ilgumu (h): 1 h – 2 skolēni; 2 h – 1; 3 h – 7 (35 %); 4 h – 5 (25 %); 5 h – 5 (25 %); kopā 20. Nosaki datu modu.",
+   "answer": "3 stundas"
+  },
+  {
+   "number": "20.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini trūkstošās relatīvā biežuma vērtības (1 h – 2 skolēni, 2 h – 1 skolēns no 20).",
+   "answer": "10 % un 5 %"
+  },
+  {
+   "number": "20.3",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Aprēķini, cik stundas dienā vidēji katrs skolēns lieto datoru (dati kā 20.1.).",
+   "answer": "$\\frac{2+2+21+20+25}{20}=3{,}5$ h"
+  },
+  {
+   "number": "20.4",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini, cik procentu no visiem skolēniem pie datora pavada vairāk nekā 3 stundas dienā.",
+   "answer": "$25\\%+25\\%=50\\%$"
+  },
+  {
+   "number": "20.5",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Nosaki doto datu 1. kvartili $Q_1$ un 3. kvartili $Q_3$ (20 vērtības: 1,1,2,3×7,4×5,5×5).",
+   "answer": "$Q_1=3$, $Q_3=4{,}5$"
+  },
+  {
+   "number": "20.6",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Pabeidz kastu diagrammu (minimums 1, mediāna 3,5, maksimums 5), norādot $Q_1$ un $Q_3$.",
+   "answer": "Kaste no 3 līdz 4,5 ar mediānu 3,5."
+  },
+  {
+   "number": "21",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Skrējienā piedalās 5 sportisti. Aprēķini, cik veidos sportisti var sadalīt pirmās trīs vietas, ja nav sportistu, kuri finišē vienlaicīgi.",
+   "answer": "$5\\cdot4\\cdot3=60$"
+  },
+  {
+   "number": "22",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Grupā ir tikai tādi tūristi, kuri runā angļu valodā vai vācu valodā, vai – abās valodās. Angļu valodā runā 14 tūristi, vācu valodā – 11 tūristi, abās valodās – 5 tūristi. Cik tūristu ir grupā?",
+   "answer": "$14+11-5=20$"
+  },
+  {
+   "number": "23.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Māris un Juris sacenšas soda metienu veikšanā. Māris veic 35 metienus un trāpa 8 reizes. Nosaki varbūtību, ka Māris trāpīs soda metienu.",
+   "answer": "$\\frac{8}{35}$"
+  },
+  {
+   "number": "23.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Māra trāpīšanas varbūtība ir $\\frac{8}{35}$, Jura – $\\frac{11}{19}$. Kuram no zēniem varbūtība iemest soda metienu ir lielāka?",
+   "answer": "Jurim ($\\frac{11}{19}\\approx0{,}58>\\frac{8}{35}\\approx0{,}23$)."
+  },
+  {
+   "number": "24",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Kastē ir 10 standarta detaļas un dažas nestandarta detaļas. Varbūtība uz labu laimi no kastes izņemt nestandarta detaļu ir $\\frac16$. Aprēķini nestandarta detaļu skaitu kastē.",
+   "answer": "$\\frac{x}{10+x}=\\frac16$ ⇒ $6x=10+x$ ⇒ $x=2$"
+  },
+  {
+   "number": "II.1.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "Zemes īpašuma vērtība ir 30000 eiro. Katru gadu tā vērtība pieaug par 5 %. $V=S\\left(1+\\frac{r}{100}\\right)^n$. Aprēķini vērtību pēc viena gada.",
+   "answer": "31500 eiro"
+  },
+  {
+   "number": "II.1.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Pamato ar aprēķiniem, par cik procentiem katru gadu būtu jāpieaug zemes īpašuma vērtībai (sākumā 30000 eiro), lai pēc trīs gadiem tās vērtība būtu vismaz 39930 eiro.",
+   "answer": "$\\left(1+\\frac{r}{100}\\right)^3\\ge1{,}331$ ⇒ $1+\\frac{r}{100}\\ge1{,}1$ ⇒ $r\\ge10\\%$"
+  },
+  {
+   "number": "II.2.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Kvadrātveida dārzam nepieciešamo žogu tirgo 1,5 metru garos posmos. Plānots, ka visam dārzam apkārt tiks uzstādīts žogs. Nepieciešamo veselo žoga posmu skaits $n$ atkarīgs no dārza platības. Aprēķini $n$, ja dārza platība ir 729 m².",
+   "answer": "$a=27$ m, $P=108$ m, $n=108:1{,}5=72$ posmi"
+  },
+  {
+   "number": "II.2.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzraksti formulu, kā aprēķināt žoga posmu skaitu $n$ (posms 1,5 m), ja dārza platība ir $L$.",
+   "answer": "$n=\\frac{4\\sqrt L}{1{,}5}=\\frac{8\\sqrt L}{3}$ (noapaļo uz augšu līdz veselam)"
+  },
+  {
+   "number": "II.3",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Dots, ka $t=-2\\sqrt{3^x}$. Pamato, ka $t<0$ jebkurai $x$ vērtībai.",
+   "answer": "$3^x>0$ visiem $x$, tātad $\\sqrt{3^x}>0$; reizinot ar $-2$, iegūst negatīvu skaitli."
+  },
+  {
+   "number": "II.4",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Galda spēļu pieprasījumu izsaka funkcija $D(p)=\\frac{300}{p}$ gab./mēnesī, bet piedāvājumu – $S(p)=3p-80$ gab./mēnesī, kur $p$ – preces cena ($p\\ne0$). Aprēķini, kādai jābūt cenai, lai pieprasījums un piedāvājums būtu vienāds.",
+   "answer": "$\\frac{300}{p}=3p-80$ ⇒ $3p^2-80p-300=0$ ⇒ $p=30$ ($p=-\\frac{10}{3}$ neder)"
+  },
+  {
+   "number": "II.5",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Cilindra formas kastē ievietotas 16 sveces (4×4). Kastes tilpums ir $2560\\pi$ cm³. Svecēm ir regulāras četrstūra prizmas forma un tās pamata malas garums ir 4 cm. Sveču augstums ir vienāds ar kastes augstumu. Aprēķini kastes augstumu.",
+   "answer": "Sveču kvadrāts $16\\times16$ cm ievilkts pamata riņķī: $d=16\\sqrt2$, $r^2=128$. $\\pi\\cdot128\\cdot h=2560\\pi$ ⇒ $h=20$ cm"
+  }
+ ]
+}
