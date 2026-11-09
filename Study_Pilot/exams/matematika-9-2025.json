@@ -1,0 +1,417 @@
+{
+ "subject": "matemātika",
+ "grade": 9,
+ "year": 2025,
+ "session": "",
+ "title": "Centralizētais eksāmens matemātikā 9. klasei, 2025 (VIAA)",
+ "source_url": "https://www.viaa.gov.lv/lv/media/44481/download?attachment",
+ "groups": {
+  "alg": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "algebra"
+  },
+  "fun": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "funkcijas"
+  },
+  "geo": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "ģeometrija"
+  },
+  "stat": {
+   "section": "1. daļa. Zināšanas, izpratne un prasmes",
+   "topic": "kombinatorika, varbūtība, statistika"
+  },
+  "p2": {
+   "section": "2. daļa. Kompleksu problēmu risināšana"
+  }
+ },
+ "tasks": [
+  {
+   "number": "1.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $5^3$",
+   "answer": "125"
+  },
+  {
+   "number": "1.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $9^{-2}$",
+   "answer": "$\\frac{1}{81}$"
+  },
+  {
+   "number": "1.3",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Aprēķini: $(0{,}3)^2$",
+   "answer": "0,09"
+  },
+  {
+   "number": "2",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Noapaļojot skaitli 36,74 līdz desmitdaļām, iegūst:",
+   "answer": "B",
+   "options": {
+    "A": "36",
+    "B": "36,7",
+    "C": "36,8",
+    "D": "37"
+   }
+  },
+  {
+   "number": "3.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $x^8 \\cdot x^2$",
+   "answer": "$x^{10}$"
+  },
+  {
+   "number": "3.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $3(a-6)$",
+   "answer": "$3a-18$"
+  },
+  {
+   "number": "3.3",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $(4+b)^2$",
+   "answer": "$16+8b+b^2$"
+  },
+  {
+   "number": "3.4",
+   "group": "alg",
+   "kind": "open",
+   "points": 2,
+   "text": "Izpildi darbības: $(2c-3)(5+c)-3c$",
+   "answer": "$10c+2c^2-15-3c-3c = 2c^2+4c-15$"
+  },
+  {
+   "number": "4.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $\\sqrt{64}$",
+   "answer": "8"
+  },
+  {
+   "number": "4.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Izpildi darbības: $\\sqrt3+\\sqrt3$",
+   "answer": "$2\\sqrt3$"
+  },
+  {
+   "number": "4.3",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Aprēķini $\\frac12$ no $\\sqrt2$.",
+   "answer": "C",
+   "options": {
+    "A": "$\\sqrt1$",
+    "B": "$2$",
+    "C": "$\\frac{\\sqrt2}{2}$",
+    "D": "$\\frac{2}{\\sqrt2}$"
+   }
+  },
+  {
+   "number": "5.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota aritmētiskā progresija $(a_n)$, kuras pirmais loceklis ir $a_1=-3$. Katrs nākamais loceklis ir par 2 lielāks nekā iepriekšējais. Nosaki diferenci $d$.",
+   "answer": "$d=2$"
+  },
+  {
+   "number": "5.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Tai pašai progresijai ($a_1=-3$, $d=2$) nosaki ceturto locekli $a_4$.",
+   "answer": "$a_4=-3+3\\cdot2=3$"
+  },
+  {
+   "number": "6.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 2,
+   "text": "Lai sarīkotu pasākumu, jāmaksā 280 eiro par telpu īri un 25 eiro par katru dalībnieku. Aprēķini pasākuma izmaksas, ja tajā būs 100 dalībnieku.",
+   "answer": "$280+25\\cdot100=2780$ eiro"
+  },
+  {
+   "number": "6.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzraksti izteiksmi pasākuma izmaksu aprēķināšanai, ja pasākumā piedalās $x$ dalībnieku (280 eiro telpa + 25 eiro katram).",
+   "answer": "$280+25x$"
+  },
+  {
+   "number": "7.1",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Atrisini vienādojumu $x-4=11$.",
+   "answer": "$x=15$"
+  },
+  {
+   "number": "7.2",
+   "group": "alg",
+   "kind": "open",
+   "points": 3,
+   "text": "Atrisini vienādojumu $2x^2+7x-4=0$.",
+   "answer": "$D=81$; $x_1=\\frac12$, $x_2=-4$."
+  },
+  {
+   "number": "8",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Uzraksti nevienādību sistēmas $\\begin{cases}x<3\\\\x<1\\end{cases}$ atrisinājumu kā intervālu.",
+   "answer": "$x\\in(-\\infty;1)$"
+  },
+  {
+   "number": "9",
+   "group": "alg",
+   "kind": "choice",
+   "points": 1,
+   "text": "Kurā zīmējumā attēlota funkcijas $y=x^2$ grafika skice?",
+   "answer": "B",
+   "options": {
+    "A": "taisne caur sākumpunktu",
+    "B": "parabola ar zariem uz augšu, virsotne (0; 0)",
+    "C": "hiperbola II un IV kvadrantā",
+    "D": "kubiskā parabola"
+   },
+   "figure": "Četras grafiku skices; pareizajā – parabola ar virsotni koordinātu sākumpunktā un zariem uz augšu."
+  },
+  {
+   "number": "10",
+   "group": "alg",
+   "kind": "open",
+   "points": 1,
+   "text": "Uz skaitļu taisnes iezīmē nevienādības $3x^2+16x-12\\ge0$ atrisinājumu, ja dota atbilstošā grafika skice (parabola krusto x asi punktos $-6$ un $\\frac23$).",
+   "answer": "$x\\in(-\\infty;-6]\\cup[\\frac23;+\\infty)$ – iekrāsoti stari ar aizpildītiem galapunktiem."
+  },
+  {
+   "number": "11.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Tūrists ar motorlaivu no piestātnes aizbrauca līdz pludmalei, pēc atpūtas atgriezās piestātnē. Grafikā attēlots attālums (km) atkarībā no laika (h): no 0 līdz 2,5 h attālums pieaug līdz 30 km, no 2,5 līdz 6 h – 30 km, pēc tam samazinās līdz 0 pie 10 h. Nosaki attālumu starp piestātni un pludmali.",
+   "answer": "30 km"
+  },
+  {
+   "number": "11.2",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Aprēķini, ar cik lielu ātrumu tūrists brauca no piestātnes līdz pludmalei (30 km 2,5 stundās).",
+   "answer": "$v=\\frac{30}{2{,}5}=12$ km/h"
+  },
+  {
+   "number": "12",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Dotajā koordinātu plaknē konstruē funkcijas $y=-3x+5$ grafiku.",
+   "answer": "Taisne caur, piem., $(0;5)$ un $(2;-1)$. Divi punkti – 1 p.; grafiks – 2 p."
+  },
+  {
+   "number": "13.1",
+   "group": "fun",
+   "kind": "open",
+   "points": 1,
+   "text": "Dota funkcija $y=x^2+2x$. Aprēķini parabolas virsotnes abscisu $x_v$.",
+   "answer": "$x_v=-\\frac{2}{2}=-1$"
+  },
+  {
+   "number": "13.2",
+   "group": "fun",
+   "kind": "open",
+   "points": 2,
+   "text": "Dota funkcija $y=x^2+2x$. Pamato, ka punkts $A(3;1)$ nepieder dotās funkcijas grafikam.",
+   "answer": "Ja $x=3$, tad $y=9+6=15\\ne1$, tātad A nepieder grafikam."
+  },
+  {
+   "number": "14",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Stars OB sadala izstieptu leņķi AOK divos leņķos. $\\angle AOB=130°$. Nosaki $\\angle BOK$ lielumu.",
+   "answer": "$180°-130°=50°$"
+  },
+  {
+   "number": "15",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Dots paralelograms DEFG, $\\angle D+\\angle F=140°$. Nosaki $\\angle F$ lielumu.",
+   "answer": "$\\angle F=70°$ (pretējie leņķi vienādi)."
+  },
+  {
+   "number": "16",
+   "group": "geo",
+   "kind": "open",
+   "points": 1,
+   "text": "Trijstūrī ABC $\\angle A=37°$, $\\angle B=64°$, $\\angle C=79°$. Pamato, ka AB ir trijstūra ABC garākā mala.",
+   "answer": "Pret lielāko leņķi ($\\angle C=79°$) atrodas garākā mala – AB."
+  },
+  {
+   "number": "17",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots trijstūris RKN, $\\angle K=90°$, $KR=2$ cm un $KN=7$ cm. Aprēķini RN garumu.",
+   "answer": "$RN=\\sqrt{4+49}=\\sqrt{53}$ cm"
+  },
+  {
+   "number": "18",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dots trijstūris EFG, $\\angle E=90°$. Aprēķini EG, ja $FG=8$ cm un $\\angle G=30°$.",
+   "answer": "$EG=FG\\cos30°=8\\cdot\\frac{\\sqrt3}{2}=4\\sqrt3$ cm"
+  },
+  {
+   "number": "19",
+   "group": "geo",
+   "kind": "choice",
+   "points": 1,
+   "text": "Trijstūrim ABC konstruēti malu vidusperpendikuli. Visi vidusperpendikuli krustojas punktā O. Punkts O ir",
+   "answer": "D",
+   "options": {
+    "A": "trijstūra ABC augstumu krustpunkts",
+    "B": "trijstūra ABC mediānu krustpunkts",
+    "C": "trijstūrī ABC ievilktās riņķa līnijas centrs",
+    "D": "trijstūrim ABC apvilktās riņķa līnijas centrs"
+   }
+  },
+  {
+   "number": "20",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Trijstūri PRS un KRL ir līdzīgi (KL ∥ PS). $KL=2$ cm, $PS=8$ cm un $S_{KRL}=3$ cm². Aprēķini trijstūra PRS laukumu.",
+   "answer": "$k=\\frac{8}{2}=4$; $S_{PRS}=k^2\\cdot S_{KRL}=16\\cdot3=48$ cm²"
+  },
+  {
+   "number": "21",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Dota trapece CDEF ($DE\\parallel CF$), $DE=5$ cm, $CF=14$ cm un $S_{CDEF}=57$ cm². Aprēķini trapeces augstumu.",
+   "answer": "$\\frac{5+14}{2}\\cdot h=57$ ⇒ $h=6$ cm"
+  },
+  {
+   "number": "22",
+   "group": "geo",
+   "kind": "open",
+   "points": 3,
+   "text": "O ir nogriežņu AB un CD viduspunkts. Pierādi, ka trijstūri AOC un BOD ir vienādi, papildinot iesākto pierādījumu:\n1) OA = OB ___\n2) OC = OD ___\n3) ∢AOC = ∢BOD ___\nTātad Δ___ = Δ___ pēc pazīmes ___.",
+   "answer": "1) jo O ir AB viduspunkts; 2) jo O ir CD viduspunkts; 3) kā krustleņķi. Tātad $\\triangle AOC=\\triangle BOD$ pēc pazīmes mlm."
+  },
+  {
+   "number": "23",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Cilindra pamata diametrs ir 2 cm, cilindra augstums 10 cm. Aprēķini cilindra tilpumu.",
+   "answer": "$R=1$ cm; $V=\\pi\\cdot1^2\\cdot10=10\\pi\\approx31{,}4$ cm³"
+  },
+  {
+   "number": "24",
+   "group": "geo",
+   "kind": "open",
+   "points": 2,
+   "text": "Attēlā redzamā figūra ir salīmēta no 6 vienādiem kubiņiem. Nosaki un paskaidro, kāds ir mazākais kubiņu skaits, kas jāpievieno, lai iegūtā figūra būtu kubs.",
+   "answer": "Mazākais kubs, kurā ietilpst figūra, ir $3\\times3\\times3=27$ kubiņi; jāpievieno $27-6=21$ kubiņš.",
+   "figure": "13. att.: figūra no 6 kubiņiem, 3 kubiņus gara."
+  },
+  {
+   "number": "25.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Tabulā vienā rindā ir cipari 1, 2, 3, 4, 5. Aizsedzot jebkuras divas rūtiņas, iegūst trīsciparu skaitli (piem., 123 vai 245). Uzraksti visus iespējamos trīsciparu skaitļus.",
+   "answer": "123, 124, 125, 134, 135, 145, 234, 235, 245, 345 (10 skaitļi)."
+  },
+  {
+   "number": "25.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Nosaki varbūtību, ka, aizsedzot jebkuras divas rūtiņas, iegūtais skaitlis dalās ar 5.",
+   "answer": "6 no 10 skaitļiem beidzas ar 5: $P=\\frac{6}{10}=0{,}6$"
+  },
+  {
+   "number": "26.1",
+   "group": "stat",
+   "kind": "open",
+   "points": 1,
+   "text": "Mūzikas veikalā pārdotas ģitāras: pirmdien 2, otrdien 4, trešdien 3, ceturtdien 5, piektdien x. Vidēji vienā dienā pārdeva 4 ģitāras. Aprēķini, cik ģitāru pārdeva piektdienā.",
+   "answer": "$\\frac{14+x}{5}=4$ ⇒ $x=6$"
+  },
+  {
+   "number": "26.2",
+   "group": "stat",
+   "kind": "open",
+   "points": 2,
+   "text": "Sektoru diagrammā attēlots piecās dienās pārdoto instrumentu relatīvais biežums: ģitāras 40 %, taustiņinstrumenti 18 %, bungas 10 %, vijoles 8 %, flautas 10 %, citi 14 %. Zināms, ka pārdeva 4 vijoles. Aprēķini, cik mūzikas instrumentu kopā šajās piecās dienās veikalā pārdeva.",
+   "answer": "8 % ir 4 instrumenti ⇒ kopā $4\\cdot100:8=50$ instrumenti."
+  },
+  {
+   "number": "II.1",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "No vienādām sešstūra plāksnēm pēc noteiktas likumsakarības izveidoja figūru virkni, kurā ir 15 figūras (1. figūrā 6 plāksnes, katrā nākamajā par 4 vairāk). Aprēķini, cik plākšņu tika izmantots, lai izveidotu šīs 15 figūras.",
+   "answer": "$a_1=6$, $d=4$, $a_{15}=62$; $S_{15}=\\frac{6+62}{2}\\cdot15=510$ plāksnes."
+  },
+  {
+   "number": "II.2",
+   "group": "p2",
+   "kind": "open",
+   "points": 4,
+   "text": "Atrisini nevienādību $\\frac15(5x-8)+\\frac{1}{10}(2-5x)>x+2$.",
+   "answer": "$x-1{,}6+0{,}2-0{,}5x>x+2$ ⇒ $-0{,}5x>3{,}4$ ⇒ $x<-6{,}8$."
+  },
+  {
+   "number": "II.3",
+   "group": "p2",
+   "kind": "open",
+   "points": 5,
+   "text": "Stallī ir 88 nodalījumi. Katrā nodalījumā var izmitināt vienu zirgu vai vienu poniju. Ir aizņemti 75 % nodalījumu. Maijā par viena ponija izmitināšanu jāmaksā 180 eiro un par viena zirga izmitināšanu jāmaksā 270 eiro. Šajā mēnesī staļļa īpašnieks par zirgu un poniju izmitināšanu kopā saņēma 16650 eiro. Aprēķini, cik zirgu maijā tika izmitināti stallī.",
+   "answer": "Aizņemti 66 nodalījumi. $270x+180(66-x)=16650$ ⇒ $90x=4770$ ⇒ $x=53$ zirgi."
+  },
+  {
+   "number": "II.4",
+   "group": "p2",
+   "kind": "open",
+   "points": 5,
+   "text": "Uzņēmums ir izgatavojis uzlīmi riņķa formā ar logo. Uzlīmes diametrs ir 30 cm. Logo ir regulāra deviņstūra formā (ievilkts riņķī). Aprēķini, cik procentus no visa uzlīmes laukuma aizņem logo. Rezultātu noapaļo līdz veseliem procentiem. Starprezultātus, ja tādi ir, noapaļo līdz tūkstošdaļām.",
+   "answer": "$r=15$ cm; centra leņķis $40°$; $S_{AOB}=\\frac12\\cdot15^2\\sin40°\\approx72{,}338$ cm²; $S_{logo}=9\\cdot72{,}338\\approx651{,}042$ cm²; $S_{\\text{riņķa}}=225\\pi\\approx706{,}858$ cm²; $\\approx92\\%$."
+  },
+  {
+   "number": "II.5",
+   "group": "p2",
+   "kind": "open",
+   "points": 3,
+   "text": "Vienādsānu trapeces AKND ($KN\\parallel AD$) diagonāle AN ir perpendikulāra sānu malai ND. No trapeces virsotnes A novilkts augstums AB (uz taisnes NK pagarinājuma). Pierādi, ka $\\triangle BKA\\sim\\triangle NDA$.",
+   "answer": "$\\angle ABK=\\angle AND=90°$. $\\angle KAD=\\angle NDA$ (leņķi pie vienādsānu trapeces pamata); $\\angle KAD=\\angle BKA$ (šķērsleņķi pie paralēlām taisnēm). Tātad $\\angle BKA=\\angle NDA$, un trijstūri ir līdzīgi pēc pazīmes ll."
+  }
+ ]
+}
