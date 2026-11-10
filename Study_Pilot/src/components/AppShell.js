@@ -83,4 +83,4 @@ export function EmptyState({ icon = '✨', title, text, children }) {
 }
 
 export const inputCls = 'w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-indigo-600 transition-colors';
-export const labelCls = 'block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5';
+export const labelCls = 'sp-mono block text-[11px] font-bold text-slate-400 mb-1.5';

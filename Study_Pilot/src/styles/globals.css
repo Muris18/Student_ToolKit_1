@@ -4,31 +4,32 @@
 @tailwind utilities;
 
 /* ---------- THEMES ---------- */
-/* Gaišs: papīra fona tonis, tintes zila, marķiera dzeltens */
+/* Akcents visās tēmās: smaragds un piparmētra. --grad2 ir gradienta otrā krāsa (tirkīzs). */
+/* Gaišs: balts fons, tumšāks smaragds (balts teksts uz tā labi salasāms), marķiera dzeltens */
 :root, [data-theme='paper'] {
   --bg:255 255 255; --w:255 255 255;
   --s50:249 250 251; --s100:240 242 245; --s200:226 229 234; --s300:197 202 211; --s400:140 148 162; --s500:100 109 124; --s600:74 82 96; --s700:49 56 68; --s800:24 30 40; --s900:12 16 24;
-  --a50:240 246 255; --a100:231 239 255; --a200:199 219 254; --a600:36 99 235; --a700:29 78 216; --acc:36 99 235; --acc2:29 78 216;
+  --a50:236 253 245; --a100:209 250 229; --a200:167 243 208; --a600:5 150 105; --a700:4 120 87; --acc:5 150 105; --acc2:4 120 87; --grad2:13 148 136;
   --hl:255 224 102; --hl-a:.85;
   --r50:255 241 242; --r100:255 228 230; --r200:254 205 211; --r700:190 18 60;
   --m50:255 251 235; --m100:254 243 199; --m200:253 230 138; --m700:180 83 9;
   --e50:236 253 245; --e100:209 250 229; --e200:167 243 208; --e700:4 120 87;
 }
-/* Nakts (noklusētā): gandrīz melns fons, zelta akcents, maigs mirdzums */
+/* Nakts (noklusētā): gandrīz melns fons, piparmētru akcents, maigs zaļgans mirdzums */
 [data-theme='night'] {
   --bg:8 10 16; --w:16 19 28;
   --s50:22 26 37; --s100:29 34 47; --s200:41 47 63; --s300:64 72 92; --s400:118 127 148; --s500:150 158 178; --s600:182 189 205; --s700:211 216 227; --s800:236 238 244; --s900:250 251 253;
-  --a50:39 33 15; --a100:54 45 17; --a200:96 77 24; --a600:245 197 66; --a700:255 214 107; --acc:245 197 66; --acc2:255 211 92;
-  --hl:245 197 66; --hl-a:.35;
+  --a50:10 40 32; --a100:13 56 44; --a200:20 92 70; --a600:52 211 153; --a700:110 231 183; --acc:52 211 153; --acc2:110 231 183; --grad2:45 212 191;
+  --hl:52 211 153; --hl-a:.35;
   --r50:58 19 28; --r100:78 25 38; --r200:112 35 52; --r700:253 164 175;
   --m50:56 40 12; --m100:74 54 14; --m200:102 74 20; --m700:252 211 77;
   --e50:12 48 37; --e100:16 64 48; --e200:20 88 64; --e700:110 231 183;
 }
-/* Tumšs: tumši zils, ne melns */
+/* Tumšs: tumši zils, ne melns; tirkīza akcents */
 [data-theme='ink'] {
   --bg:14 17 24; --w:22 26 35;
   --s50:28 33 44; --s100:36 42 55; --s200:50 58 74; --s300:78 88 108; --s400:128 138 158; --s500:156 165 182; --s600:184 192 206; --s700:208 214 225; --s800:234 238 245; --s900:250 251 253;
-  --a50:24 32 66; --a100:30 42 88; --a200:48 66 130; --a600:80 104 240; --a700:170 188 255; --acc:80 104 240; --acc2:62 84 214;
+  --a50:12 44 44; --a100:15 60 58; --a200:22 94 90; --a600:45 212 191; --a700:153 246 228; --acc:45 212 191; --acc2:94 234 212; --grad2:52 211 153;
   --hl:255 224 102; --hl-a:.4;
   --r50:60 20 30; --r100:80 26 40; --r200:115 36 55; --r700:253 164 175;
   --m50:56 40 12; --m100:74 54 14; --m200:102 74 20; --m700:252 211 77;
@@ -52,7 +53,7 @@ input[type='date'] { color-scheme: inherit; }
 
 .text-gradient { color: rgb(var(--acc)); }
 /* Aktīvā izvēlnes vienība: kreisā josla + marķiera svītra zem teksta */
-.sidebar-item-active { background: rgb(var(--a50)); color: rgb(var(--s900)); box-shadow: inset 3px 0 0 rgb(var(--acc)); font-weight: 600; }
+.sidebar-item-active { background: rgb(var(--acc) / .12); color: rgb(var(--a700)); font-weight: 600; }
 .sidebar-item-active .nav-label { background: transparent; padding: 0 2px; margin: 0 -2px; }
 .glass { background: rgb(var(--w)); }
 .animate-progress { animation: progressAnimation 1s ease-out forwards; }
@@ -154,8 +155,8 @@ button.border-emerald-500 { animation: okPop .6s; }
 /* ================= NAKTS TĒMA: mirdzums un detaļas ================= */
 [data-theme='night'] body {
   background:
-    radial-gradient(1100px 620px at 85% -12%, rgb(245 197 66 / .11), transparent 62%),
-    radial-gradient(900px 560px at -12% 8%, rgb(110 120 255 / .09), transparent 60%),
+    radial-gradient(1100px 620px at 85% -12%, rgb(52 211 153 / .09), transparent 62%),
+    radial-gradient(900px 560px at -12% 8%, rgb(45 212 191 / .06), transparent 60%),
     rgb(var(--bg));
   background-attachment: fixed;
 }
@@ -165,7 +166,7 @@ button.border-emerald-500 { animation: okPop .6s; }
   background: linear-gradient(180deg, rgb(255 255 255 / .035), rgb(255 255 255 / 0) 40%), rgb(var(--w));
   box-shadow: 0 1px 0 rgb(255 255 255 / .04) inset, 0 20px 40px -28px rgb(0 0 0 / .8);
 }
-[data-theme='night'] .sidebar-item-active { background: rgb(var(--acc) / .1); color: rgb(var(--acc)); box-shadow: inset 3px 0 0 rgb(var(--acc)); }
+[data-theme='night'] .sidebar-item-active, [data-theme='ink'] .sidebar-item-active { background: linear-gradient(100deg, rgb(var(--acc) / .16), rgb(var(--grad2) / .06)); color: rgb(var(--acc2)); box-shadow: inset 0 0 0 1px rgb(var(--acc) / .22); }
 [data-theme='night'] .bg-accent { box-shadow: 0 8px 26px -10px rgb(var(--acc) / .55); }
 [data-theme='night'] ::selection { background: rgb(var(--acc) / .35); color: #fff; }
 [data-theme='night'] h1, [data-theme='night'] h2 { letter-spacing: -.02em; }
@@ -303,9 +304,6 @@ button.border-emerald-500 { animation: okPop .6s; }
 /* Smaragda-piparmētru gradients pogām un vārdam "eksāmenam"; tumšs teksts uz zaļā (labs kontrasts). */
 .cx-page { --cx-a: 52 211 153; --cx-b: 45 212 191; --cx-gold: 110 231 183; --cx-ink: 3 38 29; position: relative; isolation: isolate; }
 [data-theme='paper'] .cx-page { --cx-a: 16 185 129; --cx-b: 20 184 166; --cx-gold: 4 120 87; }
-/* Sākumlapā arī augšējās joslas logo zaļā krāsā (pārējā lietotnē paliek tēmas akcents) */
-body:has(.cx-page) header { --acc: 52 211 153; --a50: 10 46 36; --a100: 14 64 50; }
-[data-theme='paper'] body:has(.cx-page) header { --acc: 5 150 105; --a50: 236 253 245; --a100: 209 250 229; }
 [data-theme='night'] .cx-page, [data-theme='ink'] .cx-page {
   background:
     radial-gradient(900px 520px at 50% -140px, rgb(var(--cx-a) / .2), transparent 70%),
@@ -484,3 +482,21 @@ body:has(.cx-page) header { --acc: 52 211 153; --a50: 10 46 36; --a100: 14 64 50
   .cx-plan { padding: 26px; }
   .cx-final { padding: 56px 20px; border-radius: 28px; }
 }
+
+/* ================= LIETOTNE: tas pats stils kā sākumlapā ================= */
+/* Galvenā poga: gradients. Tumšajās tēmās --w ir tumšs, tāpēc teksts uz piparmētras ir tumšs (labs kontrasts). */
+.sp-btn-primary { background: linear-gradient(100deg, rgb(var(--acc)), rgb(var(--grad2))); color: rgb(var(--w)); box-shadow: 0 10px 26px -12px rgb(var(--acc) / .75), inset 0 1px 0 rgb(255 255 255 / .22); }
+.sp-btn-primary:hover:not(:disabled) { filter: brightness(1.07); }
+[data-theme='paper'] .sp-btn-primary { color: #fff; }
+/* Mazie uzraksti (izvēlne, formu etiķetes, žetoni) mono fontā ar lielajiem burtiem */
+.sp-mono { font-family: var(--font-mono), ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; }
+
+/* Paneļa sveiciens: tumša kartīte ar zaļganu mirdzumu */
+.pilot-dashboard-hero { background: radial-gradient(520px 260px at 100% 0%, rgb(var(--acc) / .16), transparent 70%), radial-gradient(420px 220px at 0% 120%, rgb(var(--grad2) / .1), transparent 70%), rgb(var(--w)); border: 1px solid rgb(var(--s200)); }
+.pilot-dashboard-hero > div:first-child { max-width: none; }
+.pilot-dashboard-hero h2 { letter-spacing: -.035em !important; }
+
+/* Lapu virsraksti un kartītes */
+main h1 { letter-spacing: -.035em !important; }
+.pilot-card { border-radius: 1.375rem; }
+@media (hover: hover) { .pilot-card:hover { border-color: rgb(var(--acc) / .35); } }

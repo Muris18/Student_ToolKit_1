@@ -56,7 +56,7 @@ export default function Sidebar() {
   return (
     <aside className="w-64 shrink-0 bg-white border-r border-slate-200 hidden desktop:flex flex-col h-[calc(100vh-4rem)] sticky top-16">
       <div className="px-6 pt-6 pb-2">
-        <span className="text-xs font-semibold text-slate-400">Izvēlne</span>
+        <span className="sp-mono text-[10.5px] font-semibold text-slate-400">Izvēlne</span>
       </div>
       <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto">
         {items.map((item) => (
@@ -64,7 +64,7 @@ export default function Sidebar() {
             <div className="relative">
               <Link
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl font-medium text-sm transition-colors duration-150 ${item.children ? 'pr-10' : ''} ${
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-full font-medium text-sm transition-colors duration-150 ${item.children ? 'pr-10' : ''} ${
                   isActive(item.href) ? 'sidebar-item-active' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
@@ -91,7 +91,7 @@ export default function Sidebar() {
                   <Link
                     key={c.href}
                     href={c.href}
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-[13px] transition-colors duration-150 ${
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-full font-medium text-[13px] transition-colors duration-150 ${
                       isActive(c.href) ? 'sidebar-item-active' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >

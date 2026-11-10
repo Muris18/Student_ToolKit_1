@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Card from '../../components/Card';
-import SeasonalArt from '../../components/SeasonalArt';
 import Button from '../../components/Button';
 import CountUp from '../../components/CountUp';
 import SubjectManager from '../profile/SubjectManager';
@@ -39,18 +38,17 @@ export default function DashboardMain() {
     <div className="space-y-6">
       <div className="pilot-dashboard-hero rounded-3xl p-5 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <span className="bg-indigo-100 text-accent text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+          <span className="sp-mono inline-block bg-indigo-50 text-indigo-700 text-[10.5px] font-semibold px-3 py-1.5 rounded-full border border-indigo-100">
             {gradeLabel(p)}{p.program ? ` · ${p.program}` : ''}{p.school ? ` · ${p.school}` : ''}
           </span>
-          <h2 className="text-2xl md:text-3xl font-bold mt-2">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4 text-slate-900">
             Čau, {p.firstName || 'draugs'}! 👋
           </h2>
-          <p className="text-accent text-sm mt-2">Šodien viens solis tuvāk.</p>
-          <p className="text-slate-500 mt-1 max-w-xl text-sm md:text-base">{line}</p>
+          <p className="text-slate-500 mt-2 max-w-xl text-sm md:text-base">{line}</p>
+          <p className="sp-mono text-accent text-[11px] mt-3">✦ Šodien viens solis tuvāk</p>
         </div>
-        <SeasonalArt />
-        <div className="flex gap-3 pilot-dashboard-action">
-          <Button variant="secondary" onClick={() => router.push(isNew ? '/profile' : '/exams')}>
+        <div className="flex gap-3 pilot-dashboard-action shrink-0">
+          <Button onClick={() => router.push(isNew ? '/profile' : '/exams')} className="px-5 py-2.5">
             {isNew ? 'Pievienot priekšmetus' : 'Sākt risināt'}
           </Button>
         </div>
