@@ -2,9 +2,9 @@
 
 *(iepriekšējais darba nosaukums — Student Toolkit)*
 
-**Study Pilot** ir tīmekļa platforma skolēniem un studentiem, kas gatavojas Latvijas 9. un 12. klases valsts pārbaudes darbiem. Tajā ir mācību plānotājs ar termiņu radaru, savi uzdevumi un testi, progresa pārskats un AI skolotājs, kas izmanto iepriekšējo gadu eksāmenu uzdevumus un dod mājienus, nevis gatavas atbildes.
+**Study Pilot** ir tīmekļa platforma skolēniem un studentiem, kas gatavojas Latvijas 9. un 12. klases valsts pārbaudes darbiem. Tajā ir iepriekšējo gadu VIAA eksāmeni ar atbilžu pārbaudi un eksāmena simulāciju, testi, ko AI veido no skolēna kļūdām, tēmu karte, mācību plānotājs ar termiņu radaru un AI skolotājs, kas dod mājienus, nevis gatavas atbildes.
 
-> **Statuss:** gatavs palaišanai (versija 1.0.0).
+> **Statuss:** aktīvā izstrādē (versija 0.2.0). Lietotne darbojas lokāli, internetā vēl nav palaista.
 
 **🚀 Palaist internetā:** [`Study_Pilot/DEPLOY.md`](Study_Pilot/DEPLOY.md) — serveris + domēns + viena komanda.
 
@@ -25,11 +25,15 @@ Pats lietotnes kods atrodas mapē [`Study_Pilot/`](Study_Pilot/). Lokālā izstr
 
 ## Kas jau strādā
 
-- **Sākumlapa** — tumšais „Nakts” dizains ar zelta akcentu (noklusētais; „Gaišs” un „Tumšs” paliek izvēlami), cenas un biežāk uzdotie jautājumi.
+- **Dizains** — smaragda un piparmētru krāsas, tumšā „Nakts” tēma pēc noklusējuma („Gaišs” un „Tumšs” paliek izvēlami). Sākumlapā ritināms „Tavs ceļš līdz eksāmenam”, funkcijas, cenas un biežāk uzdotie jautājumi.
 - **Konti** — reģistrācija, pieslēgšanās, paroles maiņa, paroles atjaunošana un e-pasta apstiprināšana (ieslēdzas ar e-pasta atslēgu), konta dzēšana.
-- **Valsts eksāmeni** — VIAA eksāmenu uzdevumi pa klasēm ar automātisku testa atbilžu pārbaudi; atvērtos uzdevumus pārbauda AI skolotājs.
+- **Valsts eksāmeni** — VIAA eksāmeni 9. un 12. klasei (2023–2026; latviešu, angļu, matemātika, 9. kl. dabaszinātņu paraugs) pa priekšmetiem, līmeņiem un gadiem:
+  - **Treniņš** — testa jautājumu pārbaude uzreiz, atvērtajiem uzdevumiem atbildes paraugs un mājieni no AI skolotāja.
+  - **Simulācija** — viss eksāmens ar taimeri (45/90/120/180 min vai bez laika), bez mājieniem. Beigās testa jautājumus pārbauda serveris, atvērtos skolēns novērtē pats pēc parauga. Rezultāts: punkti, procenti, laiks un sadalījums pa tēmām.
+- **Testa režīms** — testus veido no skolēna kļūdām: AI izveido jaunus jautājumus tajās pašās tēmās vai, ja AI nav pieejams, tests tiek sastādīts no īstiem VIAA uzdevumiem. Ja kļūdu vēl nav, diagnostikas tests.
 - **AI skolotājs** — mājieni pa solim, līdzīgu eksāmenu uzdevumu meklēšana, formulas ar KaTeX.
-- **Dashboard, plānotājs, termiņu radars, fokusa režīms, testi, progress.**
+- **Progress** — tēmu karte (katrai tēmai pareizo atbilžu īpatsvars un cik uzdevumu izmēģināts, ieteikums, ar ko sākt), simulāciju vēsture, aktivitāte un progress pa priekšmetiem.
+- **Panelis, plānotājs, termiņu radars, fokusa režīms, savi uzdevumi un testi.**
 - **Premium** — Stripe abonements (ieslēdzas ar Stripe atslēgām) vai administratora piešķirts.
 - **Administrēšana** — lietotāji (Premium, bloķēšana, dzēšana, admin loma), eksāmenu augšupielāde no pārlūka, AI lietojums un izmaksas, sistēmas stāvoklis.
 - **Privātums** — `/privacy`, `/terms`, AI piekrišana, datu eksports, automātiska dzēšana, rezerves kopijas.
@@ -40,8 +44,10 @@ Pats lietotnes kods atrodas mapē [`Study_Pilot/`](Study_Pilot/). Lokālā izstr
 - Izmanto **DeepSeek API** (modelis `deepseek-chat`).
 - Pirms atbildes sistēma ar PostgreSQL pilnteksta meklēšanu atrod līdz 4 līdzīgiem eksāmenu uzdevumiem un nodod tos modelim kopā ar pareizo atbildi vai vērtēšanas kritērijiem. Modelim ir aizliegts tos atklāt skolēnam — tas dod mājienus pa solim.
 - Lietotājam tiek parādīts, no kura eksāmena (gads, klase, priekšmets, uzdevuma Nr.) ņemti avoti.
-- Dienas limits: **10 jautājumi** (free) un **100 jautājumi** (premium); maināms ar vides mainīgajiem.
+- Dienas limits: **10 jautājumi** (free) un **100 jautājumi** (premium); maināms ar vides mainīgajiem. Katrs AI veidotais tests Testa režīmā arī skaitās kā viens jautājums.
+- Vieta limitā tiek rezervēta **pirms** DeepSeek izsaukuma, tāpēc limitu nevar apiet ar vairākiem vienlaicīgiem pieprasījumiem. Ja AI neatbild, jautājums netiek norakstīts.
 - Katram jautājumam tiek saglabāts lietojuma ieraksts (laiks, modelis, tokenu skaits), lai skaitītu limitus un izmaksas.
+- Čata vēsturē modelim tiek nodotas tikai tās AI atbildes, kuras ir parakstījis serveris (HMAC), tāpēc viltotu „AI atbildi” vēsturē ielikt nevar.
 
 Pagaidām tiek lietota vārdu meklēšana, nevis vektoru meklēšana (RAG ar embeddings) — to var pievienot vēlāk.
 
@@ -56,7 +62,7 @@ Pagaidām tiek lietota vārdu meklēšana, nevis vektoru meklēšana (RAG ar emb
 | AI | DeepSeek API, izsaukts tikai no servera |
 | Meklēšana eksāmenos | PostgreSQL pilnteksta meklēšana (`tsvector` + `unaccent`) |
 | Formulas | KaTeX (no servera, bez CDN) |
-| Fonti | next/font — tiek piegādāti no servera, bez Google pieprasījumiem |
+| Fonti | Instrument Sans, Fraunces, JetBrains Mono caur next/font — lejupielādēti build laikā un piegādāti no servera, bez Google pieprasījumiem pārlūkā |
 | E-pasts | Brevo vai Resend HTTP API (pēc izvēles) |
 | Maksājumi | Stripe Checkout + klientu portāls + webhook (pēc izvēles) |
 | Izvietošana | Hetzner Cloud serveris, Docker Compose, `scripts/server-setup.sh` |
@@ -74,15 +80,17 @@ Student_ToolKit_1/
 └── Study_Pilot/           ← lietotne
     ├── src/
     │   ├── components/    ← kopīgie UI komponenti
-    │   ├── features/      ← dashboard, planner, exams, profile
+    │   ├── features/      ← dashboard (panelis, tēmu karte), exams (valsts eksāmeni,
+    │   │                     simulācija, testa režīms, AI čats), planner, profile
     │   ├── lib/           ← AppContext, palīgfunkcijas
     │   ├── pages/         ← lapas un pages/api/* (REST API)
-    │   ├── server/        ← db.js (PostgreSQL), ai.js (DeepSeek), http.js
-    │   └── styles/
+    │   ├── server/        ← db.js (PostgreSQL), ai.js (DeepSeek, AI limiti), exams.js
+    │   │                     (eksāmeni, vērtēšana, tēmu karte), quiz.js, security.js, http.js
+    │   └── styles/        ← globals.css (tēmas un krāsas kā CSS mainīgie)
     ├── content/           ← privacy.md (/privacy) un terms.md (/terms)
     ├── db/                ← init.sql un migrācijas
-    ├── exams/             ← eksāmenu JSON faili importam
-    ├── scripts/           ← migrate.js, import-exams.js
+    ├── exams/             ← eksāmenu JSON faili importam (skat. exams/README.md)
+    ├── scripts/           ← migrate, import-exams, create-admin, cleanup, backup, server-setup, update
     ├── docker-compose.yml ← db + app + caddy
     ├── Caddyfile
     └── .env.example
@@ -110,6 +118,7 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 | Vārds, uzvārds | `users.profile` | Uzrunāšana lietotnē |
 | Līmenis (klase/kurss), klase vai kurss, skola, programma | `users.profile` | Saturs pielāgots klasei; AI meklē attiecīgās klases eksāmenus |
 | Priekšmeti, termiņi, uzdevumi, testi, testu rezultāti | `users.data` | Plānotāja, eksāmenu un testu darbība |
+| Testa režīma testi, ko izveidoja sistēma (pēdējie 20) | `users.data.aiQuizzes` | Testa atkārtošana |
 | AI čata vēsture (lietotāja jautājumi un AI atbildes) | `users.data.chat` | Čata vēsture lietotājam |
 | Aktivitātes dienas | `users.data.activity` | Progresa pārskats |
 | Konta loma un plāns (`user`/`admin`, `free`/`premium`) | `users.role`, `users.plan` | Piekļuve un AI limiti |
@@ -125,11 +134,15 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 | Eksāmenu simulāciju rezultāti (eksāmens, datums, punkti, izmantotais laiks; pēdējie 50) | `users.data.simulations` | Progress, rezultātu salīdzināšana |
 | AI lietojuma žurnāls | `ai_usage` — laiks, modelis, tokenu skaits (bez jautājuma teksta) | Dienas limiti, izmaksu uzskaite |
 
-**Pārlūkā** (`localStorage`/`sessionStorage`) tiek glabāts tikai sesijas žetons (`sp-session`), izvēlētā tēma (`sp-theme`) un tas, vai rādīts sākuma ekrāns (`sp-splash`). Sīkdatnes, analītika, reklāmas un trešo pušu skripti **netiek** izmantoti.
+**Pārlūkā** tiek glabāts:
+- `localStorage`: sesijas žetons (`sp-session`), izvēlētā tēma (`sp-theme`), kuras izvēlnes grupas ir sakļautas (`sp-nav-closed`) un nepabeigtas eksāmena simulācijas atbildes (`sp-sim-<eksāmena id>`, lai tās nepazustu, pārlādējot lapu; izdzēš, sākot jaunu vai pārtraucot);
+- `sessionStorage`: vai rādīts sākuma ekrāns (`sp-splash`) un uzdevuma teksts, ko no eksāmena nodod AI čatam (`sp-ai-draft`).
+
+Sīkdatnes, analītika, reklāmas un trešo pušu skripti **netiek** izmantoti.
 
 **Trešās puses, kas saņem datus:**
 
-- **DeepSeek** — tikai pēc lietotāja piekrišanas saņem AI jautājumu, pēdējās 6 čata ziņas un atrastos eksāmenu uzdevumus. Vārds, e-pasts un skola netiek sūtīti. DeepSeek apstrādā datus ārpus Eiropas Savienības.
+- **DeepSeek** — tikai pēc lietotāja piekrišanas. AI skolotājam tas saņem jautājumu, pēdējās 6 čata ziņas un atrastos eksāmenu uzdevumus. Testa režīmā tas saņem priekšmetu, klasi un eksāmenu uzdevumus, kuros skolēns kļūdījās. Vārds, e-pasts un skola netiek sūtīti. DeepSeek apstrādā datus ārpus Eiropas Savienības.
 - **Hetzner** — servera nodrošinātājs; uz tā glabājas datubāze.
 - **Stripe** — tikai, ja pērk Premium: e-pasts un maksājuma dati (kartes datus saņem tikai Stripe).
 - **Brevo / Resend** — tikai, ja ieslēgta e-pasta sūtīšana: e-pasts un vēstules saturs.
@@ -151,14 +164,23 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 - Paroles: vismaz 8 simboli, ne tikai cipari; maiņa vai atjaunošana izbeidz visas citas sesijas.
 - Drošības galvenes (CSP, X-Frame-Options, HSTS u.c.) — `next.config.js` un `Caddyfile`.
 - Stripe webhook paraksta pārbaude (HMAC-SHA256) un atkārtotu notikumu aizsardzība.
+- AI limits: vieta tiek rezervēta transakcijā ar lietotāja slēdzeni (`pg_advisory_xact_lock`) pirms DeepSeek izsaukuma, tāpēc paralēli pieprasījumi limitu nepārsniedz.
+- AI čata vēsture: serveris paraksta savas atbildes (HMAC-SHA256, piesaistīts lietotājam; atslēga `AI_HISTORY_SECRET` vai atvasināta no `DEEPSEEK_API_KEY`). Vēsturē tiek pieņemtas tikai AI ziņas ar derīgu parakstu.
+- Testa jautājumu pareizās atbildes netiek sūtītas uz pārlūku kopā ar uzdevumiem. Atbildi pārbauda serveris, un pareizo variantu tas parāda tikai pēc atbildes vai simulācijas iesniegšanas.
+- Pieprasījumu limiti arī atbilžu pārbaudei, simulācijas iesniegšanai un testu veidošanai.
 - Lietotne konteinerā darbojas kā parasts lietotājs (ne root); serverī ugunsmūris atļauj tikai 22, 80, 443.
 
 ## Kas vēl jāizdara
 
 Pirms platformu atver reāliem lietotājiem — skat. [`Study_Pilot/DEPLOY.md`](Study_Pilot/DEPLOY.md#6-pirms-atver-skolēniem) un [`PRIVACY.md`](PRIVACY.md).
 
+Pirms palaišanas:
+- [ ] Pārbaudīt VIAA lietošanas noteikumus. Eksāmenu uzdevumi ir šajā publiskajā repozitorijā (skat. [Avoti un autortiesības](#avoti-un-autortiesības)).
+- [ ] Automātiskie testi (pagaidām nav neviena) un GitHub Actions pārbaude (`npm run build`) katram PR.
+
 Vēlāk:
 - [ ] Vairāk valsts eksāmenu (9. un 12. klase, visi priekšmeti).
+- [ ] AI vērtējums atvērtajiem uzdevumiem simulācijā (pašlaik pašvērtējums pēc parauga).
 - [ ] Vektoru meklēšana (RAG) AI skolotājam.
 - [ ] Kad dibināta SIA: atjaunot pārzini un pārdevēju politikā un noteikumos.
 
