@@ -7,7 +7,7 @@
 
 - Mēs glabājam tikai to, kas vajadzīgs mācību rīkiem: e-pastu, vārdu, klasi un tavus mācību datus.
 - Tavus datus redzi tu; administratori redz tikai vārdu, klasi, skolu un ierakstu skaitu, ne saturu.
-- AI skolotājs sūta tavus jautājumus uz DeepSeek (Ķīnā) — tikai tad, ja tam piekrīti.
+- AI skolotājs sūta tavus jautājumus, bet Testa režīms uzdevumus, kuros kļūdījies, uz DeepSeek (Ķīnā) — tikai tad, ja tam piekrīti.
 - Mēs nepārdodam datus, nerādām reklāmas un neizmantojam sīkdatnes.
 - Ja pērc Premium, maksājumu apstrādā Stripe — tavas kartes datus mēs neredzam un neglabājam.
 - Profilā vari jebkurā laikā lejupielādēt vai izdzēst visus savus datus.
@@ -49,7 +49,13 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 
 **Ko mēs NEvācam:** mēs neizmantojam sīkdatnes, analītiku, reklāmas vai citu pušu izsekošanas rīkus. Mēs nepieprasām tavu dzimšanas datumu, adresi, tālruni vai personas kodu. Lūdzam neievadīt šādus datus arī čatā vai uzdevumos.
 
-**Tavā pārlūkā** tiek saglabāts tikai pieslēgšanās kods (lai tev nav jāpieslēdzas katru reizi), izvēlētā krāsu tēma un tas, vai sākuma ekrāns jau parādīts. Tos var izdzēst, izrakstoties vai notīrot pārlūka datus.
+**Tavā pārlūkā** (pārlūka krātuvē, ne sīkdatnēs) tiek saglabāts tikai:
+- pieslēgšanās kods, lai tev nav jāpieslēdzas katru reizi;
+- izvēlētā krāsu tēma un kuras izvēlnes sadaļas esi sakļāvis;
+- nepabeigtas eksāmena simulācijas atbildes, lai tās nepazustu, ja lapa pārlādējas. Tās tiek izdzēstas, kad simulāciju pārtrauc vai sāc no jauna;
+- līdz pārlūka cilnes aizvēršanai: vai sākuma ekrāns jau parādīts un uzdevuma teksts, ko no eksāmena nodod AI skolotājam.
+
+Šie dati netiek sūtīti mums, kamēr tu tos pats neiesniedz. Tos var izdzēst, izrakstoties vai notīrot pārlūka datus.
 
 ## 3. Kāpēc mēs izmantojam datus un uz kāda pamata
 
@@ -58,6 +64,7 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 | Konta izveide un pieslēgšanās | e-pasts, parole (hash), sesijas | līguma izpilde — bez tā nevar lietot kontu |
 | Plānotāja, testu un progresa darbība | profils, priekšmeti, termiņi, uzdevumi, testi, aktivitāte | līguma izpilde |
 | AI skolotājs | jautājums, pēdējās čata ziņas, klase | līguma izpilde; datu nosūtīšanai uz DeepSeek ārpus ES — tava skaidra piekrišana (skat. 5. sadaļu) |
+| AI veidoti testi Testa režīmā | priekšmets, klase, eksāmenu uzdevumi, kuros kļūdījies | līguma izpilde; datu nosūtīšanai uz DeepSeek ārpus ES — tava skaidra piekrišana (skat. 5. sadaļu) |
 | AI dienas limiti un izmaksu kontrole | AI lietojuma ieraksti, plāns | leģitīmās intereses — novērst ļaunprātīgu izmantošanu un nekontrolētas izmaksas |
 | Drošība un platformas uzturēšana | pēdējās aktivitātes laiks, sesijas | leģitīmās intereses |
 | Pierādīt, ka piekrišana tika dota | reģistrācijas apstiprinājuma un AI piekrišanas laiks | juridisks pienākums (VDAR 7. panta 1. punkts) |
@@ -80,9 +87,9 @@ Mēs nepārdodam tavus datus un neizmantojam tos reklāmai. Tavi dati netiek izm
 - **Hetzner Online GmbH** (Vācija) — servera nodrošinātājs, uz kura darbojas platforma un datubāze. Dati glabājas Eiropas Savienībā. [Pārbaudi un ieraksti servera atrašanās vietu.]
 - **Stripe Payments Europe Ltd.** (Īrija) — maksājumu apstrāde, ja pērc Premium. Stripe saņem tavu e-pastu un maksājuma datus, ko ievadi Stripe maksājumu lapā, un ir neatkarīgs pārzinis šiem datiem saskaņā ar savu [privātuma politiku](https://stripe.com/privacy). Daļa datu var tikt apstrādāta ASV, izmantojot ES–ASV Datu privātuma regulējumu un līguma standartklauzulas.
 - **E-pasta sūtīšanas pakalpojums** (Brevo, Sendinblue SAS, Francija, vai Resend, ASV — atkarībā no iestatījumiem) — tikai, ja e-pasta apstiprināšana ir ieslēgta. Tas saņem tavu e-pastu un vēstules saturu (apstiprināšanas vai paroles atjaunošanas saiti).
-- **DeepSeek** — AI pakalpojums, kas ģenerē AI skolotāja atbildes. Kad uzdod jautājumu, DeepSeek saņem tavu jautājumu, pēdējās 6 čata ziņas un saistītos eksāmenu uzdevumus. Tavs vārds, e-pasts un skola **netiek** nosūtīti. DeepSeek savā [privātuma politikā](https://chat.deepseek.com/downloads/DeepSeek%20Privacy%20Policy.html) norāda, ka glabā datus serveros Ķīnā, var tos izmantot savu pakalpojumu uzlabošanai un glabā tos, kamēr ir aktīvs konts (mūsu platformas DeepSeek konts), vai ilgāk, ja to prasa likums. Mēs to nevaram ietekmēt, un tavus jautājumus no DeepSeek izdzēst nevaram. **DeepSeek apstrādā datus ārpus Eiropas Savienības (Ķīnā)**, kur personas datu aizsardzības līmenis var būt zemāks nekā ES un tev var nebūt tādu pašu tiesību aizsardzības līdzekļu.
+- **DeepSeek** — AI pakalpojums, kas ģenerē AI skolotāja atbildes un Testa režīma testus. Kad uzdod jautājumu AI skolotājam, DeepSeek saņem tavu jautājumu, pēdējās 6 čata ziņas un saistītos eksāmenu uzdevumus. Kad Testa režīmā AI veido testu, DeepSeek saņem priekšmetu, klasi un valsts eksāmenu uzdevumus, kuros esi kļūdījies (vai, ja kļūdu vēl nav, nejauši izvēlētus eksāmena uzdevumus). Tavs vārds, e-pasts un skola **netiek** nosūtīti. DeepSeek savā [privātuma politikā](https://chat.deepseek.com/downloads/DeepSeek%20Privacy%20Policy.html) norāda, ka glabā datus serveros Ķīnā, var tos izmantot savu pakalpojumu uzlabošanai un glabā tos, kamēr ir aktīvs konts (mūsu platformas DeepSeek konts), vai ilgāk, ja to prasa likums. Mēs to nevaram ietekmēt, un tavus jautājumus no DeepSeek izdzēst nevaram. **DeepSeek apstrādā datus ārpus Eiropas Savienības (Ķīnā)**, kur personas datu aizsardzības līmenis var būt zemāks nekā ES un tev var nebūt tādu pašu tiesību aizsardzības līdzekļu.
 
-  Tāpēc pirms pirmā jautājuma AI skolotājam mēs tev parādām šo brīdinājumu un lūdzam skaidru piekrišanu (VDAR 49. panta 1. punkta a) apakšpunkts). Ja nepiekrīti, AI skolotājs nav pieejams, bet visas pārējās platformas funkcijas strādā kā parasti. Piekrišanu vari atsaukt jebkurā laikā profila sadaļā "Dati"; tas neietekmē jau nosūtītos jautājumus. **Nelieto AI čatā savus personas datus** (vārdu, adresi, tālruni u.c.).
+  Tāpēc pirms pirmā jautājuma AI skolotājam mēs tev parādām šo brīdinājumu un lūdzam skaidru piekrišanu (VDAR 49. panta 1. punkta a) apakšpunkts). Ja nepiekrīti, AI skolotājs nav pieejams, un Testa režīms testus veido tikai no īstiem VIAA uzdevumiem, bez DeepSeek. Visas pārējās platformas funkcijas strādā kā parasti. Piekrišanu vari atsaukt jebkurā laikā profila sadaļā "Dati"; tas neietekmē jau nosūtītos jautājumus. **Nelieto AI čatā savus personas datus** (vārdu, adresi, tālruni u.c.).
 
 Ja to pieprasīs likums (piemēram, tiesībsargājošās iestādes), mēs varam būt spiesti nodot datus arī valsts iestādēm.
 
