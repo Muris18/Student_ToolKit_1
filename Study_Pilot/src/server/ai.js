@@ -1,6 +1,7 @@
 // AI skolotāja loģika: eksāmenu meklēšana (PostgreSQL pilnteksts), dienas limiti, DeepSeek izsaukums.
 // DEEPSEEK_API_KEY tiek lasīts TIKAI šeit, servera pusē.
-import { query } from './db';
+import crypto from 'crypto';
+import { query, getPool } from './db';
 
 const LIMITS = {
   free: parseInt(process.env.AI_DAILY_LIMIT_FREE, 10) || 10,
@@ -23,6 +24,60 @@ export const logUsage = (userId, model, usage = {}) =>
   query('INSERT INTO ai_usage (user_id, model, prompt_tokens, completion_tokens) VALUES ($1,$2,$3,$4)', [
     userId, model, usage.prompt_tokens || 0, usage.completion_tokens || 0,
   ]);
+
+// Dienas limits bez "sacīkstēm": vieta limitā tiek rezervēta PIRMS DeepSeek izsaukuma.
+// Lietotāja slēdzene (pg_advisory_xact_lock) nodrošina, ka vienlaicīgi pieprasījumi skaita pēc kārtas,
+// tāpēc 20 paralēli pieprasījumi nevar visi redzēt "0 no 10".
+// Atgriež { id, used } vai null, ja limits jau sasniegts.
+export async function reserveUsage(userId, limit) {
+  const client = await getPool().connect();
+  try {
+    await client.query('BEGIN');
+    await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`ai:${userId}`]);
+    const { rows } = await client.query(
+      `SELECT count(*)::int AS n FROM ai_usage
+       WHERE user_id = $1
+         AND created_at >= (date_trunc('day', now() AT TIME ZONE 'Europe/Riga') AT TIME ZONE 'Europe/Riga')`,
+      [userId]
+    );
+    if (rows[0].n >= limit) {
+      await client.query('ROLLBACK');
+      return null;
+    }
+    const ins = await client.query('INSERT INTO ai_usage (user_id) VALUES ($1) RETURNING id', [userId]);
+    await client.query('COMMIT');
+    return { id: ins.rows[0].id, used: rows[0].n + 1 };
+  } catch (e) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw e;
+  } finally {
+    client.release();
+  }
+}
+
+// Pēc veiksmīgas atbildes: rezervācijā ieraksta modeli un tokenus
+export const finishUsage = (id, model, usage = {}) =>
+  query('UPDATE ai_usage SET model = $2, prompt_tokens = $3, completion_tokens = $4 WHERE id = $1', [
+    id, model || '', usage.prompt_tokens || 0, usage.completion_tokens || 0,
+  ]);
+
+// Ja AI neatbildēja: rezervācija tiek atcelta, jautājums netiek norakstīts no limita
+export const releaseUsage = (id) => query('DELETE FROM ai_usage WHERE id = $1', [id]);
+
+// AI atbilžu paraksts. Čata vēsturi sūta klients; bez paraksta tajā varētu ielikt viltotu "AI atbildi"
+// un ar to mēģināt izvilināt slēpto pareizo atbildi. Vēsturē tiek pieņemtas tikai šī servera atbildes.
+// Atslēga: AI_HISTORY_SECRET vai (ja nav iestatīta) atvasināta no DEEPSEEK_API_KEY, kas AI darbībai tik un tā vajadzīga.
+const historyKey = () => crypto.createHash('sha256')
+  .update(`sp-ai-history:${process.env.AI_HISTORY_SECRET || process.env.DEEPSEEK_API_KEY || ''}`)
+  .digest();
+export const signReply = (userId, text) =>
+  crypto.createHmac('sha256', historyKey()).update(`${userId}\u0000${text}`).digest('base64url');
+export function verifyReply(userId, text, sig) {
+  if (typeof sig !== 'string' || !sig) return false;
+  const a = Buffer.from(signReply(userId, String(text || '')));
+  const b = Buffer.from(sig);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
 
 // Latviešu locījumiem: vārdu saīsina līdz sakņu tuvinājumam un meklē pēc priekšvārda (kvadr:*)
 const norm = (s) => String(s).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
@@ -81,6 +136,7 @@ function taskBlock(t, n) {
   return parts.join('\n');
 }
 
+// history: jau pārbaudīta vēsture (AI ziņas tikai ar derīgu parakstu; skat. tutor.js)
 export function buildMessages({ message, history = [], tasks = [] }) {
   const ctx = tasks.length
     ? '\n\nEksāmenu uzdevumi no datubāzes, kas var būt saistīti ar jautājumu:\n' +

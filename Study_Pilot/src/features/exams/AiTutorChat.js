@@ -39,7 +39,8 @@ export default function AiTutorChat({ draft = '' }) {
     e?.preventDefault();
     const text = inputValue.trim();
     if (!text || loading) return;
-    const history = messages.slice(-6).map((m) => ({ sender: m.sender, text: m.text }));
+    // AI ziņām līdzi servera paraksts (sig); bez tā serveris AI ziņu vēsturē neņem vērā
+    const history = messages.slice(-6).map((m) => ({ sender: m.sender, text: m.text, ...(m.sig ? { sig: m.sig } : {}) }));
     update((d) => ({ ...d, chat: [...d.chat, { id: uid(), sender: 'user', text, date: new Date().toISOString() }].slice(-300) }));
     setInputValue('');
     setError('');
@@ -47,7 +48,7 @@ export default function AiTutorChat({ draft = '' }) {
     try {
       const r = await api('/api/ai/tutor', { method: 'POST', body: { message: text, history } });
       setRemaining(r.remaining);
-      update((d) => ({ ...d, chat: [...d.chat, { id: uid(), sender: 'ai', text: r.reply, sources: r.sources || [], date: new Date().toISOString() }].slice(-300) }));
+      update((d) => ({ ...d, chat: [...d.chat, { id: uid(), sender: 'ai', text: r.reply, sig: r.sig || '', sources: r.sources || [], date: new Date().toISOString() }].slice(-300) }));
     } catch (err) {
       setError(err.message || 'Neizdevās saņemt atbildi');
       if (typeof err.remaining === 'number') setRemaining(err.remaining);

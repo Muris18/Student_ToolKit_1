@@ -3,6 +3,7 @@ import { limited } from '../../../server/security';
 import { query } from '../../../server/db';
 import crypto from 'crypto';
 import { userMistakes, examQuiz, aiQuiz, aiBlocker, sampleTasks } from '../../../server/quiz';
+import { reserveUsage, releaseUsage, limitFor } from '../../../server/ai';
 
 const cap = (s) => s[0].toUpperCase() + s.slice(1);
 
@@ -28,17 +29,22 @@ export default async function handler(req, res) {
 
     let quiz = null;
     let notice = await aiBlocker(user);
-    const aiOk = !notice;
-    if (aiOk) {
+    // Vieta AI limitā tiek rezervēta pirms DeepSeek izsaukuma (paralēli pieprasījumi nevar pārsniegt limitu)
+    const slot = notice ? null : await reserveUsage(user.id, limitFor(user.plan));
+    if (!notice && !slot) notice = 'Šodienas AI limits ir izmantots, tāpēc tests sastādīts no īstiem VIAA uzdevumiem.';
+    const aiOk = Boolean(slot);
+    if (slot) {
       try {
         const material = hasMistakes ? [...tasks, ...questions] : await sampleTasks(subject, grade);
-        const r = await aiQuiz({ user, subject, grade, mistakes: material, diagnostic: !hasMistakes });
+        const r = await aiQuiz({ usageId: slot.id, subject, grade, mistakes: material, diagnostic: !hasMistakes });
         quiz = {
           title: r.title || `${cap(subject)}: ${hasMistakes ? 'treniņš pēc kļūdām' : 'diagnostikas tests'}`,
           source: hasMistakes ? 'ai' : 'ai-diagnostic', questions: r.questions,
         };
       } catch (e) {
         console.error('AI testa kļūda:', e.message);
+        // DeepSeek neatbildēja -> limits netiek norakstīts. Ja atbildēja, bet tests bija nederīgs, tokeni jau iztērēti.
+        if (e.code !== 'UPSTREAM' || !/nederīgu/.test(e.message)) await releaseUsage(slot.id).catch(() => {});
         notice = 'AI šobrīd neizdevās izveidot testu, tāpēc tests sastādīts no īstiem VIAA uzdevumiem.';
       }
     }

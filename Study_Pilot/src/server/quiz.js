@@ -4,7 +4,7 @@
 import crypto from 'crypto';
 import { query } from './db';
 import { parseOptions, answerKeys } from './exams';
-import { askDeepSeek, usedToday, limitFor, logUsage } from './ai';
+import { askDeepSeek, usedToday, limitFor, finishUsage } from './ai';
 import { emailEnabled } from './email';
 
 const id = () => crypto.randomBytes(8).toString('hex');
@@ -135,7 +135,8 @@ export async function sampleTasks(subject, grade, n = 8) {
   )).rows;
 }
 
-export async function aiQuiz({ user, subject, grade, mistakes, diagnostic = false, count = 8 }) {
+// usageId — iepriekš rezervēta vieta AI limitā (reserveUsage generate.js), šeit tajā ieraksta tokenus
+export async function aiQuiz({ usageId, subject, grade, mistakes, diagnostic = false, count = 8 }) {
   const sample = shuffle(mistakes).slice(0, 10);
   const intro = diagnostic
     ? 'Skolēnam vēl nav kļūdu. Izveido diagnostikas testu, kas aptver dažādas tēmas no šiem eksāmena uzdevumiem (tās ir tēmas, nevis kļūdas):'
@@ -145,7 +146,7 @@ export async function aiQuiz({ user, subject, grade, mistakes, diagnostic = fals
     { role: 'user', content: `Priekšmets: ${subject}\nKlase: ${grade}.\nIzveido ${count} jautājumus.\n\n${intro}\n\n${sample.map(mistakeBlock).join('\n\n')}` },
   ];
   const { reply, usage, model } = await askDeepSeek(messages, { maxTokens: 3500, temperature: 0.6, json: true });
-  await logUsage(user.id, model, usage);
+  await finishUsage(usageId, model, usage).catch((e) => console.error('ai_usage atjaunināšana:', e.message));
   let parsed;
   try { parsed = JSON.parse(reply.replace(/^```(?:json)?\s*|\s*```$/g, '')); } catch { parsed = null; }
   const questions = (parsed?.questions || []).map(validQuestion).filter(Boolean).slice(0, count);
