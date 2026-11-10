@@ -4,12 +4,13 @@
 @tailwind utilities;
 
 /* ---------- THEMES ---------- */
-/* Akcents visās tēmās: smaragds un piparmētra. --grad2 ir gradienta otrā krāsa (tirkīzs). */
-/* Gaišs: balts fons, tumšāks smaragds (balts teksts uz tā labi salasāms), marķiera dzeltens */
+/* Divas tēmas: Nakts (noklusētā) un Gaišs. Akcents abās: smaragds un piparmētra; --grad2 ir gradienta otrā krāsa (tirkīzs). */
+/* Gaišs: silti pelēcīgi balts fons (mazāk nogurdina acis nekā tīri balts), baltas kartītes, tumši pelēks teksts melnā vietā.
+   Visi teksta pāri atbilst WCAG AA (≥ 4.5:1): pamatteksts 13.6, sekundārais 4.9, etiķetes 4.6, balts uz zaļās pogas 5.5, zaļš teksts 5.1. */
 :root, [data-theme='paper'] {
-  --bg:255 255 255; --w:255 255 255;
-  --s50:249 250 251; --s100:240 242 245; --s200:226 229 234; --s300:197 202 211; --s400:140 148 162; --s500:100 109 124; --s600:74 82 96; --s700:49 56 68; --s800:24 30 40; --s900:12 16 24;
-  --a50:236 253 245; --a100:209 250 229; --a200:167 243 208; --a600:5 150 105; --a700:4 120 87; --acc:5 150 105; --acc2:4 120 87; --grad2:13 148 136;
+  --bg:246 247 244; --w:255 255 255;
+  --s50:249 250 249; --s100:240 242 240; --s200:226 229 230; --s300:197 202 208; --s400:104 112 126; --s500:100 109 124; --s600:74 82 96; --s700:49 56 68; --s800:31 41 55; --s900:17 24 39;
+  --a50:236 253 245; --a100:209 250 229; --a200:167 243 208; --a600:4 120 87; --a700:6 95 70; --acc:4 120 87; --acc2:6 95 70; --grad2:15 118 110;
   --hl:255 224 102; --hl-a:.85;
   --r50:255 241 242; --r100:255 228 230; --r200:254 205 211; --r700:190 18 60;
   --m50:255 251 235; --m100:254 243 199; --m200:253 230 138; --m700:180 83 9;
@@ -25,21 +26,11 @@
   --m50:56 40 12; --m100:74 54 14; --m200:102 74 20; --m700:252 211 77;
   --e50:12 48 37; --e100:16 64 48; --e200:20 88 64; --e700:110 231 183;
 }
-/* Tumšs: tumši zils, ne melns; tirkīza akcents */
-[data-theme='ink'] {
-  --bg:14 17 24; --w:22 26 35;
-  --s50:28 33 44; --s100:36 42 55; --s200:50 58 74; --s300:78 88 108; --s400:128 138 158; --s500:156 165 182; --s600:184 192 206; --s700:208 214 225; --s800:234 238 245; --s900:250 251 253;
-  --a50:12 44 44; --a100:15 60 58; --a200:22 94 90; --a600:45 212 191; --a700:153 246 228; --acc:45 212 191; --acc2:94 234 212; --grad2:52 211 153;
-  --hl:255 224 102; --hl-a:.4;
-  --r50:60 20 30; --r100:80 26 40; --r200:115 36 55; --r700:253 164 175;
-  --m50:56 40 12; --m100:74 54 14; --m200:102 74 20; --m700:252 211 77;
-  --e50:12 50 38; --e100:16 66 50; --e200:20 90 66; --e700:110 231 183;
-}
 
 /* ---------- BASE ---------- */
 @layer base {
   html { color-scheme: light; scroll-behavior: smooth; scrollbar-gutter: stable; }
-  [data-theme='ink'], [data-theme='night'] { color-scheme: dark; }
+  [data-theme='night'] { color-scheme: dark; }
   body { @apply bg-page text-slate-800 antialiased font-sans; }
   ::selection { background: rgb(var(--hl) / .55); color: rgb(var(--s900)); }
 }
@@ -166,7 +157,7 @@ button.border-emerald-500 { animation: okPop .6s; }
   background: linear-gradient(180deg, rgb(255 255 255 / .035), rgb(255 255 255 / 0) 40%), rgb(var(--w));
   box-shadow: 0 1px 0 rgb(255 255 255 / .04) inset, 0 20px 40px -28px rgb(0 0 0 / .8);
 }
-[data-theme='night'] .sidebar-item-active, [data-theme='ink'] .sidebar-item-active { background: linear-gradient(100deg, rgb(var(--acc) / .16), rgb(var(--grad2) / .06)); color: rgb(var(--acc2)); box-shadow: inset 0 0 0 1px rgb(var(--acc) / .22); }
+[data-theme='night'] .sidebar-item-active { background: linear-gradient(100deg, rgb(var(--acc) / .16), rgb(var(--grad2) / .06)); color: rgb(var(--acc2)); box-shadow: inset 0 0 0 1px rgb(var(--acc) / .22); }
 [data-theme='night'] .bg-accent { box-shadow: 0 8px 26px -10px rgb(var(--acc) / .55); }
 [data-theme='night'] ::selection { background: rgb(var(--acc) / .35); color: #fff; }
 [data-theme='night'] h1, [data-theme='night'] h2 { letter-spacing: -.02em; }
@@ -304,14 +295,14 @@ button.border-emerald-500 { animation: okPop .6s; }
 /* Smaragda-piparmētru gradients pogām un vārdam "eksāmenam"; tumšs teksts uz zaļā (labs kontrasts). */
 .cx-page { --cx-a: 52 211 153; --cx-b: 45 212 191; --cx-gold: 110 231 183; --cx-ink: 3 38 29; position: relative; isolation: isolate; }
 [data-theme='paper'] .cx-page { --cx-a: 16 185 129; --cx-b: 20 184 166; --cx-gold: 4 120 87; }
-[data-theme='night'] .cx-page, [data-theme='ink'] .cx-page {
+[data-theme='night'] .cx-page {
   background:
     radial-gradient(900px 520px at 50% -140px, rgb(var(--cx-a) / .2), transparent 70%),
     radial-gradient(700px 420px at 50% -60px, rgb(var(--cx-b) / .1), transparent 70%),
     rgb(var(--bg));
 }
 .cx-stars { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; }
-[data-theme='night'] .cx-stars, [data-theme='ink'] .cx-stars {
+[data-theme='night'] .cx-stars {
   opacity: .55;
   background-image:
     radial-gradient(1px 1px at 20px 30px, #fff, transparent 60%),
@@ -327,7 +318,7 @@ button.border-emerald-500 { animation: okPop .6s; }
 
 .cx { width: min(1120px, 100%); margin: 0 auto; padding: 0 28px; }
 .cx-mono { font-family: var(--font-mono), ui-monospace, monospace; font-weight: 800; letter-spacing: -.06em; color: rgb(var(--cx-gold)); }
-[data-theme='night'] .cx-mono, [data-theme='ink'] .cx-mono {
+[data-theme='night'] .cx-mono {
   background: linear-gradient(180deg, #ecfdf5, #6ee7b7 50%, #2dd4bf); -webkit-background-clip: text; background-clip: text; color: transparent;
   filter: drop-shadow(0 0 22px rgb(52 211 153 / .3));
 }
@@ -389,7 +380,7 @@ button.border-emerald-500 { animation: okPop .6s; }
 .cx-steps::before { content: ''; position: absolute; left: 50%; top: -26px; bottom: 0; width: 1px; background: linear-gradient(rgb(var(--s300)), transparent); z-index: -1; }
 .cx-step { display: flex; align-items: flex-start; gap: 18px; padding: 22px 24px; border-radius: 22px; border: 1px solid rgb(var(--s200)); background: linear-gradient(180deg, rgb(255 255 255 / .045), transparent 40%), rgb(var(--w)); box-shadow: 0 24px 50px -32px rgb(0 0 0 / .7); }
 .cx-step-no { font-family: var(--font-mono), ui-monospace, monospace; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgb(var(--cx-a)); }
-[data-theme='night'] .cx-step-no, [data-theme='ink'] .cx-step-no { color: rgb(110 231 183); }
+[data-theme='night'] .cx-step-no { color: rgb(110 231 183); }
 .cx-step h3 { font-size: 20px; letter-spacing: -.02em; color: rgb(var(--s900)); margin: 4px 0 6px; }
 .cx-step p { font-size: 14.5px; line-height: 1.6; color: rgb(var(--s500)); }
 .cx-step.is-on .cx-icon { color: rgb(var(--cx-ink)); border-color: transparent; background: linear-gradient(135deg, rgb(var(--cx-a)), rgb(var(--cx-b))); box-shadow: 0 8px 22px -8px rgb(var(--cx-a) / .8); }
