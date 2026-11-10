@@ -25,6 +25,7 @@ export const emptyData = () => ({
   activity: [], // 'YYYY-MM-DD'
   examAttempts: [], // { taskId, correct, at }
   aiQuizzes: [], // testa režīma testi pēc kļūdām (pēdējie 20)
+  simulations: [], // eksāmena simulāciju rezultāti: { id, docId, title, at, minutes, usedSec, score, max, percent } (pēdējie 50)
 });
 
 const hash = (password, salt) => crypto.scryptSync(password, salt, 64).toString('hex');

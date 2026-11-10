@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 import MathText from '../../components/MathText';
 import { EmptyState } from '../../components/AppShell';
 import { useApp } from '../../lib/AppContext';
+import ExamSimulation from './ExamSimulation';
 
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const docLabel = (d) => `${cap(d.subject)} · ${d.grade}. klase · ${d.year}${d.session ? ` (${d.session})` : ''}`;
@@ -23,6 +24,7 @@ export default function OfficialExams({ onAskAi }) {
   const [grade, setGrade] = useState(defaultGrade);
   const [docs, setDocs] = useState(null);
   const [docId, setDocId] = useState(null);
+  const [simId, setSimId] = useState(null);
   const [error, setError] = useState('');
   const [subject, setSubject] = useState('');
   const [level, setLevel] = useState('all');
@@ -40,6 +42,7 @@ export default function OfficialExams({ onAskAi }) {
   const shown = ofSubject.filter((d) => level === 'all' || d.session === level || !levels.includes(level));
   const years = [...new Set(shown.map((d) => d.year))].sort((x, y) => y - x);
 
+  if (simId) return <ExamSimulation id={simId} onExit={() => setSimId(null)} />;
   if (docId) return <ExamDoc id={docId} onBack={() => setDocId(null)} onAskAi={onAskAi} />;
 
   return (
@@ -92,11 +95,14 @@ export default function OfficialExams({ onAskAi }) {
                 <h4 className="text-sm font-bold text-slate-900 mb-2">{y}</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {shown.filter((d) => d.year === y).sort((x, z) => levelRank(x.session) - levelRank(z.session)).map((d) => (
-                    <button key={d.id} type="button" onClick={() => setDocId(d.id)} className="group p-3 rounded-xl border border-slate-200 bg-white text-left cursor-pointer transition-colors hover:border-indigo-400">
+                    <div key={d.id} className="p-3 rounded-xl border border-slate-200 bg-white transition-colors hover:border-indigo-400">
                       <p className="font-semibold text-sm text-slate-900">{d.session ? cap(d.session) : 'Centralizētais eksāmens'}</p>
                       <p className="text-xs text-slate-500 mt-0.5">{d.tasks} {lv(d.tasks, 'uzdevums', 'uzdevumi')}</p>
-                      <span className="text-xs font-semibold text-accent mt-2 inline-block">Sākt treniņu →</span>
-                    </button>
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
+                        <button type="button" onClick={() => setDocId(d.id)} className="text-xs font-semibold text-accent cursor-pointer hover:underline">Treniņš →</button>
+                        <button type="button" onClick={() => setSimId(d.id)} className="text-xs font-semibold text-slate-600 cursor-pointer hover:text-slate-900 hover:underline">⏱ Simulācija</button>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </section>

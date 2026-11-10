@@ -122,6 +122,7 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 | Pieslēgšanās mēģinājumi | `login_attempts` — e-pasts, IP, laiks; dzēsti pēc 24 h | Aizsardzība pret paroļu minēšanu |
 | Premium | `users.plan_source`, `stripe_customer_id`, `stripe_subscription_id`, `stripe_status`, `premium_until` | Abonements |
 | Valsts eksāmenu mēģinājumi | `users.data.examAttempts` | Progress |
+| Eksāmenu simulāciju rezultāti (eksāmens, datums, punkti, izmantotais laiks; pēdējie 50) | `users.data.simulations` | Progress, rezultātu salīdzināšana |
 | AI lietojuma žurnāls | `ai_usage` — laiks, modelis, tokenu skaits (bez jautājuma teksta) | Dienas limiti, izmaksu uzskaite |
 
 **Pārlūkā** (`localStorage`/`sessionStorage`) tiek glabāts tikai sesijas žetons (`sp-session`), izvēlētā tēma (`sp-theme`) un tas, vai rādīts sākuma ekrāns (`sp-splash`). Sīkdatnes, analītika, reklāmas un trešo pušu skripti **netiek** izmantoti.

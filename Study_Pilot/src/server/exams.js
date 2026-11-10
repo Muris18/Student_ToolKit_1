@@ -74,6 +74,33 @@ export async function checkAnswer(taskId, answer) {
   return { kind: 'choice', checkable: true, correct, solution: correct ? t.solution : '' };
 }
 
+// Eksāmena simulācijas vērtēšana: visa eksāmena atbildes vienā pieprasījumā.
+// answers: { [taskId]: "B" } testa jautājumiem; atvērtajiem atbildes tekstu serveris nevērtē.
+// Testa jautājumiem atgriež, vai pareizi, un pareizo variantu; atvērtajiem — atbildes paraugu pašvērtējumam.
+export async function gradeExam(docId, answers = {}) {
+  const doc = (await query('SELECT id FROM exam_documents WHERE id = $1', [docId])).rows[0];
+  if (!doc) return null;
+  const { rows } = await query(
+    'SELECT id, kind, options, answer, solution, points FROM exam_tasks WHERE doc_id = $1',
+    [docId]
+  );
+  const tasks = rows.map((t) => {
+    const points = Number(t.points) > 0 ? Number(t.points) : 1;
+    if (t.kind === 'choice') {
+      const correctKeys = answerKeys(t.answer, parseOptions(t.options).map((o) => o.key)).sort();
+      if (!correctKeys.length) return { id: t.id, kind: 'choice', checkable: false, points };
+      const given = String(answers[t.id] || '').split(/[,;]/).map(norm).filter(Boolean).sort().join(',');
+      return {
+        id: t.id, kind: 'choice', checkable: true, points,
+        correct: Boolean(given) && given === correctKeys.join(','),
+        correctKeys: correctKeys.join(', '), solution: t.solution || '',
+      };
+    }
+    return { id: t.id, kind: t.kind, checkable: false, points, answer: t.answer || '', solution: t.solution || '' };
+  });
+  return { tasks };
+}
+
 // Atvērtā uzdevuma atbildes paraugs (testa uzdevumiem atbildi atklāj tikai pārbaude)
 export async function openTaskAnswer(taskId) {
   const t = (await query('SELECT kind, answer, solution FROM exam_tasks WHERE id = $1', [taskId])).rows[0];

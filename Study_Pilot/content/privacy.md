@@ -30,7 +30,7 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 - parole — mēs to neglabājam; glabājam tikai tās šifrētu hash, no kura paroli atjaunot nevar;
 - vārds un uzvārds (uzvārds nav obligāts);
 - vai mācies skolā vai augstskolā, klase vai kurss, skola un studiju programma (skola un programma nav obligātas);
-- tavi mācību priekšmeti, termiņi, uzdevumi, testi un testu rezultāti;
+- tavi mācību priekšmeti, termiņi, uzdevumi, testi, testu un eksāmenu simulāciju rezultāti;
 - tavi jautājumi AI skolotājam un tā atbildes (čata vēsture).
 
 **Datus, kas rodas, lietojot platformu:**
