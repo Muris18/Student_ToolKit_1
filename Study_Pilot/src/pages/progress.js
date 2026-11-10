@@ -4,6 +4,7 @@ import AppShell, { PageHeader, EmptyState } from '../components/AppShell';
 import Card from '../components/Card';
 import CountUp from '../components/CountUp';
 import ProgressTracking from '../features/dashboard/ProgressTracking';
+import TopicMap, { SimulationHistory } from '../features/dashboard/TopicMap';
 import { useApp } from '../lib/AppContext';
 import { overallStats, subjectStats, toDateStr, dienas } from '../lib/helpers';
 
@@ -43,6 +44,9 @@ function Progress() {
           </div>
         </div>
       </div>
+
+      <TopicMap />
+      <SimulationHistory />
 
       <Card title="📚 Progress pa priekšmetiem" subtitle="Izpildītie termiņi + uzdevumi un precizitāte testos">
         {subjects.length === 0 ? (

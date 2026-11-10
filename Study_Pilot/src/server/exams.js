@@ -74,6 +74,80 @@ export async function checkAnswer(taskId, answer) {
   return { kind: 'choice', checkable: true, correct, solution: correct ? t.solution : '' };
 }
 
+// Tēmu kartei: matemātikā apvieno sīkās tēmas lielās (eksāmenu failos tās nosauktas dažādi)
+const MATH_TOPICS = [
+  [/atvasin|robež|analīz/, 'matemātiskā analīze'],
+  [/trigonometr/, 'trigonometrija'],
+  [/analītisk|vektor|koordināt/, 'analītiskā ģeometrija, vektori'],
+  [/stereometr|konus|cilindr|piramīd|lode|prizm/, 'stereometrija'],
+  [/kombinatorik|varbūtīb|statistik|diagramm/, 'kombinatorika, varbūtība, statistika'],
+  [/funkcij|grafik/, 'funkcijas'],
+  [/ģeometrij|leņķ|trijstūr|četrstūr|riņķ/, 'ģeometrija'],
+  [/algebr|procent|attiecīb|kopas|virkn|progresij|vienādojum/, 'algebra'],
+];
+// Eksāmena daļa bez numura un piezīmēm: "1. daļa. Lasīšana (Reading)" -> "Lasīšana"
+const skillOf = (section) => {
+  const s = String(section || '').replace(/\(.*?\)/g, '').split(' – ')[0].replace(/^\s*\d+\.\s*daļa\.?\s*/i, '').trim();
+  return s ? s[0].toUpperCase() + s.slice(1) : 'Citi';
+};
+// Matemātikā — tēma; valodās un dabaszinātnēs "tēma" ir teksta nosaukums, tāpēc tur grupē pēc prasmes (eksāmena daļas)
+export function topicLabel(subject, topic, section) {
+  if (subject === 'matemātika') {
+    const t = String(topic || '').toLowerCase();
+    if (t) for (const [re, name] of MATH_TOPICS) if (re.test(t)) return name;
+    return t || skillOf(section);
+  }
+  return skillOf(section);
+}
+
+// Tēmu karte: katrai priekšmeta tēmai — cik uzdevumu ir datubāzē, cik lietotājs izmēģinājis un cik pareizi.
+// Avots: data.examAttempts (valsts eksāmenu treniņš, testa režīms ar VIAA uzdevumiem, simulācijas).
+export async function topicMap(data, grade) {
+  const all = (await query(
+    `SELECT t.id, d.subject, t.topic, t.section
+     FROM exam_tasks t JOIN exam_documents d ON d.id = t.doc_id
+     WHERE ($1::int IS NULL OR d.grade = $1)`,
+    [grade || null]
+  )).rows;
+
+  // Katram uzdevumam ņem jaunāko mēģinājumu
+  const latest = new Map();
+  for (const a of Array.isArray(data?.examAttempts) ? data.examAttempts : []) {
+    const id = parseInt(a?.taskId, 10);
+    if (!Number.isInteger(id)) continue;
+    const prev = latest.get(id);
+    if (!prev || String(a.at || '') >= String(prev.at || '')) latest.set(id, a);
+  }
+  const map = new Map();
+  for (const r of all) {
+    const name = topicLabel(r.subject, r.topic, r.section);
+    const k = `${r.subject}\u0000${name}`;
+    const row = map.get(k) || { subject: r.subject, name, total: 0, attempted: 0, correct: 0, lastAt: null };
+    row.total += 1;
+    const a = latest.get(r.id);
+    if (a) {
+      row.attempted += 1;
+      if (a.correct) row.correct += 1;
+      if (!row.lastAt || String(a.at || '') > row.lastAt) row.lastAt = a.at || null;
+    }
+    map.set(k, row);
+  }
+
+  const bySubject = {};
+  for (const row of map.values()) {
+    row.pct = row.attempted ? Math.round((row.correct / row.attempted) * 100) : null;
+    (bySubject[row.subject] = bySubject[row.subject] || []).push(row);
+  }
+  return Object.entries(bySubject)
+    .map(([subject, topics]) => ({
+      subject,
+      attempted: topics.reduce((s, t) => s + t.attempted, 0),
+      // Vājākās mēģinātās tēmas pirmās, nemēģinātās beigās
+      topics: topics.sort((a, b) => (a.pct === null) - (b.pct === null) || (a.pct ?? 0) - (b.pct ?? 0) || b.total - a.total),
+    }))
+    .sort((a, b) => b.attempted - a.attempted || a.subject.localeCompare(b.subject, 'lv'));
+}
+
 // Eksāmena simulācijas vērtēšana: visa eksāmena atbildes vienā pieprasījumā.
 // answers: { [taskId]: "B" } testa jautājumiem; atvērtajiem atbildes tekstu serveris nevērtē.
 // Testa jautājumiem atgriež, vai pareizi, un pareizo variantu; atvērtajiem — atbildes paraugu pašvērtējumam.
