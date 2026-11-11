@@ -8,6 +8,7 @@ import SubjectSelect from '../../components/SubjectSelect';
 import { EmptyState, inputCls, labelCls } from '../../components/AppShell';
 import { QuizPlayer } from '../exams/QuizMode';
 import { useApp } from '../../lib/AppContext';
+import { autoMath } from '../../lib/autoMath';
 import { uid, subjectName, subjectColor, daysUntil, relDay, fmtDate, toDateStr, todayStr, dienas } from '../../lib/helpers';
 
 // Pārbaudes darbi parastajos priekšmetos. Katrs pārbaudes darbs ir plānotāja ieraksts ar type 'Pārbaudes darbs'
@@ -255,7 +256,14 @@ function TestDetail({ task, onBack }) {
       {has && tab === 'quiz' && (
         s.quiz?.questions?.length ? (
           <>
-            <QuizPlayer key={s.quiz.id} quiz={{ id: s.quiz.id, title: task.title, subjectId: task.subjectId, questions: s.quiz.questions }} onExit={() => setTab('plan')} />
+            <QuizPlayer
+              key={s.quiz.id}
+              quiz={{
+                id: s.quiz.id, title: task.title, subjectId: task.subjectId,
+                questions: s.quiz.questions.map((q) => ({ ...q, question: autoMath(q.question), options: q.options.map(autoMath), explanation: autoMath(q.explanation) })),
+              }}
+              onExit={() => setTab('plan')}
+            />
             <div className="flex justify-end">
               <Button variant="secondary" disabled={Boolean(busy)} onClick={() => generate('quiz')}>{busy === 'quiz' ? 'AI veido…' : '↻ Jauns tests ar citiem jautājumiem'}</Button>
             </div>
@@ -316,9 +324,9 @@ function Summary({ study }) {
       <div className="space-y-5">
         {study.summary.map((sec) => (
           <section key={sec.heading}>
-            <h3 className="font-semibold text-slate-900 mb-2">{sec.heading}</h3>
+            <MathText as="h3" text={autoMath(sec.heading)} className="font-semibold text-slate-900 mb-2" />
             <ul className="space-y-1.5 text-sm text-slate-700 leading-relaxed">
-              {sec.points.map((p, i) => <li key={i} className="flex gap-2"><span className="text-accent" aria-hidden="true">✦</span><MathText as="span" text={p} /></li>)}
+              {sec.points.map((p, i) => <li key={i} className="flex gap-2"><span className="text-accent" aria-hidden="true">✦</span><MathText as="span" text={autoMath(p)} /></li>)}
             </ul>
           </section>
         ))}
@@ -361,7 +369,7 @@ function Flashcards({ cards, onChange }) {
           <button type="button" onClick={() => setFlipped((f) => !f)} aria-label={flipped ? 'Rādīt jautājumu' : 'Rādīt atbildi'}
             className="w-full min-h-[12rem] p-6 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col items-center justify-center text-center cursor-pointer transition-colors hover:border-indigo-300">
             <span className="sp-mono text-[10.5px] font-bold text-slate-400 mb-3">{flipped ? 'Atbilde' : 'Jautājums'} · kastīte {current.box}/3</span>
-            <MathText as="div" text={flipped ? current.back : current.front} className={`text-slate-900 leading-relaxed ${flipped ? 'text-base' : 'text-lg font-semibold'}`} />
+            <MathText as="div" text={autoMath(flipped ? current.back : current.front)} className={`text-slate-900 leading-relaxed ${flipped ? 'text-base' : 'text-lg font-semibold'}`} />
             {!flipped && <span className="text-xs text-slate-400 mt-4">Padomā un tad spied, lai redzētu atbildi</span>}
           </button>
           <div className="flex flex-wrap justify-between gap-2 mt-4">
