@@ -55,7 +55,7 @@ function TestList({ onOpen }) {
           <h1 className="text-2xl md:text-3xl font-semibold text-slate-900">📝 Pārbaudes darbi</h1>
           <p className="text-sm text-slate-500 mt-1">Kontroldarbi parastajos priekšmetos: konspekts, kartītes, tests un plāns līdz datumam.</p>
         </div>
-        {!creating && <Button onClick={() => setCreating(true)} className="px-5 py-2.5">+ Jauns pārbaudes darbs</Button>}
+        {!creating && <Button onClick={() => setCreating(true)} className="px-5 py-2.5 whitespace-nowrap shrink-0">+ Jauns pārbaudes darbs</Button>}
       </div>
 
       {creating && <NewTestForm onCreate={create} onCancel={() => setCreating(false)} />}
@@ -231,7 +231,8 @@ function TestDetail({ task, onBack }) {
       </div>
 
       {error && (
-        <div role="alert" className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+        // Piekrišana nav kļūda -> neitrāls akcenta tonis; sarkans tikai īstām kļūdām
+        <div role={error.code === 'NO_AI_CONSENT' ? 'status' : 'alert'} className={`p-4 rounded-2xl text-sm border ${error.code === 'NO_AI_CONSENT' ? 'bg-indigo-50 border-indigo-100 text-slate-800' : 'bg-rose-50 border-rose-200 text-rose-700'}`}>
           {error.code === 'NO_AI_CONSENT' ? (
             <div className="space-y-3">
               <p className="font-semibold">Lai AI sagatavotu materiālus, vajag tavu piekrišanu</p>

@@ -9,8 +9,8 @@ import { flatMenu, useIsActive } from './Sidebar';
 import { useApp } from '../lib/AppContext';
 import { gradeLabel } from '../lib/helpers';
 
-const tabs = ['/dashboard', '/planner', '/exams', '/exams?mode=ai', '/progress'];
-const short = { '/dashboard': 'Panelis', '/planner': 'Plānotājs', '/exams': 'Eksāmeni', '/exams?mode=ai': 'AI čats', '/progress': 'Progress' };
+const tabs = ['/dashboard', '/planner', '/parbaudes', '/exams', '/exams?mode=ai', '/progress'];
+const short = { '/dashboard': 'Panelis', '/planner': 'Plānotājs', '/parbaudes': 'Darbi', '/exams': 'Eksāmeni', '/exams?mode=ai': 'AI čats', '/progress': 'Progress' };
 
 // app=true: lietotnes lapas (ar sānjoslu). app=false: sākumlapa un pieteikšanās — logo tajā pašā vietā.
 export default function Navbar({ app = true }) {
@@ -45,7 +45,7 @@ export default function Navbar({ app = true }) {
         </div>
       </div>
       {/* Mobilā apakšējā tab josla */}
-      <nav className={`${app ? 'hidden mobile:grid' : 'hidden'} fixed bottom-0 inset-x-0 z-40 glass border-t border-slate-200 grid grid-cols-5 px-2 pt-2`} style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 8px)' }}>
+      <nav className={`${app ? 'hidden mobile:grid' : 'hidden'} fixed bottom-0 inset-x-0 z-40 glass border-t border-slate-200 grid grid-cols-6 px-1 pt-2`} style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 8px)' }}>
         {flatMenu.filter((i) => tabs.includes(i.href)).map((item) => (
           <Link key={item.href} href={item.href} className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl text-[10px] font-semibold transition-all active:scale-95 ${isActive(item.href) ? 'text-accent' : 'text-slate-400'}`}>
             <span className={`w-11 h-7 flex items-center justify-center rounded-full ${isActive(item.href) ? 'bg-indigo-50' : ''}`}><Icon name={item.icon} className="w-5 h-5" /></span>
