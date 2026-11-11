@@ -25,7 +25,7 @@ Pats lietotnes kods atrodas mapē [`Study_Pilot/`](Study_Pilot/). Lokālā izstr
 
 ## Kas jau strādā
 
-- **Dizains** — smaragda un piparmētru krāsas, divas tēmas: tumšā „Nakts” (pēc noklusējuma) un „Gaišā” ar silti pelēcīgu fonu; slēdzis ar mēness un saules ikonām. Teksta kontrasts abās tēmās atbilst WCAG AA. Sākumlapā ritināms „Tavs ceļš līdz eksāmenam”, funkcijas, cenas un biežāk uzdotie jautājumi.
+- **Dizains** — smaragda un piparmētru krāsas, divas tēmas: tumšā „Nakts” (pēc noklusējuma) un „Gaišā” ar silti pelēcīgu fonu; slēdzis ar mēness un saules ikonām. Teksta kontrasts abās tēmās atbilst WCAG AA. Sākumlapā ritināms „Tavs ceļš līdz eksāmenam”, funkcijas, cenas un biežāk uzdotie jautājumi. Sākumlapa `/` ir paredzēta apmeklētājiem bez konta; pieslēgts lietotājs no `/` uzreiz nonāk panelī, bet to pašu informāciju var atvērt lapā `/par` („Par Study Pilot” lietotnes kājenē).
 - **Konti** — reģistrācija, pieslēgšanās, paroles maiņa, paroles atjaunošana un e-pasta apstiprināšana (ieslēdzas ar e-pasta atslēgu), konta dzēšana.
 - **Valsts eksāmeni** — VIAA eksāmeni 9. un 12. klasei (2023–2026; latviešu, angļu, matemātika, 9. kl. dabaszinātņu paraugs) pa priekšmetiem, līmeņiem un gadiem:
   - **Treniņš** — testa jautājumu pārbaude uzreiz, atvērtajiem uzdevumiem atbildes paraugs un mājieni no AI skolotāja.

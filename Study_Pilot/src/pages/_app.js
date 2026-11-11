@@ -17,7 +17,7 @@ const display = Fraunces({ subsets: ['latin', 'latin-ext'], weight: ['500', '600
 const mono = JetBrains_Mono({ subsets: ['latin', 'latin-ext'], weight: ['500', '700', '800'], variable: '--font-mono', display: 'swap' });
 
 // Lapas bez kopīgā rāmja (navigācijas)
-const NO_CHROME = ['/', '/login', '/register', '/privacy', '/terms', '/focus', '/forgot', '/reset', '/verify', '/404', '/500'];
+const NO_CHROME = ['/', '/par', '/login', '/register', '/privacy', '/terms', '/focus', '/forgot', '/reset', '/verify', '/404', '/500'];
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
