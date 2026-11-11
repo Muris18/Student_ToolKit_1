@@ -110,7 +110,7 @@ export default function AiTutorChat({ draft = '' }) {
               <p>
                 AI atbildes ģenerē <strong>DeepSeek</strong>, kas datus apstrādā <strong>ārpus Eiropas Savienības (Ķīnā)</strong>,
                 kur datu aizsardzība var būt vājāka nekā ES. Uz turieni tiek nosūtīts tavs jautājums un pēdējās 6 čata ziņas,
-                bet Testa režīmā, kad AI veido testu, eksāmenu uzdevumi, kuros kļūdījies.
+                Testa režīmā eksāmenu uzdevumi, kuros kļūdījies, bet Pārbaudes darbos tēma un tavas piezīmes.
                 Tavs vārds, e-pasts un skola netiek sūtīti.
               </p>
               <p><strong>Neraksti čatā savus personas datus</strong> (vārdu, adresi, tālruni u.c.).</p>

@@ -170,6 +170,11 @@ export async function askDeepSeek(messages, { maxTokens = 900, temperature = 0.2
     return { reply, usage: json.usage, model };
   } catch (err) {
     if (err.name === 'AbortError') { const e = new Error('AI atbildēja pārāk ilgi'); e.code = 'UPSTREAM'; throw e; }
+    // Tīkla kļūda (nav savienojuma, TLS/sertifikāts u.c.): "fetch failed" -> lietotājam "AI nav pieejams", nevis "Servera kļūda"
+    if (!err.code && err.name === 'TypeError') {
+      console.error('DeepSeek nav sasniedzams:', err.cause?.code || err.message);
+      const e = new Error('AI pakalpojums nav sasniedzams'); e.code = 'UPSTREAM'; throw e;
+    }
     throw err;
   } finally {
     clearTimeout(timer);

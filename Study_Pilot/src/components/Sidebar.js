@@ -9,6 +9,7 @@ export const menuItems = [
   { name: 'Vadības panelis', href: '/dashboard', icon: 'dashboard' },
   { name: 'Fokusa režīms', href: '/focus', icon: 'bolt' },
   { name: 'Plānotājs un termiņi', href: '/planner', icon: 'calendar' },
+  { name: 'Pārbaudes darbi', href: '/parbaudes', icon: 'doc' },
   {
     name: 'Eksāmenu sagatavošanās', href: '/exams', icon: 'book',
     children: [

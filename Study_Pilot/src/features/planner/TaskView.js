@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import { EmptyState } from '../../components/AppShell';
@@ -63,6 +64,9 @@ export default function TaskView({ onAddNewTask, onEditTask }) {
                       </span>
                     </div>
                   </label>
+                  {task.type === 'Pārbaudes darbs' && !isDone && (
+                    <Link href={{ pathname: '/parbaudes', query: { id: task.id } }} className="text-xs font-semibold text-accent hover:underline shrink-0">Mācīties →</Link>
+                  )}
                   <div className="flex gap-1 shrink-0 opacity-100 desktop:opacity-0 desktop:group-hover:opacity-100 transition-opacity">
                     <button type="button" onClick={() => onEditTask && onEditTask(task)} className="text-xs text-slate-400 hover:text-slate-800 px-2 py-1 rounded-lg hover:bg-slate-100 cursor-pointer" aria-label="Labot">✎</button>
                     <button type="button" onClick={() => remove(task.id)} className="text-xs text-slate-400 hover:text-rose-600 px-2 py-1 rounded-lg hover:bg-rose-50 cursor-pointer" aria-label="Dzēst">✕</button>

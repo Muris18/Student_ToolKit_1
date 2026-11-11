@@ -31,6 +31,7 @@ Pats lietotnes kods atrodas mapē [`Study_Pilot/`](Study_Pilot/). Lokālā izstr
   - **Treniņš** — testa jautājumu pārbaude uzreiz, atvērtajiem uzdevumiem atbildes paraugs un mājieni no AI skolotāja.
   - **Simulācija** — viss eksāmens ar taimeri (45/90/120/180 min vai bez laika), bez mājieniem. Beigās testa jautājumus pārbauda serveris, atvērtos skolēns novērtē pats pēc parauga. Rezultāts: punkti, procenti, laiks un sadalījums pa tēmām.
 - **Testa režīms** — testus veido no skolēna kļūdām: AI izveido jaunus jautājumus tajās pašās tēmās vai, ja AI nav pieejams, tests tiek sastādīts no īstiem VIAA uzdevumiem. Ja kļūdu vēl nav, diagnostikas tests.
+- **Pārbaudes darbi** — kārtējiem kontroldarbiem jebkurā priekšmetā. Skolēns ieraksta tēmu, datumu un, ja grib, savas piezīmes. AI no tām un no atrastajiem Vikipēdijas rakstiem sagatavo konspektu, kartītes (3 kastīšu atkārtošana) un testu, un lapa parāda plānu līdz datumam. Pārbaudes darbs ir arī plānotājā (tips „Pārbaudes darbs”, saite „Mācīties →”).
 - **AI skolotājs** — mājieni pa solim, līdzīgu eksāmenu uzdevumu meklēšana, formulas ar KaTeX.
 - **Progress** — tēmu karte (katrai tēmai pareizo atbilžu īpatsvars un cik uzdevumu izmēģināts, ieteikums, ar ko sākt), simulāciju vēsture, aktivitāte un progress pa priekšmetiem.
 - **Panelis, plānotājs, termiņu radars, fokusa režīms, savi uzdevumi un testi.**
@@ -119,6 +120,7 @@ Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, pala
 | Līmenis (klase/kurss), klase vai kurss, skola, programma | `users.profile` | Saturs pielāgots klasei; AI meklē attiecīgās klases eksāmenus |
 | Priekšmeti, termiņi, uzdevumi, testi, testu rezultāti | `users.data` | Plānotāja, eksāmenu un testu darbība |
 | Testa režīma testi, ko izveidoja sistēma (pēdējie 20) | `users.data.aiQuizzes` | Testa atkārtošana |
+| Pārbaudes darbu tēma, piezīmes un AI materiāli (konspekts, kartītes, tests, avotu saites, plāna atzīmes) | `users.data.tasks[].study` | Sadaļa „Pārbaudes darbi” |
 | AI čata vēsture (lietotāja jautājumi un AI atbildes) | `users.data.chat` | Čata vēsture lietotājam |
 | Aktivitātes dienas | `users.data.activity` | Progresa pārskats |
 | Konta loma un plāns (`user`/`admin`, `free`/`premium`) | `users.role`, `users.plan` | Piekļuve un AI limiti |
@@ -142,7 +144,8 @@ Sīkdatnes, analītika, reklāmas un trešo pušu skripti **netiek** izmantoti.
 
 **Trešās puses, kas saņem datus:**
 
-- **DeepSeek** — tikai pēc lietotāja piekrišanas. AI skolotājam tas saņem jautājumu, pēdējās 6 čata ziņas un atrastos eksāmenu uzdevumus. Testa režīmā tas saņem priekšmetu, klasi un eksāmenu uzdevumus, kuros skolēns kļūdījās. Vārds, e-pasts un skola netiek sūtīti. DeepSeek apstrādā datus ārpus Eiropas Savienības.
+- **DeepSeek** — tikai pēc lietotāja piekrišanas. AI skolotājam tas saņem jautājumu, pēdējās 6 čata ziņas un atrastos eksāmenu uzdevumus. Testa režīmā tas saņem priekšmetu, klasi un eksāmenu uzdevumus, kuros skolēns kļūdījās. Pārbaudes darbiem tas saņem priekšmetu, klasi, tēmu, skolēna piezīmes un Vikipēdijas fragmentus. Vārds, e-pasts un skola netiek sūtīti. DeepSeek apstrādā datus ārpus Eiropas Savienības.
+- **Vikipēdija** (Wikimedia) — serveris meklē rakstus pēc pārbaudes darba tēmas. Tiek sūtīts tikai tēmas teksts, bez lietotāja datiem un ne no lietotāja pārlūka.
 - **Hetzner** — servera nodrošinātājs; uz tā glabājas datubāze.
 - **Stripe** — tikai, ja pērk Premium: e-pasts un maksājuma dati (kartes datus saņem tikai Stripe).
 - **Brevo / Resend** — tikai, ja ieslēgta e-pasta sūtīšana: e-pasts un vēstules saturs.
