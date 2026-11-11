@@ -108,7 +108,7 @@ function mistakeBlock(m, i) {
   return `[${i + 1}] ${m.topic || ''} (iepriekšējā testa jautājums)\nJautājums: ${cut(m.question, 500)}\nVarianti: ${(m.options || []).map((o, j) => `${String.fromCharCode(65 + j)}) ${cut(o, 120)}`).join('; ')}\nPareizā atbilde: ${String.fromCharCode(65 + (m.correctIndex || 0))}`;
 }
 
-function validQuestion(q) {
+export function validQuestion(q) {
   if (!q || typeof q.question !== 'string' || q.question.trim().length < 5) return null;
   if (!Array.isArray(q.options) || q.options.length < 2 || q.options.length > 6) return null;
   const options = q.options.map((o) => String(o ?? '').trim());

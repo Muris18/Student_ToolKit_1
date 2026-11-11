@@ -150,7 +150,8 @@ export default function QuizMode() {
   );
 }
 
-function QuizPlayer({ quiz, onExit }) {
+// Izmanto arī Pārbaudes darbu sadaļa (features/study/StudyTests.js)
+export function QuizPlayer({ quiz, onExit }) {
   const { data, update } = useApp();
   const questions = quiz.questions;
   const auto = Boolean(quiz.subject);
