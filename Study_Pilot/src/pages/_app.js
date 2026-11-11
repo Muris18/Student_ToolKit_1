@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { Instrument_Sans, Fraunces, JetBrains_Mono } from 'next/font/google';
 import { applyDevice } from '../lib/device';
 import { AppProvider } from '../lib/AppContext';
+import { FocusProvider } from '../lib/FocusContext';
 import Navbar from '../components/Navbar';
 import CompletionFeedback from '../components/CompletionFeedback';
 import Sidebar from '../components/Sidebar';
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps }) {
   const chrome = !NO_CHROME.includes(router.pathname);
   return (
     <AppProvider>
+      <FocusProvider>
       <Head><title>Study Pilot — AI skolotājs eksāmeniem</title></Head>
       <CompletionFeedback />
       <div className={`min-h-screen flex flex-col ${sans.variable} ${display.variable} ${mono.variable}`} style={{ fontFamily: 'var(--font-sans), system-ui, sans-serif' }}>
@@ -47,6 +49,7 @@ export default function App({ Component, pageProps }) {
           <div className="flex-1 flex flex-col"><Component {...pageProps} /></div>
         )}
       </div>
+      </FocusProvider>
     </AppProvider>
   );
 }

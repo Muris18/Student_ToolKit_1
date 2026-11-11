@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ThemeSwitcher from './ThemeSwitcher';
+import FocusPill from './FocusPill';
 import Button from './Button';
 import Icon from './Icon';
 import Brand from './Brand';
@@ -23,12 +24,14 @@ export default function Navbar({ app = true }) {
   const initials = (name || 'SP').split(' ').map((x) => x[0]).slice(0, 2).join('').toUpperCase();
 
   return (
+    <>
     <header className="sticky top-0 z-40 glass border-b border-slate-200">
       <div className="h-16 flex items-stretch">
         <div className={`flex items-center px-4 md:px-6 ${app ? 'desktop:w-64 desktop:shrink-0 desktop:border-r desktop:border-slate-200' : ''}`}>
           <Brand href={app ? '/dashboard' : '/'} />
         </div>
         <div className="flex-1 min-w-0 px-4 md:px-8 flex items-center justify-end gap-3">
+          <FocusPill />
           <ThemeSwitcher />
           {user && pathname === '/' && <Button variant="secondary" onClick={() => router.push('/dashboard')} className="hidden sm:flex text-xs py-2 px-3">Mans panelis</Button>}
           {!user && pathname !== '/login' && pathname !== '/register' && <Button variant="secondary" onClick={() => router.push('/login')} className="text-xs py-2 px-3">Pieslēgties</Button>}
@@ -44,7 +47,8 @@ export default function Navbar({ app = true }) {
           {user && <Button variant="secondary" onClick={logout} className="text-xs py-2 px-3">Iziet</Button>}
         </div>
       </div>
-      {/* Mobilā apakšējā tab josla */}
+    </header>
+    {/* Mobilā apakšējā tab josla. Ārpus <header>, jo header ir ar backdrop-filter (glass), kas fiksētu elementu "pieliek" headerim un josla nonāktu augšā */}
       <nav className={`${app ? 'hidden mobile:grid' : 'hidden'} fixed bottom-0 inset-x-0 z-40 glass border-t border-slate-200 grid grid-cols-6 px-1 pt-2`} style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 8px)' }}>
         {flatMenu.filter((i) => tabs.includes(i.href)).map((item) => (
           <Link key={item.href} href={item.href} className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl text-[10px] font-semibold transition-all active:scale-95 ${isActive(item.href) ? 'text-accent' : 'text-slate-400'}`}>
@@ -53,6 +57,6 @@ export default function Navbar({ app = true }) {
           </Link>
         ))}
       </nav>
-    </header>
+    </>
   );
 }

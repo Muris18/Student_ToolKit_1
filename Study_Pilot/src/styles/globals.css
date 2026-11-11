@@ -491,3 +491,8 @@ button.border-emerald-500 { animation: okPop .6s; }
 main h1 { letter-spacing: -.035em !important; }
 .pilot-card { border-radius: 1.375rem; }
 @media (hover: hover) { .pilot-card:hover { border-color: rgb(var(--acc) / .35); } }
+
+/* Šaurā ekrānā, kamēr rādās fokusa taimeris augšējā joslā, logotipam paliek tikai ikona (uzraksts "study pilot" paslēpts) */
+@media (max-width: 480px) {
+  header:has(.sp-focus-pill) a[aria-label='Study Pilot'] > span:last-child { display: none; }
+}
