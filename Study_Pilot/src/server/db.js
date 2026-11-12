@@ -195,6 +195,42 @@ export async function saveData(id, data, version) {
   );
   return rows[0] ? rows[0].data_version : null;
 }
+// Eksāmenu mēģinājumi glabājas tabulā exam_attempts (viens ieraksts uz uzdevumu). Klients tos joprojām redz kā data.examAttempts.
+const MAX_ATTEMPTS = 2000;
+export async function getAttempts(userId) {
+  const { rows } = await pool.query('SELECT task_id, correct, at FROM exam_attempts WHERE user_id = $1 ORDER BY at', [userId]);
+  return rows.map((r) => ({ taskId: r.task_id, correct: r.correct, at: r.at.toISOString() }));
+}
+// Datu objekts ar mēģinājumiem no tabulas (aizstāj vecos no users.data)
+export async function dataWithAttempts(user) {
+  return { ...user.data, examAttempts: await getAttempts(user.id) };
+}
+// Apvieno klienta mēģinājumus ar tabulu: uzvar jaunākais `at`, nekas netiek dzēsts (novecojis klients nevar izdzēst citu ierīču mēģinājumus)
+export async function syncAttempts(userId, list) {
+  const valid = new Map();
+  for (const a of Array.isArray(list) ? list : []) {
+    const id = Number(a?.taskId);
+    const at = new Date(a?.at);
+    if (!Number.isInteger(id) || id < 0 || id > 2147483647 || typeof a.correct !== 'boolean' || Number.isNaN(at.getTime())) continue;
+    const prev = valid.get(id);
+    if (!prev || at > prev.at) valid.set(id, { id, correct: a.correct, at });
+  }
+  if (!valid.size) return;
+  const have = new Map((await pool.query('SELECT task_id, correct, at FROM exam_attempts WHERE user_id = $1', [userId])).rows.map((r) => [r.task_id, r]));
+  const changed = [...valid.values()].filter((v) => { const h = have.get(v.id); return !h || v.at > h.at || (+v.at === +h.at && v.correct !== h.correct); });
+  if (!changed.length) return;
+  await pool.query(
+    `INSERT INTO exam_attempts (user_id, task_id, correct, at)
+     SELECT $1, t, c, a FROM unnest($2::int[], $3::boolean[], $4::timestamptz[]) AS x(t, c, a)
+     ON CONFLICT (user_id, task_id) DO UPDATE SET correct = EXCLUDED.correct, at = EXCLUDED.at WHERE EXCLUDED.at >= exam_attempts.at`,
+    [userId, changed.map((v) => v.id), changed.map((v) => v.correct), changed.map((v) => v.at)]
+  );
+  // Atstāj jaunākos MAX_ATTEMPTS
+  await pool.query(
+    `DELETE FROM exam_attempts WHERE user_id = $1 AND task_id NOT IN (SELECT task_id FROM exam_attempts WHERE user_id = $1 ORDER BY at DESC LIMIT $2)`,
+    [userId, MAX_ATTEMPTS]
+  );
+}
 export async function currentDataVersion(id) {
   const { rows } = await pool.query('SELECT data_version FROM users WHERE id = $1', [id]);
   return rows[0]?.data_version ?? 0;
@@ -231,7 +267,7 @@ export async function exportUser(user) {
       aiConsentAt: user.aiConsentAt,
     },
     profile: user.profile,
-    data: user.data,
+    data: await dataWithAttempts(user),
     aiUsage: usage.rows,
     sessions: sessions.rows,
   };
