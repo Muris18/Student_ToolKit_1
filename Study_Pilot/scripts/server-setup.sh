@@ -41,6 +41,45 @@ ufw allow 443/tcp >/dev/null
 ufw --force enable >/dev/null
 ok "Ugunsmūris ieslēgts"
 
+say "3b/7 SSH nostiprināšana (fail2ban un paroles pieteikšanās)"
+# fail2ban: noklusējuma SSH jail (Ubuntu to ieslēdz pēc noklusējuma) bloķē IP adreses ar daudziem nepareiziem mēģinājumiem
+if apt-get install -y -qq fail2ban >/dev/null 2>&1 && systemctl enable --now fail2ban >/dev/null 2>&1; then
+  ok "fail2ban ieslēgts"
+else
+  warn "fail2ban neizdevās uzstādīt (turpinu bez tā)"
+fi
+
+# SSH paroles pieteikšanos izslēdz TIKAI tad, ja serverī jau ir vismaz viena SSH atslēga (root vai sudo lietotājam).
+# Citādi neko nemaina, jo tā var sevi izslēgt no servera.
+harden_ssh() {
+  local conf=/etc/ssh/sshd_config.d/99-studypilot.conf f home has_key=0
+  home="$(getent passwd "${SUDO_USER:-root}" | cut -d: -f6 || true)"
+  for f in /root/.ssh/authorized_keys "${home:+$home/.ssh/authorized_keys}"; do
+    [ -n "$f" ] && [ -s "$f" ] || continue
+    # derīga rinda: nav komentārs un satur atslēgas veidu (ssh-ed25519, ssh-rsa, ecdsa-sha2-*, sk-*)
+    if grep -Ev '^[[:space:]]*(#|$)' "$f" | grep -Eq '(^|[[:space:]])(ssh-(rsa|ed25519|dss)|ecdsa-sha2-[a-z0-9]+|sk-[a-z0-9@.-]+) '; then has_key=1; fi
+  done
+  if [ "$has_key" -ne 1 ]; then
+    warn "Serverī nav nevienas SSH atslēgas (/root/.ssh/authorized_keys vai sudo lietotāja), tāpēc SSH paroles pieteikšanos NEIZSLĒDZU."
+    warn "Pievieno atslēgu (ssh-copy-id), pārbaudi, ka ieej ar to, un palaid šo skriptu vēlreiz."
+    return 0
+  fi
+  mkdir -p /etc/ssh/sshd_config.d
+  printf '# Study Pilot: tikai SSH atslēgas (skat. scripts/server-setup.sh)\nPasswordAuthentication no\nPermitRootLogin prohibit-password\n' > "$conf"
+  if sshd -t 2>/dev/null; then
+    systemctl reload ssh >/dev/null 2>&1 || systemctl reload sshd >/dev/null 2>&1 || true
+    if sshd -T 2>/dev/null | grep -qi '^passwordauthentication no'; then
+      ok "SSH paroles pieteikšanās izslēgta (tikai atslēgas)"
+    else
+      warn "Ierakstīju $conf, bet sshd joprojām atļauj paroles (kāds cits fails to pārraksta). Pārbaudi: grep -ri passwordauthentication /etc/ssh/sshd_config /etc/ssh/sshd_config.d/"
+    fi
+  else
+    rm -f "$conf"  # konfigurācija nederīga: izmaiņas atceltas, sshd nepārlādēts
+    warn "sshd -t atrada kļūdu: SSH izmaiņas atceltas, pieteikšanās netiek mainīta"
+  fi
+}
+harden_ssh
+
 # Next.js būvēšanai vajag atmiņu: ja RAM < 3 GB un nav swap, izveidojam 2 GB swap
 if [ "$(free -m | awk '/Mem:/{print $2}')" -lt 3000 ] && [ "$(swapon --show | wc -l)" -eq 0 ]; then
   fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile >/dev/null && swapon /swapfile

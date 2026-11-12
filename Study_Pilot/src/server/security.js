@@ -11,7 +11,10 @@ export function clientIp(req) {
 // Pieslēgšanās limits (nav pārāk stingrs):
 // - 5 nepareizas paroles vienam e-pastam 15 minūtēs -> šim e-pastam pauze līdz 15 min
 // - 30 nepareizas paroles no vienas IP 15 minūtēs -> šai IP pauze (aizsardzība pret minēšanu daudziem kontiem)
-export const LOGIN_LIMITS = { perEmail: 5, perIp: 30, windowMin: 15 };
+// perIp ir konfigurējams (LOGIN_LIMIT_PER_IP, noklusējums 100): vienā skolā visi skolēni sēž aiz vienas IP adreses (skolas Wi-Fi),
+// tāpēc stingrs IP limits bloķētu veselu klasi. perEmail paliek stingrs (5), jo tas aizsargā konkrētu kontu.
+const envInt = (name, def) => { const n = parseInt(process.env[name], 10); return n > 0 ? n : def; };
+export const LOGIN_LIMITS = { perEmail: 5, perIp: envInt('LOGIN_LIMIT_PER_IP', 100), windowMin: 15 };
 
 export async function loginBlockedFor(email, ip) {
   const { rows } = await query(

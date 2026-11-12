@@ -30,8 +30,10 @@ export default async function handler(req, res) {
     let quiz = null;
     let notice = await aiBlocker(user);
     // Vieta AI limitā tiek rezervēta pirms DeepSeek izsaukuma (paralēli pieprasījumi nevar pārsniegt limitu)
-    const slot = notice ? null : await reserveUsage(user.id, limitFor(user.plan));
-    if (!notice && !slot) notice = 'Šodienas AI limits ir izmantots, tāpēc tests sastādīts no īstiem VIAA uzdevumiem.';
+    let slot = notice ? null : await reserveUsage(user.id, limitFor(user.plan));
+    // Globālais AI limits: šeit ir rezerves variants bez AI (īsti VIAA uzdevumi), tāpēc 503 vietā tests tiek sastādīts bez AI
+    if (slot?.globalLimit) { notice = 'AI šodien ir sasniedzis kopējo dienas limitu, tāpēc tests sastādīts no īstiem VIAA uzdevumiem.'; slot = null; }
+    else if (!notice && !slot) notice = 'Šodienas AI limits ir izmantots, tāpēc tests sastādīts no īstiem VIAA uzdevumiem.';
     const aiOk = Boolean(slot);
     if (slot) {
       try {

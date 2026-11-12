@@ -1,6 +1,7 @@
 import { db, query } from '../../../server/db';
 import { allow, requireAdmin } from '../../../server/http';
 import { emailEnabled } from '../../../server/email';
+import { globalLimit, RIGA_DAY } from '../../../server/ai';
 import { stripeEnabled } from '../../../server/stripe';
 
 // Kopsavilkums administratoram: lietotāji, Premium, AI lietojums un izmaksas, sistēmas stāvoklis
@@ -17,6 +18,8 @@ export default async function handler(req, res) {
             count(*) FILTER (WHERE blocked_at IS NOT NULL)::int AS blocked
      FROM users`
   )).rows[0];
+  // Šodienas (Rīgas diena) kopējais AI lietojums pret globālo limitu
+  const aiToday = (await query(`SELECT count(*)::int AS n FROM ai_usage WHERE created_at >= ${RIGA_DAY}`)).rows[0].n;
   const a = (await query(
     `SELECT count(*) FILTER (WHERE created_at > now() - interval '1 day')::int AS today,
             count(*)::int AS month,
@@ -36,7 +39,7 @@ export default async function handler(req, res) {
   res.status(200).json({
     startedAt: db.startedAt,
     users: u,
-    ai: { today: a.today, month: a.month, tokensIn: Number(a.tin), tokensOut: Number(a.tout), costMonth: cost, daily, keySet: Boolean(process.env.DEEPSEEK_API_KEY) },
+    ai: { today: a.today, todayRiga: aiToday, globalLimit: globalLimit(), month: a.month, tokensIn: Number(a.tin), tokensOut: Number(a.tout), costMonth: cost, daily, keySet: Boolean(process.env.DEEPSEEK_API_KEY) },
     exams,
     features: { email: emailEnabled(), payments: stripeEnabled(), webhook: Boolean(process.env.STRIPE_WEBHOOK_SECRET) },
   });
