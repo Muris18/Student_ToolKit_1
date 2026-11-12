@@ -3,6 +3,7 @@
 import crypto from 'crypto';
 import { Pool } from 'pg';
 import { newSalt, hashPassword, checkPassword, passwordProblem } from '../lib/password';
+import { readCookie } from './cookies';
 
 // Paroles funkcijas dzīvo lib/password.js (testējamas bez datubāzes); šeit atkārtoti eksportētas esošajiem izsaucējiem
 export { checkPassword, passwordProblem };
@@ -171,9 +172,13 @@ export async function createSession(userId) {
 }
 
 export async function userFromReq(req) {
+  // Sesija nāk no HttpOnly sīkdatnes; Bearer žetons tiek pieņemts tikai vecajām sesijām (localStorage), kuras lietotne pārceļ uz sīkdatni
   const h = req.headers.authorization || '';
-  const token = h.startsWith('Bearer ') ? h.slice(7) : null;
-  if (!token) return { token: null, user: null };
+  const bearer = h.startsWith('Bearer ') ? h.slice(7) : null;
+  const cookie = readCookie(req);
+  const token = cookie || bearer;
+  const via = cookie ? 'cookie' : 'bearer';
+  if (!token) return { token: null, user: null, via: null };
   const { rows } = await pool.query(
     `UPDATE users SET last_active = now()
      WHERE id = (SELECT user_id FROM sessions WHERE token_hash = $1 AND expires_at > now())
@@ -181,7 +186,7 @@ export async function userFromReq(req) {
      RETURNING *`,
     [sha(token)]
   );
-  return { token, user: toUser(rows[0]) };
+  return { token, user: toUser(rows[0]), via };
 }
 
 export const deleteSession = (token) => pool.query('DELETE FROM sessions WHERE token_hash = $1', [sha(token)]);

@@ -80,6 +80,8 @@ Noklusējums ir 1500 AI pieprasījumi dienā (Rīgas diena). Sasniedzot limitu, 
 
 IP limiti (vienā skolā visi sēž aiz vienas IP adreses, tāpēc tie ir mīkstāki): `REGISTER_LIMIT_PER_HOUR` (noklusējums 40 reģistrācijas stundā no vienas IP) un `LOGIN_LIMIT_PER_IP` (noklusējums 100 nepareizi mēģinājumi 15 minūtēs). Ierobežojums vienam e-pastam (5 mēģinājumi) nemainās.
 
+Sesija glabājas HttpOnly sīkdatnē `sp_session` (SameSite=Lax, serverī ar Secure, jo vietne strādā caur HTTPS), nevis pārlūka localStorage. Pieprasījumiem, kas maina datus, serveris pārbauda `Origin` (CSRF aizsardzība). Ja lokāli pārbaudi produkcijas režīmu bez HTTPS un Safari nesaglabā sesiju, iestati `COOKIE_SECURE=0` (serverī to nedari). Ienākot ar veco sesiju no localStorage, tā automātiski tiek pārcelta uz sīkdatni.
+
 ### E-pasta apstiprināšana un paroles atjaunošana (Brevo, bezmaksas 300 e-pasti dienā)
 1. [brevo.com](https://www.brevo.com) → reģistrējies.
 2. **Senders, Domains & Dedicated IPs → Domains → Add a domain** → `studypilot.lv`. Brevo parādīs DNS ierakstus (TXT/CNAME) — ieliec tos domēna reģistratorā. Tas vajadzīgs, lai e-pasti nenonāk mēstulēs.

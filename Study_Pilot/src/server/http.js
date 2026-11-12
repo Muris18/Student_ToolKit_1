@@ -1,4 +1,5 @@
 import { userFromReq, db, maybeCleanup } from './db';
+import { clearSessionCookie, setSessionCookie, sameOrigin } from './cookies';
 
 export function allow(req, res, methods) {
   if (methods.includes(req.method)) return true;
@@ -10,11 +11,20 @@ export function allow(req, res, methods) {
 // Atgriež lietotāju vai nosūta 401 un atgriež null
 export async function requireUser(req, res) {
   maybeCleanup(); // beigušās sesijas un neaktīvie konti, ne biežāk kā reizi 6 h
-  const { user } = await userFromReq(req);
+  const { user, token, via } = await userFromReq(req);
   if (!user) {
+    // Nederīga sīkdatne tiek notīrīta, lai pārlūks to vairs nesūta
+    if (via === 'cookie') clearSessionCookie(res);
     res.status(401).json({ error: 'Nav pieslēgts', bootId: db.bootId });
     return null;
   }
+  // CSRF: pieprasījumi ar sīkdatni, kas maina datus, drīkst nākt tikai no šīs pašas vietnes
+  if (via === 'cookie' && !sameOrigin(req)) {
+    res.status(403).json({ error: 'Pieprasījums noraidīts (cits izcelsmes avots)', code: 'CSRF' });
+    return null;
+  }
+  // Vecā sesija no localStorage (Bearer): pārceļ uz HttpOnly sīkdatni; lietotne pēc tam izdzēš žetonu no pārlūka
+  if (via === 'bearer' && req.method === 'GET') setSessionCookie(res, token);
   return user;
 }
 
