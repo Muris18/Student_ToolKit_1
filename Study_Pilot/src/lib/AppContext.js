@@ -45,6 +45,9 @@ export function AppProvider({ children }) {
   const tokenRef = useRef(null);
   const saveTimer = useRef(null);
   const pending = useRef(null);
+  const versionRef = useRef(0); // datu versija, ko pēdējo reizi apstiprināja serveris
+  const saving = useRef(false); // vienlaicīgi ceļā tikai viens saglabāšanas pieprasījums
+  const flushRef = useRef(null);
 
   const signOutLocal = useCallback((msg = '') => {
     tokenRef.current = null;
@@ -64,6 +67,7 @@ export function AppProvider({ children }) {
         tokenRef.current = s.token;
         setUser(r.user);
         setData(withDefaults(r.data));
+        versionRef.current = r.dataVersion ?? 0;
         setStatus('ready');
       })
       .catch((e) => {
@@ -71,21 +75,46 @@ export function AppProvider({ children }) {
       });
   }, [signOutLocal]);
 
-  const flush = useCallback(() => {
-    clearTimeout(saveTimer.current);
-    if (!pending.current || !tokenRef.current) return;
-    const body = { data: pending.current };
+  // Dati tika saglabāti citā ierīcē/cilnē (409 STALE_DATA): ielādē jaunāko versiju no servera.
+  // Šīs ierīces nesaglabātās izmaiņas tiek atmestas, un lietotājs par to tiek informēts.
+  const reloadLatest = useCallback(async () => {
     pending.current = null;
-    call('/api/me/data', { method: 'PUT', body, token: tokenRef.current })
-      .then(() => setSaveError(''))
-      .catch((e) => {
-        if (e.status === 401) signOutLocal('Sesija beigusies. Lūdzu, pieslēdzies vēlreiz.');
-        else setSaveError(e.message || 'Izmaiņas neizdevās saglabāt');
-      });
+    clearTimeout(saveTimer.current);
+    try {
+      const r = await call('/api/me', { token: tokenRef.current });
+      setUser(r.user);
+      setData(withDefaults(r.data));
+      versionRef.current = r.dataVersion ?? 0;
+      setSaveError('Dati tika atjaunināti citā ierīcē; pārlādēju jaunāko versiju. Pēdējās izmaiņas šajā ierīcē netika saglabātas.');
+    } catch (e) {
+      if (e.status === 401) signOutLocal('Sesija beigusies. Lūdzu, pieslēdzies vēlreiz.');
+      else setSaveError(e.message || 'Izmaiņas neizdevās saglabāt');
+    }
   }, [signOutLocal]);
 
+  // Saglabāšana pa vienam pieprasījumam: nākamais gaida, kamēr iepriekšējais pabeigts un versija atjaunota,
+  // tāpēc divi ātri secīgi saglabājumi no vienas cilnes neizraisa viltus konfliktu.
+  // force: lapas aizvēršana. Sūta arī tad, ja iepriekšējais vēl ceļā (tā versija tad būs par 1 lielāka).
+  const flush = useCallback(({ force = false } = {}) => {
+    clearTimeout(saveTimer.current);
+    if (!pending.current || !tokenRef.current) return;
+    if (saving.current && !force) return; // iepriekšējam beidzoties, nosūtīs atkal (skat. finally)
+    const body = { data: pending.current, version: versionRef.current + (force && saving.current ? 1 : 0) };
+    pending.current = null;
+    saving.current = true;
+    call('/api/me/data', { method: 'PUT', body, token: tokenRef.current })
+      .then((r) => { versionRef.current = r.version; setSaveError(''); })
+      .catch(async (e) => {
+        if (e.status === 401) signOutLocal('Sesija beigusies. Lūdzu, pieslēdzies vēlreiz.');
+        else if (e.code === 'STALE_DATA') await reloadLatest();
+        else setSaveError(e.message || 'Izmaiņas neizdevās saglabāt');
+      })
+      .finally(() => { saving.current = false; if (pending.current) flushRef.current?.(); });
+  }, [signOutLocal, reloadLatest]);
+  flushRef.current = flush;
+
   useEffect(() => {
-    const onHide = () => flush();
+    const onHide = () => flush({ force: true });
     window.addEventListener('beforeunload', onHide);
     return () => window.removeEventListener('beforeunload', onHide);
   }, [flush]);
@@ -111,6 +140,7 @@ export function AppProvider({ children }) {
     writeSession({ token: r.token, bootId: r.bootId });
     setUser(r.user);
     setData(withDefaults(r.data));
+    versionRef.current = r.dataVersion ?? 0;
     setNotice('');
     setStatus('ready');
   };

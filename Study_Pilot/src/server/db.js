@@ -43,6 +43,7 @@ const toUser = (r) => r && ({
   plan: r.plan,
   profile: r.profile,
   data: r.data,
+  dataVersion: r.data_version ?? 0,
   createdAt: r.created_at.toISOString(),
   lastActive: r.last_active.toISOString(),
   termsAcceptedAt: r.terms_accepted_at ? r.terms_accepted_at.toISOString() : null,
@@ -186,7 +187,18 @@ export async function userFromReq(req) {
 export const deleteSession = (token) => pool.query('DELETE FROM sessions WHERE token_hash = $1', [sha(token)]);
 export const deleteUser = (id) => pool.query('DELETE FROM users WHERE id = $1', [id]);
 export const updateProfile = (id, profile) => pool.query('UPDATE users SET profile = $2 WHERE id = $1', [id, profile]);
-export const saveData = (id, data) => pool.query('UPDATE users SET data = $2 WHERE id = $1', [id, data]);
+// Saglabā datus tikai tad, ja versija sakrīt (atomāri, vienā UPDATE): atgriež jauno versiju vai null, ja versija ir novecojusi
+export async function saveData(id, data, version) {
+  const { rows } = await pool.query(
+    'UPDATE users SET data = $2, data_version = data_version + 1 WHERE id = $1 AND data_version = $3 RETURNING data_version',
+    [id, data, version]
+  );
+  return rows[0] ? rows[0].data_version : null;
+}
+export async function currentDataVersion(id) {
+  const { rows } = await pool.query('SELECT data_version FROM users WHERE id = $1', [id]);
+  return rows[0]?.data_version ?? 0;
+}
 // AI piekrišana (datu nosūtīšana uz DeepSeek). true -> saglabā laiku, false -> atsauc.
 export async function setAiConsent(id, given) {
   const { rows } = await pool.query(

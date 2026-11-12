@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   if (!user) return;
 
   if (req.method === 'GET') {
-    return res.status(200).json({ bootId: db.bootId, user: publicUser(user), data: user.data });
+    return res.status(200).json({ bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
   }
   if (req.method === 'PATCH') {
     const p = cleanProfile({ ...user.profile, ...(req.body?.profile || {}) });
