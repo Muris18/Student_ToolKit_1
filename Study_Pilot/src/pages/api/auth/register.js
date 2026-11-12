@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       }
     }
     const token = await createSession(user.id);
-    res.status(201).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data });
+    res.status(201).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
   } catch (error) {
     if (error.code === '23505') return res.status(409).json({ error: 'Šis e-pasts jau ir reģistrēts' });
     throw error;

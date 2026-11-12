@@ -1,4 +1,4 @@
-import { emptyData, saveData } from '../../../server/db';
+import { emptyData, saveData, currentDataVersion } from '../../../server/db';
 import { allow, requireUser } from '../../../server/http';
 import { FREE_LIMITS, isPremium } from '../../../lib/plans';
 
@@ -11,6 +11,11 @@ export default async function handler(req, res) {
   if (!user) return;
   const incoming = req.body?.data;
   if (!incoming || typeof incoming !== 'object') return res.status(400).json({ error: 'Trūkst datu' });
+  // Datu versija: klients sūta to versiju, kuru pēdējo reizi saņēma no servera (skat. 409 zemāk)
+  const version = req.body?.version;
+  if (!Number.isInteger(version) || version < 0) {
+    return res.status(400).json({ error: 'Lapa ir novecojusi. Pārlādē to un mēģini vēlreiz.', code: 'VERSION_REQUIRED' });
+  }
 
   const base = emptyData();
   const next = {};
@@ -24,6 +29,10 @@ export default async function handler(req, res) {
       }
     }
   }
-  await saveData(user.id, next);
-  res.status(200).json({ ok: true });
+  // Atomāri: saglabā tikai tad, ja versija sakrīt. Ja dati jau mainīti citā ierīcē/cilnē, 409 (nepārraksta jaunāko darbu).
+  const saved = await saveData(user.id, next, version);
+  if (saved === null) {
+    return res.status(409).json({ error: 'Dati tika atjaunināti citā ierīcē.', code: 'STALE_DATA', version: await currentDataVersion(user.id) });
+  }
+  res.status(200).json({ ok: true, version: saved });
 }

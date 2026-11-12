@@ -25,5 +25,5 @@ export default async function handler(req, res) {
   }
   await recordLogin(email, ip, true);
   const token = await createSession(user.id);
-  res.status(200).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data });
+  res.status(200).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
 }
