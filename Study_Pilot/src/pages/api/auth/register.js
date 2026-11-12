@@ -5,7 +5,9 @@ import { emailEnabled, sendVerifyEmail } from '../../../server/email';
 
 export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
-  if (limited(res, `register:${clientIp(req)}`, 10, 3600, 'Pārāk daudz jaunu kontu no šī tīkla. Pamēģini pēc stundas.')) return;
+  // REGISTER_LIMIT_PER_HOUR (noklusējums 40): vienā skolā visi skolēni reģistrējas no vienas IP adreses (skolas Wi-Fi)
+  const regLimit = parseInt(process.env.REGISTER_LIMIT_PER_HOUR, 10) > 0 ? parseInt(process.env.REGISTER_LIMIT_PER_HOUR, 10) : 40;
+  if (limited(res, `register:${clientIp(req)}`, regLimit, 3600, 'Pārāk daudz jaunu kontu no šī tīkla. Pamēģini pēc stundas.')) return;
   const { password, profile, ageConfirmed, acceptTerms } = req.body || {};
   if (ageConfirmed !== true) return res.status(400).json({ error: 'Study Pilot drīkst lietot tikai no 13 gadu vecuma' });
   if (acceptTerms !== true) return res.status(400).json({ error: 'Lai izveidotu kontu, jāpiekrīt lietošanas noteikumiem un jāizlasa privātuma politika' });

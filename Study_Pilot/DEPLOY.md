@@ -72,6 +72,14 @@ Admin panelī sadaļā **Pārskats → Sistēmas stāvoklis** redzi, kas ieslēg
 DEEPSEEK_API_KEY=sk-...
 ```
 
+**Izmaksu aizsardzība.** Papildus lietotāju dienas limitiem (10 / 100 jautājumi) ir **globāls dienas limits visai sistēmai**:
+```
+AI_DAILY_LIMIT_GLOBAL=1500
+```
+Noklusējums ir 1500 AI pieprasījumi dienā (Rīgas diena). Sasniedzot limitu, AI skolotājs un jauno materiālu sagatavošana atbild ar paziņojumu "Atgriezies rīt" (Testa režīms tad veido testus no VIAA uzdevumiem). `0` vai tukša vērtība (`AI_DAILY_LIMIT_GLOBAL=`) izslēdz limitu. Šodienas lietojumu redz administratora panelī.
+
+IP limiti (vienā skolā visi sēž aiz vienas IP adreses, tāpēc tie ir mīkstāki): `REGISTER_LIMIT_PER_HOUR` (noklusējums 40 reģistrācijas stundā no vienas IP) un `LOGIN_LIMIT_PER_IP` (noklusējums 100 nepareizi mēģinājumi 15 minūtēs). Ierobežojums vienam e-pastam (5 mēģinājumi) nemainās.
+
 ### E-pasta apstiprināšana un paroles atjaunošana (Brevo, bezmaksas 300 e-pasti dienā)
 1. [brevo.com](https://www.brevo.com) → reģistrējies.
 2. **Senders, Domains & Dedicated IPs → Domains → Add a domain** → `studypilot.lv`. Brevo parādīs DNS ierakstus (TXT/CNAME) — ieliec tos domēna reģistratorā. Tas vajadzīgs, lai e-pasti nenonāk mēstulēs.

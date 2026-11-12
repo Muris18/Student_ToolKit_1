@@ -1,6 +1,6 @@
 import { allow, requireUser } from '../../../server/http';
 import { emailEnabled } from '../../../server/email';
-import { findTasks, taskLabel, buildMessages, askDeepSeek, limitFor, reserveUsage, finishUsage, releaseUsage, signReply, verifyReply } from '../../../server/ai';
+import { findTasks, taskLabel, buildMessages, askDeepSeek, limitFor, reserveUsage, finishUsage, releaseUsage, signReply, verifyReply, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
 
 // POST { message, history?: [{ sender, text, sig? }] }
 // -> { reply, sig, sources: [string], remaining }
@@ -27,6 +27,7 @@ export default async function handler(req, res) {
 
   const limit = limitFor(user.plan);
   const slot = await reserveUsage(user.id, limit);
+  if (slot?.globalLimit) return res.status(503).json({ error: GLOBAL_LIMIT_MESSAGE, code: 'AI_GLOBAL_LIMIT' });
   if (!slot) {
     return res.status(429).json({
       error: `Šodienas AI jautājumu limits (${limit}) ir izmantots. Atgriezies rīt${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}.`,

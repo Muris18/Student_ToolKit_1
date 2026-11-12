@@ -1,7 +1,7 @@
 import { allow, requireUser } from '../../../server/http';
 import { limited } from '../../../server/security';
 import { emailEnabled } from '../../../server/email';
-import { limitFor, reserveUsage, finishUsage, releaseUsage } from '../../../server/ai';
+import { limitFor, reserveUsage, finishUsage, releaseUsage, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
 import { studyMaterials } from '../../../server/study';
 
 // POST { subject, topic, notes?, kind: 'all'|'quiz', previous?: [jautājumu teksti] }
@@ -26,6 +26,7 @@ export default async function handler(req, res) {
 
   const limit = limitFor(user.plan);
   const slot = await reserveUsage(user.id, limit);
+  if (slot?.globalLimit) return res.status(503).json({ error: GLOBAL_LIMIT_MESSAGE, code: 'AI_GLOBAL_LIMIT' });
   if (!slot) return res.status(429).json({ error: `Šodienas AI limits (${limit}) ir izmantots. Atgriezies rīt${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}.` });
 
   const p = user.profile || {};

@@ -1,9 +1,14 @@
-import { query, deleteUser, findById } from '../../../server/db';
+import crypto from 'crypto';
+import { query, deleteUser, findById, setPassword } from '../../../server/db';
 import { allow, requireAdmin } from '../../../server/http';
 import { cancelOnDelete } from '../../../server/stripe';
 
+// Pagaidu parole: kriptogrāfiski droša, bez viegli sajaucamiem simboliem (0/O, 1/l/I)
+const PW_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+const tempPassword = (len = 16) => Array.from({ length: len }, () => PW_ALPHABET[crypto.randomInt(PW_ALPHABET.length)]).join('');
+
 // GET    -> visi lietotāji ar plānu, stāvokli un AI lietojumu
-// PATCH  { id, plan?: 'free'|'premium', role?: 'user'|'admin', blocked?: boolean }
+// PATCH  { id, plan?: 'free'|'premium', role?: 'user'|'admin', blocked?: boolean } vai { id, resetPassword: true } (atgriež pagaidu paroli VIENU reizi)
 // DELETE { id } -> dzēst kontu (piem., pēc lietotāja pieprasījuma pa e-pastu)
 export default async function handler(req, res) {
   if (!allow(req, res, ['GET', 'PATCH', 'DELETE'])) return;
@@ -48,6 +53,17 @@ export default async function handler(req, res) {
     await cancelOnDelete(target);
     await deleteUser(target.id);
     return res.status(200).json({ ok: true });
+  }
+
+  // Paroles atiestatīšana (savu paroli šajā ceļā mainīt nevar: target.id !== admin.id pārbaudīts augstāk).
+  // setPassword izbeidz visas lietotāja sesijas. Parole netiek saglabāta un netiek ierakstīta žurnālā, tikai fakts.
+  if (req.body?.resetPassword === true) {
+    const password = tempPassword();
+    await setPassword(target.id, password);
+    await query('DELETE FROM login_attempts WHERE email = $1 AND NOT ok', [target.email]); // ja lietotājs bija bloķēts ar neveiksmīgiem mēģinājumiem
+    console.log(`Admin ${admin.id} atiestatīja paroli lietotājam ${target.id}`);
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(200).json({ ok: true, tempPassword: password });
   }
 
   const { plan, role, blocked } = req.body || {};

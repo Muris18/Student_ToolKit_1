@@ -49,7 +49,7 @@ function Overview() {
         <Stat label="Lietotāji" value={num(o.users.users)} note={`+${o.users.new_week} šonedēļ`} />
         <Stat label="Aktīvi" value={num(o.users.active_today)} note={`${o.users.active_week} pēdējās 7 dienās`} />
         <Stat label="Premium" value={num(o.users.premium)} note={`${o.users.paying} maksā caur Stripe`} />
-        <Stat label="AI jautājumi šodien" value={num(o.ai.today)} note={`${num(o.ai.month)} 30 dienās`} />
+        <Stat label="AI jautājumi šodien" value={o.ai.globalLimit ? `${num(o.ai.todayRiga)} / ${num(o.ai.globalLimit)}` : num(o.ai.todayRiga)} note={`${o.ai.globalLimit ? 'kopējais dienas limits' : 'bez kopējā limita'} · ${num(o.ai.month)} 30 dienās`} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         <Card title="AI lietojums" subtitle="Jautājumi dienā, pēdējās 14 dienas">
@@ -94,12 +94,15 @@ function Users() {
   const [error, setError] = useState('');
   const load = useCallback(() => api('/api/admin/users').then((r) => setUsers(r.users)).catch((e) => setError(e.message)), [api]);
   useEffect(() => { load(); }, [load]);
+  const [tempPw, setTempPw] = useState(null); // { email, password } — rāda vienu reizi, nekur netiek saglabāta
 
   const act = async (body, confirmText) => {
     if (confirmText && !window.confirm(confirmText)) return;
     setError('');
+    setTempPw(null);
     try {
-      await api('/api/admin/users', { method: body.delete ? 'DELETE' : 'PATCH', body });
+      const r = await api('/api/admin/users', { method: body.delete ? 'DELETE' : 'PATCH', body });
+      if (r?.tempPassword) setTempPw({ email: (users || []).find((x) => x.id === body.id)?.email || '', password: r.tempPassword });
       await load();
     } catch (e) {
       setError(e.message);
@@ -114,6 +117,14 @@ function Users() {
   return (
     <Card title="Lietotāji" subtitle={users ? `${list.length} no ${users.length}` : 'Ielādē…'} action={<input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Meklēt e-pastu, vārdu, skolu…" className={`${inputCls} sm:w-72`} aria-label="Meklēt" />}>
       {error && <p className="text-sm text-rose-600 mb-3">{error}</p>}
+      {tempPw && (
+        <div role="status" className="mb-4 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-sm text-slate-800">
+          <p className="font-semibold">Pagaidu parole lietotājam {tempPw.email}</p>
+          <p className="font-mono text-lg tracking-wide my-2 select-all">{tempPw.password}</p>
+          <p className="text-xs text-slate-600">Parole tiek rādīta tikai vienu reizi un nekur netiek saglabāta. Nodod to lietotājam droši un lūdz to nomainīt profilā. Visas viņa sesijas ir izbeigtas.</p>
+          <button type="button" onClick={() => setTempPw(null)} className="mt-2 text-xs font-semibold underline cursor-pointer">Aizvērt</button>
+        </div>
+      )}
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
@@ -148,6 +159,9 @@ function Users() {
                       )}
                       <Button variant="secondary" className="text-xs py-1 px-2.5" onClick={() => act({ id: u.id, blocked: !u.blocked }, u.blocked ? null : `Bloķēt ${u.email}? Lietotājs tiks izrakstīts.`)}>{u.blocked ? 'Atbloķēt' : 'Bloķēt'}</Button>
                       <Button variant="secondary" className="text-xs py-1 px-2.5" onClick={() => act({ id: u.id, role: u.role === 'admin' ? 'user' : 'admin' }, u.role === 'admin' ? null : `Padarīt ${u.email} par administratoru?`)}>{u.role === 'admin' ? 'Noņemt admin' : 'Padarīt par admin'}</Button>
+                      {u.id !== me?.id && (
+                        <Button variant="secondary" className="text-xs py-1 px-2.5" onClick={() => act({ id: u.id, resetPassword: true }, `Atiestatīt paroli lietotājam ${u.email}? Viņa vecā parole vairs nederēs un visas sesijas tiks izbeigtas. Jaunā pagaidu parole tiks parādīta tikai vienu reizi.`)}>Atiestatīt paroli</Button>
+                      )}
                       <Button variant="danger" className="text-xs py-1 px-2.5" onClick={() => act({ id: u.id, delete: true }, `Neatgriezeniski dzēst ${u.email} un visus viņa datus?`)}>Dzēst</Button>
                     </div>
                   )}

@@ -9,6 +9,17 @@ const LIMITS = {
 };
 export const limitFor = (plan) => LIMITS[plan] || LIMITS.free;
 
+// Globāls AI dienas limits visai sistēmai. AI_DAILY_LIMIT_GLOBAL: nav iestatīts = 1500; 0 vai tukšs = bez limita.
+export function globalLimit() {
+  const v = process.env.AI_DAILY_LIMIT_GLOBAL;
+  if (v === undefined) return 1500;
+  const n = parseInt(v, 10);
+  return n > 0 ? n : 0;
+}
+export const GLOBAL_LIMIT_MESSAGE = 'AI šodien ir sasniedzis kopējo dienas limitu. Atgriezies rīt.';
+// Rīgas diena (tāpat kā lietotāja dienas limitam)
+export const RIGA_DAY = "(date_trunc('day', now() AT TIME ZONE 'Europe/Riga') AT TIME ZONE 'Europe/Riga')";
+
 // Cik AI jautājumu lietotājs šodien (Rīgas laiks) jau uzdevis
 export async function usedToday(userId) {
   const { rows } = await query(
@@ -33,6 +44,17 @@ export async function reserveUsage(userId, limit) {
   const client = await getPool().connect();
   try {
     await client.query('BEGIN');
+    // Globālais dienas limits visai sistēmai (izmaksu aizsardzība), tajā pašā transakcijā. Slēdzenes secība vienmēr
+    // ir: globālā, tad lietotāja (nav strupceļa). Atgriež { globalLimit: true }, ja šodien kopējais limits jau sasniegts.
+    const g = globalLimit();
+    if (g > 0) {
+      await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', ['ai:global']);
+      const t = await client.query(`SELECT count(*)::int AS n FROM ai_usage WHERE created_at >= ${RIGA_DAY}`);
+      if (t.rows[0].n >= g) {
+        await client.query('ROLLBACK');
+        return { globalLimit: true };
+      }
+    }
     await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`ai:${userId}`]);
     const { rows } = await client.query(
       `SELECT count(*)::int AS n FROM ai_usage
