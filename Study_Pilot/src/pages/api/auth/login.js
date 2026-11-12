@@ -1,4 +1,4 @@
-import { db, createSession, findByEmail, checkPassword, publicUser } from '../../../server/db';
+import { db, createSession, findByEmail, checkPassword, publicUser, dataWithAttempts } from '../../../server/db';
 import { allow } from '../../../server/http';
 import { dummyPasswordCheck } from '../../../lib/password';
 import { clientIp, loginBlockedFor, recordLogin } from '../../../server/security';
@@ -28,5 +28,5 @@ export default async function handler(req, res) {
   }
   await recordLogin(email, ip, true);
   const token = await createSession(user.id);
-  res.status(200).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
+  res.status(200).json({ token, bootId: db.bootId, user: publicUser(user), data: await dataWithAttempts(user), dataVersion: user.dataVersion });
 }

@@ -1,4 +1,4 @@
-import { emptyData, saveData, currentDataVersion } from '../../../server/db';
+import { emptyData, saveData, currentDataVersion, syncAttempts } from '../../../server/db';
 import { allow, requireUser } from '../../../server/http';
 import { FREE_LIMITS, isPremium } from '../../../lib/plans';
 
@@ -20,6 +20,10 @@ export default async function handler(req, res) {
   const base = emptyData();
   const next = {};
   for (const key of Object.keys(base)) next[key] = Array.isArray(incoming[key]) ? incoming[key] : base[key];
+  // Eksāmenu mēģinājumi glabājas atsevišķā tabulā un tiek apvienoti (arī tad, ja šī datu versija izrādās novecojusi).
+  // users.data->examAttempts paliek nemainīts kā vecā rezerves kopija.
+  await syncAttempts(user.id, incoming.examAttempts);
+  next.examAttempts = Array.isArray(user.data?.examAttempts) ? user.data.examAttempts : [];
   // Bezmaksas plāna limits: drīkst nepievienot vairāk par limitu (esošie ieraksti paliek arī pēc Premium beigām)
   if (!isPremium(user)) {
     for (const key of Object.keys(FREE_LIMITS)) {
