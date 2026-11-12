@@ -1,4 +1,4 @@
-import { publicUser, deleteUser, updateProfile, cleanProfile, validateProfile, db } from '../../../server/db';
+import { publicUser, deleteUser, updateProfile, cleanProfile, validateProfile, dataWithAttempts, db } from '../../../server/db';
 import { allow, requireUser } from '../../../server/http';
 import { cancelOnDelete } from '../../../server/stripe';
 
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   if (!user) return;
 
   if (req.method === 'GET') {
-    return res.status(200).json({ bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
+    return res.status(200).json({ bootId: db.bootId, user: publicUser(user), data: await dataWithAttempts(user), dataVersion: user.dataVersion });
   }
   if (req.method === 'PATCH') {
     const p = cleanProfile({ ...user.profile, ...(req.body?.profile || {}) });

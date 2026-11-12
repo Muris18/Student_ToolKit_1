@@ -1,6 +1,6 @@
 import { allow, requireUser } from '../../../server/http';
 import { limited } from '../../../server/security';
-import { query } from '../../../server/db';
+import { query, dataWithAttempts } from '../../../server/db';
 import crypto from 'crypto';
 import { userMistakes, examQuiz, aiQuiz, aiBlocker, sampleTasks } from '../../../server/quiz';
 import { reserveUsage, releaseUsage, limitFor } from '../../../server/ai';
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   if (!known.rows.length) return res.status(404).json({ error: 'Šim priekšmetam vēl nav eksāmenu' });
 
   try {
-    const all = await userMistakes(user.data, grade);
+    const all = await userMistakes(await dataWithAttempts(user), grade);
     const tasks = all.tasks.filter((t) => t.subject === subject);
     const questions = all.questions.filter((q) => q.subject === subject);
     const hasMistakes = tasks.length + questions.length > 0;

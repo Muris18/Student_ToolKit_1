@@ -1,4 +1,4 @@
-import { db, createSession, findByEmail, checkPassword, publicUser } from '../../../server/db';
+import { db, createSession, findByEmail, checkPassword, publicUser, dataWithAttempts } from '../../../server/db';
 import { allow } from '../../../server/http';
 import { setSessionCookie, sameOrigin } from '../../../server/cookies';
 import { dummyPasswordCheck } from '../../../lib/password';
@@ -30,5 +30,5 @@ export default async function handler(req, res) {
   }
   await recordLogin(email, ip, true);
   setSessionCookie(res, await createSession(user.id));
-  res.status(200).json({ bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
+  res.status(200).json({ bootId: db.bootId, user: publicUser(user), data: await dataWithAttempts(user), dataVersion: user.dataVersion });
 }
