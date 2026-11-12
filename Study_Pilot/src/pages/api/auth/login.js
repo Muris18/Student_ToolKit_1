@@ -1,10 +1,12 @@
 import { db, createSession, findByEmail, checkPassword, publicUser, dataWithAttempts } from '../../../server/db';
 import { allow } from '../../../server/http';
+import { setSessionCookie, sameOrigin } from '../../../server/cookies';
 import { dummyPasswordCheck } from '../../../lib/password';
 import { clientIp, loginBlockedFor, recordLogin } from '../../../server/security';
 
 export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
+  if (!sameOrigin(req)) return res.status(403).json({ error: 'Pieprasījums noraidīts (cits izcelsmes avots)', code: 'CSRF' });
   const { password } = req.body || {};
   const email = String(req.body?.email || '').trim().toLowerCase().slice(0, 200);
   const ip = clientIp(req);
@@ -27,6 +29,6 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'Šis konts ir bloķēts. Raksti uz jautajumi@studypilot.lv.' });
   }
   await recordLogin(email, ip, true);
-  const token = await createSession(user.id);
-  res.status(200).json({ token, bootId: db.bootId, user: publicUser(user), data: await dataWithAttempts(user), dataVersion: user.dataVersion });
+  setSessionCookie(res, await createSession(user.id));
+  res.status(200).json({ bootId: db.bootId, user: publicUser(user), data: await dataWithAttempts(user), dataVersion: user.dataVersion });
 }

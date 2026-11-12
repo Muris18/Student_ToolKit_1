@@ -1,10 +1,12 @@
 import { db, createUser, createSession, findByEmail, publicUser, cleanProfile, validateProfile, passwordProblem, createEmailToken } from '../../../server/db';
 import { allow } from '../../../server/http';
+import { setSessionCookie, sameOrigin } from '../../../server/cookies';
 import { clientIp, limited } from '../../../server/security';
 import { emailEnabled, sendVerifyEmail } from '../../../server/email';
 
 export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
+  if (!sameOrigin(req)) return res.status(403).json({ error: 'Pieprasījums noraidīts (cits izcelsmes avots)', code: 'CSRF' });
   // REGISTER_LIMIT_PER_HOUR (noklusējums 40): vienā skolā visi skolēni reģistrējas no vienas IP adreses (skolas Wi-Fi)
   const regLimit = parseInt(process.env.REGISTER_LIMIT_PER_HOUR, 10) > 0 ? parseInt(process.env.REGISTER_LIMIT_PER_HOUR, 10) : 40;
   if (limited(res, `register:${clientIp(req)}`, regLimit, 3600, 'Pārāk daudz jaunu kontu no šī tīkla. Pamēģini pēc stundas.')) return;
@@ -30,8 +32,8 @@ export default async function handler(req, res) {
         console.error('Apstiprinājuma e-pasts netika nosūtīts:', mailErr.message);
       }
     }
-    const token = await createSession(user.id);
-    res.status(201).json({ token, bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
+    setSessionCookie(res, await createSession(user.id));
+    res.status(201).json({ bootId: db.bootId, user: publicUser(user), data: user.data, dataVersion: user.dataVersion });
   } catch (error) {
     if (error.code === '23505') return res.status(409).json({ error: 'Šis e-pasts jau ir reģistrēts' });
     throw error;

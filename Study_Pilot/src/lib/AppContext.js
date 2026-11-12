@@ -6,7 +6,7 @@ import { emptyClientData } from './emptyData';
 const withDefaults = (d) => ({ ...emptyClientData(), ...(d || {}) });
 
 // Klienta stāvoklis: kurš ir pieslēdzies + visi viņa dati.
-// Dati glabājas PostgreSQL (src/server/db.js). Pārlūkā glabājam tikai sesijas žetonu.
+// Dati glabājas PostgreSQL (src/server/db.js). Sesija ir HttpOnly sīkdatnē (JavaScript to neredz); localStorage glabā tikai norādi "esi pieslēdzies".
 const AppContext = createContext(null);
 const TOKEN_KEY = 'sp-session';
 
@@ -20,7 +20,9 @@ const writeSession = (s) => {
 async function call(path, { method = 'GET', body, token } = {}) {
   const res = await fetch(path, {
     method,
-    headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+    // Sesija ir HttpOnly sīkdatnē (pārlūks to pievieno pats). Authorization tiek sūtīts tikai vecajai sesijai no localStorage (pārcelšanai uz sīkdatni)
+    headers: { 'Content-Type': 'application/json', ...(typeof token === 'string' ? { Authorization: `Bearer ${token}` } : {}) },
+    credentials: 'same-origin',
     body: body ? JSON.stringify(body) : undefined,
     keepalive: method === 'PUT',
   });
@@ -60,11 +62,13 @@ export function AppProvider({ children }) {
 
   // Sākumā: pārbaudām, vai saglabātā sesija vēl der šim servera palaišanas reizei
   useEffect(() => {
+    // s.hint: iepriekš pieslēdzies šajā pārlūkā (sesija ir sīkdatnē); s.token: vecā sesija, ko serveris pārceļ uz sīkdatni
     const s = readSession();
-    if (!s?.token) { setStatus('guest'); return; }
+    if (!s?.token && !s?.hint) { setStatus('guest'); return; }
     call('/api/me', { token: s.token })
       .then((r) => {
-        tokenRef.current = s.token;
+        tokenRef.current = true;
+        if (s.token) writeSession({ hint: true }); // žetons vairs nav pieejams JavaScript
         setUser(r.user);
         setData(withDefaults(r.data));
         versionRef.current = r.dataVersion ?? 0;
@@ -136,8 +140,8 @@ export function AppProvider({ children }) {
   }, [flush]);
 
   const startSession = (r) => {
-    tokenRef.current = r.token;
-    writeSession({ token: r.token, bootId: r.bootId });
+    tokenRef.current = true;
+    writeSession({ hint: true });
     setUser(r.user);
     setData(withDefaults(r.data));
     versionRef.current = r.dataVersion ?? 0;
@@ -198,8 +202,7 @@ export function AppProvider({ children }) {
   // Paroles maiņa: serveris izbeidz visas sesijas un iedod jaunu žetonu
   const changePassword = async (current, password) => {
     const r = await call('/api/me/password', { method: 'POST', body: { current, password }, token: tokenRef.current });
-    tokenRef.current = r.token;
-    writeSession({ token: r.token, bootId: 'persistent' });
+    tokenRef.current = true; // jaunā sesija jau ir sīkdatnē
     setUser(r.user);
   };
 
