@@ -1,0 +1,30 @@
+name: CI
+
+# Katram PR un katrai izmaiņai main zarā: uzbūvē lietotni un palaiž testus.
+# Nav vajadzīga datubāze vai slepenas vērtības (build un testi strādā bez tām).
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Study_Pilot
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: Study_Pilot/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm test

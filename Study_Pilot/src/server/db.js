@@ -2,6 +2,10 @@
 // Savienojums caur DATABASE_URL (.env.local lokāli, docker-compose serverī).
 import crypto from 'crypto';
 import { Pool } from 'pg';
+import { newSalt, hashPassword, checkPassword, passwordProblem } from '../lib/password';
+
+// Paroles funkcijas dzīvo lib/password.js (testējamas bez datubāzes); šeit atkārtoti eksportētas esošajiem izsaucējiem
+export { checkPassword, passwordProblem };
 
 const g = globalThis;
 if (!g.__SP_POOL__) {
@@ -28,7 +32,6 @@ export const emptyData = () => ({
   simulations: [], // eksāmena simulāciju rezultāti: { id, docId, title, at, minutes, usedSec, score, max, percent } (pēdējie 50)
 });
 
-const hash = (password, salt) => crypto.scryptSync(password, salt, 64).toString('hex');
 const sha = (t) => crypto.createHash('sha256').update(t).digest('hex');
 
 const toUser = (r) => r && ({
@@ -67,11 +70,11 @@ export async function findByEmail(email) {
 
 // verified=false: e-pasts vēl jāapstiprina (tikai, ja e-pasta sūtīšana ir ieslēgta)
 export async function createUser({ email, password, profile, verified = true }) {
-  const salt = crypto.randomBytes(16).toString('hex');
+  const salt = newSalt();
   const { rows } = await pool.query(
     `INSERT INTO users (email, salt, pass_hash, profile, data, terms_accepted_at, email_verified_at)
      VALUES ($1,$2,$3,$4,$5, now(), CASE WHEN $6 THEN now() END) RETURNING *`,
-    [String(email).trim().toLowerCase(), salt, hash(password, salt), profile, emptyData(), verified]
+    [String(email).trim().toLowerCase(), salt, await hashPassword(password, salt), profile, emptyData(), verified]
   );
   return toUser(rows[0]);
 }
@@ -80,20 +83,9 @@ export const findById = async (id) => toUser((await pool.query('SELECT * FROM us
 
 // Jauna parole: jauns sāls, visas sesijas tiek izbeigtas (arī citās ierīcēs)
 export async function setPassword(userId, password) {
-  const salt = crypto.randomBytes(16).toString('hex');
-  await pool.query('UPDATE users SET salt = $2, pass_hash = $3, password_changed_at = now() WHERE id = $1', [userId, salt, hash(password, salt)]);
+  const salt = newSalt();
+  await pool.query('UPDATE users SET salt = $2, pass_hash = $3, password_changed_at = now() WHERE id = $1', [userId, salt, await hashPassword(password, salt)]);
   await pool.query('DELETE FROM sessions WHERE user_id = $1', [userId]);
-}
-
-// Paroles prasības: 8–200 simboli, ne tikai cipari, nav tāda pati kā e-pasts
-export function passwordProblem(password, email = '') {
-  const p = String(password || '');
-  if (p.length < 8) return 'Parolei jābūt vismaz 8 simbolus garai';
-  if (p.length > 200) return 'Parole ir pārāk gara';
-  if (/^\d+$/.test(p)) return 'Parolē jābūt ne tikai cipariem';
-  if (email && p.toLowerCase() === String(email).toLowerCase()) return 'Parole nedrīkst būt tāda pati kā e-pasts';
-  if (['password', 'parole123', '12345678', 'qwertyui', 'studypilot'].includes(p.toLowerCase())) return 'Šī parole ir pārāk vienkārša';
-  return null;
 }
 
 // Vienreizējs žetons e-pastam (apstiprināšana vai paroles atjaunošana). Datubāzē tikai hash.
@@ -119,13 +111,51 @@ export async function consumeEmailToken(token, kind) {
   return rows[0]?.user_id || null;
 }
 
-export const markEmailVerified = (userId) => pool.query('UPDATE users SET email_verified_at = COALESCE(email_verified_at, now()) WHERE id = $1', [userId]);
-
-export function checkPassword(user, password) {
-  const a = Buffer.from(hash(String(password || ''), user.salt), 'hex');
-  const b = Buffer.from(user.passHash, 'hex');
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
+// Nolasa žetonu, to NEIZTĒRĒJOT: atgriež user_id, ja žetons ir derīgs (nav izlietots, nav beidzies), citādi null.
+// Paroles atjaunošanai: vispirms nolasa, pārbauda jauno paroli, un tikai tad žetonu iztērē (resetPasswordWithToken).
+export async function peekEmailToken(token, kind) {
+  if (!/^[a-f0-9]{64}$/.test(String(token || ''))) return null;
+  const { rows } = await pool.query(
+    'SELECT user_id FROM email_tokens WHERE token_hash = $1 AND kind = $2 AND used_at IS NULL AND expires_at > now()',
+    [sha(token), kind]
+  );
+  return rows[0]?.user_id || null;
 }
+
+// Paroles atjaunošana ar žetonu vienā transakcijā: žetons tiek iztērēts un parole nomainīta atomāri.
+// Ja divi pieprasījumi ar to pašu žetonu nāk vienlaikus, izdodas tikai viens (otrs atgriež null).
+// Ja kaut kas neizdodas pēc žetona iztērēšanas, viss tiek atcelts un žetons paliek derīgs.
+export async function resetPasswordWithToken(token, password) {
+  if (!/^[a-f0-9]{64}$/.test(String(token || ''))) return null;
+  // Dārgo hash aprēķina pirms transakcijas, lai rindas slēdzene netiktu turēta ilgi
+  const salt = newSalt();
+  const passHash = await hashPassword(password, salt);
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const t = await client.query(
+      `UPDATE email_tokens SET used_at = now()
+       WHERE token_hash = $1 AND kind = 'reset' AND used_at IS NULL AND expires_at > now()
+       RETURNING user_id`,
+      [sha(token)]
+    );
+    const userId = t.rows[0]?.user_id;
+    if (!userId) { await client.query('ROLLBACK'); return null; }
+    await client.query('UPDATE users SET salt = $2, pass_hash = $3, password_changed_at = now() WHERE id = $1', [userId, salt, passHash]);
+    await client.query('DELETE FROM sessions WHERE user_id = $1', [userId]);
+    // Saite atnāca uz šo e-pastu, tātad e-pasts ir apstiprināts
+    await client.query('UPDATE users SET email_verified_at = COALESCE(email_verified_at, now()) WHERE id = $1', [userId]);
+    await client.query('COMMIT');
+    return userId;
+  } catch (e) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw e;
+  } finally {
+    client.release();
+  }
+}
+
+export const markEmailVerified = (userId) => pool.query('UPDATE users SET email_verified_at = COALESCE(email_verified_at, now()) WHERE id = $1', [userId]);
 
 // Žetons pārlūkam; datubāzē glabājas tikai tā hash
 export async function createSession(userId) {
