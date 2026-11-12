@@ -1,5 +1,6 @@
 import { db, createSession, findByEmail, checkPassword, publicUser } from '../../../server/db';
 import { allow } from '../../../server/http';
+import { dummyPasswordCheck } from '../../../lib/password';
 import { clientIp, loginBlockedFor, recordLogin } from '../../../server/security';
 
 export default async function handler(req, res) {
@@ -15,7 +16,9 @@ export default async function handler(req, res) {
   }
 
   const user = await findByEmail(email);
-  if (!user || !checkPassword(user, password)) {
+  // Konstants laiks: ja e-pasts nav reģistrēts, tik un tā izpilda tādu pašu hash darbu, lai atbildes ātrums neatklātu, kuri e-pasti eksistē
+  const valid = user ? await checkPassword(user, password) : await dummyPasswordCheck(password);
+  if (!user || !valid) {
     await recordLogin(email, ip, false);
     return res.status(401).json({ error: 'Nepareizs e-pasts vai parole' });
   }

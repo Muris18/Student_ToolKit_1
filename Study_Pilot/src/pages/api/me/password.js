@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   if (!user) return;
   if (limited(res, `pw:${user.id}`, 5, 900)) return;
   const { current, password } = req.body || {};
-  if (!checkPassword(user, current)) return res.status(400).json({ error: 'Pašreizējā parole nav pareiza' });
+  if (!(await checkPassword(user, current))) return res.status(400).json({ error: 'Pašreizējā parole nav pareiza' });
   const err = passwordProblem(password, user.email);
   if (err) return res.status(400).json({ error: err });
   await setPassword(user.id, password);

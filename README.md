@@ -99,7 +99,7 @@ Student_ToolKit_1/
 
 ## Palaišana
 
-Vajag Node.js 20 un Docker Desktop (atvērtu). Mapē `Study_Pilot` (Windows CMD):
+Vajag Node.js 22 un Docker Desktop (atvērtu). Mapē `Study_Pilot` (Windows CMD):
 
 ```cmd
 powershell -ExecutionPolicy Bypass -File setup.ps1

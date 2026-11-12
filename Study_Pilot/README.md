@@ -6,7 +6,7 @@ Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md).
 
 ## Prasības
 
-- **Node.js 18.17+** (ieteicams 20)
+- **Node.js 22+**
 - **Docker Desktop** (PostgreSQL datubāzei)
 
 ## Palaišana lokāli (Windows CMD)
