@@ -6,47 +6,69 @@ Projekta apraksts, datu saraksts un drošība — [saknes README](../README.md).
 
 ## Prasības
 
-- **Node.js 22+**
-- **Docker Desktop** (PostgreSQL datubāzei)
+- **Node.js 22+** (pārbaude: `node -v`)
+- **Docker** ar `docker compose` (PostgreSQL datubāzei; pārbaude: `docker compose version`)
+- **Git** (repozitorija klonēšanai)
 
-## Palaišana lokāli (Windows CMD)
+Kā uzstādīt:
 
-Pirms sākšanas atver **Docker Desktop** un pagaidi, līdz tas ir startējis.
+| Sistēma | Node.js 22+ | Docker |
+|---|---|---|
+| **Windows** | Instalētājs no [nodejs.org](https://nodejs.org) vai `winget install OpenJS.NodeJS.LTS` (der jaunākā LTS versija) | [Docker Desktop](https://www.docker.com/products/docker-desktop/) |
+| **macOS** | Instalētājs no [nodejs.org](https://nodejs.org) vai `brew install node@22` | [Docker Desktop](https://www.docker.com/products/docker-desktop/) vai `brew install --cask docker` |
+| **Linux** | Ar [nvm](https://github.com/nvm-sh/nvm): `nvm install 22` (vai sava distributīva pakotnes, pārbaudi versiju ar `node -v`) | Docker Engine ar compose spraudni, skat. [instrukciju savam distributīvam](https://docs.docker.com/engine/install/) |
+
+**Linux:** lai `docker` darbotos bez `sudo`, pievieno sevi grupai: `sudo usermod -aG docker $USER`, tad izrakstījies un pieteicies no jauna.
+
+## Palaišana lokāli (Windows, macOS, Linux)
+
+Pirms sākšanas:
+
+- **Windows un macOS:** atver **Docker Desktop** un pagaidi, līdz tas ir startējis.
+- **Linux:** pārliecinies, ka Docker darbojas, `docker ps` jāiet bez kļūdas.
 
 ### Ātrākais veids
 
 Mapē `Study_Pilot`:
+
+**Windows** (CMD vai PowerShell):
 
 ```cmd
 powershell -ExecutionPolicy Bypass -File setup.ps1
 npm run dev
 ```
 
-Skripts izveido `.env` ar nejaušu paroli, `.env.local` ar `DATABASE_URL`, instalē pakotnes, palaiž datubāzi, piemēro migrācijas un ielādē eksāmenus. Esošu `.env.local` tas nepārraksta. Pēc tam atver **http://localhost:3000** → *Izveidot kontu*. (Linux/macOS: `bash setup.sh`.)
+**macOS un Linux** (Terminal):
 
-Ja ports 5432 jau ir aizņemts (skat. [Biežākās problēmas](#biežākās-problēmas)), pirms skripta palaišanas izveido failu `.env` ar rindu `DB_PORT=5433`.
+```bash
+bash setup.sh
+npm run dev
+```
+
+(`bash setup.sh` der arī Git Bash uz Windows.) Skripts izveido `.env` ar nejaušu paroli, `.env.local` ar `DATABASE_URL`, instalē pakotnes, palaiž datubāzi, piemēro migrācijas un ielādē eksāmenus. Esošu `.env.local` tas nepārraksta. Pēc tam atver **http://localhost:3000** → *Izveidot kontu*.
+
+Ja ports 5432 jau ir aizņemts (skat. [Biežākās problēmas](#biežākās-problēmas)), pirms skripta palaišanas izveido failu `.env` ar **divām** rindām. Skripts paroli lasa no šī faila, tāpēc ar vienu `DB_PORT` rindu nepietiek:
+
+```env
+POSTGRES_PASSWORD=izdomā_paroli
+DB_PORT=5433
+```
 
 ### Pa soļiem (ja skripts neder)
 
-1. Izveido vides failus:
+1. Izveido vides failus. Nokopē paraugu:
 
-   ```cmd
-   copy .env.example .env
-   notepad .env
-   ```
+   - **Windows (CMD):** `copy .env.example .env`
+   - **macOS un Linux:** `cp .env.example .env`
 
-   Aizpildi `.env`:
+   Atver `.env` jebkurā redaktorā (Windows: `notepad .env`, macOS: `open -e .env`, Linux: `nano .env`) un aizpildi:
 
    ```env
    POSTGRES_PASSWORD=izdomā_paroli
    DB_PORT=5432
    ```
 
-   Un izveido `.env.local` (tur ir `DATABASE_URL`, un šis fails nekad neiet Git):
-
-   ```cmd
-   notepad .env.local
-   ```
+   Tajā pašā mapē izveido arī `.env.local` (tur ir `DATABASE_URL`, un šis fails nekad neiet Git):
 
    ```env
    DATABASE_URL=postgres://sp:izdomā_paroli@localhost:5432/sp
@@ -57,13 +79,13 @@ Ja ports 5432 jau ir aizņemts (skat. [Biežākās problēmas](#biežākās-prob
 
 2. Palaid datubāzi (tikai lokāli, ports atvērts tikai uz 127.0.0.1):
 
-   ```cmd
+   ```bash
    docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db
    ```
 
 3. Instalē, piemēro migrācijas, ielādē eksāmenus un palaid:
 
-   ```cmd
+   ```bash
    npm install
    npm run migrate
    npm run import:exams
@@ -72,15 +94,17 @@ Ja ports 5432 jau ir aizņemts (skat. [Biežākās problēmas](#biežākās-prob
 
 4. Atver **http://localhost:3000** → *Izveidot kontu*.
 
-Pēc datora restarta nākamreiz pietiek ar: atvērt Docker Desktop, `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db` un `npm run dev`. Dati datubāzē saglabājas.
+Pēc datora restarta nākamreiz pietiek ar: Windows un macOS atvērt Docker Desktop (Linux Docker parasti startē pats), tad `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db` un `npm run dev`. Dati datubāzē saglabājas.
 
 ### Administratora konts
 
 Jauns konts vienmēr ir `user`. Lai kādu padarītu par administratoru:
 
-```cmd
+```bash
 docker compose exec db psql -U sp -c "UPDATE users SET role='admin' WHERE email='tavs@epasts.lv';"
 ```
+
+Vai: `npm run create-admin -- tavs@epasts.lv` (tabula zemāk).
 
 ### Citas komandas
 
@@ -89,6 +113,7 @@ docker compose exec db psql -U sp -c "UPDATE users SET role='admin' WHERE email=
 | `npm run dev` | Izstrādes serveris (localhost:3000) |
 | `npm run dev:lan` | Tas pats, bet pieejams arī no telefona tajā pašā tīklā |
 | `npm run build` un `npm start` | Produkcijas režīms |
+| `npm test` | Palaiž automātiskos testus (datubāze nav vajadzīga) |
 | `npm run migrate` | Piemēro jaunās `db/migrations/*.sql` (drīkst palaist atkārtoti) |
 | `npm run import:exams` | Ielādē `exams/*.json` datubāzē (skat. [`exams/README.md`](exams/README.md)) |
 | `npm run cleanup` | Dzēš beigušās sesijas un 24 mēnešus neaktīvus kontus (lietotne to dara arī pati) |
@@ -96,20 +121,25 @@ docker compose exec db psql -U sp -c "UPDATE users SET role='admin' WHERE email=
 
 ## Biežākās problēmas
 
+Komandas, kas atšķiras pa sistēmām, ir rādītas **Windows / macOS un Linux** formā.
+
 | Kļūda | Cēlonis un risinājums |
 |---|---|
-| `password authentication failed for user "sp"` | Vai nu ports 5432 jau aizņemts ar citu PostgreSQL (pārbaudi `netstat -ano \| findstr :5432`), vai arī parole `.env.local` nesakrīt ar `POSTGRES_PASSWORD`. Risinājums: `.env` ieraksti `DB_PORT=5433`, `.env.local` nomaini `localhost:5432` uz `localhost:5433`, tad pārveido datubāzi (zemāk). |
-| `docker` nav atpazīts | Docker nav uzstādīts vai CMD logs atvērts pirms instalēšanas. Aizver un atver jaunu CMD logu. |
-| `ECONNREFUSED` | Datubāze nedarbojas. Atver Docker Desktop un palaid `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db`. |
+| `password authentication failed for user "sp"` | Vai nu ports 5432 jau aizņemts ar citu PostgreSQL, vai arī parole `.env.local` nesakrīt ar `POSTGRES_PASSWORD`. Portu pārbauda: Windows `netstat -ano \| findstr :5432`, macOS un Linux `lsof -i :5432` (Linux arī `ss -ltnp \| grep 5432`). Risinājums: `.env` ieraksti `DB_PORT=5433`, `.env.local` nomaini `localhost:5432` uz `localhost:5433`, tad pārveido datubāzi (zemāk). |
+| `docker` nav atpazīts (`command not found: docker`) | Docker nav uzstādīts, vai Windows terminālis atvērts pirms instalēšanas: aizver un atver jaunu. macOS un Linux: pārbaudi `which docker`. |
+| `Cannot connect to the Docker daemon` | Docker nav palaists. Windows un macOS: atver Docker Desktop. Linux: `sudo systemctl start docker`. |
+| `permission denied ... /var/run/docker.sock` (Linux) | Lietotājs nav `docker` grupā: `sudo usermod -aG docker $USER`, tad izrakstīties un pieteikties no jauna (īslaicīgi var lietot `sudo`). |
+| `ECONNREFUSED` | Datubāze nedarbojas. Palaid Docker (skat. iepriekš) un `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db`. |
 | `column ... does not exist` vai `relation ... does not exist` | Nav piemērotas migrācijas: `npm run migrate`. |
-| `Port 3000 is in use` | Cits `npm run dev` jau darbojas. Aizver to vai atrodi procesu: `netstat -ano \| findstr :3000` (jāaptur LISTENING process, ne pārlūks). |
+| `Port 3000 is in use` | Cits `npm run dev` jau darbojas. Aizver to vai atrodi procesu: Windows `netstat -ano \| findstr :3000` (jāaptur LISTENING process, ne pārlūks), macOS un Linux `lsof -i :3000`. |
+| Brīdinājums par `engines` vai dīvainas kļūdas pēc `npm install` | Node versija ir vecāka par 22. Pārbaudi `node -v`; ar nvm: `nvm install 22 && nvm use 22`. |
 | Čats raksta, ka AI nav ieslēgts | Nav `DEEPSEEK_API_KEY` failā `.env.local`. Pēc pievienošanas pārstartē `npm run dev`. |
 | Čats raksta, ka dienas limits izmantots | Testēšanai `.env.local` pievieno `AI_DAILY_LIMIT_FREE=200` un pārstartē serveri. |
-| Lapa izskatās vecā vai nemainās | Pārlūkā `Ctrl+F5`. Pārbaudi, ka izmaiņas nav ielikušās nepareizā mapē (mapei `Study_Pilot` nedrīkst būt iekšā vēl viena `Study_Pilot`). |
+| Lapa izskatās vecā vai nemainās | Pārlūkā `Ctrl+F5` (macOS: `Cmd+Shift+R`). Pārbaudi, ka izmaiņas nav ielikušās nepareizā mapē (mapei `Study_Pilot` nedrīkst būt iekšā vēl viena `Study_Pilot`). |
 
 **Datubāzes pārveidošana no nulles** (lokāli; izdzēš visus lokālos lietotājus un datus):
 
-```cmd
+```bash
 docker compose -f docker-compose.yml -f docker-compose.dev.yml down -v
 docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db
 npm run migrate

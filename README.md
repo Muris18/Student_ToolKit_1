@@ -99,14 +99,23 @@ Student_ToolKit_1/
 
 ## Palaišana
 
-Vajag Node.js 22 un Docker Desktop (atvērtu). Mapē `Study_Pilot` (Windows CMD):
+Vajag **Node.js 22+** un **Docker** (Windows un macOS: Docker Desktop, atvērtu; Linux: Docker Engine ar `docker compose`). Mapē `Study_Pilot`:
+
+**Windows** (CMD vai PowerShell):
 
 ```cmd
 powershell -ExecutionPolicy Bypass -File setup.ps1
 npm run dev
 ```
 
-Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, palaiž datubāzi, piemēro migrācijas un ielādē eksāmenus. Ja ports 5432 ir aizņemts vai rodas kļūdas, skat. [`Study_Pilot/README.md`](Study_Pilot/README.md) (soļi un sadaļa *Biežākās problēmas*).
+**macOS un Linux** (Terminal):
+
+```bash
+bash setup.sh
+npm run dev
+```
+
+Pēc tam atver http://localhost:3000. Skripts izveido paroli, vides failus, palaiž datubāzi, piemēro migrācijas un ielādē eksāmenus. Node un Docker uzstādīšana katrā sistēmā, soļi bez skripta un sadaļa *Biežākās problēmas* (ports 5432 aizņemts, Docker tiesības Linux u.c.): [`Study_Pilot/README.md`](Study_Pilot/README.md).
 
 ## Kādus datus platforma apstrādā
 
