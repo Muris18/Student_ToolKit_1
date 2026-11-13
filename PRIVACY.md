@@ -35,3 +35,4 @@ Kamēr dokumentā ir vietas ar `[ ]`, lapa rāda brīdinājumu "Melnraksts".
 - [x] Beigušās sesijas un 24 mēnešus neaktīvi konti tiek dzēsti automātiski (ne biežāk kā reizi 6 h; arī `npm run cleanup`). Administratoru kontus nedzēš.
 - [x] Politikā un noteikumos: Stripe maksājumi (3.a sadaļa), e-pasta sūtīšanas pakalpojums, pieslēgšanās mēģinājumu glabāšana (24 h), atteikuma tiesības.
 - [x] Premium iegādei obligātas atzīmes: pilngadība vai vecāku atļauja un piekrišana tūlītējam sākumam.
+- [x] Mācību istabas ieviestas: politikā aprakstīti istabu dati, ko redz dalībnieki ("Vārds U.", bez e-pasta) un glabāšana 24 h (2., 3., 4., 6. sadaļa); sesijas sīkdatne `sp_session` ir aprakstīta 2. sadaļā.

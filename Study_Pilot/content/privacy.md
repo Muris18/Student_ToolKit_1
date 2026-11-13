@@ -8,7 +8,8 @@
 - Mēs glabājam tikai to, kas vajadzīgs mācību rīkiem: e-pastu, vārdu, klasi un tavus mācību datus.
 - Tavus datus redzi tu; administratori redz tikai vārdu, klasi, skolu un ierakstu skaitu, ne saturu.
 - AI skolotājs sūta tavus jautājumus, Testa režīms uzdevumus, kuros kļūdījies, bet Pārbaudes darbi tēmu un tavas piezīmes uz DeepSeek (Ķīnā) — tikai tad, ja tam piekrīti.
-- Mēs nepārdodam datus, nerādām reklāmas un neizmantojam sīkdatnes.
+- Mēs nepārdodam datus, nerādām reklāmas un neizmantojam izsekošanas sīkdatnes (ir tikai viena nepieciešamā sesijas sīkdatne, lai tu paliktu pieslēgts).
+- Mācību istabās citi dalībnieki redz tikai tavu vārdu un uzvārda pirmo burtu, nevis e-pastu; istabas bez aktivitātes 24 stundas tiek dzēstas kopā ar atbildēm.
 - Ja pērc Premium, maksājumu apstrādā Stripe — tavas kartes datus mēs neredzam un neglabājam.
 - Profilā vari jebkurā laikā lejupielādēt vai izdzēst visus savus datus.
 - Platforma ir paredzēta no 13 gadu vecuma.
@@ -31,7 +32,8 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 - vārds un uzvārds (uzvārds nav obligāts);
 - vai mācies skolā vai augstskolā, klase vai kurss, skola un studiju programma (skola un programma nav obligātas);
 - tavi mācību priekšmeti, termiņi, uzdevumi, testi, testu un eksāmenu simulāciju rezultāti;
-- tavi jautājumi AI skolotājam un tā atbildes (čata vēsture).
+- tavi jautājumi AI skolotājam un tā atbildes (čata vēsture);
+- ja lieto Mācību istabas: istabas nosaukums un tēma, tavs vārds un uzvārda pirmais burts (kā tevi redz citi), tavs statuss ("mācos" vai "pauze") un tēma, ko norādi pats, tavas atbildes uz istabas uzdevumiem (izvēlētais variants, vai bija pareizi), atzīmes "vajag palīdzību", kā arī istabas uzdevumu kopa (momentuzņēmums ar pareizajām atbildēm) un kopīgā taimera stāvoklis.
 
 **Datus, kas rodas, lietojot platformu:**
 
@@ -47,10 +49,13 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 
 **Tehniskie dati.** Kad atver platformu, serveris redz tavu IP adresi un pārlūka veidu — bez tā savienojums nav iespējams. Lietotne tos neglabā un nesaista ar tavu kontu, izņemot iepriekš minētos pieslēgšanās mēģinājumus. Īslaicīgi (servera atmiņā, līdz 1 stundai) IP adrese tiek izmantota, lai ierobežotu pārāk biežus pieprasījumus. Kļūdu gadījumā servera žurnālos var īslaicīgi nonākt tehniska informācija par pieprasījumu.
 
-**Ko mēs NEvācam:** mēs neizmantojam sīkdatnes, analītiku, reklāmas vai citu pušu izsekošanas rīkus. Mēs nepieprasām tavu dzimšanas datumu, adresi, tālruni vai personas kodu. Lūdzam neievadīt šādus datus arī čatā vai uzdevumos.
+**Sīkdatnes.** Mēs izmantojam vienu nepieciešamo sesijas sīkdatni `sp_session` (HttpOnly, derīga 30 dienas vai līdz izrakstīšanās), kas uztur tavu pieslēgšanos. Bez tās platforma nevar darboties, tāpēc tai piekrišana nav vajadzīga. Tā netiek izmantota izsekošanai.
+
+**Ko mēs NEvācam:** mēs neizmantojam analītiku, reklāmas vai citu pušu izsekošanas rīkus. Mēs nepieprasām tavu dzimšanas datumu, adresi, tālruni vai personas kodu. Lūdzam neievadīt šādus datus arī čatā vai uzdevumos.
 
 **Tavā pārlūkā** (pārlūka krātuvē, ne sīkdatnēs) tiek saglabāts tikai:
-- pieslēgšanās kods, lai tev nav jāpieslēdzas katru reizi;
+- norāde, ka esi pieslēdzies (pati pieslēgšanās sesija glabājas iepriekš minētajā sīkdatnē);
+- atzīme, kuru Mācību istabu kārtu rezultāti jau ierakstīti tavā progresā (lai tos neierakstītu divreiz);
 - izvēlētā krāsu tēma un kuras izvēlnes sadaļas esi sakļāvis;
 - nepabeigtas eksāmena simulācijas atbildes, lai tās nepazustu, ja lapa pārlādējas. Tās tiek izdzēstas, kad simulāciju pārtrauc vai sāc no jauna;
 - līdz pārlūka cilnes aizvēršanai: vai sākuma ekrāns jau parādīts un uzdevuma teksts, ko no eksāmena nodod AI skolotājam.
@@ -69,6 +74,7 @@ Kontakti privātuma jautājumiem: **jautajumi@studypilot.lv** — vari rakstīt 
 | AI dienas limiti un izmaksu kontrole | AI lietojuma ieraksti, plāns | leģitīmās intereses — novērst ļaunprātīgu izmantošanu un nekontrolētas izmaksas |
 | Drošība un platformas uzturēšana | pēdējās aktivitātes laiks, sesijas | leģitīmās intereses |
 | Pierādīt, ka piekrišana tika dota | reģistrācijas apstiprinājuma un AI piekrišanas laiks | juridisks pienākums (VDAR 7. panta 1. punkts) |
+| Mācību istabas (kopīga mācīšanās) | istabas dati, vārds un uzvārda pirmais burts, statuss, atbildes uz istabas uzdevumiem, atzīmes "vajag palīdzību" | līguma izpilde |
 | Aizsardzība pret paroļu minēšanu un ļaunprātīgu izmantošanu | pieslēgšanās mēģinājumi, IP adrese | leģitīmās intereses — konta drošība |
 | E-pasta apstiprināšana un paroles atjaunošana | e-pasts, vienreizējās saites | līguma izpilde |
 | Premium abonements | Stripe identifikatori, abonementa statuss | līguma izpilde; rēķinu glabāšana — juridisks pienākums (grāmatvedības normatīvie akti) |
@@ -81,7 +87,8 @@ Mēs nepārdodam tavus datus un neizmantojam tos reklāmai. Tavi dati netiek izm
 
 - **Tu pats** — visus savus datus profilā un lietotnes sadaļās.
 - **Platformas administratori** — redz tavu e-pastu, vārdu, uzvārdu, klasi vai kursu, skolu, plānu (bezmaksas/Premium), cik AI jautājumu esi uzdevis, cik ierakstu tev ir, konta izveides un pēdējās aktivitātes laiku. Administratora panelī netiek rādīts tavu čata ziņu, uzdevumu vai testu saturs. Administrators var piešķirt Premium, bloķēt kontu par noteikumu pārkāpumu vai dzēst kontu pēc tava pieprasījuma.
-- **Citi lietotāji** tavus datus neredz.
+- **Mācību istabas dalībnieki** — ja pievienojies istabai, citi tās dalībnieki redz tavu vārdu un uzvārda pirmo burtu (piemēram, "Kristers M."), vai esi tiešsaistē, statusu "mācos" vai "pauze", tēmu, ko pats norādīji, cik uzdevumu esi atbildējis un kārtas pārskatā — cik no tiem pareizi. Viņi redz arī, cik dalībnieku atzīmēja "vajag palīdzību" un cik dalībnieku izvēlējās katru atbildes variantu, bet **neredz**, kurš dalībnieks kuru variantu izvēlējās. E-pastu, pilnu uzvārdu un pārējos kontā esošos datus istabas dalībnieki neredz.
+- **Citi lietotāji** (kas nav tavas istabas dalībnieki) tavus datus neredz.
 
 ## 5. Kam mēs nododam datus
 
@@ -103,6 +110,7 @@ Ja to pieprasīs likums (piemēram, tiesībsargājošās iestādes), mēs varam 
 - **Rezerves kopijas** — reizi dienā tiek izveidota datubāzes rezerves kopija, kas tiek glabāta **7 dienas** tajā pašā ES serverī un tad automātiski izdzēsta. Tāpēc dzēsti dati no rezerves kopijām pilnībā izzūd 7 dienu laikā. Rezerves kopijas izmantojam tikai datu atjaunošanai pēc kļūmes.
 - **Neaktīvi konti** — ja kontu neesi lietojis 24 mēnešus, tas automātiski tiek dzēsts kopā ar visiem tā datiem.
 - **Pieslēgšanās mēģinājumi** — 24 stundas.
+- **Mācību istabas** — istaba ar visiem tās datiem (dalībnieki, atbildes, palīdzības atzīmes, uzdevumu kopa) tiek automātiski dzēsta, ja tajā 24 stundas nav bijusi aktivitāte. Iziejot no istabas vai tiekot izmestam, tavas atbildes tajā tiek izdzēstas uzreiz. Tavā progresā (Testa režīma kļūdu sarakstā) saglabājas tikai tavas pašas kļūdas no istabā risinātajiem uzdevumiem.
 - **Maksājumi** — dzēšot kontu, aktīvs abonements tiek automātiski atcelts. Rēķini un maksājumu ieraksti glabājas Stripe sistēmā tik ilgi, cik to prasa grāmatvedības normatīvie akti (parasti 5 gadi), arī pēc konta dzēšanas.
 
 ## 7. Tavas tiesības
