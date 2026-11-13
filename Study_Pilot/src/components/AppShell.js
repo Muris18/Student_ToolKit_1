@@ -10,7 +10,7 @@ function Banners() {
   const { user, config, api, saveError, setSaveError } = useApp();
   const [sent, setSent] = useState('');
   const resend = async () => {
-    try { await api('/api/auth/resend', { method: 'POST' }); setSent('Nosūtīts! Pārbaudi e-pastu (arī mēstules).'); } catch (e) { setSent(e.message); }
+    try { await api('/api/auth/resend', { method: 'POST', body: { theme: document.documentElement.dataset.theme } }); setSent('Nosūtīts! Pārbaudi e-pastu (arī mēstules).'); } catch (e) { setSent(e.message); }
   };
   return (
     <>

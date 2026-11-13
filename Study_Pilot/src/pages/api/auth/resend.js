@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   if (user.emailVerifiedAt) return res.status(200).json({ ok: true, already: true });
   if (limited(res, `resend:${user.id}`, 3, 3600, 'Apstiprinājuma e-pastu var sūtīt līdz 3 reizēm stundā.')) return;
   try {
-    await sendVerifyEmail(user.email, await createEmailToken(user.id, 'verify', 48));
+    await sendVerifyEmail(user.email, await createEmailToken(user.id, 'verify', 48), req.body?.theme);
   } catch (e) {
     return res.status(502).json({ error: 'E-pastu neizdevās nosūtīt. Pamēģini vēlāk.' });
   }

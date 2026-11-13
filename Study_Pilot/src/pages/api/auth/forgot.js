@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const user = email && (await findByEmail(email));
   if (user && !user.blockedAt) {
     try {
-      await sendResetEmail(user.email, await createEmailToken(user.id, 'reset', 1));
+      await sendResetEmail(user.email, await createEmailToken(user.id, 'reset', 1), req.body?.theme);
     } catch (e) {
       console.error('Paroles atjaunošanas e-pasts netika nosūtīts:', e.message);
     }

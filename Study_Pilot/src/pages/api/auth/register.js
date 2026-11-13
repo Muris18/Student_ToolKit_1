@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     const user = await createUser({ email: e, password, profile: p, verified: !sendMail });
     if (sendMail) {
       try {
-        await sendVerifyEmail(e, await createEmailToken(user.id, 'verify', 48));
+        await sendVerifyEmail(e, await createEmailToken(user.id, 'verify', 48), req.body?.theme);
       } catch (mailErr) {
         console.error('Apstiprinājuma e-pasts netika nosūtīts:', mailErr.message);
       }

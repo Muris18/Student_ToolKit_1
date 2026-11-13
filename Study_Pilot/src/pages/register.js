@@ -31,7 +31,7 @@ export default function RegisterPage() {
     setBusy(true);
     try {
       const { email, password, ...profile } = form;
-      await register({ email, password, profile, ageConfirmed, acceptTerms });
+      await register({ email, password, profile, ageConfirmed, acceptTerms, theme: document.documentElement.dataset.theme });
     } catch (err) {
       setError(err.message);
       setBusy(false);
