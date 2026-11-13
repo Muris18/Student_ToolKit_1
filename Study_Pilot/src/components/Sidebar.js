@@ -10,6 +10,7 @@ export const menuItems = [
   { name: 'Fokusa režīms', href: '/focus', icon: 'bolt' },
   { name: 'Plānotājs un termiņi', href: '/planner', icon: 'calendar' },
   { name: 'Pārbaudes darbi', href: '/parbaudes', icon: 'doc' },
+  { name: 'Mācību istabas', href: '/rooms', icon: 'users' },
   {
     name: 'Eksāmenu sagatavošanās', href: '/exams', icon: 'book',
     children: [
@@ -32,6 +33,8 @@ export function useIsActive() {
   return (href) => {
     const [path, qs] = href.split('?');
     const mode = qs ? qs.split('=')[1] : null;
+    // Mācību istabas: izceļ arī /rooms/<kods>
+    if (path === '/rooms') return pathname === '/rooms' || pathname === '/rooms/[code]';
     if (path !== pathname) return false;
     if (path !== '/exams') return true;
     const cur = ['quiz', 'ai', 'official'].includes(query.mode) ? query.mode : null;

@@ -194,16 +194,30 @@ Visi lietotāju dati glabājas **PostgreSQL** datubāzē un saglabājas arī pē
 | `users` | e-pasts, paroles hash + sāls, loma, plāns, `terms_accepted_at`, `ai_consent_at`, `profile` (vārds, uzvārds, līmenis, klase/kurss, skola, programma), `data` (priekšmeti, termiņi, uzdevumi, testi, rezultāti, čats, aktivitāte), izveides un pēdējās aktivitātes laiks |
 | `sessions` | sesijas žetona SHA-256 hash, lietotājs, derīguma termiņš (30 dienas) |
 | `ai_usage` | lietotājs, laiks, modelis, tokenu skaits — tikai limitiem un izmaksām |
+| `exam_attempts` | valsts eksāmenu uzdevumu mēģinājumi: lietotājs, uzdevums, vai pareizi, laiks |
+| `rooms`, `room_members`, `room_answers`, `room_help` | Mācību istabas: kods, nosaukums, uzdevumu kopa ar pareizajām atbildēm, taimeris; dalībnieki ("Vārds U.", statuss, tēma); atbildes un atzīmes "vajag palīdzību". Dzēšas 24 h pēc pēdējās aktivitātes |
 | `exam_documents`, `exam_tasks` | eksāmenu uzdevumi AI skolotājam (bez personas datiem) |
 
 - Klients visu `data` objektu sūta ar `PUT /api/me/data` (līdz 2 MB).
 - `DELETE /api/me` dzēš lietotāju; sesijas un `ai_usage` tiek izdzēstas automātiski (`ON DELETE CASCADE`).
-- Pārlūkā glabājas tikai `sp-session` (žetons), `sp-theme` un `sp-splash`. Sīkdatņu un analītikas nav.
+- Sesija ir HttpOnly sīkdatnē `sp_session`; pārlūka krātuvē glabājas tikai `sp-session` (norāde "esi pieslēdzies"), `sp-theme`, `sp-splash` un `sp-room-saved`. Analītikas un izsekošanas nav.
 - `GET /api/me/export` atdod visus lietotāja datus (poga "Lejupielādēt manus datus" profilā).
 - Reģistrācija (`POST /api/auth/register`) prasa `ageConfirmed: true` un `acceptTerms: true`; laiks tiek saglabāts `terms_accepted_at`.
 - Beigušās sesijas un konti, kas nav lietoti 24 mēnešus (izņemot `admin`), tiek dzēsti automātiski — ne biežāk kā reizi 6 h, pie jebkura pieslēgta pieprasījuma (`maybeCleanup` failā `src/server/db.js`). Termiņš `INACTIVE_MONTHS` jāsaskaņo ar `scripts/cleanup.js` un politiku.
 
 **Ja pievieno jaunu lauku ar personas datiem vai jaunu ārēju servisu, atjauno datu tabulu saknes README un `content/privacy.md`.**
+
+## Mācību istabas
+
+Kopīga mācīšanās: lietotājs izveido istabu (`/rooms`), pārējie pievienojas ar 6 simbolu kodu vai saiti `/rooms/KODS`. Istabā ir kopīgs taimeris, viena uzdevumu kopa visiem (VIAA eksāmenu uzdevumi vai paša testi) un kļūdu pārskats kārtas beigās.
+
+- Kods: `src/lib/rooms.js` (kodi, taimeris, kopu tīrīšana; testi `tests/rooms.test.js`), `src/server/rooms.js`, API `src/pages/api/rooms/**`, saskarne `src/features/rooms/`. Tabulas: migrācija `db/migrations/008_study_rooms.sql`.
+- Reāllaiks ar aptauju (`GET /api/rooms/<kods>` ik pēc 3 s, fonā 15 s); WebSocket nav vajadzīgs. Taimeris glabājas serverī kā beigu laiks, tāpēc visās cilnēs sakrīt.
+- Citi dalībnieki redz tikai "Vārds U." (vārds un uzvārda pirmais burts), statusu, tēmu un progresu; e-pastu un to, kurš kādu variantu izvēlējās, neredz.
+- Pareizā atbilde un skaidrojums nonāk pie klienta tikai pēc paša atbildes (vai kārtas pārskatā).
+- VIAA uzdevumu mēģinājumus ieraksta serveris tabulā `exam_attempts` (kļūdas nonāk Testa režīmā); paša testu kļūdas klients ieraksta `quizResults`.
+- Istabas bez aktivitātes 24 h tiek dzēstas kopā ar atbildēm (`maybeCleanupRooms`).
+- Iestatījumi `.env`: `ROOM_MAX_MEMBERS` (6), `ROOM_MAX_HOSTED` (3), `ROOMS_PREMIUM_ONLY=1` (tikai Premium un admins).
 
 ## AI skolotājs
 
