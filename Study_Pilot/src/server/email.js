@@ -20,16 +20,21 @@ function parseFrom() {
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-// Vienkāršs, visos e-pasta klientos strādājošs HTML ar vienu pogu
+// Gaišs, oficiāls HTML visiem e-pasta klientiem (tabulas un inline stili): galvene ar zīmolu, saturs, poga, drošības piezīme un kājene.
+// Krāsas ir fiksētas (e-pasta klienti nelasa lietotnes CSS); smaragdzaļā sakrīt ar lietotnes akcentu.
 function layout({ title, intro, button, url, outro }) {
-  return `<!doctype html><html lang="lv"><body style="margin:0;background:#0b0d12;font-family:Arial,Helvetica,sans-serif;color:#e9ecf3">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0b0d12;padding:32px 12px"><tr><td align="center">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#141821;border:1px solid #262c3a;border-radius:16px;padding:32px">
-<tr><td style="font-size:20px;font-weight:bold;color:#f5c542;padding-bottom:20px">Study Pilot</td></tr>
-<tr><td style="font-size:22px;font-weight:bold;color:#ffffff;padding-bottom:12px">${esc(title)}</td></tr>
-<tr><td style="font-size:15px;line-height:1.6;color:#c4cad6;padding-bottom:24px">${esc(intro)}</td></tr>
-<tr><td style="padding-bottom:24px"><a href="${esc(url)}" style="display:inline-block;background:#f5c542;color:#0b0d12;text-decoration:none;font-weight:bold;padding:14px 22px;border-radius:12px">${esc(button)}</a></td></tr>
-<tr><td style="font-size:12px;line-height:1.6;color:#8a93a6">${esc(outro)}<br><br>Ja poga nestrādā, atver šo saiti:<br><span style="word-break:break-all;color:#c4cad6">${esc(url)}</span></td></tr>
+  const contact = 'jautajumi@studypilot.lv';
+  return `<!doctype html><html lang="lv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>${esc(title)}</title></head>
+<body style="margin:0;padding:0;background:#f1f5f4;font-family:Arial,Helvetica,sans-serif;color:#1f2937">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f4;padding:32px 12px"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #e2e8e6;border-radius:12px;overflow:hidden">
+<tr><td style="background:#047857;padding:20px 32px;font-size:20px;font-weight:bold;color:#ffffff;letter-spacing:.2px">Study Pilot</td></tr>
+<tr><td style="padding:32px 32px 8px;font-size:22px;font-weight:bold;color:#111827">${esc(title)}</td></tr>
+<tr><td style="padding:8px 32px 24px;font-size:15px;line-height:1.65;color:#374151">${esc(intro)}</td></tr>
+<tr><td style="padding:0 32px 28px"><a href="${esc(url)}" style="display:inline-block;background:#047857;color:#ffffff;text-decoration:none;font-weight:bold;font-size:15px;padding:14px 28px;border-radius:8px">${esc(button)}</a></td></tr>
+<tr><td style="padding:0 32px 24px;font-size:13px;line-height:1.6;color:#4b5563">${esc(outro)}</td></tr>
+<tr><td style="padding:0 32px 28px;font-size:12px;line-height:1.6;color:#6b7280">Ja poga nestrādā, nokopē šo saiti pārlūka adreses joslā:<br><a href="${esc(url)}" style="word-break:break-all;color:#047857">${esc(url)}</a></td></tr>
+<tr><td style="background:#f8faf9;border-top:1px solid #e2e8e6;padding:20px 32px;font-size:12px;line-height:1.6;color:#6b7280">Šis ir automātisks ziņojums no Study Pilot, kas nosūtīts uz tavu e-pasta adresi saistībā ar tavu kontu.<br>Jautājumi: <a href="mailto:${contact}" style="color:#047857">${contact}</a> &middot; <a href="${esc(appUrl())}/privacy" style="color:#047857">Privātuma politika</a></td></tr>
 </table></td></tr></table></body></html>`;
 }
 
