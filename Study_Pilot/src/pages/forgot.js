@@ -18,7 +18,7 @@ export default function ForgotPage() {
     setError('');
     setBusy(true);
     try {
-      const r = await api('/api/auth/forgot', { method: 'POST', body: { email } });
+      const r = await api('/api/auth/forgot', { method: 'POST', body: { email, theme: document.documentElement.dataset.theme } });
       setMsg(r.message);
     } catch (err) {
       setError(err.message);
