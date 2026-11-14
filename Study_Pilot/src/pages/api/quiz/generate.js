@@ -55,7 +55,8 @@ export default async function handler(req, res) {
         ? { title: `${cap(subject)}: atkārto kļūdas`, source: 'exams', questions: await examQuiz({ subject, grade, mistakes: tasks }) }
         : { title: `${cap(subject)}: diagnostikas tests`, source: 'diagnostic', questions: await examQuiz({ subject, grade, count: 10 }) };
     }
-    if (!hasMistakes) notice = 'Tev vēl nav kļūdu šajā priekšmetā, tāpēc šis ir diagnostikas tests. Nākamie testi tiks veidoti no tavām kļūdām.';
+    // Paziņojumu par AI (limits, piekrišana u.c.) nepārraksta, bet papildina ar diagnostikas paskaidrojumu
+    if (!hasMistakes) notice = [notice, 'Tev vēl nav kļūdu šajā priekšmetā, tāpēc šis ir diagnostikas tests. Nākamie testi tiks veidoti no tavām kļūdām.'].filter(Boolean).join(' ');
     if (!quiz.questions.length) {
       return res.status(404).json({ error: aiOk ? 'Neizdevās izveidot testu. Pamēģini vēlreiz.' : 'Šajā priekšmetā VIAA eksāmenos ir gandrīz tikai atvērtie uzdevumi, tāpēc testu var izveidot tikai AI. Ieslēdz AI mācību palīgu (piekrišana datu nosūtīšanai) un mēģini vēlreiz.' });
     }

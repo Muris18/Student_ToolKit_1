@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { makeCode, normalizeCode, displayName, cleanQuestions, timerView, timerAfter, buildStats, dalibnieki, mmss, CODE_ALPHABET } from '../src/lib/rooms';
+import { makeCode, normalizeCode, displayName, cleanQuestions, timerView, timerAfter, buildStats, dalibnieki, mmss, CODE_ALPHABET, MAX_CONTEXT } from '../src/lib/rooms';
 
 describe('istabas kods', () => {
   it('makeCode izmanto tikai drošo alfabētu un ir 6 simbolus garš', () => {
@@ -59,7 +59,9 @@ describe('cleanQuestions', () => {
     expect(r[0].question).toHaveLength(1500);
     expect(r[0].options[0]).toHaveLength(400);
     expect(r[0].explanation).toHaveLength(1200);
-    expect(r[0].context).toHaveLength(8000);
+    expect(r[0].context).toHaveLength(MAX_CONTEXT);
+    // garākais VIAA lasāmais teksts (~11 400 simboli) netiek apcirsts
+    expect(cleanQuestions([{ question: 'Jautājums?', options: ['a', 'b'], correctIndex: 0, context: 'c'.repeat(11400) }])[0].context).toHaveLength(11400);
     expect(cleanQuestions(Array.from({ length: 80 }, () => good))).toHaveLength(30);
   });
   it('taskId paliek tikai ar allowTaskId', () => {

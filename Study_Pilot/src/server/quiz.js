@@ -6,11 +6,12 @@ import { query } from './db';
 import { parseOptions, answerKeys } from './exams';
 import { askDeepSeek, usedToday, limitFor, finishUsage } from './ai';
 import { emailEnabled } from './email';
+import { MAX_CONTEXT } from '../lib/rooms';
 
 const id = () => crypto.randomBytes(8).toString('hex');
 const cut = (v, n) => (String(v || '').length > n ? String(v).slice(0, n) + '…' : String(v || ''));
 const shuffle = (a) => { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = crypto.randomInt(i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; };
-const MAX_CONTEXT = 8000; // lasīšanas teksts tiek rādīts sakļaujamā blokā virs jautājuma
+// Lasīšanas teksts tiek rādīts sakļaujamā blokā virs jautājuma; garuma robeža MAX_CONTEXT ir kopīga ar istabām (src/lib/rooms.js)
 
 // Lietotāja kļūdas: valsts eksāmenu testa uzdevumi, kas atbildēti nepareizi (un vēl nav izlaboti),
 // un nepareizi atbildētie jautājumi iepriekšējos testos.
