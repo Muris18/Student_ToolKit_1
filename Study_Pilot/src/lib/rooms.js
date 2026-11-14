@@ -6,6 +6,9 @@ export const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 export const CODE_LENGTH = 6;
 export const TIMER_MINUTES = [15, 25, 45];
 export const MAX_QUESTIONS = 30;
+// Lasāmā teksta garuma robeža (simboli). Garākais VIAA teksts ir ~11 400 simbolu (latviešu valoda, 12. klase);
+// robežai jābūt vienai gan Testa režīmam (src/server/quiz.js), gan istabām, citādi garo tekstu uzdevumi izkrīt vai tiek apcirsti.
+export const MAX_CONTEXT = 12000;
 
 // rnd(n) -> vesels skaitlis [0, n). Serverī padod crypto.randomInt; pēc noklusējuma Math.random
 export function makeCode(rnd = (n) => Math.floor(Math.random() * n)) {
@@ -52,7 +55,7 @@ export function cleanQuestions(list, { allowTaskId = false } = {}) {
       options,
       correctIndex: ci,
       explanation: cut(q.explanation, 1200),
-      context: cut(q.context, 8000),
+      context: cut(q.context, MAX_CONTEXT),
       topic: cut(q.topic, 80),
       source: cut(q.source, 80),
     };
