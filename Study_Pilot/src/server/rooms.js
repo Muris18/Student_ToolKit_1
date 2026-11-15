@@ -153,7 +153,9 @@ export async function leaveRoom(user, code) {
 
 // ---------- Stāvoklis ----------
 
-export async function roomState(user, code) {
+// knownQv: uzdevumu kopas versija, kas klientam jau ir (skat. qv zemāk). Ja tā sakrīt, uzdevumu nemainīgā daļa
+// (teksts, varianti, lasāmais teksts) netiek sūtīta atkārtoti katrā aptaujā; tiek sūtīta tikai mainīgā daļa.
+export async function roomState(user, code, knownQv = null) {
   const room = await memberRoom({ query }, user, code);
   await query('UPDATE room_members SET last_seen = now() WHERE room_id = $1 AND user_id = $2', [room.id, user.id]);
   const nowMs = Date.now();
@@ -187,20 +189,28 @@ export async function roomState(user, code) {
   });
 
   let questions = [];
+  let qv = null;
+  let light = false;
   if (playing) {
+    // Kopas versija: kārta + satura hash. Mainās, kad sākas jauna kārta vai tiek izvēlēta cita kopa.
+    qv = `${room.round}:${crypto.createHash('md5').update(JSON.stringify(room.questions)).digest('hex').slice(0, 12)}`;
+    light = knownQv === qv;
     const mine = new Map(ans.rows.filter((a) => a.user_id === user.id).map((a) => [a.question_id, a]));
     const stats = buildStats(room.questions, ans.rows.map((a) => ({ questionId: a.question_id, choice: a.choice, correct: a.correct })));
     questions = room.questions.map((q) => {
       const my = mine.get(q.id);
       const open = review || Boolean(my); // pareizā atbilde, skaidrojums un statistika tikai pēc paša atbildes vai pārskatā
       const hq = help.rows.filter((h) => h.question_id === q.id);
-      return {
-        id: q.id, question: q.question, options: q.options, context: q.context || '', topic: q.topic || '', source: q.source || '',
-        tracked: Boolean(q.taskId),
+      // Mainīgā daļa (katrā aptaujā)
+      const dyn = {
+        id: q.id,
         mine: my ? { choice: my.choice, correct: my.correct } : null,
         help: { count: hq.length, mine: hq.some((h) => h.user_id === user.id) },
         ...(open ? { result: { correctIndex: q.correctIndex, explanation: q.explanation || '' }, stats: stats[q.id] } : {}),
       };
+      if (light) return dyn;
+      // Nemainīgā daļa (tikai pirmajā reizē vai kad mainījusies kopa)
+      return { ...dyn, question: q.question, options: q.options, context: q.context || '', topic: q.topic || '', source: q.source || '', tracked: Boolean(q.taskId) };
     });
   }
 
@@ -215,6 +225,8 @@ export async function roomState(user, code) {
       timer: { ...t, endsAt: room.timer_ends_at ? new Date(room.timer_ends_at).getTime() : null },
     },
     members,
+    qv,
+    light,
     questions,
   };
 }

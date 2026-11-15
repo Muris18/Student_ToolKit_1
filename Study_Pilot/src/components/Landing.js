@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import MathText from './MathText';
 import { useApp } from '../lib/AppContext';
 import { premiumFeatures, FREE_LIMITS } from '../lib/plans';
 
@@ -60,8 +59,10 @@ function usePathProgress(count) {
 
 // Reklāmas/info lapa. home: sākumlapa "/" (pieslēgtiem lietotājiem tā tiek paslēpta, kamēr notiek pārvirzīšana uz paneli);
 // info: lapa "/par" pieslēgtiem lietotājiem (tikai informācija).
-export default function Landing({ home = false, info = false }) {
+// demo: priekšskatījumu formulu gatavs HTML no getStaticProps (src/lib/landingDemo.js), lai sākumlapai nav jāielādē KaTeX
+export default function Landing({ home = false, info = false, demo = [] }) {
   const { status, config } = useApp();
+  const D = (i) => <span className="math-text whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: demo[i] || '' }} />;
   const loggedIn = status === 'ready';
   const start = loggedIn ? '/dashboard' : '/register';
   const [pathRef, seen] = usePathProgress(PATH.length);
@@ -108,18 +109,18 @@ export default function Landing({ home = false, info = false }) {
               </div>
               <div className="cx-chat">
                 <div className="cx-msg cx-msg-me">
-                  <MathText as="span" text="Kā atrisināt $x^2 - 5x + 6 = 0$?" />
+                  {D(0)}
                 </div>
                 <div className="cx-msg cx-msg-ai">
                   <small>AI skolotājs</small>
-                  <MathText as="span" text={'Sāksim ar mājienu: kuri divi skaitļi reizinājumā dod $6$, bet summā $5$? Pamēģini!'} />
+                  {D(1)}
                 </div>
                 <div className="cx-msg cx-msg-me">
-                  <MathText as="span" text="$2$ un $3$!" />
+                  {D(2)}
                 </div>
                 <div className="cx-msg cx-msg-ai">
                   <small>AI skolotājs</small>
-                  <MathText as="span" text={'Tieši tā. Tagad uzraksti vienādojumu formā $(x - a)(x - b) = 0$. Kas ir $a$ un $b$?'} />
+                  {D(3)}
                 </div>
                 <div className="cx-sources">
                   <span>Avots</span> līdzīgs uzdevums VIAA 9. kl. matemātikas eksāmenā
@@ -170,8 +171,8 @@ export default function Landing({ home = false, info = false }) {
               <h3>AI skolotājs, kas māca domāt</h3>
               <p>Uzdod jautājumu par jebkuru uzdevumu. AI atrod līdzīgus eksāmenu uzdevumus un vada tevi pa soļiem. Formulas izskatās tieši kā mācību grāmatā.</p>
               <div className="cx-mini" aria-hidden="true">
-                <div className="me"><MathText as="span" text={'Nesaprotu, kā vienkāršot $\\sqrt{50}$'} /></div>
-                <div className="ai"><MathText as="span" text={'Sadali $50$ reizinājumā, kur viens skaitlis ir pilns kvadrāts. Kurš pilns kvadrāts dala $50$?'} /></div>
+                <div className="me">{D(4)}</div>
+                <div className="ai">{D(5)}</div>
               </div>
             </article>
             <article className="cx-card">

@@ -1,12 +1,11 @@
 // Teksts ar matemātikas formulām -> drošs HTML (KaTeX). Tīra funkcija bez React, lai to varētu testēt.
 // Formulas: $...$ rindā, $$...$$ vai \[...\] atsevišķā rindā, \(...\) rindā.
 // Pārējais teksts tiek droši aizsargāts (HTML netiek izpildīts), rindu pārnesumi saglabājas.
+// Formulu atpazīšana (regulārā izteiksme, hasMath) dzīvo lib/mathLight.js bez KaTeX, lai lapas bez formulām KaTeX neielādētu.
 import katex from 'katex';
+import { esc, MATH_RE as RE, hasMath } from './mathLight';
 
-const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-// $$...$$ | \[...\] | \(...\) | $...$ (bez atstarpes pie dolāriem, lai "5$ un 6$" netiktu uzskatīts par formulu)
-const RE = /\$\$([\s\S]+?)\$\$|\\\[([\s\S]+?)\\\]|\\\(([\s\S]+?)\\\)|\$(?!\s)((?:\\\$|[^$\n])+?)(?<!\s)\$(?!\d)/g;
+export { hasMath };
 
 function render(tex, displayMode) {
   try {
@@ -30,11 +29,4 @@ export function mathToHtml(text) {
     last = m.index + m[0].length;
   }
   return out + esc(s.slice(last));
-}
-
-export function hasMath(text) {
-  RE.lastIndex = 0;
-  const r = RE.test(String(text ?? ''));
-  RE.lastIndex = 0;
-  return r;
 }

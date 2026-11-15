@@ -12,7 +12,9 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   try {
     if (req.method === 'DELETE') return res.status(200).json(await leaveRoom(user, req.query.code));
-    res.status(200).json(await roomState(user, req.query.code));
+    // ?qv= — uzdevumu kopas versija, kas klientam jau ir; tad uzdevumu teksti netiek sūtīti atkārtoti
+    const qv = typeof req.query.qv === 'string' ? req.query.qv.slice(0, 40) : null;
+    res.status(200).json(await roomState(user, req.query.code, qv));
   } catch (e) {
     sendRoomError(res, e);
   }

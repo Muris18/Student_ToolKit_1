@@ -180,12 +180,17 @@ export async function userFromReq(req) {
   const via = cookie ? 'cookie' : 'bearer';
   if (!token) return { token: null, user: null, via: null };
   const { rows } = await pool.query(
-    `UPDATE users SET last_active = now()
-     WHERE id = (SELECT user_id FROM sessions WHERE token_hash = $1 AND expires_at > now())
-       AND blocked_at IS NULL
-     RETURNING *`,
+    `SELECT u.*, (u.last_active < now() - interval '1 minute') AS stale_active
+     FROM users u JOIN sessions s ON s.user_id = u.id
+     WHERE s.token_hash = $1 AND s.expires_at > now() AND u.blocked_at IS NULL`,
     [sha(token)]
   );
+  // last_active atjauno ne biežāk kā reizi minūtē (nevis pie katra pieprasījuma): istabu aptauja ik 3 s citādi
+  // katru reizi pārrakstītu lietotāja rindu. Neaktīvo kontu tīrīšanai (24 mēneši) minūtes precizitāte ir vairāk nekā pietiekama.
+  if (rows[0]?.stale_active) {
+    pool.query("UPDATE users SET last_active = now() WHERE id = $1 AND last_active < now() - interval '1 minute'", [rows[0].id])
+      .catch((e) => console.error('last_active atjaunināšana:', e.message));
+  }
   return { token, user: toUser(rows[0]), via };
 }
 
