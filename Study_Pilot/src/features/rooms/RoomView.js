@@ -8,6 +8,7 @@ import { normalizeCode, mmss, dalibnieki } from '../../lib/rooms';
 import { useRoom, useTick } from './useRoom';
 import { useSaveMistakes } from './useSaveMistakes';
 import { SetPicker, PlayRound, ReviewPanel } from './RoomRounds';
+import ConfirmButton from './ConfirmButton';
 
 const STATE_LABEL = { lobby: 'Gaida sākumu', running: 'Notiek kārta', review: 'Pārskats' };
 
@@ -64,12 +65,11 @@ function Room({ state, act, now, netError }) {
   const copy = async () => {
     try { await navigator.clipboard.writeText(`${window.location.origin}/rooms/${room.code}`); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch (e) { setError('Neizdevās nokopēt. Nokopē saiti no adreses joslas.'); }
   };
+  // Apstiprinājumus rāda ConfirmButton pašā lapā (window.confirm pārlūkos var nerādīties, un poga tad nedarbotos)
   const leave = async () => {
-    if (!window.confirm(isHost && members.length > 1 ? 'Iziet no istabas? Istaba pāries nākamajam dalībniekam.' : 'Iziet no istabas?')) return;
     try { await act('', 'DELETE'); router.push('/rooms'); } catch (e) { setError(e.message); }
   };
   const close = async () => {
-    if (!window.confirm('Aizvērt istabu visiem? Visas atbildes tiks dzēstas.')) return;
     try { await act('/host', 'POST', { type: 'close' }); router.push('/rooms'); } catch (e) { setError(e.message); }
   };
 
@@ -86,8 +86,8 @@ function Room({ state, act, now, netError }) {
         <div className="flex flex-wrap items-center gap-2">
           <span className="sp-mono text-lg font-bold tracking-widest px-3 py-1.5 rounded-xl bg-slate-100 text-slate-800" aria-label={`Istabas kods ${room.code.split('').join(' ')}`}>{room.code}</span>
           <Button variant="secondary" onClick={copy} className="text-xs py-1.5 px-3">{copied ? 'Nokopēts ✓' : 'Kopēt saiti'}</Button>
-          <Button variant="ghost" onClick={leave} className="text-xs py-1.5 px-3">Iziet</Button>
-          {isHost && <Button variant="danger" onClick={close} className="text-xs py-1.5 px-3">Aizvērt istabu</Button>}
+          <ConfirmButton variant="ghost" className="text-xs py-1.5 px-3" question={isHost && members.length > 1 ? 'Iziet? Istaba pāries nākamajam.' : 'Iziet no istabas?'} yes="Jā, iziet" onConfirm={leave}>Iziet</ConfirmButton>
+          {isHost && <ConfirmButton variant="danger" className="text-xs py-1.5 px-3" question="Aizvērt istabu visiem? Atbildes tiks dzēstas." yes="Jā, aizvērt" onConfirm={close}>Aizvērt istabu</ConfirmButton>}
         </div>
       </div>
       {(error || netError) && <p role="alert" className="text-sm text-rose-600 p-3 rounded-xl bg-rose-50 border border-rose-100">{error || `Savienojuma problēma: ${netError}`}</p>}
@@ -166,7 +166,7 @@ function MembersPanel({ state, act }) {
   const review = room.state === 'review';
 
   const patch = (body) => act('/me', 'PATCH', body).then(() => setError('')).catch((e) => setError(e.message));
-  const kick = (m) => { if (window.confirm(`Izmest ${m.name} no istabas? Viņš vairs nevarēs pievienoties.`)) act('/host', 'POST', { type: 'kick', memberId: m.id }).catch((e) => setError(e.message)); };
+  const kick = (m) => act('/host', 'POST', { type: 'kick', memberId: m.id }).catch((e) => setError(e.message));
 
   return (
     <Card title="Dalībnieki" subtitle={`${members.length} no ${state.config.maxMembers}`}>
@@ -179,7 +179,7 @@ function MembersPanel({ state, act }) {
               <p className="text-xs text-slate-500 truncate">{m.status === 'break' ? 'Pauzē' : 'Mācās'}{m.topic ? ` · ${m.topic}` : ''}</p>
             </div>
             {showProgress && <span className="text-xs font-semibold text-slate-600 shrink-0">{review ? `✓ ${m.correct ?? 0}/${total}` : `${m.answered}/${total}`}</span>}
-            {isHost && !m.isMe && <button type="button" onClick={() => kick(m)} className="text-[11px] text-rose-600 hover:underline cursor-pointer shrink-0" aria-label={`Izmest ${m.name}`}>Izmest</button>}
+            {isHost && !m.isMe && <ConfirmButton as="link" className="text-[11px] text-rose-600 hover:underline cursor-pointer shrink-0" ariaLabel={`Izmest ${m.name}`} question={`Izmest ${m.name}? Nevarēs pievienoties atkārtoti.`} yes="Jā, izmest" onConfirm={() => kick(m)}>Izmest</ConfirmButton>}
           </li>
         ))}
       </ul>

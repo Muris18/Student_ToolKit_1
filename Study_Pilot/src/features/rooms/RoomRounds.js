@@ -5,6 +5,7 @@ import MathText from '../../components/MathText';
 import { useApp } from '../../lib/AppContext';
 import { subjectName } from '../../lib/helpers';
 import { autoMath } from '../../lib/autoMath';
+import ConfirmButton from './ConfirmButton';
 
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const pct = (n, d) => (d ? Math.round((n / d) * 100) : 0);
@@ -148,7 +149,8 @@ export function PlayRound({ state, act }) {
     setBusy(false);
   };
   const toggleHelp = () => act('/answer', 'POST', { questionId: q.id, help: !q.help.mine }).catch((e) => setError(e.message));
-  const finish = () => { if (window.confirm('Pabeigt kārtu un rādīt pārskatu visiem?')) act('/host', 'POST', { type: 'finish' }).catch((e) => setError(e.message)); };
+  // Apstiprinājumu rāda ConfirmButton pašā lapā (window.confirm pārlūkos var nerādīties un poga tad nedarbotos)
+  const finish = () => act('/host', 'POST', { type: 'finish' }).catch((e) => setError(e.message));
 
   const chip = (x, i) => {
     const c = !x.mine ? 'bg-slate-100 text-slate-500 border-slate-200' : x.mine.correct ? 'bg-emerald-50 text-emerald-700 border-emerald-400' : 'bg-rose-50 text-rose-700 border-rose-400';
@@ -162,7 +164,7 @@ export function PlayRound({ state, act }) {
     <Card
       title={state.room.set.title || 'Uzdevumi'}
       subtitle={`Uzdevums ${index + 1} no ${qs.length}`}
-      action={isHost && <Button variant="secondary" onClick={finish} className="text-xs py-1.5 px-3">Pabeigt kārtu un rādīt pārskatu</Button>}
+      action={isHost && <ConfirmButton variant="secondary" className="text-xs py-1.5 px-3" question="Pabeigt kārtu visiem?" yes="Jā, pabeigt" onConfirm={finish}>Pabeigt kārtu un rādīt pārskatu</ConfirmButton>}
     >
       <div className="space-y-5">
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="Uzdevumi">{qs.map(chip)}</div>
