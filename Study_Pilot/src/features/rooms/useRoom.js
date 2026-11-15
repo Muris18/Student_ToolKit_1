@@ -13,12 +13,26 @@ export function useRoom(code) {
   const timer = useRef(null);
   const stopped = useRef(false);
   const slow = useRef(false);
+  // Uzdevumu nemainīgā daļa (teksti, varianti) pēc kopas versijas: serveris to sūta vienreiz, pēc tam tikai atbildes un statistiku
+  const statics = useRef({ qv: null, byId: {} });
 
   const load = useCallback(async () => {
     const my = ++seq.current;
     try {
-      const r = await api(`/api/rooms/${code}`);
+      const known = statics.current.qv;
+      const r = await api(`/api/rooms/${code}${known ? `?qv=${encodeURIComponent(known)}` : ''}`);
       if (my < applied.current) return; // vecāka atbilde, kas atnāca vēlāk par jaunāku
+      if (r.light) {
+        // Serveris atsūtīja tikai mainīgo daļu: uzdevumu tekstus ņem no atmiņas
+        if (r.qv !== statics.current.qv) { statics.current = { qv: null, byId: {} }; return load(); }
+        r.questions = r.questions.map((d) => ({ ...statics.current.byId[d.id], ...d }));
+      } else if (r.qv) {
+        const byId = {};
+        for (const q of r.questions) byId[q.id] = { question: q.question, options: q.options, context: q.context, topic: q.topic, source: q.source, tracked: q.tracked };
+        statics.current = { qv: r.qv, byId };
+      } else {
+        statics.current = { qv: null, byId: {} };
+      }
       applied.current = my;
       offset.current = r.now - Date.now();
       slow.current = false;

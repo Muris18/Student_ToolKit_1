@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useApp } from '../lib/AppContext';
+import { preloadMath } from './MathText';
 
 // Kopīgais izkārtojums visām lapām, kurām vajag pieslēgtu lietotāju
 // Pārbauda pieteikšanos un ieliek lapas saturu. Navbar un Sidebar ir _app.js, tāpēc starp lapām nemirgo.
@@ -39,6 +40,8 @@ export default function AppShell({ children }) {
 
   useEffect(() => {
     if (status === 'guest') router.replace(`/login?next=${encodeURIComponent(router.asPath)}`);
+    // Pieslēgtam lietotājam formulu bibliotēku (KaTeX) ielādē fonā, kad pārlūks ir brīvs
+    if (status === 'ready') preloadMath();
   }, [status, router]);
 
   return (
