@@ -1,12 +1,11 @@
 // Bezmaksas un Premium plāna atšķirības (kopīgi klientam un serverim). Mainot šeit, mainās visur.
 export const FREE_LIMITS = {
-  quizzes: 3, // savi testi
-  exercises: 15, // savi eksāmenu uzdevumi
+  quizzes: 3, // savi testi (savu uzdevumu pievienošana eksāmenu sadaļā ir noņemta; esošie ieraksti lietotāju datos paliek)
 };
 
 export const isPremium = (user) => user?.plan === 'premium';
 
-// Vai lietotājs drīkst pievienot vēl vienu ierakstu (key: 'quizzes' | 'exercises')
+// Vai lietotājs drīkst pievienot vēl vienu ierakstu (key: 'quizzes')
 export function canAdd(user, data, key) {
   if (isPremium(user)) return true;
   return (data?.[key]?.length || 0) < FREE_LIMITS[key];
@@ -21,7 +20,6 @@ export const aiLimitText = (tokens) => `${fmtTokens(tokens || 0)} AI tokenu dien
 export const premiumFeatures = (cfg = {}) => [
   `${aiLimitText(cfg.aiTokensPremium || 1000000)} (bezmaksas — ${fmtTokens(cfg.aiTokensFree || 200000)})`,
   'Vairāk AI testu pēc tavām kļūdām',
-  'Neierobežoti savi eksāmenu uzdevumi',
   'Viss, kas ir bezmaksas plānā',
   'Atbalsti Study Pilot attīstību',
 ];

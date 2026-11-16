@@ -38,8 +38,9 @@ export function useIsActive() {
     if (path === '/rooms') return pathname === '/rooms' || pathname === '/rooms/[code]';
     if (path !== pathname) return false;
     if (path !== '/exams') return true;
-    const cur = ['quiz', 'ai', 'official'].includes(query.mode) ? query.mode : null;
-    return cur === mode;
+    // /exams bez režīma ir valsts eksāmeni (noklusējums)
+    const cur = ['quiz', 'ai', 'official'].includes(query.mode) ? query.mode : 'official';
+    return cur === (mode || 'official');
   };
 }
 
@@ -48,14 +49,14 @@ export default function Sidebar() {
   const { user, data } = useApp();
   // Administrēšanas saite redzama tikai adminam (servera pusē to aizsargā requireAdmin)
   const items = menuItems.filter((i) => i.href !== '/admin' || user?.role === 'admin');
-  // Apakšsadaļu grupas var sakļaut; izvēle tiek atcerēta šajā pārlūkā
-  const [closed, setClosed] = useState({});
+  // Apakšsadaļu grupas pēc noklusējuma ir SAKĻAUTAS un atveras ar bultiņu; izvēle tiek atcerēta šajā pārlūkā
+  const [open, setOpen] = useState({});
   useEffect(() => {
-    try { setClosed(JSON.parse(localStorage.getItem('sp-nav-closed') || '{}') || {}); } catch (e) {}
+    try { setOpen(JSON.parse(localStorage.getItem('sp-nav-open') || '{}') || {}); } catch (e) {}
   }, []);
-  const toggle = (href) => setClosed((c) => {
+  const toggle = (href) => setOpen((c) => {
     const next = { ...c, [href]: !c[href] };
-    try { localStorage.setItem('sp-nav-closed', JSON.stringify(next)); } catch (e) {}
+    try { localStorage.setItem('sp-nav-open', JSON.stringify(next)); } catch (e) {}
     return next;
   });
   return (
@@ -70,7 +71,8 @@ export default function Sidebar() {
               <Link
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-2.5 rounded-full font-medium text-sm transition-colors duration-150 ${item.children ? 'pr-10' : ''} ${
-                  isActive(item.href) ? 'sidebar-item-active' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                  // Grupai ar apakšsadaļām: kamēr tā ir atvērta, izceļ aktīvo apakšsadaļu, nevis pašu grupu
+                  isActive(item.href) && !(item.children && open[item.href]) ? 'sidebar-item-active' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
                 <Icon name={item.icon} className="w-[18px] h-[18px] shrink-0" />
@@ -80,17 +82,17 @@ export default function Sidebar() {
                 <button
                   type="button"
                   onClick={() => toggle(item.href)}
-                  aria-expanded={!closed[item.href]}
-                  aria-label={closed[item.href] ? `Rādīt ${item.name} apakšsadaļas` : `Paslēpt ${item.name} apakšsadaļas`}
+                  aria-expanded={Boolean(open[item.href])}
+                  aria-label={open[item.href] ? `Paslēpt ${item.name} apakšsadaļas` : `Rādīt ${item.name} apakšsadaļas`}
                   className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 cursor-pointer"
                 >
-                  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className={`w-4 h-4 transition-transform duration-150 ${closed[item.href] ? '-rotate-90' : ''}`}>
+                  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className={`w-4 h-4 transition-transform duration-150 ${open[item.href] ? '' : '-rotate-90'}`}>
                     <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
                   </svg>
                 </button>
               )}
             </div>
-            {item.children && !closed[item.href] && (
+            {item.children && open[item.href] && (
               <div className="ml-6 mt-1 mb-1 pl-3 border-l border-slate-200 space-y-0.5">
                 {item.children.map((c) => (
                   <Link

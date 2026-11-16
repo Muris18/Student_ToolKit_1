@@ -236,7 +236,7 @@ src/
   features/
     dashboard/    DashboardMain, ProgressSummaryWidget, UpcomingDeadlinesWidget, QuickActions, ProgressTracking
     planner/      DeadlineRadar, StudyPlannerCalendar, TaskView, AddTaskModal
-    exams/        ExamSelector, ExamTaskList, QuizMode, QuizBuilder, AiTutorChat
+    exams/        OfficialExams, ExamSimulation, QuizMode, AiTutorChat
     profile/      SubjectManager
   lib/            AppContext (lietotājs + dati), helpers, device, emptyData, markdown (politikas lapai)
   pages/          index, login, register, dashboard, planner, exams, progress, profile, admin, privacy, terms

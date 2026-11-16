@@ -1,36 +1,26 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import AppShell from '../components/AppShell';
-import ExamSelector from '../features/exams/ExamSelector';
-import ExamTaskList from '../features/exams/ExamTaskList';
 import QuizMode from '../features/exams/QuizMode';
 import AiTutorChat from '../features/exams/AiTutorChat';
 import OfficialExams from '../features/exams/OfficialExams';
-import { useApp } from '../lib/AppContext';
-import { subjectName } from '../lib/helpers';
 
 const MODES = [
-  { id: 'select', label: 'Priekšmeti' },
   { id: 'official', label: '📄 Valsts eksāmeni' },
-  { id: 'tasks', label: 'Uzdevumi' },
   { id: 'quiz', label: '⚡ Testa režīms' },
   { id: 'ai', label: '🤖 AI mācību palīgs' },
 ];
 
 function Exams() {
   const router = useRouter();
-  const { data } = useApp();
   const [draft, setDraft] = useState('');
 
-  // Režīms un priekšmets dzīvo URL, lai sānu izvēlne un "atpakaļ" poga strādātu
+  // Režīms dzīvo URL, lai sānu izvēlne un "atpakaļ" poga strādātu. Pēc noklusējuma: valsts eksāmeni.
   const q = router.query;
-  const activeMode = MODES.some((m) => m.id === q.mode) ? q.mode : 'select';
-  const subjectId = data.subjects.some((s) => s.id === q.subject) ? q.subject : '';
+  const activeMode = MODES.some((m) => m.id === q.mode) ? q.mode : 'official';
 
-  const go = (mode, subject = subjectId) => {
-    const query = {};
-    if (mode !== 'select') query.mode = mode;
-    if (subject) query.subject = subject;
+  const go = (mode) => {
+    const query = mode === 'official' ? {} : { mode };
     router.push({ pathname: '/exams', query }, undefined, { shallow: true, scroll: false });
   };
 
@@ -39,7 +29,7 @@ function Exams() {
       <div className="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-xs">
         <div>
           <h1 className="text-xl font-bold text-slate-800">📚 Eksāmenu sagatavošanās</h1>
-          <p className="text-xs text-slate-500 mt-0.5">{subjectId ? subjectName(data, subjectId) : 'Tavi uzdevumi, testi un AI palīgs'}</p>
+          <p className="text-xs text-slate-500 mt-0.5">Valsts eksāmeni, testi un AI palīgs</p>
         </div>
         <div className="flex flex-wrap gap-2">
           {MODES.map((m) => (
@@ -54,20 +44,6 @@ function Exams() {
           ))}
         </div>
       </div>
-
-      {activeMode === 'select' && <ExamSelector onSelectSubject={(id) => go('tasks', id)} />}
-
-      {activeMode === 'tasks' && (
-        <ExamTaskList
-          key={subjectId}
-          subjectId={subjectId}
-          onChangeSubject={(id) => go('tasks', id)}
-          onOpenAiHelp={(task) => {
-            setDraft(`${subjectName(data, task.subjectId)}: ${task.title}${task.source ? ` (${task.source})` : ''} — `);
-            go('ai');
-          }}
-        />
-      )}
 
       {activeMode === 'quiz' && <QuizMode />}
 

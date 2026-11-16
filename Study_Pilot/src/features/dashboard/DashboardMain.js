@@ -19,7 +19,7 @@ export default function DashboardMain() {
   const steps = [
     { done: data.subjects.length > 0, label: 'Pievieno savus priekšmetus', href: '/profile' },
     { done: data.tasks.length > 0, label: 'Ieliec pirmo termiņu vai eksāmena datumu', href: '/planner' },
-    { done: data.exercises.length > 0, label: 'Pievieno eksāmena uzdevumus, ko risināt', href: '/exams?mode=tasks' },
+    { done: (data.examAttempts || []).length > 0, label: 'Izmēģini valsts eksāmena uzdevumu', href: '/exams' },
     { done: data.quizResults.length > 0, label: 'Izpildi pirmo testu (AI to sastāda pēc tavām kļūdām)', href: '/exams?mode=quiz' },
   ];
   const stepsDone = steps.filter((s) => s.done).length;
