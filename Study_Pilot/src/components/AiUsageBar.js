@@ -4,8 +4,6 @@ import { useApp } from '../lib/AppContext';
 // Josla: cik procentu no šodienas AI tokenu limita jau izmantots (atjaunojas katru dienu plkst. 00:00 pēc Rīgas laika).
 // Dati nāk no GET /api/ai/usage (AppContext.aiUsage) un atjaunojas pēc katra AI izsaukuma.
 // Izmanto: components/Sidebar.js, features/exams/AiTutorChat.js. compact: tikai josla un procenti, bez paskaidrojuma.
-const fmt = (n) => Number(n).toLocaleString('lv-LV');
-
 function timeLeft(iso) {
   const ms = new Date(iso).getTime() - Date.now();
   if (!(ms > 0)) return '';
@@ -21,10 +19,10 @@ export default function AiUsageBar({ compact = false, className = '' }) {
   const color = p >= 90 ? 'bg-rose-500' : p >= 70 ? 'bg-amber-500' : 'bg-emerald-500';
   const left = timeLeft(aiUsage.resetsAt);
   return (
-    <div className={className} title={`${fmt(aiUsage.used)} no ${fmt(aiUsage.limit)} tokenu izmantoti šodien`}>
+    <div className={className}>
       <div className="flex items-baseline justify-between text-[11px] font-semibold text-slate-600">
         <span>AI limits šodien</span>
-        <span className="sp-mono">{p}%</span>
+        <span className="sp-mono">{p}% izmantots</span>
       </div>
       <div
         role="progressbar" aria-label="Šodien izmantotie AI tokeni" aria-valuemin={0} aria-valuemax={100} aria-valuenow={p}
@@ -35,7 +33,7 @@ export default function AiUsageBar({ compact = false, className = '' }) {
       </div>
       {!compact && (
         <p className="mt-1 text-[10.5px] leading-snug text-slate-500">
-          {p >= 100 ? 'Limits izmantots. ' : ''}{fmt(aiUsage.used)} no {fmt(aiUsage.limit)} tokenu · atjaunojas plkst. 00:00{left ? ` (pēc ${left})` : ''}
+          {p >= 100 ? 'Limits izmantots' : `Atlicis ${100 - p}%`} · atjaunojas plkst. 00:00{left ? ` (pēc ${left})` : ''}
         </p>
       )}
     </div>
