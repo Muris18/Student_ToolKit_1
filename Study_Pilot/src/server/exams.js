@@ -90,7 +90,7 @@ const skillOf = (section) => {
   const s = String(section || '').replace(/\(.*?\)/g, '').split(' – ')[0].replace(/^\s*\d+\.\s*daļa\.?\s*/i, '').trim();
   return s ? s[0].toUpperCase() + s.slice(1) : 'Citi';
 };
-// Matemātikā — tēma; valodās un dabaszinātnēs "tēma" ir teksta nosaukums, tāpēc tur grupē pēc prasmes (eksāmena daļas)
+// Matemātikā — tēma; valodās "tēma" ir teksta nosaukums, tāpēc tur grupē pēc prasmes (eksāmena daļas)
 export function topicLabel(subject, topic, section) {
   if (subject === 'matemātika') {
     const t = String(topic || '').toLowerCase();

@@ -1,12 +1,12 @@
 # Eksāmenu faili
 
 Ieliec šeit vienu `.json` failu uz vienu eksāmenu (viena priekšmeta, klases, gada un sesijas).
-Piemērs, kas jau ir pilnībā aizpildīts: `dabaszinatnes-9-2026-paraugs.json` (VIAA 9. klases dabaszinātņu paraugs).
+Piemērs, kas jau ir pilnībā aizpildīts: `matematika-9-2025.json` (VIAA 9. klases matemātikas eksāmens). Tukša formāta sagatave: `_paraugs.json` (faili ar "_" sākumā netiek importēti).
 
 ## Faila uzbūve
 
     {
-      "subject": "dabaszinātnes", "grade": 9, "year": 2026, "session": "paraugs",
+      "subject": "matemātika", "grade": 9, "year": 2026, "session": "",
       "title": "...", "source_url": "",
       "groups": { "u2a": { "section": "...", "topic": "...", "context": "...", "figure": "..." } },
       "tasks": [ { "number": "2.1", "group": "u2a", "kind": "open", "text": "...", "points": 2, "answer": "..." } ]
