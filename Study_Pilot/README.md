@@ -134,7 +134,7 @@ Komandas, kas atšķiras pa sistēmām, ir rādītas **Windows / macOS un Linux*
 | `Port 3000 is in use` | Cits `npm run dev` jau darbojas. Aizver to vai atrodi procesu: Windows `netstat -ano \| findstr :3000` (jāaptur LISTENING process, ne pārlūks), macOS un Linux `lsof -i :3000`. |
 | Brīdinājums par `engines` vai dīvainas kļūdas pēc `npm install` | Node versija ir vecāka par 22. Pārbaudi `node -v`; ar nvm: `nvm install 22 && nvm use 22`. |
 | Čats raksta, ka AI nav ieslēgts | Nav `DEEPSEEK_API_KEY` failā `.env.local`. Pēc pievienošanas pārstartē `npm run dev`. |
-| Čats raksta, ka dienas limits izmantots | Testēšanai `.env.local` pievieno `AI_DAILY_LIMIT_FREE=200` un pārstartē serveri. |
+| Čats raksta, ka dienas limits izmantots | Testēšanai `.env.local` pievieno `AI_TOKEN_LIMIT_FREE=2000000` un pārstartē serveri (limits ir tokenos, josla redzama sānjoslā un AI čatā). |
 | Lapa izskatās vecā vai nemainās | Pārlūkā `Ctrl+F5` (macOS: `Cmd+Shift+R`). Pārbaudi, ka izmaiņas nav ielikušās nepareizā mapē (mapei `Study_Pilot` nedrīkst būt iekšā vēl viena `Study_Pilot`). |
 
 **Datubāzes pārveidošana no nulles** (lokāli; izdzēš visus lokālos lietotājus un datus):
@@ -223,7 +223,7 @@ Kopīga mācīšanās: lietotājs izveido istabu (`/rooms`), pārējie pievienoj
 
 - Kods: `src/server/ai.js` (meklēšana, limiti, DeepSeek izsaukums) un `src/pages/api/ai/tutor.js`.
 - Uz DeepSeek tiek sūtīts: sistēmas instrukcija, līdz 4 atrasti eksāmenu uzdevumi, pēdējās 6 čata ziņas un jaunais jautājums (līdz 1500 simboliem). Vārds, e-pasts un skola **netiek** sūtīti.
-- Dienas limits pēc Rīgas laika: free 10, premium 100.
+- Dienas limits **tokenos** (ievade + izvade) pēc Rīgas laika, atjaunojas plkst. 00:00: free 200 000, premium 1 000 000 (`AI_TOKEN_LIMIT_FREE`, `AI_TOKEN_LIMIT_PREMIUM`). Visi AI ceļi (skolotājs, testi, pārbaudes darbi, vērtējums) skaita vienu kopīgu budžetu; pirms izsaukuma tiek rezervēta vieta, pēc atbildes ieraksta īstos tokenus (`ai_usage`). Josla ar procentiem redzama sānjoslā un AI čatā (`GET /api/ai/usage`).
 - **Piekrišana:** pirms pirmā jautājuma čats parāda brīdinājumu par datu nosūtīšanu ārpus ES. `POST /api/me/ai-consent` saglabā piekrišanu, `DELETE` to atsauc (profilā). Bez piekrišanas `/api/ai/tutor` atbild ar 403 (`NO_AI_CONSENT`).
 - Bez `DEEPSEEK_API_KEY` API atbild ar 503 un čats parāda, ka AI nav ieslēgts.
 - **AI vērtējums simulācijā:** eksāmena simulācijas pašvērtējuma solī skolēns var lūgt AI novērtēt atvērtos uzdevumus (`POST /api/exams/ai-grade`, kods `src/server/aiGrade.js` un `src/lib/aiGrade.js`). Uz DeepSeek tiek sūtīts uzdevuma teksts, konteksts, VIAA kritēriji un **skolēna atbilde** (nevis vārds, e-pasts, skola). Uzdevumus un kritērijus serveris ņem no DB, skolēna sūtītais teksts ir tikai atbilde. Vajag AI piekrišanu, apstiprinātu e-pastu un vietu dienas limitā (līdz 8 uzdevumi = 1 izsaukums). AI punkti ir ieteikums: skolēns tos var mainīt.
@@ -236,7 +236,7 @@ src/
   features/
     dashboard/    DashboardMain, ProgressSummaryWidget, UpcomingDeadlinesWidget, QuickActions, ProgressTracking
     planner/      DeadlineRadar, StudyPlannerCalendar, TaskView, AddTaskModal
-    exams/        ExamSelector, ExamTaskList, QuizMode, QuizBuilder, AiTutorChat
+    exams/        OfficialExams, ExamSimulation, QuizMode, AiTutorChat
     profile/      SubjectManager
   lib/            AppContext (lietotājs + dati), helpers, device, emptyData, markdown (politikas lapai)
   pages/          index, login, register, dashboard, planner, exams, progress, profile, admin, privacy, terms

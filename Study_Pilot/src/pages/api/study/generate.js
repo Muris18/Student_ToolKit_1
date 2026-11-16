@@ -1,7 +1,7 @@
 import { allow, requireUser } from '../../../server/http';
 import { limited } from '../../../server/security';
 import { emailEnabled } from '../../../server/email';
-import { limitFor, reserveUsage, finishUsage, releaseUsage, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
+import { limitFor, reserveUsage, finishUsage, releaseUsage, usageSnapshot, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
 import { studyMaterials } from '../../../server/study';
 
 // POST { subject, topic, notes?, kind: 'all'|'quiz', previous?: [jautājumu teksti] }
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
   const limit = limitFor(user.plan);
   const slot = await reserveUsage(user.id, limit);
   if (slot?.globalLimit) return res.status(503).json({ error: GLOBAL_LIMIT_MESSAGE, code: 'AI_GLOBAL_LIMIT' });
-  if (!slot) return res.status(429).json({ error: `Šodienas AI limits (${limit}) ir izmantots. Atgriezies rīt${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}.` });
+  if (!slot) return res.status(429).json({ error: `Šodienas AI limits ir izmantots. Tas atjaunojas plkst. 00:00${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}.`, code: 'AI_LIMIT' });
 
   const p = user.profile || {};
   const grade = p.grade ? `${p.grade}. ${p.level === 'kurss' ? 'kurss' : 'klase'}` : '';
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       ...(kind === 'all' ? { summary: r.summary, cards: r.cards } : {}),
       quiz: { questions: r.questions },
       sources: r.sources,
-      remaining: Math.max(0, limit - slot.used),
+      usage: await usageSnapshot(user),
     });
   } catch (err) {
     // DeepSeek atbildēja, bet materiāli nederīgi -> tokeni iztērēti, rezervācija paliek; citādi atceļ

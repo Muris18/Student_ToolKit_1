@@ -72,7 +72,7 @@ Admin panelī sadaļā **Pārskats → Sistēmas stāvoklis** redzi, kas ieslēg
 DEEPSEEK_API_KEY=sk-...
 ```
 
-**Izmaksu aizsardzība.** Papildus lietotāju dienas limitiem (10 / 100 jautājumi) ir **globāls dienas limits visai sistēmai**:
+**Izmaksu aizsardzība.** Papildus lietotāju dienas limitiem tokenos (`AI_TOKEN_LIMIT_FREE` = 200 000 un `AI_TOKEN_LIMIT_PREMIUM` = 1 000 000 tokenu dienā; 1 AI skolotāja jautājums ≈ 2500 tokenu) ir **globāls dienas limits visai sistēmai**:
 ```
 AI_DAILY_LIMIT_GLOBAL=1500
 ```

@@ -1,6 +1,6 @@
 import { allow, requireUser } from '../../../server/http';
 import { emailEnabled } from '../../../server/email';
-import { findTasks, taskLabel, buildMessages, askDeepSeek, limitFor, reserveUsage, finishUsage, releaseUsage, signReply, verifyReply, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
+import { findTasks, taskLabel, buildMessages, askDeepSeek, limitFor, reserveUsage, finishUsage, releaseUsage, usageSnapshot, signReply, verifyReply, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
 
 // POST { message, history?: [{ sender, text, sig? }] }
 // -> { reply, sig, sources: [string], remaining }
@@ -30,8 +30,8 @@ export default async function handler(req, res) {
   if (slot?.globalLimit) return res.status(503).json({ error: GLOBAL_LIMIT_MESSAGE, code: 'AI_GLOBAL_LIMIT' });
   if (!slot) {
     return res.status(429).json({
-      error: `Šodienas AI jautājumu limits (${limit}) ir izmantots. Atgriezies rīt${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}.`,
-      remaining: 0,
+      error: `Šodienas AI limits ir izmantots. Tas atjaunojas plkst. 00:00${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}.`,
+      code: 'AI_LIMIT',
     });
   }
 
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
     const tasks = await findTasks(`${earlier} ${message}`.trim(), { grade });
     const { reply, usage, model } = await askDeepSeek(buildMessages({ message, history, tasks }));
     await finishUsage(slot.id, model, usage).catch((e) => console.error('ai_usage atjaunināšana:', e.message));
-    res.status(200).json({ reply, sig: signReply(user.id, reply), sources: tasks.map(taskLabel), remaining: Math.max(0, limit - slot.used) });
+    res.status(200).json({ reply, sig: signReply(user.id, reply), sources: tasks.map(taskLabel), usage: await usageSnapshot(user) });
   } catch (err) {
     await releaseUsage(slot.id).catch(() => {}); // neizdevās -> jautājums netiek norakstīts no limita
     if (err.code === 'NO_KEY') return res.status(503).json({ error: 'AI skolotājs vēl nav ieslēgts. Lūdz administratoram pievienot DeepSeek atslēgu.' });

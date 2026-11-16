@@ -43,7 +43,8 @@ export function AppProvider({ children }) {
   const [data, setData] = useState(null);
   const [notice, setNotice] = useState(''); // piem. "serveris restartēts"
   const [saveError, setSaveError] = useState(''); // piem. bezmaksas plāna limits
-  const [config, setConfig] = useState({ email: false, payments: false, premiumPrice: '', aiLimitFree: 10, aiLimitPremium: 100 });
+  const [config, setConfig] = useState({ email: false, payments: false, premiumPrice: '', aiTokensFree: 200000, aiTokensPremium: 1000000 });
+  const [aiUsage, setAiUsage] = useState(null); // { used, limit, percent, resetsAt } — šodien izmantotie AI tokeni (josla)
   const tokenRef = useRef(null);
   const saveTimer = useRef(null);
   const pending = useRef(null);
@@ -56,6 +57,7 @@ export function AppProvider({ children }) {
     writeSession(null);
     setUser(null);
     setData(null);
+    setAiUsage(null);
     setNotice(msg);
     setStatus('guest');
   }, []);
@@ -189,7 +191,21 @@ export function AppProvider({ children }) {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
-  const api = useCallback((path, opts = {}) => call(path, { ...opts, token: tokenRef.current }), []);
+  // AI tokenu josla: ielādē lietojumu pēc pieslēgšanās un atjauno pēc katra AI izsaukuma (arī tad, ja tas noraidīts limita dēļ)
+  const loadAiUsage = useCallback(() => {
+    if (!tokenRef.current) return;
+    call('/api/ai/usage', { token: tokenRef.current }).then(setAiUsage).catch(() => {});
+  }, []);
+  useEffect(() => { if (status === 'ready') loadAiUsage(); }, [status, loadAiUsage]);
+
+  const AI_PATH = /^\/api\/(ai\/tutor|study\/generate|quiz\/generate|exams\/ai-grade)/;
+  const api = useCallback(async (path, opts = {}) => {
+    try {
+      return await call(path, { ...opts, token: tokenRef.current });
+    } finally {
+      if (AI_PATH.test(path)) loadAiUsage();
+    }
+  }, [loadAiUsage]);
 
   // Pārlādē lietotāja stāvokli no servera (pēc e-pasta apstiprināšanas, Premium iegādes u.c.)
   const refreshUser = useCallback(async () => {
@@ -211,7 +227,7 @@ export function AppProvider({ children }) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ status, user, data, notice, saveError, setSaveError, config, update, register, login, logout, saveProfile, deleteAccount, setAiConsent, exportData, api, refreshUser, changePassword }}>
+    <AppContext.Provider value={{ status, user, data, notice, saveError, setSaveError, config, aiUsage, update, register, login, logout, saveProfile, deleteAccount, setAiConsent, exportData, api, refreshUser, changePassword }}>
       {children}
     </AppContext.Provider>
   );

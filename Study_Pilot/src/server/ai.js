@@ -3,11 +3,16 @@
 import crypto from 'crypto';
 import { query, getPool } from './db';
 
+// Dienas AI limits TOKENOS (ievade + izvade), katram plānam. Atjaunojas katru dienu plkst. 00:00 pēc Rīgas laika.
+// Beta laikā liberāls; maināms ar AI_TOKEN_LIMIT_FREE un AI_TOKEN_LIMIT_PREMIUM (.env).
 const LIMITS = {
-  free: parseInt(process.env.AI_DAILY_LIMIT_FREE, 10) || 10,
-  premium: parseInt(process.env.AI_DAILY_LIMIT_PREMIUM, 10) || 100,
+  free: parseInt(process.env.AI_TOKEN_LIMIT_FREE, 10) || 200000,
+  premium: parseInt(process.env.AI_TOKEN_LIMIT_PREMIUM, 10) || 1000000,
 };
 export const limitFor = (plan) => LIMITS[plan] || LIMITS.free;
+export const tokenLimits = () => ({ ...LIMITS });
+// Cik tokenu skaita vēl nepabeigts AI izsaukums (reālais skaits tiek ierakstīts pēc atbildes). Novērš, ka paralēli izsaukumi pārsniedz limitu.
+const PENDING_EST = 3000;
 
 // Globāls AI dienas limits visai sistēmai. AI_DAILY_LIMIT_GLOBAL: nav iestatīts = 1500; 0 vai tukšs = bez limita.
 export function globalLimit() {
@@ -20,15 +25,23 @@ export const GLOBAL_LIMIT_MESSAGE = 'AI šodien ir sasniedzis kopējo dienas lim
 // Rīgas diena (tāpat kā lietotāja dienas limitam)
 export const RIGA_DAY = "(date_trunc('day', now() AT TIME ZONE 'Europe/Riga') AT TIME ZONE 'Europe/Riga')";
 
-// Cik AI jautājumu lietotājs šodien (Rīgas laiks) jau uzdevis
+const TOKENS_TODAY_SQL = `
+  SELECT coalesce(sum(prompt_tokens + completion_tokens), 0)::int AS tokens,
+         count(*) FILTER (WHERE model = '' AND created_at > now() - interval '5 minutes')::int AS pending
+  FROM ai_usage WHERE user_id = $1 AND created_at >= ${RIGA_DAY}`;
+
+// Cik tokenu lietotājs šodien (Rīgas diena) jau izmantojis, ieskaitot vēl nepabeigtos izsaukumus (aptuveni)
 export async function usedToday(userId) {
-  const { rows } = await query(
-    `SELECT count(*)::int AS n FROM ai_usage
-     WHERE user_id = $1
-       AND created_at >= (date_trunc('day', now() AT TIME ZONE 'Europe/Riga') AT TIME ZONE 'Europe/Riga')`,
-    [userId]
-  );
-  return rows[0].n;
+  const { rows } = await query(TOKENS_TODAY_SQL, [userId]);
+  return rows[0].tokens + rows[0].pending * PENDING_EST;
+}
+
+// Josla lietotnē: { used, limit, percent, resetsAt } (tokeni šodien; atjaunojas nākamajā Rīgas pusnaktī)
+export async function usageSnapshot(user) {
+  const used = await usedToday(user.id);
+  const limit = limitFor(user.plan);
+  const { rows } = await query("SELECT ((date_trunc('day', now() AT TIME ZONE 'Europe/Riga') + interval '1 day') AT TIME ZONE 'Europe/Riga') AS resets_at");
+  return { used, limit, percent: Math.min(100, Math.round((used / limit) * 100)), resetsAt: rows[0].resets_at.toISOString(), plan: user.plan };
 }
 
 export const logUsage = (userId, model, usage = {}) =>
@@ -56,19 +69,16 @@ export async function reserveUsage(userId, limit) {
       }
     }
     await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`ai:${userId}`]);
-    const { rows } = await client.query(
-      `SELECT count(*)::int AS n FROM ai_usage
-       WHERE user_id = $1
-         AND created_at >= (date_trunc('day', now() AT TIME ZONE 'Europe/Riga') AT TIME ZONE 'Europe/Riga')`,
-      [userId]
-    );
-    if (rows[0].n >= limit) {
+    // Limits tokenos: izmantotie šodien + nepabeigto izsaukumu aprēķins. Reālais tokenu skaits tiek ierakstīts finishUsage.
+    const { rows } = await client.query(TOKENS_TODAY_SQL, [userId]);
+    const used = rows[0].tokens + rows[0].pending * PENDING_EST;
+    if (used >= limit) {
       await client.query('ROLLBACK');
       return null;
     }
     const ins = await client.query('INSERT INTO ai_usage (user_id) VALUES ($1) RETURNING id', [userId]);
     await client.query('COMMIT');
-    return { id: ins.rows[0].id, used: rows[0].n + 1 };
+    return { id: ins.rows[0].id, used };
   } catch (e) {
     await client.query('ROLLBACK').catch(() => {});
     throw e;

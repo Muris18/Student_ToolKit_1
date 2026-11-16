@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useApp } from '../lib/AppContext';
-import { premiumFeatures, FREE_LIMITS } from '../lib/plans';
+import { premiumFeatures, aiLimitText } from '../lib/plans';
 
 const I = {
   spark: <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />,
@@ -203,10 +203,9 @@ export default function Landing({ home = false, info = false, demo = [] }) {
               <span className="cx-plan-name">Bezmaksas</span>
               <div className="cx-price">0 €</div>
               <ul>
-                <li>{config.aiLimitFree} AI skolotāja jautājumi dienā</li>
+                <li>{aiLimitText(config.aiTokensFree)}</li>
                 <li>Valsts eksāmenu uzdevumi ar pārbaudi</li>
                 <li>Plānotājs, termiņu radars un fokusa režīms</li>
-                <li>Līdz {FREE_LIMITS.exercises} saviem uzdevumiem</li>
               </ul>
               <Link href={start} className="cx-btn cx-btn-ghost">{loggedIn ? 'Atvērt paneli' : 'Izveidot kontu'}</Link>
             </div>
