@@ -226,6 +226,7 @@ Kopīga mācīšanās: lietotājs izveido istabu (`/rooms`), pārējie pievienoj
 - Dienas limits pēc Rīgas laika: free 10, premium 100.
 - **Piekrišana:** pirms pirmā jautājuma čats parāda brīdinājumu par datu nosūtīšanu ārpus ES. `POST /api/me/ai-consent` saglabā piekrišanu, `DELETE` to atsauc (profilā). Bez piekrišanas `/api/ai/tutor` atbild ar 403 (`NO_AI_CONSENT`).
 - Bez `DEEPSEEK_API_KEY` API atbild ar 503 un čats parāda, ka AI nav ieslēgts.
+- **AI vērtējums simulācijā:** eksāmena simulācijas pašvērtējuma solī skolēns var lūgt AI novērtēt atvērtos uzdevumus (`POST /api/exams/ai-grade`, kods `src/server/aiGrade.js` un `src/lib/aiGrade.js`). Uz DeepSeek tiek sūtīts uzdevuma teksts, konteksts, VIAA kritēriji un **skolēna atbilde** (nevis vārds, e-pasts, skola). Uzdevumus un kritērijus serveris ņem no DB, skolēna sūtītais teksts ir tikai atbilde. Vajag AI piekrišanu, apstiprinātu e-pastu un vietu dienas limitā (līdz 8 uzdevumi = 1 izsaukums). AI punkti ir ieteikums: skolēns tos var mainīt.
 
 ## Struktūra
 

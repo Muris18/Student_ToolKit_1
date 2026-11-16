@@ -4,6 +4,73 @@ import Card from '../../components/Card';
 import Button from '../../components/Button';
 import MathText from '../../components/MathText';
 import { useApp } from '../../lib/AppContext';
+import { GRADE_BATCH } from '../../lib/aiGrade';
+
+// AI vērtējums atvērtajiem uzdevumiem pašvērtējuma solī (neobligāts). AI piedāvā punktus ar pamatojumu un ieraksta tos run.self;
+// skolēns tos var mainīt ar pogām zem uzdevuma. Atbildes uz serveri tiek sūtītas porcijās (GRADE_BATCH), katra porcija = 1 vieta AI limitā.
+function AiGradePanel({ doc, run, persist, openTasks }) {
+  const { api, user, setAiConsent } = useApp();
+  const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState('');
+  const [msg, setMsg] = useState('');
+  const [err, setErr] = useState(null); // { text, code }
+  const gradable = openTasks.filter((t) => String(run.open[t.id] || '').trim() && !run.auto?.[t.id] && !run.ai?.[t.id]);
+  const needsConsent = !user?.aiConsentAt;
+
+  const start = async () => {
+    setBusy(true);
+    setErr(null);
+    setMsg('');
+    try {
+      const queue = gradable.map((t) => t.id);
+      let done = 0;
+      for (let i = 0; i < queue.length; i += GRADE_BATCH) {
+        const chunk = queue.slice(i, i + GRADE_BATCH);
+        setProgress(`Vērtēju ${Math.min(i + GRADE_BATCH, queue.length)} no ${queue.length}…`);
+        const r = await api('/api/exams/ai-grade', { method: 'POST', body: { docId: doc.id, answers: Object.fromEntries(chunk.map((id) => [id, run.open[id]])) } });
+        persist((prev) => {
+          const ai = { ...(prev.ai || {}) };
+          const self = { ...(prev.self || {}) };
+          for (const [id, g] of Object.entries(r.results || {})) { ai[id] = g; self[id] = g.points; }
+          return { ...prev, ai, self };
+        });
+        done += Object.keys(r.results || {}).length;
+      }
+      setMsg(done ? `AI novērtēja ${done} ${done === 1 ? 'uzdevumu' : 'uzdevumus'}. Pārbaudi punktus un vajadzības gadījumā maini tos.` : 'AI šos uzdevumus nevarēja novērtēt. Novērtē tos pats.');
+    } catch (e) {
+      setErr({ text: e.message, code: e.code });
+    }
+    setBusy(false);
+    setProgress('');
+  };
+  const consentAndStart = async () => {
+    try { await setAiConsent(true); } catch (e) { setErr({ text: e.message }); return; }
+    start();
+  };
+
+  if (!gradable.length && !msg && !err) return null;
+  return (
+    <Card title="🤖 AI vērtējums (neobligāts)" subtitle="AI piedāvā punktus atvērtajiem uzdevumiem pēc VIAA kritērijiem. Tu vari tos mainīt.">
+      <div className="space-y-3 text-sm">
+        {needsConsent && gradable.length > 0 && (
+          <p className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800">
+            Lai AI novērtētu atbildes, uzdevumu teksts un <strong>tavas atbildes</strong> tiek nosūtītas uz <strong>DeepSeek</strong>, kas datus apstrādā ārpus ES (Ķīnā). Tavs vārds, e-pasts un skola netiek sūtīti. Sīkāk — <a href="/privacy" className="underline">privātuma politikā</a>.
+          </p>
+        )}
+        {gradable.length > 0 && (
+          <div className="flex flex-wrap items-center gap-3">
+            <Button onClick={needsConsent ? consentAndStart : start} disabled={busy}>
+              {busy ? progress || 'Vērtēju…' : needsConsent ? `Piekrītu un vērtēt (${gradable.length})` : `Novērtēt ar AI (${gradable.length} ${gradable.length === 1 ? 'uzdevums' : 'uzdevumi'})`}
+            </Button>
+            <span className="text-xs text-slate-400">Skaitās AI dienas limitā (līdz {GRADE_BATCH} uzdevumi = 1 izsaukums).</span>
+          </div>
+        )}
+        {msg && <p role="status" className="text-emerald-700">{msg}</p>}
+        {err && <p role="alert" className="text-rose-600">{err.text} {gradable.length > 0 && 'Vari novērtēt atbildes arī pats.'}</p>}
+      </div>
+    </Card>
+  );
+}
 
 // Eksāmena simulācija: viss VIAA eksāmens ar taimeri, bez mājieniem un pārbaudes pa vienam.
 // Beigās serveris pārbauda testa jautājumus; atvērtos uzdevumus skolēns novērtē pats pēc atbildes parauga.
@@ -141,7 +208,7 @@ export default function ExamSimulation({ id, onExit }) {
         <ul className="mt-5 space-y-2 text-sm text-slate-600">
           <li>⏱️ Taimeris rit visu laiku. Kad laiks beidzas, darbs tiek iesniegts automātiski.</li>
           <li>🤫 Simulācijas laikā nav mājienu un pareizo atbilžu, tāpat kā īstajā eksāmenā.</li>
-          <li>✅ Beigās testa jautājumus pārbauda automātiski, bet atvērtos uzdevumus tu novērtē pats pēc atbildes parauga.</li>
+          <li>✅ Beigās testa jautājumus pārbauda automātiski, bet atvērtos uzdevumus tu novērtē pats pēc atbildes parauga vai ar AI palīdzību (neobligāti; AI var kļūdīties, tāpēc punktus vari mainīt).</li>
           <li>🎯 Kļūdas nonāk Testa režīmā, lai pēc tam varētu tās trenēt.</li>
         </ul>
         <p className="sp-mono text-[11px] font-bold text-slate-400 mt-6 mb-2">Laiks</p>
@@ -191,6 +258,7 @@ export default function ExamSimulation({ id, onExit }) {
         <Card title="Novērtē atvērtos uzdevumus" subtitle={`Salīdzini savu atbildi ar paraugu un atzīmē punktus. Atlikuši: ${pending} no ${openTasks.length}.`}>
           <p className="text-sm text-slate-500">Esi godīgs pret sevi: īstajā eksāmenā vērtē pēc kritērijiem. Ja atbilde ir daļēji pareiza, dod daļu punktu. Neatbildētajiem uzdevumiem jau ir 0 punktu.</p>
         </Card>
+        <AiGradePanel doc={doc} run={run} persist={persist} openTasks={openTasks} />
         {openTasks.map((t) => (
           <article key={t.id} className="pilot-card bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
             <header className="flex flex-wrap items-center gap-2 text-xs mb-3">
@@ -220,6 +288,15 @@ export default function ExamSimulation({ id, onExit }) {
                 </button>
               ))}
             </div>
+            {run.ai?.[t.id] && (
+              <div className="mt-3 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100 text-sm" aria-label="AI vērtējums">
+                <p className="font-semibold text-indigo-700">
+                  🤖 AI vērtējums: {run.ai[t.id].points} no {run.ai[t.id].max} p.
+                  {run.self?.[t.id] !== run.ai[t.id].points && <span className="ml-2 font-normal text-slate-600">(Tu mainīji uz {run.self?.[t.id]} p.)</span>}
+                </p>
+                {run.ai[t.id].feedback && <MathText text={run.ai[t.id].feedback} className="mt-1 text-slate-700" />}
+              </div>
+            )}
           </article>
         ))}
         <div className="flex justify-end">
