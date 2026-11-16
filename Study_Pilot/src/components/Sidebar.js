@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useApp } from '../lib/AppContext';
 import { gradeLabel } from '../lib/helpers';
 import Icon from './Icon';
+import AiUsageBar from './AiUsageBar';
 
 export const menuItems = [
   { name: 'Vadības panelis', href: '/dashboard', icon: 'dashboard' },
@@ -108,6 +109,7 @@ export default function Sidebar() {
           </div>
         ))}
       </nav>
+      <AiUsageBar className="mx-4 mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200" />
       {user && (
         <Link href="/profile" className="p-4 m-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors">
           <p className="text-xs font-semibold text-slate-800">{gradeLabel(user.profile)}{user.profile.school ? ` · ${user.profile.school}` : ''}</p>

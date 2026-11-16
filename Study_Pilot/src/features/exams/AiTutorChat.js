@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import { useApp } from '../../lib/AppContext';
 import { uid } from '../../lib/helpers';
 import MathText from '../../components/MathText';
+import AiUsageBar from '../../components/AiUsageBar';
 
 // AI skolotājs: ziņa tiek nosūtīta uz /api/ai/tutor (DeepSeek atslēga ir tikai serverī).
 // Sarunas vēsture saglabājas lietotāja datos.
@@ -14,7 +15,6 @@ export default function AiTutorChat({ draft = '' }) {
   const [inputValue, setInputValue] = useState(draft);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [remaining, setRemaining] = useState(null);
   const listRef = useRef(null);
   const inputRef = useRef(null);
   const messages = data.chat;
@@ -47,11 +47,9 @@ export default function AiTutorChat({ draft = '' }) {
     setLoading(true);
     try {
       const r = await api('/api/ai/tutor', { method: 'POST', body: { message: text, history } });
-      setRemaining(r.remaining);
       update((d) => ({ ...d, chat: [...d.chat, { id: uid(), sender: 'ai', text: r.reply, sig: r.sig || '', sources: r.sources || [], date: new Date().toISOString() }].slice(-300) }));
     } catch (err) {
       setError(err.message || 'Neizdevās saņemt atbildi');
-      if (typeof err.remaining === 'number') setRemaining(err.remaining);
     } finally {
       setLoading(false);
     }
@@ -98,9 +96,7 @@ export default function AiTutorChat({ draft = '' }) {
               {/Premium/.test(error) && <> <Link href="/premium" className="underline font-semibold">Uzzināt par Premium</Link></>}
             </p>
           )}
-          {remaining !== null && !error && (
-            <p className="text-center text-[11px] text-slate-400">Šodien atlikuši AI jautājumi: {remaining}</p>
-          )}
+          <AiUsageBar className="max-w-xs mx-auto" />
         </div>
 
         {!hasConsent ? (
@@ -139,7 +135,7 @@ export default function AiTutorChat({ draft = '' }) {
             />
             <Button type="submit" disabled={!inputValue.trim() || loading}>Sūtīt</Button>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1.5">Enter — sūtīt, Shift+Enter — jauna rinda. {user?.plan === 'premium' ? config.aiLimitPremium : config.aiLimitFree} jautājumi dienā.</p>
+          <p className="text-[11px] text-slate-400 mt-1.5">Enter — sūtīt, Shift+Enter — jauna rinda.</p>
         </form>
         )}
       </div>

@@ -1,7 +1,7 @@
 import { allow, requireUser } from '../../../server/http';
 import { limited } from '../../../server/security';
 import { emailEnabled } from '../../../server/email';
-import { limitFor, reserveUsage, finishUsage, releaseUsage, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
+import { limitFor, reserveUsage, finishUsage, releaseUsage, usageSnapshot, GLOBAL_LIMIT_MESSAGE } from '../../../server/ai';
 import { loadGradable, gradeBatch } from '../../../server/aiGrade';
 import { GRADE_BATCH } from '../../../lib/aiGrade';
 
@@ -37,12 +37,12 @@ export default async function handler(req, res) {
   const limit = limitFor(user.plan);
   const slot = await reserveUsage(user.id, limit);
   if (slot?.globalLimit) return res.status(503).json({ error: GLOBAL_LIMIT_MESSAGE, code: 'AI_GLOBAL_LIMIT' });
-  if (!slot) return res.status(429).json({ error: `Šodienas AI limits (${limit}) ir izmantots. Atgriezies rīt${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}. Atvērtos uzdevumus vari novērtēt arī pats.`, code: 'AI_LIMIT', remaining: 0 });
+  if (!slot) return res.status(429).json({ error: `Šodienas AI limits ir izmantots. Tas atjaunojas plkst. 00:00${user.plan === 'free' ? ' vai pāriet uz Premium' : ''}. Atvērtos uzdevumus vari novērtēt arī pats.`, code: 'AI_LIMIT' });
 
   try {
     const r = await gradeBatch(batch);
     await finishUsage(slot.id, r.model, r.usage).catch((e) => console.error('ai_usage atjaunināšana:', e.message));
-    res.status(200).json({ results: r.results, skipped: [...skipped, ...r.missing], later: extra, remaining: Math.max(0, limit - slot.used) });
+    res.status(200).json({ results: r.results, skipped: [...skipped, ...r.missing], later: extra, usage: await usageSnapshot(user) });
   } catch (err) {
     await releaseUsage(slot.id).catch(() => {}); // neizdevās -> vieta limitā netiek norakstīta
     if (err.code === 'UPSTREAM') return res.status(502).json({ error: 'AI šobrīd nevar novērtēt atbildes. Vari tās novērtēt pats vai pamēģināt vēlāk.', code: 'AI_DOWN' });

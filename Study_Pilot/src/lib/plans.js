@@ -12,10 +12,15 @@ export function canAdd(user, data, key) {
   return (data?.[key]?.length || 0) < FREE_LIMITS[key];
 }
 
+// AI limits tokenos; cilvēkam saprotams apraksts: "200 tūkst. AI tokenu dienā (≈ 80 jautājumi)". 1 AI skolotāja jautājums ≈ 2500 tokenu.
+export const TOKENS_PER_QUESTION = 2500;
+export const fmtTokens = (n) => (n >= 1000000 ? `${+(n / 1000000).toFixed(1)} milj.` : `${Math.round(n / 1000)} tūkst.`);
+export const aiLimitText = (tokens) => `${fmtTokens(tokens || 0)} AI tokenu dienā (≈ ${Math.round((tokens || 0) / TOKENS_PER_QUESTION)} jautājumi)`;
+
 // cfg = /api/config (AI limiti nāk no servera .env)
 export const premiumFeatures = (cfg = {}) => [
-  `${cfg.aiLimitPremium || 100} AI skolotāja jautājumi dienā (bezmaksas — ${cfg.aiLimitFree || 10})`,
-  'Vairāk AI testu pēc tavām kļūdām (katrs tests = 1 AI jautājums)',
+  `${aiLimitText(cfg.aiTokensPremium || 1000000)} (bezmaksas — ${fmtTokens(cfg.aiTokensFree || 200000)})`,
+  'Vairāk AI testu pēc tavām kļūdām',
   'Neierobežoti savi eksāmenu uzdevumi',
   'Viss, kas ir bezmaksas plānā',
   'Atbalsti Study Pilot attīstību',

@@ -5,7 +5,7 @@ import AppShell, { PageHeader } from '../components/AppShell';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import { useApp } from '../lib/AppContext';
-import { premiumFeatures, FREE_LIMITS, isPremium } from '../lib/plans';
+import { premiumFeatures, FREE_LIMITS, isPremium, aiLimitText } from '../lib/plans';
 import { fmtDate } from '../lib/helpers';
 
 function Premium() {
@@ -101,7 +101,7 @@ function Premium() {
 
         <Card title="Bezmaksas plāns" subtitle="Vienmēr bez maksas">
           <ul className="space-y-2.5 text-sm text-slate-600">
-            <li className="flex gap-2"><span className="text-slate-400">•</span>{config.aiLimitFree} AI skolotāja jautājumi dienā</li>
+            <li className="flex gap-2"><span className="text-slate-400">•</span>{aiLimitText(config.aiTokensFree)}</li>
             <li className="flex gap-2"><span className="text-slate-400">•</span>Valsts eksāmenu uzdevumi ar atbilžu pārbaudi</li>
             <li className="flex gap-2"><span className="text-slate-400">•</span>Plānotājs, termiņu radars, fokusa režīms un progress</li>
             <li className="flex gap-2"><span className="text-slate-400">•</span>Līdz {FREE_LIMITS.exercises} saviem uzdevumiem</li>
