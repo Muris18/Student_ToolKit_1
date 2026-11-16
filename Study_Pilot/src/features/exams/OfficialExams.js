@@ -12,7 +12,7 @@ const docLabel = (d) => `${cap(d.subject)} · ${d.grade}. klase · ${d.year}${d.
 // Valsts eksāmenu treniņš: VIAA uzdevumi, testa jautājumu pārbaude, atvērtie uzdevumi -> AI skolotājs
 const LEVEL_ORDER = ['vispārīgais līmenis', 'optimālais līmenis', 'augstākais līmenis'];
 const levelRank = (l) => { const i = LEVEL_ORDER.indexOf(l); return i < 0 ? 9 : i; };
-const SUBJECT_ICON = { 'latviešu valoda': '📖', 'angļu valoda': '🇬🇧', matemātika: '📐', dabaszinātnes: '🔬' };
+const SUBJECT_ICON = { 'latviešu valoda': '📖', 'angļu valoda': '🇬🇧', matemātika: '📐' };
 // Latviešu skaitlis: 1, 21, 31 … uzdevums; 11 un pārējie – uzdevumi
 const lv = (n, one, many) => (n % 10 === 1 && n % 100 !== 11 ? one : many);
 const chip = (on) => `px-3 py-1.5 rounded-xl text-xs font-medium cursor-pointer transition-colors ${on ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;

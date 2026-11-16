@@ -9,7 +9,7 @@ import { uid, subjectName, fmtDate } from '../../lib/helpers';
 
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const lv = (n, one, many) => (n % 10 === 1 && n % 100 !== 11 ? one : many);
-const SUBJECT_ICON = { 'latviešu valoda': '📖', 'angļu valoda': '🇬🇧', matemātika: '📐', dabaszinātnes: '🔬' };
+const SUBJECT_ICON = { 'latviešu valoda': '📖', 'angļu valoda': '🇬🇧', matemātika: '📐' };
 const SOURCE = { ai: 'AI pēc tavām kļūdām', 'ai-diagnostic': 'AI diagnostika', exams: 'VIAA uzdevumi pēc kļūdām', diagnostic: 'VIAA diagnostika' };
 
 // Testa režīms: testus veido sistēma no lietotāja kļūdām (valsts eksāmenos un iepriekšējos testos).
