@@ -37,7 +37,7 @@ export default function StudyPlannerCalendar({ events = [], onSelectDate, onSele
       subtitle="Spied uz dienas, lai pievienotu termiņu"
       action={
         <div className="flex items-center gap-2">
-          <Button variant="ghost" onClick={() => setCurrentDate(new Date())} className="text-xs px-2.5 py-1 hidden sm:inline-flex">Šodien</Button>
+          <Button variant="ghost" onClick={() => setCurrentDate(new Date())} className="text-xs px-2.5 py-1">Šodien</Button>
           <Button variant="secondary" onClick={prevMonth} className="text-xs px-2.5 py-1">
             ◄
           </Button>
