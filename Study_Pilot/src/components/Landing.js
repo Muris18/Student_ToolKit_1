@@ -35,7 +35,7 @@ const FAQ = [
   ['No kurienes ir eksāmenu uzdevumi?', 'No Valsts izglītības attīstības aģentūras (VIAA) publicētajiem iepriekšējo gadu eksāmeniem un paraugiem. Pie katra uzdevuma redzams, no kura gada un eksāmena tas ir.'],
   ['Vai tas aizstāj skolotāju?', 'Nē. Study Pilot ir palīgs patstāvīgām mācībām. AI var kļūdīties, tāpēc svarīgas lietas pārbaudi mācību grāmatā vai pie skolotāja.'],
   ['Kas notiek ar maniem datiem?', 'Mēs glabājam tikai to, kas vajadzīgs mācību rīkiem, nerādām reklāmas un datus nepārdodam. AI jautājumi tiek sūtīti uz DeepSeek tikai pēc tavas piekrišanas. Visus savus datus vari jebkurā brīdī lejupielādēt vai izdzēst profilā.'],
-  ['Cik tas maksā?', 'Pamata funkcijas ir bez maksas. Premium dod vairāk AI jautājumu dienā un neierobežotus savus testus un uzdevumus. Abonementu var atcelt jebkurā brīdī.'],
+  ['Cik tas maksā?', 'Pamata funkcijas ir bez maksas. Premium dod vairāk AI jautājumu dienā un neierobežotus savus testus (bezmaksas plānā — līdz 3). Abonementu var atcelt jebkurā brīdī.'],
   ['No cik gadiem var lietot?', 'No 13 gadiem. Premium iegādei vajag būt pilngadīgam vai ar vecāku atļauju.'],
 ];
 

@@ -55,7 +55,7 @@ function Premium() {
 
   return (
     <>
-      <PageHeader title="Premium" subtitle="Vairāk AI jautājumu un testu pēc kļūdām, neierobežoti savi uzdevumi." />
+      <PageHeader title="Premium" subtitle="Vairāk AI jautājumu un neierobežoti savi testi pēc kļūdām." />
 
       {status === 'success' && !premium && (
         <div role="status" className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm">Paldies! Maksājums saņemts — Premium aktivizējas dažu sekunžu laikā.</div>
