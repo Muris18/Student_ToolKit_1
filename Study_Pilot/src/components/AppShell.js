@@ -53,7 +53,7 @@ export default function AppShell({ children }) {
         </div>
       )}
       {status === 'ready' && (
-        <footer className="pt-6 flex justify-center gap-4 text-xs text-slate-400">
+        <footer className="pt-6 flex flex-wrap justify-center gap-x-5 gap-y-1 text-xs text-slate-400 [&_a]:py-2">
           <Link href="/par" className="hover:text-accent transition-colors">Par Study Pilot</Link>
           <Link href="/privacy" className="hover:text-accent transition-colors">Privātuma politika</Link>
           <Link href="/terms" className="hover:text-accent transition-colors">Lietošanas noteikumi</Link>
