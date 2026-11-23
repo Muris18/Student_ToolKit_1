@@ -11,6 +11,17 @@ const LIMITS = {
 };
 export const limitFor = (plan) => LIMITS[plan] || LIMITS.free;
 export const tokenLimits = () => ({ ...LIMITS });
+
+// Dziļās domāšanas režīms (tikai Premium): lēnāks, rūpīgāks modelis. Izsaukuma svars dienas limitā = factor
+// (1 dziļais jautājums rēķinās kā `factor` parastie). Izslēgt: AI_DEEP_ENABLED=0. Modelis: DEEPSEEK_DEEP_MODEL.
+export function deepConfig() {
+  const f = parseInt(process.env.AI_DEEP_TOKEN_FACTOR, 10);
+  return {
+    enabled: process.env.AI_DEEP_ENABLED !== '0',
+    factor: Number.isInteger(f) ? Math.min(20, Math.max(1, f)) : 5,
+    model: process.env.DEEPSEEK_DEEP_MODEL || 'deepseek-v4-pro',
+  };
+}
 // Cik tokenu skaita vēl nepabeigts AI izsaukums (reālais skaits tiek ierakstīts pēc atbildes). Novērš, ka paralēli izsaukumi pārsniedz limitu.
 const PENDING_EST = 3000;
 
@@ -26,8 +37,8 @@ export const GLOBAL_LIMIT_MESSAGE = 'AI šodien ir sasniedzis kopējo dienas lim
 export const RIGA_DAY = "(date_trunc('day', now() AT TIME ZONE 'Europe/Riga') AT TIME ZONE 'Europe/Riga')";
 
 const TOKENS_TODAY_SQL = `
-  SELECT coalesce(sum(prompt_tokens + completion_tokens), 0)::int AS tokens,
-         count(*) FILTER (WHERE model = '' AND created_at > now() - interval '5 minutes')::int AS pending
+  SELECT coalesce(sum((prompt_tokens + completion_tokens) * weight), 0)::int AS tokens,
+         coalesce(sum(weight) FILTER (WHERE model = '' AND created_at > now() - interval '5 minutes'), 0)::int AS pending
   FROM ai_usage WHERE user_id = $1 AND created_at >= ${RIGA_DAY}`;
 
 // Cik tokenu lietotājs šodien (Rīgas diena) jau izmantojis, ieskaitot vēl nepabeigtos izsaukumus (aptuveni)
@@ -52,8 +63,10 @@ export const logUsage = (userId, model, usage = {}) =>
 // Dienas limits bez "sacīkstēm": vieta limitā tiek rezervēta PIRMS DeepSeek izsaukuma.
 // Lietotāja slēdzene (pg_advisory_xact_lock) nodrošina, ka vienlaicīgi pieprasījumi skaita pēc kārtas,
 // tāpēc 20 paralēli pieprasījumi nevar visi redzēt "0 no 10".
-// Atgriež { id, used } vai null, ja limits jau sasniegts.
-export async function reserveUsage(userId, limit) {
+// weight: dziļajam režīmam > 1. Nepabeigtā rezervācija limitā rēķinās kā weight × ~3000 tokenu, globālajā limitā kā `weight` pieprasījumi,
+// un lietotājam vienlaikus drīkst būt tikai VIENS nepabeigts dziļais izsaukums (citādi paralēli dziļie izsaukumi pārsniegtu limitu).
+// Atgriež { id, used }, null (limits sasniegts), { globalLimit: true } vai { busy: true } (jau notiek cits dziļais izsaukums).
+export async function reserveUsage(userId, limit, { weight = 1 } = {}) {
   const client = await getPool().connect();
   try {
     await client.query('BEGIN');
@@ -62,13 +75,20 @@ export async function reserveUsage(userId, limit) {
     const g = globalLimit();
     if (g > 0) {
       await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', ['ai:global']);
-      const t = await client.query(`SELECT count(*)::int AS n FROM ai_usage WHERE created_at >= ${RIGA_DAY}`);
-      if (t.rows[0].n >= g) {
+      const t = await client.query(`SELECT coalesce(sum(weight), 0)::int AS n FROM ai_usage WHERE created_at >= ${RIGA_DAY}`);
+      if (t.rows[0].n + weight > g) {
         await client.query('ROLLBACK');
         return { globalLimit: true };
       }
     }
     await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`ai:${userId}`]);
+    if (weight > 1) {
+      const busy = await client.query("SELECT 1 FROM ai_usage WHERE user_id = $1 AND model = '' AND weight > 1 AND created_at > now() - interval '5 minutes' LIMIT 1", [userId]);
+      if (busy.rows.length) {
+        await client.query('ROLLBACK');
+        return { busy: true };
+      }
+    }
     // Limits tokenos: izmantotie šodien + nepabeigto izsaukumu aprēķins. Reālais tokenu skaits tiek ierakstīts finishUsage.
     const { rows } = await client.query(TOKENS_TODAY_SQL, [userId]);
     const used = rows[0].tokens + rows[0].pending * PENDING_EST;
@@ -76,7 +96,7 @@ export async function reserveUsage(userId, limit) {
       await client.query('ROLLBACK');
       return null;
     }
-    const ins = await client.query('INSERT INTO ai_usage (user_id) VALUES ($1) RETURNING id', [userId]);
+    const ins = await client.query('INSERT INTO ai_usage (user_id, weight) VALUES ($1, $2) RETURNING id', [userId, Math.max(1, Math.floor(weight) || 1)]);
     await client.query('COMMIT');
     return { id: ins.rows[0].id, used };
   } catch (e) {
@@ -87,10 +107,10 @@ export async function reserveUsage(userId, limit) {
   }
 }
 
-// Pēc veiksmīgas atbildes: rezervācijā ieraksta modeli un tokenus
-export const finishUsage = (id, model, usage = {}) =>
-  query('UPDATE ai_usage SET model = $2, prompt_tokens = $3, completion_tokens = $4 WHERE id = $1', [
-    id, model || '', usage.prompt_tokens || 0, usage.completion_tokens || 0,
+// Pēc veiksmīgas atbildes: rezervācijā ieraksta modeli, tokenus un svaru (dziļajam režīmam > 1)
+export const finishUsage = (id, model, usage = {}, weight = 1) =>
+  query('UPDATE ai_usage SET model = $2, prompt_tokens = $3, completion_tokens = $4, weight = $5 WHERE id = $1', [
+    id, model || '', usage.prompt_tokens || 0, usage.completion_tokens || 0, Math.max(1, Math.floor(weight) || 1),
   ]);
 
 // Ja AI neatbildēja: rezervācija tiek atcelta, jautājums netiek norakstīts no limita
@@ -169,27 +189,38 @@ function taskBlock(t, n) {
 }
 
 // history: jau pārbaudīta vēsture (AI ziņas tikai ar derīgu parakstu; skat. tutor.js)
-export function buildMessages({ message, history = [], tasks = [] }) {
+const DEEP_NOTE = `
+
+DZIĻĀS DOMĀŠANAS REŽĪMS: pirms atbildes rūpīgi izanalizē uzdevumu un pārbaudi savus soļus. Tavs gala teksts skolēnam joprojām ir MĀCĪŠANA, nevis atrisinājums: dod pārdomātu, pareizu mājienu vai nākamo soli, norādi, kur skolēna doma sagriezās, un uzdod vienu vadošu jautājumu. Neraksti pareizo atbildi, galīgo skaitli vai pilnu risinājumu, un neatklāj savu iekšējo spriešanu.`;
+
+export function buildMessages({ message, history = [], tasks = [], deep = false }) {
   const ctx = tasks.length
     ? '\n\nEksāmenu uzdevumi no datubāzes, kas var būt saistīti ar jautājumu:\n' +
       tasks.map((t, i) => taskBlock(t, i + 1)).join('\n\n')
     : '\n\nDatubāzē šim jautājumam līdzīgu eksāmenu uzdevumu neatrada. Palīdzi ar vispārīgām zināšanām un pasaki, ka neesi atradis konkrētu eksāmena uzdevumu.';
   const past = history.slice(-6).map((m) => ({ role: m.sender === 'user' ? 'user' : 'assistant', content: String(m.text || '').slice(0, 1500) }));
-  return [{ role: 'system', content: SYSTEM + ctx }, ...past, { role: 'user', content: message }];
+  return [{ role: 'system', content: SYSTEM + ctx + (deep ? DEEP_NOTE : '') }, ...past, { role: 'user', content: message }];
 }
 
-export async function askDeepSeek(messages, { maxTokens = 900, temperature = 0.2, json: jsonMode = false } = {}) {
+// deep: dziļās domāšanas modelis (lēnāks; domāšanas tokeni ietilpst max_tokens, tāpēc to ir vairāk). Atbildē tiek ņemts TIKAI gala
+// teksts (message.content): modeļa "domāšanas gaita" (reasoning_content) satur pareizo atbildi un NEKAD netiek nodota tālāk.
+export async function askDeepSeek(messages, { maxTokens = 900, temperature = 0.2, json: jsonMode = false, deep = false } = {}) {
   const key = process.env.DEEPSEEK_API_KEY;
   if (!key) { const e = new Error('AI vēl nav konfigurēts'); e.code = 'NO_KEY'; throw e; }
-  const model = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
+  const model = deep ? deepConfig().model : (process.env.DEEPSEEK_MODEL || 'deepseek-chat');
   const base = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com';
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), jsonMode ? 90000 : 40000);
+  const timer = setTimeout(() => ctrl.abort(), deep ? 150000 : jsonMode ? 90000 : 40000);
   try {
     const res = await fetch(`${base}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
-      body: JSON.stringify({ model, messages, temperature, max_tokens: maxTokens, stream: false, ...(jsonMode ? { response_format: { type: 'json_object' } } : {}) }),
+      body: JSON.stringify({
+        model, messages, stream: false,
+        max_tokens: deep ? Math.max(maxTokens, 6000) : maxTokens,
+        ...(deep ? {} : { temperature }), // domāšanas modelis temperatūru neņem vērā
+        ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
+      }),
       signal: ctrl.signal,
     });
     if (!res.ok) {
@@ -198,7 +229,8 @@ export async function askDeepSeek(messages, { maxTokens = 900, temperature = 0.2
     }
     const json = await res.json();
     const reply = json.choices?.[0]?.message?.content?.trim();
-    if (!reply) { const e = new Error('Tukša AI atbilde'); e.code = 'UPSTREAM'; throw e; }
+    // Tukša gala atbilde (piem., domāšana apēda visus tokenus): tokeni tomēr ir iztērēti, tāpēc tie tiek pievienoti kļūdai (err.spent)
+    if (!reply) { const e = new Error('Tukša AI atbilde'); e.code = 'UPSTREAM'; if (json.usage) e.spent = { usage: json.usage, model }; throw e; }
     return { reply, usage: json.usage, model };
   } catch (err) {
     if (err.name === 'AbortError') { const e = new Error('AI atbildēja pārāk ilgi'); e.code = 'UPSTREAM'; throw e; }

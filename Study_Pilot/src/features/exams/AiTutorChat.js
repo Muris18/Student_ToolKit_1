@@ -6,6 +6,7 @@ import { useApp } from '../../lib/AppContext';
 import { uid } from '../../lib/helpers';
 import MathText from '../../components/MathText';
 import AiUsageBar from '../../components/AiUsageBar';
+import { isPremium } from '../../lib/plans';
 
 // AI skolotājs: ziņa tiek nosūtīta uz /api/ai/tutor (DeepSeek atslēga ir tikai serverī).
 // Sarunas vēsture saglabājas lietotāja datos.
@@ -15,6 +16,11 @@ export default function AiTutorChat({ draft = '' }) {
   const [inputValue, setInputValue] = useState(draft);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  // Dziļā domāšana (Premium): lēnāks, rūpīgāks modelis; limitā rēķinās kā vairāki parastie jautājumi
+  const deepAvailable = Boolean(config?.aiDeep?.enabled);
+  const deepAllowed = deepAvailable && isPremium(user);
+  const [deep, setDeep] = useState(false);
+  const deepOn = deep && deepAllowed;
   const listRef = useRef(null);
   const inputRef = useRef(null);
   const messages = data.chat;
@@ -46,8 +52,8 @@ export default function AiTutorChat({ draft = '' }) {
     setError('');
     setLoading(true);
     try {
-      const r = await api('/api/ai/tutor', { method: 'POST', body: { message: text, history } });
-      update((d) => ({ ...d, chat: [...d.chat, { id: uid(), sender: 'ai', text: r.reply, sig: r.sig || '', sources: r.sources || [], date: new Date().toISOString() }].slice(-300) }));
+      const r = await api('/api/ai/tutor', { method: 'POST', body: { message: text, history, ...(deepOn ? { deep: true } : {}) } });
+      update((d) => ({ ...d, chat: [...d.chat, { id: uid(), sender: 'ai', text: r.reply, sig: r.sig || '', sources: r.sources || [], deep: Boolean(r.deep), date: new Date().toISOString() }].slice(-300) }));
     } catch (err) {
       setError(err.message || 'Neizdevās saņemt atbildi');
     } finally {
@@ -75,6 +81,7 @@ export default function AiTutorChat({ draft = '' }) {
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user' ? 'bg-indigo-600 text-white rounded-br-xs' : 'bg-slate-100 text-slate-800 rounded-bl-xs border border-slate-200/60'}`}>
+                {msg.sender === 'ai' && msg.deep && <p className="mb-1 text-[11px] font-semibold text-slate-500">🧠 Dziļā atbilde</p>}
                 <MathText as="div" text={msg.text} />
                 {msg.sender === 'ai' && msg.sources?.length > 0 && (
                   <p className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-slate-500">
@@ -87,7 +94,9 @@ export default function AiTutorChat({ draft = '' }) {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="p-4 rounded-2xl text-sm bg-slate-100 text-slate-500 border border-slate-200/60">AI raksta…</div>
+              <div className="p-4 rounded-2xl text-sm bg-slate-100 text-slate-500 border border-slate-200/60">
+                {deepOn ? 'AI domā dziļi… tas var aizņemt līdz minūtei.' : 'AI raksta…'}
+              </div>
             </div>
           )}
           {error && (
@@ -121,6 +130,21 @@ export default function AiTutorChat({ draft = '' }) {
           </div>
         ) : (
         <form onSubmit={handleSendMessage} className="pt-3 border-t border-slate-100">
+          {deepAvailable && (
+            deepAllowed ? (
+              <label className="flex items-start gap-2 mb-2.5 text-xs text-slate-600 cursor-pointer select-none">
+                <input type="checkbox" checked={deep} onChange={(e) => setDeep(e.target.checked)} className="mt-0.5 accent-indigo-600" />
+                <span>
+                  <strong className="text-slate-800">🧠 Dziļā domāšana</strong> — rūpīgāka, lēnāka atbilde grūtākiem uzdevumiem.
+                  Rēķinās kā ~{config.aiDeep.factor} parasti jautājumi.
+                </span>
+              </label>
+            ) : (
+              <p className="mb-2.5 text-xs text-slate-500">
+                🧠 <strong className="text-slate-700">Dziļā domāšana</strong> grūtākiem uzdevumiem ir <Link href="/premium" className="underline font-semibold text-accent">Premium</Link> funkcija.
+              </p>
+            )
+          )}
           <div className="flex gap-2 items-end">
             <textarea
               ref={inputRef}
