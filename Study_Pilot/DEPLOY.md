@@ -123,6 +123,20 @@ PREMIUM_PRICE_TEXT=4,99 € / mēnesī
 | Rezerves kopijas | automātiski katru dienu mapē `backups/`, glabā 7 dienas |
 | Atjaunot no kopijas | skat. [README.md](README.md#rezerves-kopijas) |
 
+## 5a. Slēgta beta (paroles aizsardzība)
+
+Kamēr vietne nav gatava publiskai palaišanai, **visa vietne ir aiz kopīgas paroles** (Caddy `basic_auth`). Pārlūks prasa lietotāju `beta` un paroli, ko `server-setup.sh` izdrukāja vienreiz.
+
+- **Bez paroles palikuši tikai** `/api/billing/webhook` (Stripe nevar ievadīt paroli; to aizsargā Stripe paraksts) un `/api/health` (uzraudzībai).
+- Meklētājprogrammām ir `X-Robots-Tag: noindex, nofollow`.
+- **Nomainīt paroli:** `docker run --rm caddy:2 caddy hash-password --plaintext 'JAUNĀ_PAROLE'`, rezultātu ieraksti `.env` kā `BASIC_AUTH_HASH='…'` (**vienpēdiņās**), tad `docker compose up -d caddy`.
+- **Pārbaude:** no cita tīkla bez paroles jāsaņem **401**; ar paroli lietotne atveras; `https://domēns/api/health` atbild bez paroles.
+- **Atvērt publiski:** `Caddyfile` izdzēs visu `basic_auth` bloku un rindu `X-Robots-Tag`, no `docker-compose.yml` noņem `BASIC_AUTH_*`, tad `docker compose up -d`. Pirms tam izpildi sadaļu 6 un `docs/PARBAUDE_PIRMS_PALAISANAS.md`.
+- **Serverī, kas jau darbojas:** palaid `sudo bash scripts/update.sh`. Tas pats pārbauda `.env` un, ja `BASIC_AUTH_HASH` vēl nav, **ģenerē paroli un parāda to vienreiz** (pieraksti!). Bez hash `docker compose` apzināti neiet, lai vietne nepaliktu pa kluso atvērta.
+- **Parole terminālī:** ģenerētā parole tiek izdrukāta; ja skriptu palaid caur `tee` vai žurnālu, tā tur saglabāsies. Palaid to tieši.
+- **Zināms ierobežojums:** vecā `Authorization: Bearer` pieteikšanās (localStorage sesijas no iepriekšējās versijas) paroles aizsargātā vietnē saņem 401, un lietotne šādu sesiju izraksta ("Sesija beigusies"): jāpiesakās no jauna. Jaunas sesijas izmanto sīkdatni, tāpēc problēmu nav.
+- **Pēc palaišanas pārbaudi (curl):** `/` bez paroles → 401; `/api/health/` (ar slīpsvītru) → 401; `/api/billing/webhook` bez paraksta → 400; ar paroli sākumlapa un pieteikšanās atveras.
+
 ## 6. Pirms atver skolēniem
 
 - [ ] `content/privacy.md` un `content/terms.md`: ieraksti spēkā stāšanās datumu (un Hetzner atrašanās vietu privātuma politikas 5. sadaļā). Pēc tam `update.sh`.
