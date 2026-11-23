@@ -5,10 +5,30 @@
 		# HTTPS vienmēr (pārlūks atceras 1 gadu)
 		Strict-Transport-Security "max-age=31536000; includeSubDomains"
 		-Server
+		# SLĒGTA BETA: meklētājprogrammas vietni neindeksē (dzēs šo rindu, kad vietne tiks atvērta publiski)
+		X-Robots-Tag "noindex, nofollow"
 	}
 
-	reverse_proxy app:3000 {
-		header_up X-Forwarded-For {remote_host}
+	# Ceļi, kam jābūt pieejamiem bez paroles: Stripe webhook (Stripe paroli ievadīt nevar; to aizsargā Stripe paraksts)
+	# un veselības pārbaude uzraudzībai.
+	@open path /api/billing/webhook /api/health
+	handle @open {
+		reverse_proxy app:3000 {
+			header_up X-Forwarded-For {remote_host}
+		}
+	}
+
+	# SLĒGTA BETA: viss pārējais ir aiz kopīgas paroles (lietotājs BASIC_AUTH_USER, hash BASIC_AUTH_HASH no .env).
+	# Lai vietni atvērtu publiski: izdzēs visu "basic_auth" bloku un "X-Robots-Tag" rindu, tad: docker compose up -d
+	handle {
+		basic_auth {
+			{$BASIC_AUTH_USER:beta} {$BASIC_AUTH_HASH}
+		}
+		reverse_proxy app:3000 {
+			header_up X-Forwarded-For {remote_host}
+			# Paroles galvene (Basic) nav domāta lietotnei
+			header_up -Authorization
+		}
 	}
 }
 

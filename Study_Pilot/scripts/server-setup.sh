@@ -118,6 +118,10 @@ ENV
 fi
 DOMAIN="$(grep '^DOMAIN=' .env | cut -d= -f2-)"
 
+# Slēgta beta: visa vietne ir aiz kopīgas paroles (Caddy basic_auth). Parole tiek ģenerēta vienreiz un parādīta tikai šeit,
+# .env glabājas tikai tās hash. Tas pats skripts tiek izsaukts arī no update.sh. Skat. DEPLOY.md, sadaļa 5a.
+bash scripts/ensure-basic-auth.sh
+
 say "5/7 DNS pārbaude"
 SERVER_IP="$(curl -fsS4 https://api.ipify.org || true)"
 DNS_IP="$(dig +short A "$DOMAIN" | tail -1)"

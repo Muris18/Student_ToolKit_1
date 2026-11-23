@@ -78,6 +78,9 @@ services:
       - "443:443"
     environment:
       DOMAIN: ${DOMAIN}
+      # Slēgta beta: kopīga parole visai vietnei (hash glabā .env vienpēdiņās, skat. DEPLOY.md). Obligāti, kamēr Caddyfile ir basic_auth bloks.
+      BASIC_AUTH_USER: ${BASIC_AUTH_USER:-beta}
+      BASIC_AUTH_HASH: ${BASIC_AUTH_HASH:?BASIC_AUTH_HASH nav iestatīts .env (skat. DEPLOY.md, slēgta beta)}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

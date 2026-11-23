@@ -8,6 +8,8 @@ mkdir -p backups
 docker compose exec -T db pg_dump -U sp -Fc sp > "backups/sp-pirms-atjauninasanas-$(date +%Y-%m-%d_%H%M).dump" && echo "✔ kopija backups/ mapē"
 echo "== Lejupielādē jaunāko kodu"
 git pull --ff-only
+echo "== Slēgta beta: paroles aizsardzība (ja .env vēl nav, tiek ģenerēta un parādīta vienreiz)"
+bash scripts/ensure-basic-auth.sh
 echo "== Būvē un pārstartē (migrācijas izpildās automātiski)"
 docker compose up -d --build
 docker compose exec -T app npm run -s import:exams || true
