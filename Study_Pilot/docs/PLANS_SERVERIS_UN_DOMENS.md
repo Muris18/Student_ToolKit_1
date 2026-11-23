@@ -2,7 +2,17 @@
 
 **Mērķis:** pieslēgt domēnu un serveri, uzstādīt visu (HTTPS, e-pasts, maksājumu tests, rezerves kopijas) un pārbaudīt to darbībā. **Beta versija nebūs pieejama nevienam** — vietne serverī ir slēgta ar paroli, publiskas palaišanas un skolēnu nav.
 
-> Datumi zemāk ir pieņēmumi, balstīti uz iepriekšējo plānu (serveris 25.11., pārbaude 26.11.). Publiskā palaišana 27.11. ir **atcelta**; jaunu palaišanas datumu nosaka vadītājs.
+> **Grafiks:** serveris un domēns tiek **pirkti trešdien, 25.11.2026**. Publiskā palaišana 27.11. ir **atcelta**; jaunu palaišanas datumu nosaka vadītājs. Datumi pārējiem posmiem (pārbaude serverī 26.11. u.c.) ir pieņēmumi, kurus vadītājs var mainīt.
+
+## Līdz 25.11. (pirms pirkuma)
+- [ ] **Domēns:** izlemt nosaukumu (kodā un tekstos ir `studypilot.lv`); pārbaudīt, vai tas ir brīvs; `.lv` domēnus pārdod Latvijas reģistratori, un DNS ierakstus maina tieši tur. Ja domēns būs cits: jāmaina `DOMAIN` un e-pasta adrese `jautajumi@…`, kā arī `privacy.md` un `terms.md`.
+- [ ] **Serveris (Hetzner Cloud):** vismaz 4 GB RAM (Next.js būvēšanai; skripts pats pieliek 2 GB swap, ja RAM < 3 GB), Ubuntu 24.04.
+- [ ] **SSH atslēga** (`ssh-keygen -t ed25519`): publisko daļu pievieno Hetzner jau izveidojot serveri, privāto nekam nedod. Bez tās `server-setup.sh` neatslēgs paroles pieteikšanos.
+- [ ] Maksājuma karte Hetzner un domēna reģistratoram.
+- [ ] Kas pērk: vienošanās, kuras konts/karte (ar to saistīti rēķini un Stripe uzņēmuma dati).
+
+## Pēc pirkuma (nododam Claude vai izpildām paši)
+Vajadzīgi: servera IP, domēna nosaukums un piekļuve DNS (A ieraksti `@` un `www` uz servera IP). Tad seko posmi 1–6 zemāk.
 
 ## Kas mainās salīdzinājumā ar iepriekšējo plānu
 | Bija | Tagad |
