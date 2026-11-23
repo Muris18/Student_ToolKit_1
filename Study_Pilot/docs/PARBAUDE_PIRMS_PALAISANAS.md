@@ -1,6 +1,6 @@
 # Pārbaude pirms beta palaišanas
 
-Izmanto 22.11. (lokāli) un 26.11. (serverī). Atzīmē `[x]`, kad pārbaudīts. Pamats: 20 punktu atbilstības saraksts + mūsu projekta īpatnības.
+Izmanto pirms publiskas palaišanas (datums nav noteikts; beta pagaidām nav pieejama nevienam, sk. `PLANS_SERVERIS_UN_DOMENS.md`). Lokālo pārbaudi var veikt jebkurā laikā, serverī pēc uzstādīšanas. Atzīmē `[x]`, kad pārbaudīts. Pamats: 20 punktu atbilstības saraksts + mūsu projekta īpatnības.
 Šis nav juridisks padoms; pirms publiskas palaišanas tekstus jāizskata Rodrigo vai juristam.
 
 ## A. Juridiskie dokumenti (kods: `content/privacy.md`, `content/terms.md`)
