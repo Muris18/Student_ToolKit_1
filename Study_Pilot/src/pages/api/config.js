@@ -1,6 +1,6 @@
 import { emailEnabled } from '../../server/email';
 import { stripeEnabled } from '../../server/stripe';
-import { tokenLimits } from '../../server/ai';
+import { tokenLimits, deepConfig } from '../../server/ai';
 
 // Publiski iestatījumi saskarnei: kuras funkcijas ir ieslēgtas šajā serverī
 export default function handler(req, res) {
@@ -12,5 +12,7 @@ export default function handler(req, res) {
     // Dienas AI limits tokenos (skat. src/server/ai.js)
     aiTokensFree: tokenLimits().free,
     aiTokensPremium: tokenLimits().premium,
+    // Dziļās domāšanas režīms (Premium): vai ieslēgts un cik parastajiem jautājumiem tas līdzinās limitā
+    aiDeep: { enabled: deepConfig().enabled, factor: deepConfig().factor },
   });
 }

@@ -257,7 +257,7 @@ export async function setAiConsent(id, given) {
 // Viss, kas par lietotāju glabājas datubāzē (datu eksportam, VDAR 15. un 20. pants)
 export async function exportUser(user) {
   const usage = await pool.query(
-    'SELECT created_at, model, prompt_tokens, completion_tokens FROM ai_usage WHERE user_id = $1 ORDER BY created_at',
+    'SELECT created_at, model, prompt_tokens, completion_tokens, weight FROM ai_usage WHERE user_id = $1 ORDER BY created_at',
     [user.id]
   );
   const sessions = await pool.query('SELECT created_at, expires_at FROM sessions WHERE user_id = $1 ORDER BY created_at', [user.id]);

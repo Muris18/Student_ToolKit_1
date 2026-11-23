@@ -20,6 +20,7 @@ export const aiLimitText = (tokens) => `${fmtTokens(tokens || 0)} AI tokenu dien
 export const premiumFeatures = (cfg = {}) => [
   `${aiLimitText(cfg.aiTokensPremium || 1000000)} (bezmaksas — ${fmtTokens(cfg.aiTokensFree || 200000)})`,
   'Vairāk AI testu pēc tavām kļūdām',
+  ...(cfg.aiDeep?.enabled ? ['Dziļā domāšana AI skolotājā grūtākiem uzdevumiem'] : []),
   'Viss, kas ir bezmaksas plānā',
   'Atbalsti Study Pilot attīstību',
 ];
